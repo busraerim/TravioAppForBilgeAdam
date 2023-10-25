@@ -11,6 +11,7 @@ import Alamofire
 enum Router {
     
     case login(param: Parameters)
+    case register(param: Parameters)
   
     
     var baseURL:String {
@@ -21,13 +22,15 @@ enum Router {
         switch self {
         case .login:
             return "/v1/auth/login"
+        case .register:
+            return "/v1/auth/register"
         }
     }
     
     
     var method:HTTPMethod {
         switch self {
-        case .login:
+        case .login, .register:
             return .post
         }
     
@@ -36,14 +39,14 @@ enum Router {
     
     var headers:HTTPHeaders {
         switch self {
-        case .login:
+        case .login, .register:
             return [:]
         }
     }
     
     var parameters:Parameters? {
         switch self {
-        case .login(let params):
+        case .login(let params), .register(let params):
             return params
         }
     }

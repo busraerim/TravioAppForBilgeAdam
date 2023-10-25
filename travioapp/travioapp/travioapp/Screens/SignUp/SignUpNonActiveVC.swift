@@ -58,7 +58,8 @@ class SignUpNonActiveVC: UIViewController {
         let button = UIButton()
         button.height(54)
         button.layer.cornerRadius = 10
-    
+
+        button.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
         button.setTitle("Sign Up", for: .normal)
         button.backgroundColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
 
@@ -72,6 +73,19 @@ class SignUpNonActiveVC: UIViewController {
         return input
     }
     
+    var viewModel:LoginViewModel = {
+        return LoginViewModel()
+    }()
+    
+    @objc func signUpButtonTapped(){
+        var email = emailInputView.boxPlaceholder.text
+        var password = passwordInputView.boxPlaceholder.text
+        var username = usernameInputView.boxPlaceholder.text
+        var person = Register(username: username, email: email, password: password)
+        
+        viewModel.registerPerson(person: person)
+    }
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

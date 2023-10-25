@@ -27,6 +27,8 @@
 		3569A78C2AE96584007E53B6 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3569A7792AE96584007E53B6 /* Poppins-SemiBold.ttf */; };
 		3569A78D2AE96584007E53B6 /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3569A77A2AE96584007E53B6 /* Poppins-Italic.ttf */; };
 		3569A78E2AE96584007E53B6 /* Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3569A77B2AE96584007E53B6 /* Poppins-MediumItalic.ttf */; };
+		35B2D1182AE990F200FD61EF /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B2D1172AE990F200FD61EF /* Register.swift */; };
+		35B2D11A2AE9911400FD61EF /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B2D1192AE9911400FD61EF /* BaseResponse.swift */; };
 		4335A0A22AE91290003C53D5 /* TraviaBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4335A0A12AE91290003C53D5 /* TraviaBackgroundView.swift */; };
 		4354F2882AE926E60002D438 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4354F2872AE926E60002D438 /* Alamofire */; };
 		4354F28D2AE92CB80002D438 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4354F28C2AE92CB80002D438 /* User.swift */; };
@@ -66,6 +68,8 @@
 		3569A7792AE96584007E53B6 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		3569A77A2AE96584007E53B6 /* Poppins-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Italic.ttf"; sourceTree = "<group>"; };
 		3569A77B2AE96584007E53B6 /* Poppins-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-MediumItalic.ttf"; sourceTree = "<group>"; };
+		35B2D1172AE990F200FD61EF /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
+		35B2D1192AE9911400FD61EF /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		4335A0A12AE91290003C53D5 /* TraviaBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraviaBackgroundView.swift; sourceTree = "<group>"; };
 		4354F28C2AE92CB80002D438 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4354F28E2AE92E0C0002D438 /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
@@ -164,6 +168,8 @@
 				4354F28C2AE92CB80002D438 /* User.swift */,
 				4354F28E2AE92E0C0002D438 /* LoginRouter.swift */,
 				4354F2902AE92E610002D438 /* LoginNetworkingHelper.swift */,
+				35B2D1172AE990F200FD61EF /* Register.swift */,
+				35B2D1192AE9911400FD61EF /* BaseResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -307,11 +313,13 @@
 				3569A7672AE96486007E53B6 /* SignUpNonActiveVC.swift in Sources */,
 				43DF6CF72ADC5B8D00DEDD3A /* SceneDelegate.swift in Sources */,
 				43DF6D092ADC5BCD00DEDD3A /* Extensions.swift in Sources */,
+				35B2D1182AE990F200FD61EF /* Register.swift in Sources */,
 				43B4DEF02ADC7A77000E4C18 /* InputBox.swift in Sources */,
 				4335A0A22AE91290003C53D5 /* TraviaBackgroundView.swift in Sources */,
 				4354F28F2AE92E0C0002D438 /* LoginRouter.swift in Sources */,
 				4354F2932AE92F9E0002D438 /* LoginViewModel.swift in Sources */,
 				4354F28D2AE92CB80002D438 /* User.swift in Sources */,
+				35B2D11A2AE9911400FD61EF /* BaseResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
