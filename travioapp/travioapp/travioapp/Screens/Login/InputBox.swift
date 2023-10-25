@@ -41,15 +41,14 @@ class InputBox: UIView {
     public lazy var lblTitle:UILabel = {
         let title = UILabel()
         title.textColor = .black
-        title.font = UIFont(name: "Avenir-Medium", size: 16)
-        title.width(39)
-        title.height(21)
+        title.font = UIFont(name: "Poppins-Medium", size: 14)
+        title.width(129)
         return title
     }()
     
     public lazy var txtPlaceholder: UITextField = {
        let placeholder = UITextField()
-        placeholder.font = UIFont(name: "Avenir-Medium", size: 14)
+        placeholder.font = UIFont(name: "Poppins-Light", size: 12)
         return placeholder
     }()
     
@@ -63,15 +62,12 @@ class InputBox: UIView {
         self.layer.shadowOpacity = 0.15
         self.addSubviews(lblTitle,txtPlaceholder)
 
-        lblTitle.topToSuperview(offset: 10)
-        lblTitle.leadingToSuperview(offset: 5)
-        lblTitle.trailingToSuperview(offset: 200)
+        lblTitle.topToSuperview(offset: 8)
+        lblTitle.leadingToSuperview(offset: 12)
         
-        txtPlaceholder.topToBottom(of: lblTitle, offset: 6)
-        txtPlaceholder.leadingToSuperview(offset: 5)
-        txtPlaceholder.trailingToSuperview(offset: 200)
+        txtPlaceholder.topToBottom(of: lblTitle, offset: 8)
+        txtPlaceholder.leadingToSuperview(offset: 12)
 
-        
     }
     
 
