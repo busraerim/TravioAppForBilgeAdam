@@ -5,9 +5,6 @@
 //  Created by Büşra Erim on 15.10.2023.
 //
 
-
-//bunu loginUIda yazdım
-
 import UIKit
 import SnapKit
 import TinyConstraints
@@ -44,7 +41,7 @@ class LoginVc: UIViewController {
        let stack = UIStackView()
         stack.axis = .vertical
         stack.distribution = .fillEqually
-        stack.spacing = 9
+        stack.spacing = 24
         return stack
     }()
     
@@ -113,38 +110,28 @@ class LoginVc: UIViewController {
         backView.edgesToSuperview(excluding: .top)
         backView.height(598)
         backView.width(390)
-//        backView.topToSuperview(offset: 246)
         
         emailView.width(342)
-        stackView.topToBottom(of: lblWelcome, offset: 20)
+        stackView.topToBottom(of: lblWelcome, offset: 41)
         stackView.leadingToSuperview(offset: 24)
         stackView.trailingToSuperview(offset: 24)
         
         btnLogin.width(342)
-        btnLogin.topToBottom(of: stackView, offset: 60)
+        btnLogin.topToBottom(of: stackView, offset: 48)
         btnLogin.centerX(to: stackView)
-//        btnLogin.leadingToSuperview(offset: 140)
-//        btnLogin.trailingToSuperview(offset: 140)
-        
-        stackSignup.bottomToSuperview(offset: -15, usingSafeArea: true)
+
+        stackSignup.topToBottom(of: btnLogin, offset:141)
         stackSignup.centerX(to: stackView)
         
-      
-//        lblWelcome.top(to: backView, offset: 64)
-//        lblWelcome.leadingToSuperview(offset: 82)
-//        lblWelcome.trailingToSuperview(offset:82)
+    
         lblWelcome.topToSuperview(offset: 40)
         lblWelcome.centerX(to: stackView)
         
         travioImage.width(149)
         travioImage.height(178)
         travioImage.topToSuperview(offset: 44)
-        travioImage.bottomToSuperview(offset: -622)
         travioImage.horizontalToSuperview(insets: .left(120) + .right(121))
-        
-//        travioImage.bottomToTop(of: backView, offset: -24)
-//        travioImage.leftToSuperview(offset: 120)
-        
+
         backView.layoutIfNeeded()
         backView.roundCorners(corners: .topLeft, radius: 80)
     }
