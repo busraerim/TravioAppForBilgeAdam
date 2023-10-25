@@ -8,6 +8,11 @@
 
 //bunu loginUIda yazdım
 
+
+
+//bunu da networkinge yazdım
+
+
 import UIKit
 import SnapKit
 import TinyConstraints
