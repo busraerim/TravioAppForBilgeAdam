@@ -68,7 +68,6 @@ class InputBox: UIView {
         lblTitle.trailingToSuperview(offset: 200)
         
         txtPlaceholder.topToBottom(of: lblTitle, offset: 6)
-//        txtPlaceholder.centerX(to: lblTitle)
         txtPlaceholder.leadingToSuperview(offset: 5)
         txtPlaceholder.trailingToSuperview(offset: 200)
 
@@ -81,5 +80,4 @@ class InputBox: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
-  //sv.layer.shadowRadius=20
-//sv.layer.shadowopacity = 0.15
+

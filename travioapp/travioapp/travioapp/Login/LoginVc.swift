@@ -144,6 +144,8 @@ class LoginVc: UIViewController {
 
         backView.layoutIfNeeded()
         backView.roundCorners(corners: .topLeft, radius: 80)
+        
+    
     }
 
 }
