@@ -14,7 +14,7 @@ enum Router {
   
     
     var baseURL:String {
-        return "https://api.iosclass.live/docs#login"
+        return "https://api.iosclass.live"
     }
     
     var path:String {

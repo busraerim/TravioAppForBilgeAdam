@@ -24,8 +24,14 @@ class LoginViewModel{
         
         let params = [ "email": email, "password": password]
         
-        NetworkingHelper.shared.postData(urlRequest: .login(param: params), callback:{ (result:Result<User,Error>) in
-            print(result)
+        GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .login(param: params), callback: { (result:Result<User,Error>) in
+            switch result {
+            case .success(let success):
+                print("başarılı")
+            case .failure(let failure):
+                print("başarısız")
+            }
+            
         })
     }
 }

@@ -96,8 +96,6 @@ class LoginVc: UIViewController {
     }()
     
     @objc func btnLoginTapped() {
-        print(emailView.txtPlaceholder.text)
-        print(passwordView.txtPlaceholder.text)
         viewModel.postData(email:"johndoe@example.com" , password:"secretpassword")
     }
     
