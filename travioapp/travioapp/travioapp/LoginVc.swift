@@ -5,6 +5,11 @@
 //  Created by Büşra Erim on 15.10.2023.
 //
 
+
+
+//bunu da networkinge yazdım
+
+
 import UIKit
 import SnapKit
 import TinyConstraints
