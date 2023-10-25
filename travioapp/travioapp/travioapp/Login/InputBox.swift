@@ -30,16 +30,15 @@ class InputBox: UIView {
         didSet{
             lblTitle.text = boxTitle.text
         }
-        
     }
 
-    var boxPlaceholder:TitlePlaceholderText = .placeholder(placeholder: " "){
+    var boxPlaceholder:TitlePlaceholderText = .placeholder(placeholder: ""){
         didSet{
             txtPlaceholder.placeholder = boxPlaceholder.text
         }
     }
     
-    private lazy var lblTitle:UILabel = {
+    public lazy var lblTitle:UILabel = {
         let title = UILabel()
         title.textColor = .black
         title.font = UIFont(name: "Avenir-Medium", size: 16)
@@ -48,10 +47,9 @@ class InputBox: UIView {
         return title
     }()
     
-    private lazy var txtPlaceholder: UITextField = {
+    public lazy var txtPlaceholder: UITextField = {
        let placeholder = UITextField()
         placeholder.font = UIFont(name: "Avenir-Medium", size: 14)
-
         return placeholder
     }()
     

@@ -24,14 +24,14 @@ class LoginVc: UIViewController {
        return backView
     }()
     
-    private lazy var emailView:UIView = {
+    private lazy var emailView:InputBox = {
         let email = InputBox()
         email.boxTitle = .label(label: "Email")
         email.boxPlaceholder = .placeholder(placeholder: "example@mail.com")
         return email
     }()
     
-    private lazy var passwordView:UIView = {
+    private lazy var passwordView:InputBox = {
         let password = InputBox()
         password.boxTitle = .label(label: "Password")
         password.boxPlaceholder = .placeholder(placeholder: "*************")
@@ -52,6 +52,7 @@ class LoginVc: UIViewController {
         login.layer.cornerRadius = 10
         login.height(54)
         login.backgroundColor = UIColor(red: 0.22, green: 0.68, blue: 0.66, alpha: 1.00)
+        login.addTarget(self, action: #selector(btnLoginTapped), for: .touchUpInside)
         return login
     }()
     
@@ -89,6 +90,16 @@ class LoginVc: UIViewController {
         welcome.textAlignment = .center
         return welcome
     }()
+    
+    lazy var viewModel: LoginViewModel = {
+        return LoginViewModel()
+    }()
+    
+    @objc func btnLoginTapped() {
+        print(emailView.txtPlaceholder.text)
+        print(passwordView.txtPlaceholder.text)
+        viewModel.postData(email:"johndoe@example.com" , password:"secretpassword")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
