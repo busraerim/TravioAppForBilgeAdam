@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4335A0A22AE91290003C53D5 /* TraviaBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4335A0A12AE91290003C53D5 /* TraviaBackgroundView.swift */; };
 		43B4DEF02ADC7A77000E4C18 /* InputBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B4DEEF2ADC7A77000E4C18 /* InputBox.swift */; };
 		43DF6CF52ADC5B8D00DEDD3A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DF6CF42ADC5B8D00DEDD3A /* AppDelegate.swift */; };
 		43DF6CF72ADC5B8D00DEDD3A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DF6CF62ADC5B8D00DEDD3A /* SceneDelegate.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4335A0A12AE91290003C53D5 /* TraviaBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraviaBackgroundView.swift; sourceTree = "<group>"; };
 		43B4DEEF2ADC7A77000E4C18 /* InputBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputBox.swift; sourceTree = "<group>"; };
 		43DF6CF12ADC5B8D00DEDD3A /* travioapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = travioapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43DF6CF42ADC5B8D00DEDD3A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +47,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4335A09E2AE91210003C53D5 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				4335A0A12AE91290003C53D5 /* TraviaBackgroundView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
 		43DF6CE82ADC5B8D00DEDD3A = {
 			isa = PBXGroup;
 			children = (
@@ -64,6 +74,7 @@
 		43DF6CF32ADC5B8D00DEDD3A /* travioapp */ = {
 			isa = PBXGroup;
 			children = (
+				4335A09E2AE91210003C53D5 /* Screens */,
 				43DF6CF42ADC5B8D00DEDD3A /* AppDelegate.swift */,
 				43DF6CF62ADC5B8D00DEDD3A /* SceneDelegate.swift */,
 				43DF6CF82ADC5B8D00DEDD3A /* LoginVc.swift */,
@@ -160,6 +171,7 @@
 				43DF6CF72ADC5B8D00DEDD3A /* SceneDelegate.swift in Sources */,
 				43DF6D092ADC5BCD00DEDD3A /* Extensions.swift in Sources */,
 				43B4DEF02ADC7A77000E4C18 /* InputBox.swift in Sources */,
+				4335A0A22AE91290003C53D5 /* TraviaBackgroundView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
