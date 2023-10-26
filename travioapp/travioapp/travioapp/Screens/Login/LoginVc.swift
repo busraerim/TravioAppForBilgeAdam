@@ -62,9 +62,7 @@ class LoginVc: UIViewController {
         account.textColor = .black
         account.numberOfLines = 1
         account.textAlignment = .center
-        //sign up font name, size değiştirilip alttakini açacağız?
-//        account.font = UIFont(name: "Poppins-SemiBold", size: 14)
-        account.font = UIFont(name: "Avenir-Medium", size: 18)
+        account.font = UIFont(name: "Poppins-SemiBold", size: 14)
         return account
     }()
     
@@ -72,6 +70,7 @@ class LoginVc: UIViewController {
        let signUp = UIButton()
         signUp.setTitle("Sign Up", for: .normal)
         signUp.setTitleColor(.black, for: .normal)
+        signUp.titleLabel?.font = UIFont(name: "Poppins-SemiBold", size: 14)
        return signUp
     }()
     
