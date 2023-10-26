@@ -97,7 +97,7 @@ class LoginVc: UIViewController {
     }()
     
     @objc func btnLoginTapped() {
-        viewModel.postData(email:"johndoe@example.com" , password:"secretpassword")
+        viewModel.postData(email: emailView.txtPlaceholder.text! , password: passwordView.txtPlaceholder.text!)
     }
     
     override func viewDidLoad() {
