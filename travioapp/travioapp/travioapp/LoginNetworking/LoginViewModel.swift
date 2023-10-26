@@ -39,10 +39,10 @@ class LoginViewModel{
         
         let params = ["full_name": person.username, "email": person.email , "password": person.password]
         
-        GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .register(param: params), callback: { (result:Result<Register, Error>) in
+        GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .register(param: params), callback: { (result:Result<BaseResponse, Error>) in
             switch result {
             case .success(let success):
-                print(success)
+                print(success.message)
             case .failure(let failure):
                 print(failure.localizedDescription)
             }
