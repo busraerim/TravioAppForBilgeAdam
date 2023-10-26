@@ -96,14 +96,38 @@ class LoginVc: UIViewController {
         return LoginViewModel()
     }()
     
-    @objc func btnLoginTapped() {
-        viewModel.postData(email:"johndoe@example.com" , password:"secretpassword")
+    
+    private func showAlert(title:String,message:String) {
+        let btnRetry = UIAlertAction(title: "Yeniden Dene", style: .default)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(btnRetry)
+        self.present(alert, animated: true)
     }
+    
+    
+    func initVM(){
+        viewModel.showAlertClosure = { [weak self] () in
+            DispatchQueue.main.async {
+            if let message = self?.viewModel.alertMessage {
+            self?.showAlert(title: "Giriş Başarısız.", message: message)
+                    }
+                }
+            }
+    }
+
+    
+    @objc func btnLoginTapped() {
+        let email = emailView.txtPlaceholder.text!
+        let password = passwordView.txtPlaceholder.text!
+        viewModel.loginControl(email: email, password: password)    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(red: 0.22, green: 0.68, blue: 0.66, alpha: 1.00)
         setupViews()
+        initVM()
+
     }
 
     private func setupViews(){
@@ -152,14 +176,14 @@ class LoginVc: UIViewController {
 }
 
 
-#if DEBUG
-import SwiftUI
-
-@available(iOS 13, *)
-struct LoginVc_Preview: PreviewProvider {
-    static var previews: some View{
-         
-        LoginVc().showPreview()
-    }
-}
-#endif
+//#if DEBUG
+//import SwiftUI
+//
+//@available(iOS 13, *)
+//struct LoginVc_Preview: PreviewProvider {
+//    static var previews: some View{
+//         
+//        LoginVc().showPreview()
+//    }
+//}
+//#endif

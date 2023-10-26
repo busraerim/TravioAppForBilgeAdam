@@ -8,7 +8,9 @@
 import Foundation
 import Alamofire
 
+
 class LoginViewModel{
+     
     
     var kisiler:[User] = [] {
         didSet {
@@ -16,20 +18,36 @@ class LoginViewModel{
         }
     }
     
+    var alertMessage: String? {
+            didSet {
+                self.showAlertClosure?()
+            }
+        }
+    
+    
+    var showAlertClosure: (()->())?
     var transferData: (()->())?
+    
+
+    func loginControl(email:String, password:String){
+        if !email.isEmpty && !password.isEmpty{
+            postData(email: email, password: password)
+        }else{
+            self.alertMessage = "Email ve şifre boş bırakılamaz."
+        }
+    }
     
     
     func postData(email:String,password:String){
-        
-        
         let params = [ "email": email, "password": password]
-        
-        GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .login(param: params), callback: { (result:Result<User,Error>) in
+        GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .login(param: params), callback: { (result:Result<UserToken,Error>) in
             switch result {
-            case .success(let success):
-                print("başarılı")
+            case .success(let user):
+                let accessToken = user.accessToken
+                guard let accessToken = accessToken else {return}
+                print("Erişim Token'ı: \(accessToken)")
             case .failure(let failure):
-                print("başarısız")
+                self.alertMessage = "Hatalı email/şifre"
             }
             
         })
