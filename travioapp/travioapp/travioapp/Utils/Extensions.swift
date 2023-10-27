@@ -197,7 +197,7 @@ extension UITextField {
             
           }
     }
-    
+
     var hasValidEmail: Bool {
             
             return text!.range(of: "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}",
@@ -215,6 +215,17 @@ extension UITextField {
             iconView.image = iconView.image?.withRenderingMode(.alwaysTemplate)
             iconView.tintColor = newValue
         }
+    }
+    
+    func configureForEmailInput() {
+        keyboardType = .emailAddress
+        autocorrectionType = .no
+        autocapitalizationType = .none
+    }
+        
+    func configureForNoAutocorrection() {
+        autocorrectionType = .no
+        autocapitalizationType = .none
     }
     
     func addPaddingLeftIcon(_ image: UIImage, padding: CGFloat) {

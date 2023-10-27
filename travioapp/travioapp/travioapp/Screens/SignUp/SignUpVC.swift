@@ -139,7 +139,7 @@ class SignUpVC: UIViewController {
     }
     
     private func setupViews(){
-        
+        self.navigationController?.isNavigationBarHidden = true
         view.backgroundColor = UIColor(named: "background")
         view.addSubviews(backButton, backgroundView, lblTitle)
         signUpButton.isHidden = false
@@ -173,18 +173,4 @@ class SignUpVC: UIViewController {
         
     }
     
-}
-    
-
-extension UITextField {
-    func configureForEmailInput() {
-        keyboardType = .emailAddress
-        autocorrectionType = .no
-        autocapitalizationType = .none
-    }
-    
-    func configureForNoAutocorrection() {
-        autocorrectionType = .no
-        autocapitalizationType = .none
-    }
 }
