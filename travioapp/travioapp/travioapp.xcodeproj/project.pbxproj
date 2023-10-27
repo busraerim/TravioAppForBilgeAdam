@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3518A6A32AEBC6FF00357E9E /* MyVisits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3518A6A22AEBC6FF00357E9E /* MyVisits.swift */; };
+		3518A6A52AEBC71B00357E9E /* MyVisitsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3518A6A42AEBC71B00357E9E /* MyVisitsCell.swift */; };
+		3518A6A72AEBC74000357E9E /* MyVisitsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3518A6A62AEBC74000357E9E /* MyVisitsTableView.swift */; };
+		3518A6A92AEBC75F00357E9E /* MyVisitsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3518A6A82AEBC75F00357E9E /* MyVisitsViewModel.swift */; };
+		3518A6AB2AEBD23E00357E9E /* VisitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3518A6AA2AEBD23E00357E9E /* VisitView.swift */; };
 		3569A7672AE96486007E53B6 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3569A7662AE96486007E53B6 /* SignUpVC.swift */; };
 		3569A77C2AE96584007E53B6 /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3569A7692AE96584007E53B6 /* Poppins-ExtraLight.ttf */; };
 		3569A77D2AE96584007E53B6 /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3569A76A2AE96584007E53B6 /* Poppins-ThinItalic.ttf */; };
@@ -27,6 +32,7 @@
 		3569A78C2AE96584007E53B6 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3569A7792AE96584007E53B6 /* Poppins-SemiBold.ttf */; };
 		3569A78D2AE96584007E53B6 /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3569A77A2AE96584007E53B6 /* Poppins-Italic.ttf */; };
 		3569A78E2AE96584007E53B6 /* Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3569A77B2AE96584007E53B6 /* Poppins-MediumItalic.ttf */; };
+		359024682AEC10800060D6C9 /* Vector.svg in Resources */ = {isa = PBXBuildFile; fileRef = 359024672AEC10800060D6C9 /* Vector.svg */; };
 		35B2D1182AE990F200FD61EF /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B2D1172AE990F200FD61EF /* Register.swift */; };
 		35B2D11A2AE9911400FD61EF /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B2D1192AE9911400FD61EF /* BaseResponse.swift */; };
 		35B2D11F2AEA4BF000FD61EF /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B2D11E2AEA4BF000FD61EF /* SignUpViewModel.swift */; };
@@ -49,6 +55,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3518A6A22AEBC6FF00357E9E /* MyVisits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVisits.swift; sourceTree = "<group>"; };
+		3518A6A42AEBC71B00357E9E /* MyVisitsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVisitsCell.swift; sourceTree = "<group>"; };
+		3518A6A62AEBC74000357E9E /* MyVisitsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVisitsTableView.swift; sourceTree = "<group>"; };
+		3518A6A82AEBC75F00357E9E /* MyVisitsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVisitsViewModel.swift; sourceTree = "<group>"; };
+		3518A6AA2AEBD23E00357E9E /* VisitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitView.swift; sourceTree = "<group>"; };
 		3569A7662AE96486007E53B6 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		3569A7692AE96584007E53B6 /* Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
 		3569A76A2AE96584007E53B6 /* Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
@@ -69,6 +80,7 @@
 		3569A7792AE96584007E53B6 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		3569A77A2AE96584007E53B6 /* Poppins-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Italic.ttf"; sourceTree = "<group>"; };
 		3569A77B2AE96584007E53B6 /* Poppins-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-MediumItalic.ttf"; sourceTree = "<group>"; };
+		359024672AEC10800060D6C9 /* Vector.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Vector.svg; sourceTree = "<group>"; };
 		35B2D1172AE990F200FD61EF /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
 		35B2D1192AE9911400FD61EF /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		35B2D11E2AEA4BF000FD61EF /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
@@ -103,6 +115,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3518A6A12AEBC6E100357E9E /* MyVisits */ = {
+			isa = PBXGroup;
+			children = (
+				3518A6A22AEBC6FF00357E9E /* MyVisits.swift */,
+				3518A6A42AEBC71B00357E9E /* MyVisitsCell.swift */,
+				3518A6A62AEBC74000357E9E /* MyVisitsTableView.swift */,
+				3518A6A82AEBC75F00357E9E /* MyVisitsViewModel.swift */,
+				3518A6AA2AEBD23E00357E9E /* VisitView.swift */,
+			);
+			path = MyVisits;
+			sourceTree = "<group>";
+		};
 		3569A7652AE9644D007E53B6 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
@@ -158,6 +182,7 @@
 		4335A09E2AE91210003C53D5 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				3518A6A12AEBC6E100357E9E /* MyVisits */,
 				3569A7652AE9644D007E53B6 /* SignUp */,
 				4354F2892AE9293B0002D438 /* Login */,
 			);
@@ -220,6 +245,7 @@
 				43DF6CFF2ADC5B8E00DEDD3A /* LaunchScreen.storyboard */,
 				43DF6D022ADC5B8E00DEDD3A /* Info.plist */,
 				43DF6CFD2ADC5B8E00DEDD3A /* Assets.xcassets */,
+				359024672AEC10800060D6C9 /* Vector.svg */,
 				43DF6CF62ADC5B8D00DEDD3A /* SceneDelegate.swift */,
 				43DF6CF42ADC5B8D00DEDD3A /* AppDelegate.swift */,
 			);
@@ -314,6 +340,7 @@
 				3569A7812AE96584007E53B6 /* Poppins-Medium.ttf in Resources */,
 				43DF6D012ADC5B8E00DEDD3A /* LaunchScreen.storyboard in Resources */,
 				3569A78D2AE96584007E53B6 /* Poppins-Italic.ttf in Resources */,
+				359024682AEC10800060D6C9 /* Vector.svg in Resources */,
 				3569A78E2AE96584007E53B6 /* Poppins-MediumItalic.ttf in Resources */,
 				43DF6CFE2ADC5B8E00DEDD3A /* Assets.xcassets in Resources */,
 			);
@@ -330,12 +357,17 @@
 				43DF6CF92ADC5B8D00DEDD3A /* LoginVc.swift in Sources */,
 				43DF6CF52ADC5B8D00DEDD3A /* AppDelegate.swift in Sources */,
 				3569A7672AE96486007E53B6 /* SignUpVC.swift in Sources */,
+				3518A6A92AEBC75F00357E9E /* MyVisitsViewModel.swift in Sources */,
+				3518A6A32AEBC6FF00357E9E /* MyVisits.swift in Sources */,
+				3518A6A52AEBC71B00357E9E /* MyVisitsCell.swift in Sources */,
 				43DF6CF72ADC5B8D00DEDD3A /* SceneDelegate.swift in Sources */,
 				43DF6D092ADC5BCD00DEDD3A /* Extensions.swift in Sources */,
 				35B2D11F2AEA4BF000FD61EF /* SignUpViewModel.swift in Sources */,
 				35B2D1182AE990F200FD61EF /* Register.swift in Sources */,
 				43B4DEF02ADC7A77000E4C18 /* InputBox.swift in Sources */,
+				3518A6A72AEBC74000357E9E /* MyVisitsTableView.swift in Sources */,
 				4335A0A22AE91290003C53D5 /* TraviaBackgroundView.swift in Sources */,
+				3518A6AB2AEBD23E00357E9E /* VisitView.swift in Sources */,
 				4354F28F2AE92E0C0002D438 /* LoginRouter.swift in Sources */,
 				4354F2932AE92F9E0002D438 /* LoginViewModel.swift in Sources */,
 				4354F28D2AE92CB80002D438 /* User.swift in Sources */,
