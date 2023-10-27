@@ -37,7 +37,7 @@ class LoginVc: UIViewController {
         password.boxPlaceholder = .placeholder(placeholder: "*************")
         return password
     }()
-    
+        
     private lazy var stackView:UIStackView = {
        let stack = UIStackView()
         stack.axis = .vertical
