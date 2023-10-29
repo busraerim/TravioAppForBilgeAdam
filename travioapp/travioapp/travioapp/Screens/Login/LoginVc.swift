@@ -35,6 +35,7 @@ class LoginVc: UIViewController {
         let password = InputBox()
         password.boxTitle = .label(label: "Password")
         password.boxPlaceholder = .placeholder(placeholder: "*************")
+//        password.txtPlaceholder.isSecureTextEntry = true
         return password
     }()
         
@@ -98,7 +99,7 @@ class LoginVc: UIViewController {
     
     
     private func showAlert(title:String,message:String) {
-        let btnRetry = UIAlertAction(title: "Yeniden Dene", style: .default)
+        let btnRetry = UIAlertAction(title: "Yeniden Dene", style: .destructive)
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(btnRetry)
         self.present(alert, animated: true)
