@@ -91,6 +91,13 @@ extension UIView {
         return label
     }
     
+    func roundAllCorners(radius: CGFloat) {
+        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        layer.mask = mask
+    }
+    
     func roundCorners(corners: UIRectCorner, radius: CGFloat) {
         let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
         let mask = CAShapeLayer()
@@ -197,7 +204,7 @@ extension UITextField {
             
           }
     }
-    
+
     var hasValidEmail: Bool {
             
             return text!.range(of: "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}",
@@ -215,6 +222,17 @@ extension UITextField {
             iconView.image = iconView.image?.withRenderingMode(.alwaysTemplate)
             iconView.tintColor = newValue
         }
+    }
+    
+    func configureForEmailInput() {
+        keyboardType = .emailAddress
+        autocorrectionType = .no
+        autocapitalizationType = .none
+    }
+        
+    func configureForNoAutocorrection() {
+        autocorrectionType = .no
+        autocapitalizationType = .none
     }
     
     func addPaddingLeftIcon(_ image: UIImage, padding: CGFloat) {
