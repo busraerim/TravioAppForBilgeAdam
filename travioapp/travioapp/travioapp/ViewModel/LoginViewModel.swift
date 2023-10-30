@@ -36,8 +36,7 @@ class LoginViewModel{
             self.alertMessage = "Email ve şifre boş bırakılamaz."
         }
     }
-    
-    
+
     func postData(email:String,password:String){
         let params = [ "email": email, "password": password]
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .login(param: params), callback: { (result:Result<UserToken,Error>) in
@@ -47,7 +46,11 @@ class LoginViewModel{
                 guard let accessToken = accessToken else {return}
                 print("Erişim Token'ı: \(accessToken)")
             case .failure(let failure):
-                self.alertMessage = "Hatalı email/şifre"
+                if failure.localizedDescription == "Response status code was unacceptable: 401."{
+                    self.alertMessage = "Hatalı email/şifre"
+                }else{
+                    self.alertMessage = "Kullanıcı bulunamadı."
+                }
             }
             
         })

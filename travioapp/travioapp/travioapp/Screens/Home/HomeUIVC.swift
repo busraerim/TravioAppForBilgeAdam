@@ -12,6 +12,7 @@ import TinyConstraints
 
 class HomeUIVC: UIViewController {
     
+    
     private lazy var travioLogoImage:UIImageView = {
         let image = UIImageView(frame: CGRect(x: 0, y:0, width: 56, height: 62))
         image.image = UIImage(named: "travio-logo 1")
@@ -34,9 +35,7 @@ class HomeUIVC: UIViewController {
     
     private lazy var collectionView:UICollectionView = {
         let layout = makeCollectionViewLayout()
-        
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         cv.register(CustomCollectionCell.self, forCellWithReuseIdentifier: "cell")
         cv.isPagingEnabled = true
         cv.dataSource = self
@@ -68,39 +67,41 @@ class HomeUIVC: UIViewController {
         travioImage.topToSuperview(offset: 60)
         travioImage.leadingToTrailing(of: travioLogoImage)
         
-//        collectionView.backgroundColor = .green
-        collectionView.topToSuperview(offset: 150)
-        collectionView.bottomToSuperview()
-        collectionView.leadingToSuperview(offset: 10)
-        collectionView.trailingToSuperview(offset: 10)
+        collectionView.backgroundColor = .clear
+        collectionView.edges(to: backView)
+
     }
   
 }
 
 extension HomeUIVC:UICollectionViewDelegateFlowLayout{
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     
-        return CGSize(width: collectionView.frame.width - 0, height: 80)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
     }
+    
 }
-
 
 extension HomeUIVC:UICollectionViewDataSource{
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 10
+        return denemearrayi.count
+//        return homePlaces.count
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+//        return homePlaces[section].count
+        return denemearrayi[section][0].places.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCollectionCell
+        let object = denemearrayi[indexPath.section][0].places[indexPath.row]
+//        let object = homePlaces[indexPath.section][indexPath.row]
+//        cell.configure(object: object,title: "")
+        cell.configure(object: object)
         return cell
     }
-    
-    
     
 }
 
@@ -115,15 +116,17 @@ extension HomeUIVC {
 }
 
 func makeSliderLayoutSection() -> NSCollectionLayoutSection {
+    
     let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
     let item = NSCollectionLayoutItem(layoutSize: itemSize)
-    item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
-    
-    let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.4))
+    item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading:-24, bottom: 0, trailing:0)
+   
+    let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.8), heightDimension: .fractionalHeight(0.3))
     let layoutGroup = NSCollectionLayoutGroup.horizontal(layoutSize: layoutGroupSize, subitems: [item])
-    
+   
     let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
     layoutSection.orthogonalScrollingBehavior = .groupPagingCentered
+    layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 84, leading: 0, bottom: 0, trailing: 0)
     return layoutSection
 }
 
