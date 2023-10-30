@@ -129,7 +129,7 @@ class SignUpVC: UIViewController {
               let username = usernameInputView.txtPlaceholder.text,
               let passwordConfirm = passwordConfirmInputView.txtPlaceholder.text else { return }
 
-        viewModel.controlPassword(full_name: username, email: email, password: password, passwordconfirm: passwordConfirm)
+        viewModel.controlPassword(full_name: username, email: email, password: password, passwordConfirm: passwordConfirm)
     }
     
     override func viewDidLoad() {

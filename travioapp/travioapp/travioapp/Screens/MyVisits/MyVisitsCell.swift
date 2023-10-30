@@ -55,7 +55,7 @@ class MyVisitsCell: UITableViewCell {
     }
     
     func configure(object: MyVisits) {
-        image.image = object.cover_image_url
+        image.image = UIImage(named: object.imageUrl!)
         lblPlace.text = object.place
         lblVisitLocation.text = object.title
     }
@@ -65,12 +65,12 @@ class MyVisitsCell: UITableViewCell {
         
         lblVisitLocation.frame = CGRect(x: 8, y: 142, width: 299, height: 45)
         
-        lblPlace.frame = CGRect(x: 29, y: 187, width: 250, height: 24)
+        lblPlace.frame = CGRect(x: 29, y: 180, width: 250, height: 24)
         
-        item.frame = CGRect(x: 8, y: 189, width: 15, height: 20)
+        item.frame = CGRect(x: 8, y: 180, width: 15, height: 20)
         item.image = .locationItem
-        item.backgroundColor = .white
         
+
     }
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

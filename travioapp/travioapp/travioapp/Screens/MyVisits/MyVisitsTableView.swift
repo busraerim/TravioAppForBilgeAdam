@@ -23,7 +23,8 @@ struct MyVisitsTableView_Preview: PreviewProvider {
 class MyVisitsTableView: UIViewController {
 
     var places:[MyVisits] = [
-        MyVisits(place: "İstanbul", title: "Süleymaniye", cover_image_url: .suleymaniye)]
+        MyVisits(place: "İstanbul", title: "Süleymaniye", imageUrl: "suleymaniye"),
+        MyVisits(place: "Rome", title: "Colleseum", imageUrl: "colleseum")]
     
     private lazy var lblTitle:UILabel = {
         var view = UILabel()

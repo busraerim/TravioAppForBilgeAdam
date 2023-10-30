@@ -28,18 +28,18 @@ class SignUpViewModel {
     }
     
     
-    func controlPassword(full_name:String, email:String, password:String, passwordconfirm:String) {
-
-        if password.count <= 6 || full_name.count < 4 {
-            self.errorAlertMessage = "Geçersiz kullanıcı adı veya şifre!"
-        }else if password == passwordconfirm {
-            let person = Register(username: full_name, email: email, password: password)
-            registerPerson(person: person)
-            self.successAlertMessage = "Kullanıcı başarıyla oluşturuldu."
-        } else {
-            self.errorAlertMessage = "Şİfreler uyuşmuyor. Tekrar deneyiniz."
-            //alert şifreler uyuşmuyor
+    func controlPassword(full_name:String, email:String, password:String, passwordConfirm:String) {
+        guard full_name.count >= 4 || password.count > 6  else {
+            self.errorAlertMessage = "Geçersiz kullanıcı adı veya şifre"
+            return
         }
+        guard password == passwordConfirm else {
+            self.errorAlertMessage = "Şifreler uyuşmuyor. Tekrar deneyiniz."
+            return
+        }
+        
+        let person = Register(username: full_name, email: email, password: password)
+        registerPerson(person: person)
         
     }
     
