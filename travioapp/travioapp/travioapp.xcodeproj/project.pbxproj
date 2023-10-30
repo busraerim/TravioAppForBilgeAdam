@@ -33,6 +33,7 @@
 		4354F28F2AE92E0C0002D438 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4354F28E2AE92E0C0002D438 /* LoginRouter.swift */; };
 		4354F2912AE92E610002D438 /* LoginNetworkingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4354F2902AE92E610002D438 /* LoginNetworkingHelper.swift */; };
 		4354F2932AE92F9E0002D438 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4354F2922AE92F9E0002D438 /* LoginViewModel.swift */; };
+		435DD3472AEF817900BFA41F /* Visits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435DD3462AEF817900BFA41F /* Visits.swift */; };
 		436FD80B2AEBE63300EEA47F /* HomeUIVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436FD80A2AEBE63300EEA47F /* HomeUIVC.swift */; };
 		436FD80D2AEC0E1C00EEA47F /* CustomCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436FD80C2AEC0E1C00EEA47F /* CustomCollectionCell.swift */; };
 		43B4DEF02ADC7A77000E4C18 /* InputBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B4DEEF2ADC7A77000E4C18 /* InputBox.swift */; };
@@ -73,6 +74,7 @@
 		4354F28E2AE92E0C0002D438 /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
 		4354F2902AE92E610002D438 /* LoginNetworkingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNetworkingHelper.swift; sourceTree = "<group>"; };
 		4354F2922AE92F9E0002D438 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		435DD3462AEF817900BFA41F /* Visits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Visits.swift; sourceTree = "<group>"; };
 		436FD80A2AEBE63300EEA47F /* HomeUIVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUIVC.swift; sourceTree = "<group>"; };
 		436FD80C2AEC0E1C00EEA47F /* CustomCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionCell.swift; sourceTree = "<group>"; };
 		43B4DEEF2ADC7A77000E4C18 /* InputBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputBox.swift; sourceTree = "<group>"; };
@@ -157,7 +159,6 @@
 		4354F28A2AE92C160002D438 /* LoginNetworking */ = {
 			isa = PBXGroup;
 			children = (
-				4354F28B2AE92CAD0002D438 /* Model */,
 				4354F2922AE92F9E0002D438 /* LoginViewModel.swift */,
 			);
 			path = LoginNetworking;
@@ -170,6 +171,7 @@
 				4354F28E2AE92E0C0002D438 /* LoginRouter.swift */,
 				4354F2902AE92E610002D438 /* LoginNetworkingHelper.swift */,
 				4300A4002AEA4BE20011B846 /* UserToken.swift */,
+				435DD3462AEF817900BFA41F /* Visits.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -205,6 +207,7 @@
 		43DF6CF32ADC5B8D00DEDD3A /* travioapp */ = {
 			isa = PBXGroup;
 			children = (
+				4354F28B2AE92CAD0002D438 /* Model */,
 				4354F28A2AE92C160002D438 /* LoginNetworking */,
 				4335A09E2AE91210003C53D5 /* Screens */,
 				3569A7682AE96584007E53B6 /* Poppins */,
@@ -324,6 +327,7 @@
 				436FD80D2AEC0E1C00EEA47F /* CustomCollectionCell.swift in Sources */,
 				43DF6D092ADC5BCD00DEDD3A /* Extensions.swift in Sources */,
 				43B4DEF02ADC7A77000E4C18 /* InputBox.swift in Sources */,
+				435DD3472AEF817900BFA41F /* Visits.swift in Sources */,
 				4354F28F2AE92E0C0002D438 /* LoginRouter.swift in Sources */,
 				4354F2932AE92F9E0002D438 /* LoginViewModel.swift in Sources */,
 				4300A4012AEA4BE20011B846 /* UserToken.swift in Sources */,
