@@ -52,14 +52,21 @@ var deneme = [(title: "Popular", places: [ HomePlaces(place: "Rome", title: "Col
                                  HomePlaces(place: "Rome", title: "Colleseum3", imageUrl: "colleseum")]
               )]
 
-var deneme2 = [ (title: "Deneme", places: [ HomePlaces(place: "Turkey", title: "Suleymaniye", imageUrl: "colleseum"),
+var deneme2 = [ (title: "New Places", places: [ HomePlaces(place: "Turkey", title: "Suleymaniye", imageUrl: "suleymaniye"),
                                             HomePlaces(place: "Turkey", title: "Suleymaniye2", imageUrl: "suleymaniye"),
                                             HomePlaces(place: "Turkey", title: "Suleymaniye3", imageUrl: "suleymaniye"),
                                             HomePlaces(place: "Turkey", title: "Suleymaniye4", imageUrl: "suleymaniye")
                ])
 ]
 
-var denemearrayi = [deneme, deneme2]
+var deneme3 = [ (title:"Deneme", places: [ HomePlaces(place: "Turkey", title: "Suleymaniye", imageUrl: "suleymaniye"),
+                                           HomePlaces(place: "Turkey", title: "Suleymaniye2", imageUrl: "suleymaniye"),
+                                           HomePlaces(place: "Turkey", title: "Suleymaniye3", imageUrl: "suleymaniye"),
+                                           HomePlaces(place: "Turkey", title: "Suleymaniye4", imageUrl: "suleymaniye")
+            ] )
+]
+
+var denemearrayi = [deneme, deneme2, deneme3]
 
 
 //

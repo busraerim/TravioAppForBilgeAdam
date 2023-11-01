@@ -5,15 +5,24 @@ import TinyConstraints
 
 class CustomCollectionCell: UICollectionViewCell {
     
-    private lazy var item:UIImageView = {
-        let iv = UIImageView()
-        return iv
+    public lazy var placeView:UIView = {
+        let view = UIView()
+//        view.backgroundColor = .black
+        return view
     }()
     
-    private lazy var image:UIImageView = {
-        let iv = UIImageView()
-        iv.contentMode = .scaleToFill
-        return iv
+    private lazy var icon:UIImageView = {
+        let icon = UIImageView()
+        icon.image = UIImage(named: "Vector")
+        return icon
+    }()
+    
+    public lazy var image:UIImageView = {
+        let image = UIImageView()
+        image.contentMode = .scaleAspectFill
+        image.layer.cornerRadius = 20
+        image.clipsToBounds = true
+        return image
     }()
     
     private lazy var lblVisitLocation:UILabel = {
@@ -42,31 +51,26 @@ class CustomCollectionCell: UICollectionViewCell {
     }
     
     private func setupViews(){
-        self.contentView.addSubviews(image, lblPlace, lblVisitLocation)
-        image.addSubview(item)
-        
-        //seeall aşağıdaki gibi dene
-//        //aşağıdaki kod çizgi çekmek için
-//        let separatorView = UIView()
-//        separatorView.backgroundColor = .gray
-//        self.contentView.addSubview(separatorView)
-//        separatorView.snp.makeConstraints { (make) in
-//            make.leading.trailing.bottom.equalToSuperview()
-//            make.height.equalTo(1)
-//        }
+        contentView.backgroundColor = .clear
+        backgroundColor = .clear
+        self.contentView.addSubview(placeView)
+        placeView.addSubviews(image,lblPlace,lblVisitLocation)
+        image.addSubview(icon)
         setupLayout()
     }
     
     private func setupLayout(){
-                
-        image.frame = CGRect(x: 0, y: 0, width: 280, height: 178)
-        
-        lblVisitLocation.frame = CGRect(x: 16, y: 120, width: 280, height: 30)
-        
-        lblPlace.frame = CGRect(x: 31, y: 150, width: 280, height: 21)
-        
-        item.frame = CGRect(x: 16, y: 153, width: 9, height: 12)
-        item.image = .locationItem
+//        icon.image = .locationItem
+
+        placeView.edgesToSuperview()
+        image.edges(to: placeView)
+        lblVisitLocation.leading(to: placeView, offset: 16)
+        lblVisitLocation.bottom(to: placeView, offset: -26)
+        lblPlace.bottom(to: placeView, offset: -5)
+        lblPlace.leading(to: placeView, offset: 31)
+        icon.leading(to: placeView, offset: 16)
+        icon.bottom(to: placeView, offset: -11)
+ 
     }
     
     required init?(coder: NSCoder) {

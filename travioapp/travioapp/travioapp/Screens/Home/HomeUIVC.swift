@@ -37,9 +37,9 @@ class HomeUIVC: UIViewController {
         let layout = makeCollectionViewLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(CustomCollectionCell.self, forCellWithReuseIdentifier: "cell")
-        cv.isPagingEnabled = true
+        cv.register(HeaderView.self, forSupplementaryViewOfKind:UICollectionView.elementKindSectionHeader , withReuseIdentifier: HeaderView.reuseId)
         cv.dataSource = self
-        cv.delegate = self
+//        cv.delegate = self
         return cv
     }()
     
@@ -49,7 +49,8 @@ class HomeUIVC: UIViewController {
     }
 
     func setupViews() {
-        self.view.addSubviews(backView,travioLogoImage,travioImage,collectionView)
+        self.view.addSubviews(backView,travioLogoImage,travioImage)
+        backView.addSubview(collectionView)
         self.view.backgroundColor = UIColor(red: 0.22, green: 0.678, blue: 0.663, alpha: 1)
         setupLayout()
     }
@@ -68,22 +69,28 @@ class HomeUIVC: UIViewController {
         travioImage.leadingToTrailing(of: travioLogoImage)
         
         collectionView.backgroundColor = .clear
-        collectionView.edges(to: backView)
-
+        
+        collectionView.edgesToSuperview()
     }
   
 }
 
-extension HomeUIVC:UICollectionViewDelegateFlowLayout{
+extension HomeUIVC:UICollectionViewDelegate{
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+//    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderView.reuseId, for: indexPath) as! HeaderView
+        header.label.text = denemearrayi[indexPath.section][0].title
+//        header.label.text = "Deneme"
+        return header
     }
-    
 }
 
 extension HomeUIVC:UICollectionViewDataSource{
-    
+
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return denemearrayi.count
 //        return homePlaces.count
@@ -117,28 +124,26 @@ extension HomeUIVC {
 
 func makeSliderLayoutSection() -> NSCollectionLayoutSection {
     
+    let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(45))
+    let headerElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+    headerElement.pinToVisibleBounds = false
+   
+    
     let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
     let item = NSCollectionLayoutItem(layoutSize: itemSize)
-    item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading:-24, bottom: 0, trailing:0)
-   
-    let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.8), heightDimension: .fractionalHeight(0.3))
+    
+
+    let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.8), heightDimension: .fractionalWidth(0.5))
     let layoutGroup = NSCollectionLayoutGroup.horizontal(layoutSize: layoutGroupSize, subitems: [item])
+//    layoutGroup.contentInsets = NSDirectionalEdgeInsets(top: 45, leading: 18, bottom: 0, trailing: 18)
    
     let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
-    layoutSection.orthogonalScrollingBehavior = .groupPagingCentered
-    layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 84, leading: 0, bottom: 0, trailing: 0)
+    layoutSection.orthogonalScrollingBehavior = .groupPaging
+    layoutSection.boundarySupplementaryItems = [headerElement]
+    layoutSection.interGroupSpacing = 18
+    layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 18, bottom: 0, trailing: 18)
     return layoutSection
 }
-
-
-
-
-
-
-
-
-
-
 
 
 #if DEBUG

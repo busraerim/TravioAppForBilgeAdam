@@ -13,7 +13,7 @@ import TinyConstraints
 class LoginVc: UIViewController {
     
     private lazy var travioImage:UIImageView = {
-        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 149, height: 178))
+        let image = UIImageView()
         image.image = UIImage(named: "travio-logo 1")
         return image
     }()
@@ -145,9 +145,13 @@ class LoginVc: UIViewController {
         
         private func setupLayout(){
             
-            backView.edgesToSuperview(excluding: .top)
-            backView.height(598)
-            backView.width(390)
+            backView.snp.makeConstraints({ view in
+            view.leading.equalToSuperview()
+            view.trailing.equalToSuperview()
+            view.bottom.equalToSuperview()
+            view.height.equalToSuperview().multipliedBy(0.7)
+            })
+
             
             emailView.width(342)
             stackView.topToBottom(of: lblWelcome, offset: 41)
@@ -158,15 +162,16 @@ class LoginVc: UIViewController {
             btnLogin.topToBottom(of: stackView, offset: 48)
             btnLogin.centerX(to: stackView)
             
-            stackSignup.topToBottom(of: btnLogin, offset:141)
+//            stackSignup.topToBottom(of: btnLogin, offset:141)
+            stackSignup.bottomToSuperview(offset: -21)
             stackSignup.centerX(to: stackView)
             
             
             lblWelcome.topToSuperview(offset: 40)
             lblWelcome.centerX(to: stackView)
             
-            travioImage.width(149)
-            travioImage.height(178)
+//            travioImage.width(149)
+//            travioImage.height(178)
             travioImage.topToSuperview(offset: 44)
             travioImage.horizontalToSuperview(insets: .left(120) + .right(121))
             
@@ -179,7 +184,7 @@ class LoginVc: UIViewController {
     }
 
 
-
+//
 //#if DEBUG
 //import SwiftUI
 //
@@ -191,4 +196,4 @@ class LoginVc: UIViewController {
 //    }
 //}
 //#endif
-
+//
