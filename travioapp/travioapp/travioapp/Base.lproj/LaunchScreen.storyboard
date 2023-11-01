@@ -16,13 +16,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="travio-launch 1" translatesAutoresizingMaskIntoConstraints="NO" id="3Md-Gq-wam">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="travio-launch 1" translatesAutoresizingMaskIntoConstraints="NO" id="3Md-Gq-wam">
                                 <rect key="frame" x="76" y="213" width="238" height="229"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="background"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="3Md-Gq-wam" secondAttribute="trailing" constant="79" id="6IK-46-1By"/>
+                            <constraint firstItem="3Md-Gq-wam" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="76" id="9Wt-dl-wpf"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="3Md-Gq-wam" secondAttribute="bottom" constant="376" id="9zv-La-V2J"/>
+                            <constraint firstItem="3Md-Gq-wam" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="154" id="xgJ-g0-v0Z"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>

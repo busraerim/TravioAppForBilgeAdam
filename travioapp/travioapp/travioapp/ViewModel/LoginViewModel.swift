@@ -43,9 +43,14 @@ class LoginViewModel{
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .login(param: params), callback: { (result:Result<UserToken,Error>) in
             switch result {
             case .success(let user):
-                let accessToken = user.accessToken
-                guard let accessToken = accessToken else {return}
-                print("Erişim Token'ı: \(accessToken)")
+                if let accessToken = user.accessToken {
+                    let accessTokenData = Data(accessToken.utf8)
+                    
+                    KeychainHelper.shared.save(accessTokenData, service: "access-token", account: "travio")
+                    print("Erişim Token'ı: \(accessToken)")
+                } else {
+                    print("Hata: Erişim Token'ı bulunamadı.")
+                }
             case .failure(let failure):
                 self.alertMessage = "Hatalı email/şifre"
             }

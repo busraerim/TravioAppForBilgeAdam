@@ -12,7 +12,8 @@ enum Router {
     
     case login(param: Parameters)
     case register(param: Parameters)
-  
+    case refresh(param: Parameters)
+    case visits
     
     var baseURL:String {
         return "https://api.iosclass.live"
@@ -24,14 +25,20 @@ enum Router {
             return "/v1/auth/login"
         case .register:
             return "/v1/auth/register"
+        case .refresh:
+            return "/v1/auth/refresh"
+        case .visits:
+            return "/v1/visits"
         }
     }
     
     
     var method:HTTPMethod {
         switch self {
-        case .login, .register:
+        case .login, .register, .refresh:
             return .post
+        case .visits:
+            return .get
         }
     
     }
@@ -39,15 +46,21 @@ enum Router {
     
     var headers:HTTPHeaders {
         switch self {
-        case .login, .register:
+        case .login, .register, .refresh:
             return [:]
+        case .visits:
+            guard let data = KeychainHelper.shared.read(service: "access-token", account: "travio") else { return [:] }
+            let token = String(data: data, encoding: .utf8)!
+            return ["access-token":token]
         }
     }
     
     var parameters:Parameters? {
         switch self {
-        case .login(let params), .register(let params):
+        case .login(let params), .register(let params), .refresh(let params):
             return params
+        case .visits:
+            return nil
         }
     }
     

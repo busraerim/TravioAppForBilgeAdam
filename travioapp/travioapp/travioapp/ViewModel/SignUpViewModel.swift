@@ -55,6 +55,8 @@ class SignUpViewModel {
                 switch failure.localizedDescription{
                 case "Response status code was unacceptable: 500.":
                     self.errorAlertMessage = "Bu emailde kayıtlı kullanıcı bulunmaktadır."
+                case "Response status code was unacceptable: 400.":
+                    self.errorAlertMessage = "Emailinizi kontrol ediniz."
                 default:
                     self.errorAlertMessage = failure.localizedDescription
                 }
