@@ -45,7 +45,11 @@ class HomeUIVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       setupViews()
+//        self.navigationController?.navigationBar.isHidden = true
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+        setupViews()
     }
 
     func setupViews() {
@@ -76,36 +80,34 @@ class HomeUIVC: UIViewController {
 }
 
 extension HomeUIVC:UICollectionViewDelegate{
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
-//    }
-    
+
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderView.reuseId, for: indexPath) as! HeaderView
         header.label.text = denemearrayi[indexPath.section][0].title
-//        header.label.text = "Deneme"
+        header.dataClosure = {
+            let vc = PlaceDetailsVC()
+            vc.dataPlaceSeeAll = denemearrayi[indexPath.section]
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        }
         return header
     }
+    
 }
 
 extension HomeUIVC:UICollectionViewDataSource{
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return denemearrayi.count
-//        return homePlaces.count
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return homePlaces[section].count
         return denemearrayi[section][0].places.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCollectionCell
         let object = denemearrayi[indexPath.section][0].places[indexPath.row]
-//        let object = homePlaces[indexPath.section][indexPath.row]
-//        cell.configure(object: object,title: "")
         cell.configure(object: object)
         return cell
     }
@@ -117,33 +119,35 @@ extension HomeUIVC {
         
         UICollectionViewCompositionalLayout {
             [weak self] sectionIndex, environment in
-            return makeSliderLayoutSection()
+            return self?.makeSliderLayoutSection()
         }
     }
+    
+    func makeSliderLayoutSection() -> NSCollectionLayoutSection {
+        
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(45))
+        let headerElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+        headerElement.pinToVisibleBounds = false
+       
+        
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+
+        let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.8), heightDimension: .fractionalWidth(0.5))
+        let layoutGroup = NSCollectionLayoutGroup.horizontal(layoutSize: layoutGroupSize, subitems: [item])
+    //    layoutGroup.contentInsets = NSDirectionalEdgeInsets(top: 45, leading: 18, bottom: 0, trailing: 18)
+       
+        let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
+        layoutSection.orthogonalScrollingBehavior = .groupPaging
+        layoutSection.boundarySupplementaryItems = [headerElement]
+        layoutSection.interGroupSpacing = 18
+        layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 18, bottom: 0, trailing: 18)
+        return layoutSection
+    }
+
 }
 
-func makeSliderLayoutSection() -> NSCollectionLayoutSection {
-    
-    let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(45))
-    let headerElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-    headerElement.pinToVisibleBounds = false
-   
-    
-    let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
-    let item = NSCollectionLayoutItem(layoutSize: itemSize)
-    
-
-    let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.8), heightDimension: .fractionalWidth(0.5))
-    let layoutGroup = NSCollectionLayoutGroup.horizontal(layoutSize: layoutGroupSize, subitems: [item])
-//    layoutGroup.contentInsets = NSDirectionalEdgeInsets(top: 45, leading: 18, bottom: 0, trailing: 18)
-   
-    let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
-    layoutSection.orthogonalScrollingBehavior = .groupPaging
-    layoutSection.boundarySupplementaryItems = [headerElement]
-    layoutSection.interGroupSpacing = 18
-    layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 18, bottom: 0, trailing: 18)
-    return layoutSection
-}
 
 
 #if DEBUG

@@ -11,6 +11,13 @@ import TinyConstraints
 
 class PlaceDetailsVC: UIViewController {
     
+    var dataPlaceSeeAll:[TuplePlace] = []
+    
+    private lazy var customView:CustomView = {
+        let view = CustomView()
+        return view
+    }()
+    
     private lazy var backView:UIView = {
         let backView = UIView()
         backView.height(719)
@@ -23,23 +30,46 @@ class PlaceDetailsVC: UIViewController {
        let label = UILabel()
         label.textColor = .white
         label.font = UIFont(name: "Poppins-SemiBold", size: 36)
-        label.text = "Popular Place"
+        label.text = dataPlaceSeeAll[0].title
        return label
     }()
-   
+    
+    private lazy var collectionView:UICollectionView = {
+        let layout = makeCollectionViewLayout()
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.register(PlaceDetailCollectionCell.self, forCellWithReuseIdentifier: "cell")
+        cv.dataSource = self
+        return cv
+    }()
+    
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(red: 0.22, green: 0.678, blue: 0.663, alpha: 1)
-        self.view.addSubviews(backView,labelTitle)
-       setupViews()
-       
+        print(dataPlaceSeeAll)
+        
+        setupViews()
     }
-    
   
     func setupViews() {
-        // Add here the setup for the UI
-        self.view.addSubviews()
+        self.view.addSubviews(backView,labelTitle)
+//        backView.addSubviews(customView)
+        backView.addSubviews(collectionView)
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+        
+        let leftButtonImage = UIImage(named:"backWard")
+        let leftBarButton = UIBarButtonItem(image: leftButtonImage, style: .plain, target: self, action: #selector(backButtonTapped))
+        leftBarButton.tintColor = UIColor(hex: "FFFFFF")
+        self.navigationItem.leftBarButtonItem = leftBarButton
+        self.navigationItem.titleView = labelTitle
         setupLayout()
+    }
+    
+    @objc func backButtonTapped(){
+        self.navigationController?.popViewController(animated: true)
+        
     }
     
     func setupLayout() {
@@ -51,9 +81,67 @@ class PlaceDetailsVC: UIViewController {
         
         labelTitle.topToSuperview(offset:46)
         labelTitle.leadingToSuperview(offset:24)
+//        
+//        customView.topToSuperview(offset: 70)
+//        customView.leadingToSuperview(offset: 24)
+//        customView.trailingToSuperview(offset: 24)
+        
+        collectionView.backgroundColor = .clear
+        collectionView.edgesToSuperview()
+        
+
+        
     }
   
 }
+
+
+extension PlaceDetailsVC:UICollectionViewDataSource{
+
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return dataPlaceSeeAll[0].places.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! PlaceDetailCollectionCell
+        let object = dataPlaceSeeAll[0].places[indexPath.row]
+        cell.configure(object: object)
+        return cell
+    }
+    
+}
+
+
+extension PlaceDetailsVC {
+    func makeCollectionViewLayout()->UICollectionViewLayout{
+        
+        UICollectionViewCompositionalLayout {
+            [weak self] sectionIndex, environment in
+            return self?.makeSliderLayoutSection()
+        }
+    }
+    
+    func makeSliderLayoutSection() -> NSCollectionLayoutSection {
+        
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+        let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.125))
+        let layoutGroup = NSCollectionLayoutGroup.vertical(layoutSize: layoutGroupSize, subitems: [item])
+
+        let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
+        layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 70, leading: 24, bottom: 0, trailing: 22)
+        layoutSection.interGroupSpacing = 16
+        return layoutSection
+    }
+
+}
+
+
 
 #if DEBUG
 import SwiftUI

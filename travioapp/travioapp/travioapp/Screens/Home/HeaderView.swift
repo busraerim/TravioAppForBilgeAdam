@@ -15,6 +15,11 @@ class HeaderView: UICollectionReusableView {
     let label = UILabel()
     let button = UIButton()
     
+    typealias DataPlace = [TuplePlace]
+    
+    
+    var dataClosure: (() -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupContent()
@@ -38,8 +43,7 @@ class HeaderView: UICollectionReusableView {
     
     @objc func btnSeeAll(){
         print("bastı")
-//        let vc = LoginVc()
-//      self.navigationController?.pushViewController(vc, animated: true)
+        dataClosure?()
     }
     
     required init?(coder: NSCoder) {

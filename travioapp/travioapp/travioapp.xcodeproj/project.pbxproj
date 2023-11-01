@@ -48,6 +48,8 @@
 		436FD80D2AEC0E1C00EEA47F /* CustomCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436FD80C2AEC0E1C00EEA47F /* CustomCollectionCell.swift */; };
 		43933F9D2AF0DB1100A1AF39 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43933F9C2AF0DB1100A1AF39 /* HeaderView.swift */; };
 		43933FA02AF16EEC00A1AF39 /* PlaceDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43933F9F2AF16EEC00A1AF39 /* PlaceDetailsVC.swift */; };
+		43933FA22AF23BB600A1AF39 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43933FA12AF23BB600A1AF39 /* CustomView.swift */; };
+		43933FA62AF2690400A1AF39 /* PlaceDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43933FA52AF2690400A1AF39 /* PlaceDetailCollectionViewCell.swift */; };
 		43B4DEF02ADC7A77000E4C18 /* InputBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B4DEEF2ADC7A77000E4C18 /* InputBox.swift */; };
 		43DF6CF52ADC5B8D00DEDD3A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DF6CF42ADC5B8D00DEDD3A /* AppDelegate.swift */; };
 		43DF6CF72ADC5B8D00DEDD3A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DF6CF62ADC5B8D00DEDD3A /* SceneDelegate.swift */; };
@@ -101,6 +103,8 @@
 		436FD80C2AEC0E1C00EEA47F /* CustomCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionCell.swift; sourceTree = "<group>"; };
 		43933F9C2AF0DB1100A1AF39 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		43933F9F2AF16EEC00A1AF39 /* PlaceDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailsVC.swift; sourceTree = "<group>"; };
+		43933FA12AF23BB600A1AF39 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
+		43933FA52AF2690400A1AF39 /* PlaceDetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailCollectionViewCell.swift; sourceTree = "<group>"; };
 		43B4DEEF2ADC7A77000E4C18 /* InputBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputBox.swift; sourceTree = "<group>"; };
 		43DF6CF12ADC5B8D00DEDD3A /* travioapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = travioapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43DF6CF42ADC5B8D00DEDD3A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -246,6 +250,8 @@
 			isa = PBXGroup;
 			children = (
 				43933F9F2AF16EEC00A1AF39 /* PlaceDetailsVC.swift */,
+				43933FA12AF23BB600A1AF39 /* CustomView.swift */,
+				43933FA52AF2690400A1AF39 /* PlaceDetailCollectionViewCell.swift */,
 			);
 			path = HomeDetails;
 			sourceTree = "<group>";
@@ -401,6 +407,7 @@
 				43DF6CF72ADC5B8D00DEDD3A /* SceneDelegate.swift in Sources */,
 				436FD80D2AEC0E1C00EEA47F /* CustomCollectionCell.swift in Sources */,
 				43DF6D092ADC5BCD00DEDD3A /* Extensions.swift in Sources */,
+				43933FA62AF2690400A1AF39 /* PlaceDetailCollectionViewCell.swift in Sources */,
 				35B2D11F2AEA4BF000FD61EF /* SignUpViewModel.swift in Sources */,
 				35B2D1182AE990F200FD61EF /* Register.swift in Sources */,
 				43933FA02AF16EEC00A1AF39 /* PlaceDetailsVC.swift in Sources */,
@@ -409,6 +416,7 @@
 				4354F28F2AE92E0C0002D438 /* Router.swift in Sources */,
 				3518A6A72AEBC74000357E9E /* MyVisitsTableView.swift in Sources */,
 				4354F28F2AE92E0C0002D438 /* Router.swift in Sources */,
+				43933FA22AF23BB600A1AF39 /* CustomView.swift in Sources */,
 				4354F2932AE92F9E0002D438 /* LoginViewModel.swift in Sources */,
 				4300A4012AEA4BE20011B846 /* UserToken.swift in Sources */,
 				4354F28D2AE92CB80002D438 /* User.swift in Sources */,

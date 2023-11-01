@@ -28,6 +28,7 @@ class LoginVc: UIViewController {
         let email = InputBox()
         email.boxTitle = .label(label: "Email")
         email.boxPlaceholder = .placeholder(placeholder: "example@mail.com")
+        email.txtPlaceholder.text = email.txtPlaceholder.text?.lowercased()
         return email
     }()
     
