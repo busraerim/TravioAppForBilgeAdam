@@ -134,20 +134,19 @@ class SettingsView: UIViewController {
         
         
         settingsItemView.snp.makeConstraints({ make in
-            make.height.equalToSuperview().multipliedBy(0.83)
+            make.height.equalToSuperview().multipliedBy(0.85)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         })
         
         lblTitle.snp.makeConstraints({ make in
-            make.top.equalTo(95)
+            make.top.equalTo(55)
             make.leading.equalTo(30)
         })
         
-        buttonLogOut.layer.zPosition = 10
         buttonLogOut.snp.makeConstraints({make in
             make.trailing.equalToSuperview().offset(-48)
-            make.top.equalToSuperview().offset(95)
+            make.top.equalTo(lblTitle).offset(10)
         })
         
         
@@ -166,6 +165,7 @@ class SettingsView: UIViewController {
             make.centerX.equalToSuperview()
         })
         
+        collectionView.dropShadow()
         collectionView.snp.makeConstraints({make in
             make.centerX.equalToSuperview()
             make.leading.trailing.equalToSuperview().inset(16)

@@ -1,5 +1,5 @@
 //
-//  SettingsCell.swift
+//  PrivacyCell.swift
 //  travioapp
 //
 //  Created by Sabri DİNDAR on 1.11.2023.
@@ -7,14 +7,9 @@
 
 import UIKit
 
-class SettingsCell: UICollectionViewCell {
-    
-    var buttonAction: (() -> Void)?
-    
-    func configure(data: SettingsCellModel){
-        label.text = data.label
-        iconImageView.image = UIImage(named: data.iconImage)
-    }
+class PrivacyCell: UICollectionViewCell {
+        
+    static let identifier = "privacyCell"
     
     private lazy var backView:UIView = {
         let view = UIView()
@@ -25,38 +20,24 @@ class SettingsCell: UICollectionViewCell {
         return view
     }()
     
-    private lazy var iconImageView:UIImageView = {
-        let iv = UIImageView()
-        iv.contentMode = .scaleAspectFit
-        iv.image = UIImage(systemName: "person.circle.fill")
-        return iv
-    }()
-    
-    private lazy var label:UILabel = {
+    private lazy var labelText:UILabel = {
         let lbl = UILabel()
-        lbl.font = UIFont(name: "Poppins-Regular", size: 14)
-        lbl.textColor = .black
+        lbl.text = "Text"
+        lbl.font = UIFont(name: "Poppins-Medium", size: 14)
         return lbl
     }()
     
-    private lazy var button:UIButton = {
-        let btn = UIButton(type: .custom)
-        btn.setImage(.arrowRight, for: .normal)
-        btn.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        return btn
+    private lazy var toggleSwitch:UISwitch = {
+        let toggle = UISwitch()
+        return toggle
     }()
     
     private lazy var stackView:UIStackView = {
         let sv = UIStackView()
+        sv.spacing = 5
         sv.axis = .horizontal
-        sv.spacing = 8
         return sv
     }()
-    
-    
-    @objc private func buttonTapped() {
-        buttonAction?()
-    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -67,9 +48,15 @@ class SettingsCell: UICollectionViewCell {
         addSubviews(backView)
         backView.addSubview(stackView)
         
-        stackView.addArrangedSubviews(iconImageView, label, UIView(), button)
+        stackView.addArrangedSubviews(labelText, UIView(), toggleSwitch)
         setupLayouts()
     }
+    
+    
+    func configure(data: String){
+        labelText.text = data
+    }
+
     
     private func setupLayouts() {
         
@@ -82,4 +69,6 @@ class SettingsCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+    
 }
