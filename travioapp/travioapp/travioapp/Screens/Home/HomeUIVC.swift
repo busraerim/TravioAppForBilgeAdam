@@ -73,8 +73,8 @@ class HomeUIVC: UIViewController {
         travioImage.leadingToTrailing(of: travioLogoImage)
         
         collectionView.backgroundColor = .clear
-        
         collectionView.edgesToSuperview()
+        
     }
   
 }
@@ -136,7 +136,7 @@ extension HomeUIVC {
 
         let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.8), heightDimension: .fractionalWidth(0.5))
         let layoutGroup = NSCollectionLayoutGroup.horizontal(layoutSize: layoutGroupSize, subitems: [item])
-    //    layoutGroup.contentInsets = NSDirectionalEdgeInsets(top: 45, leading: 18, bottom: 0, trailing: 18)
+        
        
         let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
         layoutSection.orthogonalScrollingBehavior = .groupPaging
