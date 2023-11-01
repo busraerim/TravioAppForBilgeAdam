@@ -9,7 +9,7 @@
 import UIKit
 import TinyConstraints
 
-class PlaceDetailsVC: UIViewController {
+class SeeAllVC: UIViewController {
     
     var dataPlaceSeeAll:[TuplePlace] = []
     
@@ -37,7 +37,7 @@ class PlaceDetailsVC: UIViewController {
     private lazy var collectionView:UICollectionView = {
         let layout = makeCollectionViewLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.register(PlaceDetailCollectionCell.self, forCellWithReuseIdentifier: "cell")
+        cv.register(SeeAllCollectionCell.self, forCellWithReuseIdentifier: "cell")
         cv.dataSource = self
         return cv
     }()
@@ -96,7 +96,7 @@ class PlaceDetailsVC: UIViewController {
 }
 
 
-extension PlaceDetailsVC:UICollectionViewDataSource{
+extension SeeAllVC:UICollectionViewDataSource{
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -107,7 +107,7 @@ extension PlaceDetailsVC:UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! PlaceDetailCollectionCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! SeeAllCollectionCell
         let object = dataPlaceSeeAll[0].places[indexPath.row]
         cell.configure(object: object)
         return cell
@@ -116,7 +116,7 @@ extension PlaceDetailsVC:UICollectionViewDataSource{
 }
 
 
-extension PlaceDetailsVC {
+extension SeeAllVC {
     func makeCollectionViewLayout()->UICollectionViewLayout{
         
         UICollectionViewCompositionalLayout {
@@ -150,7 +150,7 @@ import SwiftUI
 struct PlaceDetailsVC_Preview: PreviewProvider {
     static var previews: some View{
          
-        PlaceDetailsVC().showPreview()
+        SeeAllVC().showPreview()
     }
 }
 #endif

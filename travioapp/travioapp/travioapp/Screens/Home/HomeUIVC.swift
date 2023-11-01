@@ -85,7 +85,7 @@ extension HomeUIVC:UICollectionViewDelegate{
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderView.reuseId, for: indexPath) as! HeaderView
         header.label.text = denemearrayi[indexPath.section][0].title
         header.dataClosure = {
-            let vc = PlaceDetailsVC()
+            let vc = SeeAllVC()
             vc.dataPlaceSeeAll = denemearrayi[indexPath.section]
             self.navigationController?.pushViewController(vc, animated: true)
             
