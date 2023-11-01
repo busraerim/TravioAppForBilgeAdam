@@ -50,10 +50,16 @@ class SignUpViewModel {
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .register(param: params), callback: { (result:Result<BaseResponse, Error>) in
             switch result {
             case .success(let success):
-                self.successAlertMessage = success.message
+                self.successAlertMessage = "Kullanıcı başarıyla oluşturuldu."
             case .failure(let failure):
-                self.errorAlertMessage = failure.localizedDescription
+                switch failure.localizedDescription{
+                case "Response status code was unacceptable: 500.":
+                    self.errorAlertMessage = "Bu emailde kayıtlı kullanıcı bulunmaktadır."
+                default:
+                    self.errorAlertMessage = failure.localizedDescription
+                }
             }
         })
     }
 }
+
