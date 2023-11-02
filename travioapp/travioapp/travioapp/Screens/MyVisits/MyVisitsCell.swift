@@ -65,8 +65,8 @@ class MyVisitsCell: UICollectionViewCell {
         image.edges(to: backView)
         lblTitle.leading(to: backView, offset: 16)
         lblTitle.bottom(to: backView, offset: -26)
-        lblSubtitle.bottom(to: backView, offset: -5)
-        lblSubtitle.leading(to: backView, offset: 31)
+        lblSubtitle.centerY(to: icon)
+        lblSubtitle.leadingToTrailing(of: icon, offset: 6)
         icon.leading(to: backView, offset: 16)
         icon.bottom(to: backView, offset: -11)
         

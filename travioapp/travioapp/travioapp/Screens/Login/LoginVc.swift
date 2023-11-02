@@ -73,6 +73,7 @@ class LoginVc: UIViewController {
         signUp.setTitle("Sign Up", for: .normal)
         signUp.setTitleColor(.black, for: .normal)
         signUp.titleLabel?.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        signUp.addTarget(self, action: #selector(btnSignupTapped), for: .touchUpInside)
         return signUp
     }()
     
@@ -104,6 +105,11 @@ class LoginVc: UIViewController {
             viewModel.loginControl(email: email, password: password)
     }
         
+    @objc func btnSignupTapped(){
+        let vc = SignUpVC()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
      func showAlert(title:String,message:String) {
         let btnRetry = UIAlertAction(title: "Yeniden Dene", style: .destructive)
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)

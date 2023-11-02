@@ -66,10 +66,9 @@ class SignUpVC: UIViewController {
         let button = UIButton()
         button.height(54)
         button.layer.cornerRadius = 10
-        button.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
+//        button.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
         button.setTitle("Sign Up", for: .normal)
         button.backgroundColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
-        
         return button
     }()
     
@@ -88,8 +87,12 @@ class SignUpVC: UIViewController {
         return SignUpViewModel()
     }()
     
-    func showAlert(buttonTitle:String, title:String, message:String){
-        let btnRetry = UIAlertAction(title: buttonTitle, style: .default)
+    
+    func showAlert(buttonTitle:String, title:String, message:String, handler:(()->Void)?){
+        let btnRetry = UIAlertAction(title: buttonTitle, style: .default, handler: { action in
+            handler?()
+        })
+        
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(btnRetry)
         self.present(alert, animated: true)
@@ -99,18 +102,21 @@ class SignUpVC: UIViewController {
         viewModel.showErrorAlertClosure = { [weak self] () in
             DispatchQueue.main.async {
                 if let message = self?.viewModel.errorAlertMessage {
-                    self?.showAlert(buttonTitle:"Yeniden Dene", title: "Hata", message: message)
+                    self?.showAlert(buttonTitle:"Yeniden Dene", title: "Hata", message: message, handler: nil)
                 }
             }
         }
         viewModel.showSuccessAlertClosure = { [weak self] () in
             DispatchQueue.main.async {
                 if let message = self?.viewModel.successAlertMessage {
-                    self?.showAlert(buttonTitle:"Kapat", title: "Başarılı", message: message)
+                    self?.showAlert(buttonTitle:"Kapat", title: "Başarılı", message: message, handler: {
+                        self?.navigationController?.pushViewController(LoginVc(), animated: true)
+                    })
+                    }
+                    
                 }
             }
         }
-    }
     
     
     @objc func updateSignUpButtonState() {
@@ -118,9 +124,12 @@ class SignUpVC: UIViewController {
               let username = usernameInputView.txtPlaceholder.text,
               let password = passwordInputView.txtPlaceholder.text,
               let passwordConfirm = passwordConfirmInputView.txtPlaceholder.text else { return }
-        
-        signUpButton.isEnabled = !email.isEmpty && !password.isEmpty && !username.isEmpty && !passwordConfirm.isEmpty
-        signUpButton.backgroundColor = signUpButton.isEnabled ? UIColor(named: "background") : UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
+
+        if !email.isEmpty && !password.isEmpty && !username.isEmpty && !passwordConfirm.isEmpty{
+            signUpButton.isEnabled = true
+            signUpButton.backgroundColor = .background
+            signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
+        } 
     }
     
     @objc func signUpButtonTapped(){
@@ -128,12 +137,23 @@ class SignUpVC: UIViewController {
               let password = passwordInputView.txtPlaceholder.text,
               let username = usernameInputView.txtPlaceholder.text,
               let passwordConfirm = passwordConfirmInputView.txtPlaceholder.text else { return }
-
+        
         viewModel.controlPassword(full_name: username, email: email, password: password, passwordConfirm: passwordConfirm)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+        
+        let leftButtonImage = UIImage(named:"backWard")
+        let leftBarButton = UIBarButtonItem(image: leftButtonImage, style: .plain, target: self, action: #selector(backButtonTapped))
+        leftBarButton.tintColor = UIColor(hex: "FFFFFF")
+        self.navigationItem.leftBarButtonItem = leftBarButton
+        self.navigationItem.titleView = lblTitle
+        
         setupViews()
         initVM()
     }
@@ -149,7 +169,7 @@ class SignUpVC: UIViewController {
     }
     
     @objc func backButtonTapped(){
-        print("tapped")
+        self.navigationController?.popViewController(animated: true)
     }
     
     private func setupLayout(){
@@ -168,9 +188,11 @@ class SignUpVC: UIViewController {
         inputsStackView.horizontalToSuperview(insets: .left(24) + .right(24))
         inputsStackView.topToSuperview(offset: 72)
         
-        signUpButton.bottomToSuperview(offset: -10)
+        signUpButton.bottomToSuperview(offset: -40)
         signUpButton.horizontalToSuperview(insets: .right(24) + .left(24))
         
     }
     
 }
+
+

@@ -125,7 +125,7 @@ extension HomeUIVC {
     
     func makeSliderLayoutSection() -> NSCollectionLayoutSection {
         
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(45))
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(45))
         let headerElement = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         headerElement.pinToVisibleBounds = false
        

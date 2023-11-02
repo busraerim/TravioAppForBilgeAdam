@@ -23,17 +23,17 @@ class TabbarUI: UITabBarController {
     private func setupControllers()->[UIViewController]{
         let homeVC = HomeUIVC()
         let homeNC = UINavigationController(rootViewController: homeVC)
-        let image = UIImage(named: "home1")
-        let selectedImage = UIImage(named: "Vector-17")
+        let image = UIImage(named: "home2")
+        let selectedImage = UIImage(named: "home2")
         homeNC.tabBarItem = UITabBarItem(title: "Home", image: image, selectedImage: selectedImage)
 
-        let menuVC = LoginVc()
+        let menuVC = SettingsView()
         let menuNC = UINavigationController(rootViewController: menuVC)
         let imageSetting = UIImage(named: "setting1")
         let selectedImageSetting = UIImage(named: "setting2")
         menuNC.tabBarItem = UITabBarItem(title: "Menu", image: imageSetting, selectedImage: selectedImageSetting)
         
-        let visitVC = MyVisitsTableView()
+        let visitVC = MyVisitsView()
         let visitNC = UINavigationController(rootViewController: visitVC)
         let imageVisit = UIImage(named: "visit1")
         let selectedImageVisit = UIImage(named: "visit2")
