@@ -47,7 +47,6 @@ class SeeAllVC: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(red: 0.22, green: 0.678, blue: 0.663, alpha: 1)
         print(dataPlaceSeeAll)
-        
         setupViews()
     }
   

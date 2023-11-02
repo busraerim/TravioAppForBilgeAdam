@@ -44,7 +44,6 @@ class LoginViewModel{
             case .success(let user):
                 if let accessToken = user.accessToken {
                     let accessTokenData = Data(accessToken.utf8)
-                    
                     KeychainHelper.shared.save(accessTokenData, service: "access-token", account: "travio")
                     print("Erişim Token'ı: \(accessToken)")
                 } else {

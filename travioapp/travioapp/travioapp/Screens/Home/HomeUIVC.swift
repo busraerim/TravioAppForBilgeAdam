@@ -11,7 +11,9 @@ import UIKit
 import TinyConstraints
 
 class HomeUIVC: UIViewController {
+
     
+    var popularPlace:[PlaceItem]?
     
     private lazy var travioLogoImage:UIImageView = {
         let image = UIImageView(frame: CGRect(x: 0, y:0, width: 56, height: 62))
@@ -43,15 +45,26 @@ class HomeUIVC: UIViewController {
         return cv
     }()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 //        self.navigationController?.navigationBar.isHidden = true
+        
+        let viewModel = HomeViewModel()
+              
+        viewModel.dataTransferClosure = { [weak self] place in
+            self?.popularPlace = place
+        }
+        
+        viewModel.getData()
+        
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
+        
         setupViews()
     }
-
+    
     func setupViews() {
         self.view.addSubviews(backView,travioLogoImage,travioImage)
         backView.addSubview(collectionView)
