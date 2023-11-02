@@ -168,7 +168,7 @@ class SignUpVC: UIViewController {
         inputsStackView.horizontalToSuperview(insets: .left(24) + .right(24))
         inputsStackView.topToSuperview(offset: 72)
         
-        signUpButton.topToBottom(of: inputsStackView, offset: 202)
+        signUpButton.bottomToSuperview(offset: -10)
         signUpButton.horizontalToSuperview(insets: .right(24) + .left(24))
         
     }
