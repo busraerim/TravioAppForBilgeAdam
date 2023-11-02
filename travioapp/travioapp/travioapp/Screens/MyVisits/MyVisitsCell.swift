@@ -2,84 +2,77 @@
 //  MyVisitsCell.swift
 //  travioapp
 //
-//  Created by Sabri DİNDAR on 27.10.2023.
+//  Created by Sabri DİNDAR on 31.10.2023.
 //
 
 import UIKit
-import TinyConstraints
 
-#if DEBUG
-import SwiftUI
-
-@available(iOS 13, *)
-struct MyVisitsCell_Preview: PreviewProvider {
-    static var previews: some View{
-         
-        MyVisitsCell().showPreview()
-    }
-}
-#endif
-
-class MyVisitsCell: UITableViewCell {
-
-    //item background?
-    private lazy var item:UIImageView = {
+class MyVisitsCell: UICollectionViewCell {
+    
+    lazy var backView:UIView = {
+        let view = UIView()
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 16
+        return view
+    }()
+    
+    private lazy var icon:UIImageView = {
         let iv = UIImageView()
+        iv.image = .locationItem
+        iv.size(CGSize(width: 15, height: 20))
         return iv
     }()
     
     private lazy var image:UIImageView = {
         let iv = UIImageView()
-        iv.contentMode = .scaleAspectFit
+        iv.contentMode = .scaleAspectFill
         return iv
     }()
     
-    private lazy var lblVisitLocation:UILabel = {
+    private lazy var lblTitle:UILabel = {
         let lbl = UILabel()
         lbl.textColor = .white
         lbl.font = UIFont(name: "Poppins-SemiBold", size: 30)
         return lbl
     }()
     
-    private lazy var lblPlace:UILabel = {
+    private lazy var lblSubtitle:UILabel = {
         let lbl = UILabel()
         lbl.textColor = .white
         lbl.font = UIFont(name: "Poppins-Light", size: 16)
         return lbl
     }()
     
-    private func setupViews(){
-        self.contentView.addSubviews(image, lblPlace, lblVisitLocation)
-        image.addSubview(item)
-        setupLayout()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
     }
     
     func configure(object: MyVisits) {
         image.image = UIImage(named: object.imageUrl!)
-        lblPlace.text = object.place
-        lblVisitLocation.text = object.title
+        lblSubtitle.text = object.place
+        lblTitle.text = object.title
+    }
+    
+    private func setupViews(){
+        contentView.addSubview(backView)
+        backView.addSubviews(image, lblTitle, lblSubtitle, icon)
+        setupLayout()
     }
     
     private func setupLayout(){
-        image.frame = CGRect(x: 0, y: 0, width: 344, height: 219)
+        backView.edgesToSuperview()
+        image.edges(to: backView)
+        lblTitle.leading(to: backView, offset: 16)
+        lblTitle.bottom(to: backView, offset: -26)
+        lblSubtitle.bottom(to: backView, offset: -5)
+        lblSubtitle.leading(to: backView, offset: 31)
+        icon.leading(to: backView, offset: 16)
+        icon.bottom(to: backView, offset: -11)
         
-        lblVisitLocation.frame = CGRect(x: 8, y: 142, width: 299, height: 45)
-        
-        lblPlace.frame = CGRect(x: 29, y: 180, width: 250, height: 24)
-        
-        item.frame = CGRect(x: 8, y: 180, width: 15, height: 20)
-        item.image = .locationItem
-        
-
-    }
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupViews()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-   
 }
