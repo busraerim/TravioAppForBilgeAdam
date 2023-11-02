@@ -41,6 +41,7 @@ class SettingsView: UIViewController {
         
         collection.register(SettingsCell.self, forCellWithReuseIdentifier: "settings")
         collection.dataSource = self
+        collection.delegate = self
         return collection
     }()
     
@@ -75,7 +76,7 @@ class SettingsView: UIViewController {
     private lazy var buttonEditProfile: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Edit Profile", for: .normal)
-        button.setTitleColor(.background, for: .normal)
+        button.setTitleColor(.seablue, for: .normal)
         button.addTarget(self, action: #selector(buttonEditProfileTapped), for: .touchUpInside)
         return button
     }()
@@ -109,7 +110,8 @@ class SettingsView: UIViewController {
     
     
     @objc func buttonEditProfileTapped(){
-        print("edit profile page")
+        let vc = EditProfileVC()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func buttonLogOutTapped(){
@@ -178,6 +180,16 @@ class SettingsView: UIViewController {
 
 }
 
+
+extension SettingsView:UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            let vc = SecuritySettingsView()
+            vc.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+}
+
 extension SettingsView:UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cellModelArray.count
@@ -193,6 +205,8 @@ extension SettingsView:UICollectionViewDataSource {
         
         return cell
     }
+    
+    
 }
 
 extension SettingsView {
