@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import TinyConstraints
 
-class PlaceDetailCollectionCell: UICollectionViewCell {
+class SeeAllCollectionCell: UICollectionViewCell {
     
     public lazy var placeView:CustomView = {
         let view = CustomView()
