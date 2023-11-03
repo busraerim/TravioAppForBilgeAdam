@@ -2,6 +2,7 @@
 import UIKit
 import SnapKit
 import TinyConstraints
+import Kingfisher
 
 class CustomCollectionCell: UICollectionViewCell {
     
@@ -39,8 +40,10 @@ class CustomCollectionCell: UICollectionViewCell {
         return lbl
     }()
     
-    func configure(object: HomePlaces) {
-        image.image = UIImage(named: object.imageUrl!)
+    func configure(object: PlaceItem) {
+        let url = URL(string: object.cover_image_url)
+        image.kf.setImage(with: url)
+//        image.image = UIImage(named: object.cover_image_url)
         lblPlace.text = object.place
         lblVisitLocation.text = object.title
     }

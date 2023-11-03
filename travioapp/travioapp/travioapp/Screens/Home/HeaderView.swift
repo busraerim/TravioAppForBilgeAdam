@@ -15,8 +15,9 @@ class HeaderView: UICollectionReusableView {
     let label = UILabel()
     let button = UIButton()
     
-    typealias DataPlace = [TuplePlace]
-    
+//    typealias DataPlace = [TuplePlace]
+    typealias DataPlace = [PopularPlaceList]
+
     
     var dataClosure: (() -> Void)?
     

@@ -11,10 +11,11 @@ import UIKit
 import TinyConstraints
 
 class HomeUIVC: UIViewController {
+    
+    var popularPlace:[PlaceItem] = []
+    var popularPlaceTitleAndPlaces:[PopularPlaceList] = []
+    var homeList:[[PopularPlaceList]] = []
 
-    
-    var popularPlace:[PlaceItem]?
-    
     private lazy var travioLogoImage:UIImageView = {
         let image = UIImageView(frame: CGRect(x: 0, y:0, width: 56, height: 62))
         image.image = UIImage(named: "travio-logo 1")
@@ -48,23 +49,50 @@ class HomeUIVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.navigationController?.navigationBar.isHidden = true
-        
-        let viewModel = HomeViewModel()
-              
-        viewModel.dataTransferClosure = { [weak self] place in
-            self?.popularPlace = place
-        }
-        
-        viewModel.getData()
+ 
+        NetworkingGetDataPopularPlaceWithParams(limit: 5 )
         
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
-        
+
         setupViews()
     }
     
+    func NetworkingGetDataPopularPlace()->[[PopularPlaceList]]{
+        let viewModel = HomeViewModel()
+              
+        viewModel.dataTransferClosure = { [weak self] place in
+            guard let this = self else { return }
+            this.popularPlace = place
+            this.collectionView.reloadData()
+
+            this.popularPlaceTitleAndPlaces.append((title:"Popular Places", places: this.popularPlace))
+            
+            this.homeList.append(this.popularPlaceTitleAndPlaces)
+        }
+        
+        viewModel.getDataPopularPlaces()
+        return homeList
+    }
+    
+    func NetworkingGetDataPopularPlaceWithParams(limit:Int)->[[PopularPlaceList]]{
+        let viewModel = HomeViewModel()
+              
+        viewModel.dataTransferClosure = { [weak self] place in
+            guard let this = self else { return }
+            this.popularPlace = place
+            this.collectionView.reloadData()
+
+            this.popularPlaceTitleAndPlaces.append((title:"Popular Places", places: this.popularPlace))
+            
+            this.homeList.append(this.popularPlaceTitleAndPlaces)
+        }
+        
+        viewModel.getDataPopularPlacesWithParam(limit: limit)
+        return homeList
+    }
+
     func setupViews() {
         self.view.addSubviews(backView,travioLogoImage,travioImage)
         backView.addSubview(collectionView)
@@ -96,12 +124,12 @@ extension HomeUIVC:UICollectionViewDelegate{
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderView.reuseId, for: indexPath) as! HeaderView
-        header.label.text = denemearrayi[indexPath.section][0].title
+        header.label.text = homeList[indexPath.section][0].title
+
         header.dataClosure = {
             let vc = SeeAllVC()
-            vc.dataPlaceSeeAll = denemearrayi[indexPath.section]
+            vc.dataPlaceSeeAll = self.homeList[indexPath.section]
             self.navigationController?.pushViewController(vc, animated: true)
-            
         }
         return header
     }
@@ -111,16 +139,16 @@ extension HomeUIVC:UICollectionViewDelegate{
 extension HomeUIVC:UICollectionViewDataSource{
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return denemearrayi.count
+        return homeList.count
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return denemearrayi[section][0].places.count
+        return homeList[section][0].places.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCollectionCell
-        let object = denemearrayi[indexPath.section][0].places[indexPath.row]
+        let object = homeList[indexPath.section][0].places[indexPath.row]
         cell.configure(object: object)
         return cell
     }

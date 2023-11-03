@@ -11,7 +11,7 @@ import TinyConstraints
 
 class SeeAllVC: UIViewController {
     
-    var dataPlaceSeeAll:[TuplePlace] = []
+    var dataPlaceSeeAll:[PopularPlaceList] = []
     
     private lazy var customView:CustomView = {
         let view = CustomView()

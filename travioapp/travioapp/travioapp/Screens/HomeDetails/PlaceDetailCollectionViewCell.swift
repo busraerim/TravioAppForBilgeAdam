@@ -13,7 +13,6 @@ class SeeAllCollectionCell: UICollectionViewCell {
     
     public lazy var placeView:CustomView = {
         let view = CustomView()
-//        view.backgroundColor = .black
         return view
     }()
     
@@ -43,8 +42,9 @@ class SeeAllCollectionCell: UICollectionViewCell {
         return lbl
     }()
     
-    func configure(object: HomePlaces) {
-        image.image = UIImage(named: object.imageUrl!)
+    func configure(object: PlaceItem) {
+        let url = URL(string: object.cover_image_url)
+        image.kf.setImage(with: url)
         lblPlace.text = object.place
         lblVisitLocation.text = object.title
     }
@@ -64,7 +64,7 @@ class SeeAllCollectionCell: UICollectionViewCell {
     }
     
     private func setupLayout(){
-//        icon.image = .locationItem
+        icon.image = .locationItem
 
         placeView.edgesToSuperview()
         

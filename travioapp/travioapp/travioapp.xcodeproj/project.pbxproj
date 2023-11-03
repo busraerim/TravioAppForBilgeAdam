@@ -61,6 +61,7 @@
 		43933FA62AF2690400A1AF39 /* PlaceDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43933FA52AF2690400A1AF39 /* PlaceDetailCollectionViewCell.swift */; };
 		439A41A52AF2A5EA00F1D252 /* TabbarUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41A42AF2A5EA00F1D252 /* TabbarUI.swift */; };
 		439A41AE2AF3B90700F1D252 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41AD2AF3B90700F1D252 /* HomeViewModel.swift */; };
+		439A41B12AF4D04A00F1D252 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 439A41B02AF4D04A00F1D252 /* Kingfisher */; };
 		43B4DEF02ADC7A77000E4C18 /* InputBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B4DEEF2ADC7A77000E4C18 /* InputBox.swift */; };
 		43DF6CF52ADC5B8D00DEDD3A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DF6CF42ADC5B8D00DEDD3A /* AppDelegate.swift */; };
 		43DF6CF72ADC5B8D00DEDD3A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DF6CF62ADC5B8D00DEDD3A /* SceneDelegate.swift */; };
@@ -147,6 +148,7 @@
 				4354F2882AE926E60002D438 /* Alamofire in Frameworks */,
 				43DF6D0F2ADC5BF900DEDD3A /* SnapKit in Frameworks */,
 				43DF6D112ADC5BF900DEDD3A /* SnapKit-Dynamic in Frameworks */,
+				439A41B12AF4D04A00F1D252 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,6 +380,7 @@
 				43DF6D0E2ADC5BF900DEDD3A /* SnapKit */,
 				43DF6D102ADC5BF900DEDD3A /* SnapKit-Dynamic */,
 				4354F2872AE926E60002D438 /* Alamofire */,
+				439A41B02AF4D04A00F1D252 /* Kingfisher */,
 			);
 			productName = travioapp;
 			productReference = 43DF6CF12ADC5B8D00DEDD3A /* travioapp.app */;
@@ -411,6 +414,7 @@
 				43DF6D0A2ADC5BE900DEDD3A /* XCRemoteSwiftPackageReference "TinyConstraints" */,
 				43DF6D0D2ADC5BF900DEDD3A /* XCRemoteSwiftPackageReference "SnapKit" */,
 				4354F2862AE926E60002D438 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				439A41AF2AF4D04A00F1D252 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 43DF6CF22ADC5B8D00DEDD3A /* Products */;
 			projectDirPath = "";
@@ -722,6 +726,14 @@
 				minimumVersion = 5.8.0;
 			};
 		};
+		439A41AF2AF4D04A00F1D252 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.10.0;
+			};
+		};
 		43DF6D0A2ADC5BE900DEDD3A /* XCRemoteSwiftPackageReference "TinyConstraints" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/roberthein/TinyConstraints.git";
@@ -745,6 +757,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4354F2862AE926E60002D438 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		439A41B02AF4D04A00F1D252 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 439A41AF2AF4D04A00F1D252 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		43DF6D0B2ADC5BE900DEDD3A /* TinyConstraints */ = {
 			isa = XCSwiftPackageProductDependency;
