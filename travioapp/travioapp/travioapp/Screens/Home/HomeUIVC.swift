@@ -1,5 +1,4 @@
-
-//  
+//
 //  HomeUIVC.swift
 //  travioapp
 //
@@ -12,9 +11,12 @@ import TinyConstraints
 
 class HomeUIVC: UIViewController {
     
-    var popularPlace:[PlaceItem] = []
-    var popularPlaceTitleAndPlaces:[PopularPlaceList] = []
-    var homeList:[[PopularPlaceList]] = []
+    var homeAllPlaces:HomeList = []
+    var popularPlaceWithLimit:[PlaceItem] = []
+    var newPlaceWithLimit:[PlaceItem] = []
+    var popularPlaceAll:[PlaceItem] = []
+    
+
 
     private lazy var travioLogoImage:UIImageView = {
         let image = UIImageView(frame: CGRect(x: 0, y:0, width: 56, height: 62))
@@ -50,7 +52,8 @@ class HomeUIVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
  
-        NetworkingGetDataPopularPlaceWithParams(limit: 5 )
+        networkingGetDataPopularPlaceWithParams(limit: 1 )
+        networkingGetDataPopularPlace()
         
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -59,39 +62,35 @@ class HomeUIVC: UIViewController {
         setupViews()
     }
     
-    func NetworkingGetDataPopularPlace()->[[PopularPlaceList]]{
+    func networkingGetDataPopularPlaceWithParams(limit:Int) -> HomeList{
         let viewModel = HomeViewModel()
               
         viewModel.dataTransferClosure = { [weak self] place in
             guard let this = self else { return }
-            this.popularPlace = place
+            this.popularPlaceWithLimit = place
             this.collectionView.reloadData()
+//            print(this.popularPlaceWithLimit)
+            var popularPlaceTuple = (title:"Popular Places", places: this.popularPlaceWithLimit)
+            this.homeAllPlaces.append(popularPlaceTuple)
 
-            this.popularPlaceTitleAndPlaces.append((title:"Popular Places", places: this.popularPlace))
-            
-            this.homeList.append(this.popularPlaceTitleAndPlaces)
+//            print(this.homeAllPlaces)
         }
-        
-        viewModel.getDataPopularPlaces()
-        return homeList
+        viewModel.getDataPopularPlacesWithParam(limit: limit)
+        return homeAllPlaces
     }
     
-    func NetworkingGetDataPopularPlaceWithParams(limit:Int)->[[PopularPlaceList]]{
+    func networkingGetDataPopularPlace()->[PlaceItem]{
         let viewModel = HomeViewModel()
               
         viewModel.dataTransferClosure = { [weak self] place in
             guard let this = self else { return }
-            this.popularPlace = place
+            this.popularPlaceAll = place
             this.collectionView.reloadData()
-
-            this.popularPlaceTitleAndPlaces.append((title:"Popular Places", places: this.popularPlace))
-            
-            this.homeList.append(this.popularPlaceTitleAndPlaces)
         }
-        
-        viewModel.getDataPopularPlacesWithParam(limit: limit)
-        return homeList
+        viewModel.getDataPopularPlaces()
+        return popularPlaceAll
     }
+   
 
     func setupViews() {
         self.view.addSubviews(backView,travioLogoImage,travioImage)
@@ -124,11 +123,15 @@ extension HomeUIVC:UICollectionViewDelegate{
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderView.reuseId, for: indexPath) as! HeaderView
-        header.label.text = homeList[indexPath.section][0].title
-
+     
+        header.label.text = homeAllPlaces[indexPath.section].title
+        
         header.dataClosure = {
             let vc = SeeAllVC()
-            vc.dataPlaceSeeAll = self.homeList[indexPath.section]
+//            print(self.homeAllPlaces)
+            vc.dataPlaceSeeAll = self.popularPlaceAll
+//            print("dataaaaaaaaaaaaaaaaaaaaaaa \(vc.dataPlaceSeeAll)")
+            print(self.popularPlaceAll)
             self.navigationController?.pushViewController(vc, animated: true)
         }
         return header
@@ -139,17 +142,18 @@ extension HomeUIVC:UICollectionViewDelegate{
 extension HomeUIVC:UICollectionViewDataSource{
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return homeList.count
+        return homeAllPlaces.count
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return homeList[section][0].places.count
+        return homeAllPlaces[section].places.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCollectionCell
-        let object = homeList[indexPath.section][0].places[indexPath.row]
+        let object = homeAllPlaces[indexPath.section].places[indexPath.row]
         cell.configure(object: object)
+//        print(self.homeAllPlaces[indexPath.section].places[indexPath.row])
         return cell
     }
     
@@ -202,3 +206,4 @@ struct HomeUIVC_Preview: PreviewProvider {
     }
 }
 #endif
+

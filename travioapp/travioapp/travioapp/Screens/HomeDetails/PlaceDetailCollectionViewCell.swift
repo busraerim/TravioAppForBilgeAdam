@@ -18,7 +18,7 @@ class SeeAllCollectionCell: UICollectionViewCell {
     
     private lazy var icon:UIImageView = {
         let icon = UIImageView()
-        icon.image = UIImage(named: "Vector-2")
+        icon.image = UIImage(named: "Vector-18")
         return icon
     }()
     
@@ -32,6 +32,7 @@ class SeeAllCollectionCell: UICollectionViewCell {
         let lbl = UILabel()
         lbl.textColor = .black
         lbl.font = UIFont(name: "Poppins-SemiBold", size: 24)
+        lbl.height(36)
         return lbl
     }()
     
@@ -75,6 +76,8 @@ class SeeAllCollectionCell: UICollectionViewCell {
         
         lblVisitLocation.leadingToTrailing(of: image,offset: 8)
         lblVisitLocation.bottom(to: placeView, offset: -26)
+        lblVisitLocation.trailingToSuperview()
+        
  
         icon.leadingToTrailing(of: image, offset:8)
         icon.topToBottom(of: lblVisitLocation)

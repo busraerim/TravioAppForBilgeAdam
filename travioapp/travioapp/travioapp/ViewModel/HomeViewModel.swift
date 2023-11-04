@@ -29,6 +29,10 @@ class HomeViewModel{
 
     
     func getDataPopularPlacesWithParam(limit: Int){
+//        if limit>15{
+//            limit = 10
+//        }
+//        
         var parameters: Parameters = ["limit": "\(limit)"]
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .getPopularWith(params: parameters), callback: { (result:Result<Place,Error>) in
             switch result {

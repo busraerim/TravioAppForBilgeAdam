@@ -11,7 +11,9 @@ import TinyConstraints
 
 class SeeAllVC: UIViewController {
     
-    var dataPlaceSeeAll:[PopularPlaceList] = []
+    var dataPlaceSeeAll:[PlaceItem] = []
+
+//    var dataPlaceSeeAll:[PopularPlaceList] = []
     
     private lazy var customView:CustomView = {
         let view = CustomView()
@@ -46,6 +48,7 @@ class SeeAllVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(red: 0.22, green: 0.678, blue: 0.663, alpha: 1)
+        
         print(dataPlaceSeeAll)
         setupViews()
     }
@@ -77,18 +80,11 @@ class SeeAllVC: UIViewController {
         backView.layoutIfNeeded()
         backView.roundCorners(corners: .topLeft, radius: 80)
         
-        
         labelTitle.topToSuperview(offset:46)
         labelTitle.leadingToSuperview(offset:24)
-//        
-//        customView.topToSuperview(offset: 70)
-//        customView.leadingToSuperview(offset: 24)
-//        customView.trailingToSuperview(offset: 24)
-        
+
         collectionView.backgroundColor = .clear
         collectionView.edgesToSuperview()
-        
-
         
     }
   
@@ -102,13 +98,14 @@ extension SeeAllVC:UICollectionViewDataSource{
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataPlaceSeeAll[0].places.count
+        return dataPlaceSeeAll.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! SeeAllCollectionCell
-        let object = dataPlaceSeeAll[0].places[indexPath.row]
+        let object = dataPlaceSeeAll[indexPath.row]
         cell.configure(object: object)
+
         return cell
     }
     
