@@ -12,9 +12,13 @@ import TinyConstraints
 class HomeUIVC: UIViewController {
     
     var homeAllPlaces:HomeList = []
+    var seeAllPlaces:[[PlaceItem]] = []
+    
     var popularPlaceWithLimit:[PlaceItem] = []
     var newPlaceWithLimit:[PlaceItem] = []
+    
     var popularPlaceAll:[PlaceItem] = []
+    var newPlaceAll:[PlaceItem] = []
     
 
 
@@ -52,14 +56,20 @@ class HomeUIVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
  
-        networkingGetDataPopularPlaceWithParams(limit: 1 )
-        networkingGetDataPopularPlace()
+        getHomeData()
         
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
 
         setupViews()
+    }
+    
+    func getHomeData(){
+        networkingGetDataPopularPlaceWithParams(limit: 2)
+        networkingGetDataNewPlaceWithParams(limit: 1)
+        networkingGetDataPopularPlace()
+        networkingGetDataNewPlace()
     }
     
     func networkingGetDataPopularPlaceWithParams(limit:Int) -> HomeList{
@@ -73,7 +83,7 @@ class HomeUIVC: UIViewController {
             var popularPlaceTuple = (title:"Popular Places", places: this.popularPlaceWithLimit)
             this.homeAllPlaces.append(popularPlaceTuple)
 
-//            print(this.homeAllPlaces)
+//            print("\(this.homeAllPlaces) bundan sonra eklendi mi?????")
         }
         viewModel.getDataPopularPlacesWithParam(limit: limit)
         return homeAllPlaces
@@ -86,9 +96,40 @@ class HomeUIVC: UIViewController {
             guard let this = self else { return }
             this.popularPlaceAll = place
             this.collectionView.reloadData()
+            this.seeAllPlaces.append(this.popularPlaceAll)
         }
         viewModel.getDataPopularPlaces()
         return popularPlaceAll
+    }
+    
+    func networkingGetDataNewPlaceWithParams(limit:Int) -> HomeList{
+        let viewModel = HomeViewModel()
+              
+        viewModel.dataTransferClosure = { [weak self] place in
+            guard let this = self else { return }
+            this.newPlaceWithLimit = place
+            this.collectionView.reloadData()
+//            print(this.newPlaceWithLimit)
+            var newPlaceTuple = (title:"New Places", places: this.newPlaceWithLimit)
+            this.homeAllPlaces.append(newPlaceTuple)
+
+//            print("new place geldi miiiii \(this.homeAllPlaces)")
+        }
+        viewModel.getDataNewPlacesWithParam(limit: limit)
+        return homeAllPlaces
+    }
+    
+    func networkingGetDataNewPlace()->[PlaceItem]{
+        let viewModel = HomeViewModel()
+              
+        viewModel.dataTransferClosure = { [weak self] place in
+            guard let this = self else { return }
+            this.newPlaceAll = place
+            this.collectionView.reloadData()
+            this.seeAllPlaces.append(this.newPlaceAll)
+        }
+        viewModel.getDataNewPlaces()
+        return newPlaceAll
     }
    
 
@@ -129,9 +170,7 @@ extension HomeUIVC:UICollectionViewDelegate{
         header.dataClosure = {
             let vc = SeeAllVC()
 //            print(self.homeAllPlaces)
-            vc.dataPlaceSeeAll = self.popularPlaceAll
-//            print("dataaaaaaaaaaaaaaaaaaaaaaa \(vc.dataPlaceSeeAll)")
-            print(self.popularPlaceAll)
+            vc.dataPlaceSeeAll = self.seeAllPlaces[indexPath.section]
             self.navigationController?.pushViewController(vc, animated: true)
         }
         return header

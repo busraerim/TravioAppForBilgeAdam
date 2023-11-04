@@ -47,6 +47,35 @@ class HomeViewModel{
     
     
     
+    func getDataNewPlacesWithParam(limit: Int){
+
+        var parameters: Parameters = ["limit": "\(limit)"]
+        GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .getPopularWith(params: parameters), callback: { (result:Result<Place,Error>) in
+            switch result {
+            case .success(let obj):
+//                print(obj.data.places)
+                self.dataTransferClosure!(obj.data.places)
+            case .failure(let failure):
+                print(failure.localizedDescription)
+        }
+    })
+}
+    
+    func getDataNewPlaces(){
+        GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .getNew, callback: { (result:Result<Place,Error>) in
+            switch result {
+            case .success(let obj):
+//                print(obj.data.places)
+                self.dataTransferClosure!(obj.data.places)
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+        })
+    }
+    
+    
+    
+    
     
     
     
