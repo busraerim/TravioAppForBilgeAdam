@@ -34,6 +34,57 @@ class SecuritySettingsView: UIViewController {
         return lbl
     }()
     
+    private lazy var changePasswordTitle = createLabel(title: "Change Password")
+    private lazy var privacyTitle = createLabel(title: "Privacy")
+    
+    private lazy var newPassword:ChangePasswordCell = {
+        let pass = ChangePasswordCell()
+        pass.label.text = "New Password"
+        return pass
+    }()
+    
+    private lazy var newPasswordConfirm:ChangePasswordCell = {
+        let pass = ChangePasswordCell()
+        pass.label.text = "New Password Confirm"
+        return pass
+    }()
+    
+    private lazy var passwordStackView = {
+        let sv = UIStackView()
+        sv.spacing = 3
+        sv.axis = .vertical
+        sv.distribution = .fillEqually
+        return sv
+    }()
+    
+    private lazy var cameraLabel:PrivacyCell = {
+        let lbl = PrivacyCell()
+        lbl.labelText.text = "Camera"
+        return lbl
+    }()
+    
+    private lazy var photoLibraryLabel:PrivacyCell = {
+        let lbl = PrivacyCell()
+        lbl.labelText.text = "Photo Library"
+        return lbl
+    }()
+    
+    private lazy var locationLabel:PrivacyCell = {
+        let lbl = PrivacyCell()
+        lbl.labelText.text = "Location"
+        return lbl
+    }()
+    
+    
+    private lazy var privacyStackView = {
+        let sv = UIStackView()
+        sv.spacing = 20
+        sv.axis = .vertical
+        sv.distribution = .fillEqually
+        return sv
+    }()
+    
+    
     private lazy var backButton:UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "backButtonImage"), for: .normal)
@@ -60,26 +111,14 @@ class SecuritySettingsView: UIViewController {
         return btn
     }()
     
-    private lazy var collectionView:UICollectionView = {
-        let layout = makeSettingsLayout()
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.showsVerticalScrollIndicator = false
-        collection.showsHorizontalScrollIndicator = false
-        collection.backgroundColor = .clear
-        
-        collection.register(ChangePasswordCell.self, forCellWithReuseIdentifier: ChangePasswordCell.identifier)
-        collection.register(PrivacyCell.self, forCellWithReuseIdentifier: PrivacyCell.identifier)
-
-        collection.register(SettingsHeaderCollectionReusableView.self,
-                            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                            withReuseIdentifier: SettingsHeaderCollectionReusableView.identifer)
-        
-        collection.dataSource = self
-        collection.delegate = self
-
-        return collection
-    }()
-
+    func createLabel(title:String) -> UILabel {
+        let lbl = UILabel()
+        lbl.text = title
+        lbl.font = UIFont(name: "Poppins-SemiBold", size: 16)
+        lbl.textColor = .background
+        return lbl
+    }
+    
     @objc private func saveButtonTapped(){
         print("saved")
     }
@@ -99,7 +138,9 @@ class SecuritySettingsView: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         view.backgroundColor = .background
         self.view.addSubviews(settingsItemView, backButton, lblTitle)
-        settingsItemView.addSubviews(collectionView, saveButton)
+        passwordStackView.addArrangedSubviews(newPassword, newPasswordConfirm)
+        privacyStackView.addArrangedSubviews(cameraLabel, photoLibraryLabel, locationLabel)
+        settingsItemView.addSubviews(changePasswordTitle, passwordStackView, privacyTitle, privacyStackView, saveButton)
         setupLayout()
     }
     
@@ -119,121 +160,34 @@ class SecuritySettingsView: UIViewController {
             make.leading.trailing.bottom.equalToSuperview()
         })
         
-        collectionView.dropShadow()
-        collectionView.snp.makeConstraints({make in
-            make.centerX.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.top.equalToSuperview().offset(60)
-            make.bottom.equalToSuperview()
+        changePasswordTitle.snp.makeConstraints({ make in
+            make.top.equalToSuperview().offset(40)
+            make.leading.equalToSuperview().offset(20)
+        })
+        
+        passwordStackView.dropShadow()
+        passwordStackView.snp.makeConstraints({ make in
+            make.top.equalTo(changePasswordTitle).offset(30)
+            make.leading.trailing.equalToSuperview().inset(10)
+        })
+        
+        privacyTitle.snp.makeConstraints({ make in
+            make.top.equalTo(passwordStackView.snp.bottom).offset(30)
+            make.leading.equalTo(changePasswordTitle.snp.leading)
+        })
+        
+        privacyStackView.dropShadow()
+        privacyStackView.snp.makeConstraints({ make in
+            make.top.equalTo(privacyTitle).offset(30)
+            make.leading.trailing.equalToSuperview().inset(20)
         })
         
         saveButton.snp.makeConstraints({ make in
-            make.bottom.equalToSuperview().offset(-20)
+            make.bottom.equalToSuperview().offset(-30)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
         })
     }
-    
 }
+    
 
-extension SecuritySettingsView:UICollectionViewDataSource {
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0 {
-            return passwordTitles.count
-        } else {
-            return privacyTitles.count
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    
-        if indexPath.section == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChangePasswordCell.identifier, for: indexPath) as!
-            ChangePasswordCell
-            
-            let pass = passwordTitles[indexPath.item]
-
-            cell.configure(data: pass)
-            return cell
-        } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PrivacyCell.identifier, for: indexPath) as! PrivacyCell
-            
-            let privacy = privacyTitles[indexPath.item]
-            
-            cell.configure(data: privacy)
-            return cell
-        }
-        
-    }
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.register(SettingsHeaderCollectionReusableView.self,
-                            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                            withReuseIdentifier: SettingsHeaderCollectionReusableView.identifer) as! SettingsHeaderCollectionReusableView
-            
-        header.configure()
-        
-        return header
-        
-    }
-    
-    
-}
-
-extension SecuritySettingsView:UICollectionViewDelegateFlowLayout {
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-//        return CGSize(width: view.frame.size.width, height: 20)
-//    }
-}
-
-extension SecuritySettingsView {
-    
-    func makeSettingsLayout() -> UICollectionViewCompositionalLayout {
-        
-        UICollectionViewCompositionalLayout {
-            [weak self] sectionIndex, environment in
-            if sectionIndex == 0 {
-                return self?.passwordLayout()
-            } else {
-                return self?.privacyLayout()
-            }
-        }
-    }
-    
-    func passwordLayout() -> NSCollectionLayoutSection {
-        
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
-        let layoutItem = NSCollectionLayoutItem(layoutSize: itemSize)
-        
-        let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(0.22))
-        let layoutGroup = NSCollectionLayoutGroup.vertical(layoutSize: layoutGroupSize, subitems: [layoutItem] )
-        
-        let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
-        
-        layoutSection.contentInsets = NSDirectionalEdgeInsets(top:0, leading: 0, bottom: 40, trailing: 0)
-        layoutSection.interGroupSpacing = 10
-        
-        return layoutSection
-    }
-    
-    func privacyLayout() -> NSCollectionLayoutSection {
-        
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
-        let layoutItem = NSCollectionLayoutItem(layoutSize: itemSize)
-        
-        let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(0.22))
-        let layoutGroup = NSCollectionLayoutGroup.vertical(layoutSize: layoutGroupSize, subitems: [layoutItem] )
-        
-        let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
-        
-        layoutSection.contentInsets = NSDirectionalEdgeInsets(top:0, leading: 0, bottom: 100, trailing: 0)
-        layoutSection.interGroupSpacing = 10
-        
-        return layoutSection
-    }
-}

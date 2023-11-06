@@ -6,11 +6,10 @@
 //
 
 import UIKit
+import SnapKit
 
-class ChangePasswordCell: UICollectionViewCell {
+class ChangePasswordCell: UIView {
     
-    static let identifier = "passwordCell"
-
     private lazy var backView:UIView = {
         let view = UIView()
         view.clipsToBounds = true
@@ -20,18 +19,32 @@ class ChangePasswordCell: UICollectionViewCell {
         return view
     }()
     
-    private lazy var label:UILabel = {
+    lazy var label:UILabel = {
         let lbl = UILabel()
-        lbl.text = "Example"
         lbl.font = UIFont(name: "Poppins-Medium", size: 14)
+        lbl.textAlignment = .left
         return lbl
     }()
     
-    private lazy var textfieldPassword:UITextField = {
+    lazy var textfieldPassword:UITextField = {
         let tf = UITextField()
+        tf.font = UIFont(name: "Poppins-Medium", size: 12)
+        tf.text = ""
         return tf
     }()
     
+    lazy var stackView:UIStackView = {
+        let sv = UIStackView()
+        sv.axis = .vertical
+        sv.alignment = .leading
+        sv.spacing = 8
+        return sv
+    }()
+    
+    func configure(titleLabel:String, fieldText:String) {
+        label.text = titleLabel
+        textfieldPassword.text = fieldText
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,7 +53,8 @@ class ChangePasswordCell: UICollectionViewCell {
     
     private func setupViews() {
         addSubviews(backView)
-        backView.addSubviews(label, textfieldPassword)
+        stackView.addArrangedSubviews(label, textfieldPassword)
+        backView.addSubviews(stackView)
         
         setupLayouts()
     }
@@ -52,16 +66,13 @@ class ChangePasswordCell: UICollectionViewCell {
 
     
     private func setupLayouts() {
+        backView.snp.makeConstraints{ make in
+            make.edges.equalToSuperview().inset(8)
+        }
         
-        label.snp.makeConstraints({ make in
-            make.top.equalToSuperview().offset(8)
-            make.leading.equalToSuperview().offset(12)
-        })
-        
-        textfieldPassword.snp.makeConstraints({ make in
-            make.bottom.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(20)
-        })
+        stackView.snp.makeConstraints{ make in
+            make.edges.equalToSuperview().inset(8)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -28,11 +28,10 @@ class SeeAllVC: UIViewController {
         return backView
     }()
     
-    private lazy var labelTitle:UILabel = {
+    public lazy var labelTitle:UILabel = {
        let label = UILabel()
         label.textColor = .white
         label.font = UIFont(name: "Poppins-SemiBold", size: 36)
-        label.text = dataPlaceSeeAll[0].title
        return label
     }()
     
@@ -43,6 +42,7 @@ class SeeAllVC: UIViewController {
         cv.dataSource = self
         return cv
     }()
+    
     
   
     override func viewDidLoad() {

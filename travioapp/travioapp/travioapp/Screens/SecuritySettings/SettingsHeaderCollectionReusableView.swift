@@ -6,12 +6,13 @@
 //
 
 import UIKit
+import SnapKit
 
 class SettingsHeaderCollectionReusableView: UICollectionReusableView {
     
     static let identifer = "headerCollectionReusableView"
     
-    private lazy var headerTitle:UILabel = {
+     lazy var headerTitle: UILabel = {
         let lbl = UILabel()
         lbl.text = "Header"
         lbl.textColor = .background
@@ -20,13 +21,20 @@ class SettingsHeaderCollectionReusableView: UICollectionReusableView {
         return lbl
     }()
     
-    public func configure(){
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
         addSubviews(headerTitle)
-        backgroundColor = .gray
+        
+        headerTitle.snp.makeConstraints({ make in
+            make.top.bottom.equalToSuperview().offset(25)
+            make.leading.trailing.equalToSuperview().inset(12)
+        })
+        
+    
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        headerTitle.frame = bounds
+    required init?(coder: NSCoder) {
+        fatalError("Error")
     }
 }

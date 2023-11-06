@@ -170,6 +170,7 @@ extension HomeUIVC:UICollectionViewDelegate{
         header.dataClosure = {
             let vc = SeeAllVC()
 //            print(self.homeAllPlaces)
+            vc.labelTitle.text = self.homeAllPlaces[indexPath.section].title
             vc.dataPlaceSeeAll = self.seeAllPlaces[indexPath.section]
             self.navigationController?.pushViewController(vc, animated: true)
         }

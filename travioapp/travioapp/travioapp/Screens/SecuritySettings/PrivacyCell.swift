@@ -6,36 +6,34 @@
 //
 
 import UIKit
+import SnapKit
 
-class PrivacyCell: UICollectionViewCell {
-        
-    static let identifier = "privacyCell"
+class PrivacyCell: UIView {
     
     private lazy var backView:UIView = {
         let view = UIView()
         view.clipsToBounds = true
         view.backgroundColor = .white
         view.layer.cornerRadius = 16
-        view.frame.size = CGSize(width: frame.width, height: frame.height)
         return view
     }()
     
-    private lazy var labelText:UILabel = {
+    lazy var labelText:UILabel = {
         let lbl = UILabel()
-        lbl.text = "Text"
         lbl.font = UIFont(name: "Poppins-Medium", size: 14)
         return lbl
     }()
     
-    private lazy var toggleSwitch:UISwitch = {
+    lazy var toggleSwitch:UISwitch = {
         let toggle = UISwitch()
         return toggle
     }()
     
     private lazy var stackView:UIStackView = {
         let sv = UIStackView()
-        sv.spacing = 5
+        sv.spacing = 8
         sv.axis = .horizontal
+        sv.alignment = .center
         return sv
     }()
     
@@ -59,11 +57,21 @@ class PrivacyCell: UICollectionViewCell {
 
     
     private func setupLayouts() {
-        
-        stackView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(16)
+        backView.snp.makeConstraints{ make in
+            make.edges.equalToSuperview()
         }
+        
+        stackView.snp.makeConstraints{ make in
+            make.top.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(8)
+            make.height.equalTo(74)
+
+        }
+        
+        toggleSwitch.snp.makeConstraints({make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview()
+        })
     }
     
     required init?(coder aDecoder: NSCoder) {
