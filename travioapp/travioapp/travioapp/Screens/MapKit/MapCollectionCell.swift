@@ -1,46 +1,46 @@
 //
-//  PlaceDetailCollectionViewCell.swift
+//  MapCollectionCell.swift
 //  travioapp
 //
-//  Created by Büşra Erim on 1.11.2023.
+//  Created by Büşra Erim on 6.11.2023.
 //
 
 import UIKit
-import SnapKit
-import TinyConstraints
+import Kingfisher
 
-class SeeAllCollectionCell: UICollectionViewCell {
+class MapCollectionCell: UICollectionViewCell {
     
-    public lazy var placeView:CustomView = {
-        let view = CustomView()
-        
+    public lazy var placeView:UIView = {
+        let view = UIView()
+//        view.backgroundColor = .black
         return view
     }()
     
     private lazy var icon:UIImageView = {
         let icon = UIImageView()
-        icon.image = UIImage(named: "Vector-18")
+        icon.image = UIImage(named: "Vector")
         return icon
     }()
     
     public lazy var image:UIImageView = {
         let image = UIImageView()
-        image.contentMode = .scaleToFill
+        image.contentMode = .scaleAspectFill
+        image.layer.cornerRadius = 20
+        image.clipsToBounds = true
         return image
     }()
     
     private lazy var lblVisitLocation:UILabel = {
         let lbl = UILabel()
-        lbl.textColor = .black
+        lbl.textColor = .white
         lbl.font = UIFont(name: "Poppins-SemiBold", size: 24)
-        lbl.height(36)
         return lbl
     }()
     
     private lazy var lblPlace:UILabel = {
         let lbl = UILabel()
-        lbl.textColor = .black
-        lbl.font = UIFont(name: "Poppins-Light", size: 14)
+        lbl.textColor = .white
+        lbl.font = UIFont(name: "Poppins-Light", size: 16)
         return lbl
     }()
     
@@ -66,25 +66,17 @@ class SeeAllCollectionCell: UICollectionViewCell {
     }
     
     private func setupLayout(){
-        icon.image = .locationItem
+//        icon.image = .locationItem
 
         placeView.edgesToSuperview()
-        
-        image.topToSuperview()
-        image.leadingToSuperview()
-        image.bottomToSuperview()
-        image.width(90)
-        
-        lblVisitLocation.leadingToTrailing(of: image,offset: 8)
+        image.edges(to: placeView)
+        lblVisitLocation.leading(to: placeView, offset: 16)
         lblVisitLocation.bottom(to: placeView, offset: -26)
-        lblVisitLocation.trailingToSuperview()
-        
+        lblPlace.bottom(to: placeView, offset: -5)
+        lblPlace.leading(to: placeView, offset: 31)
+        icon.leading(to: placeView, offset: 16)
+        icon.bottom(to: placeView, offset: -11)
  
-        icon.leadingToTrailing(of: image, offset:8)
-        icon.topToBottom(of: lblVisitLocation)
-        
-        lblPlace.leadingToTrailing(of: icon,offset: 6)
-        lblPlace.centerY(to: icon)
     }
     
     required init?(coder: NSCoder) {

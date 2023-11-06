@@ -39,7 +39,7 @@ class TabbarUI: UITabBarController {
         let selectedImageVisit = UIImage(named: "visit2")
         visitNC.tabBarItem = UITabBarItem(title: "Visits", image: imageVisit, selectedImage: selectedImageVisit)
         
-        let mapVC = SignUpVC()
+        let mapVC = MapVC()
         let mapNC = UINavigationController(rootViewController: mapVC)
         let imageMap = UIImage(named: "map1")
         let selectedImageMap = UIImage(named: "map2")

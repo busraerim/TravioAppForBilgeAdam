@@ -64,6 +64,12 @@
 		439A41A52AF2A5EA00F1D252 /* TabbarUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41A42AF2A5EA00F1D252 /* TabbarUI.swift */; };
 		439A41AE2AF3B90700F1D252 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41AD2AF3B90700F1D252 /* HomeViewModel.swift */; };
 		439A41B12AF4D04A00F1D252 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 439A41B02AF4D04A00F1D252 /* Kingfisher */; };
+		439A41B92AF8C35B00F1D252 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41B82AF8C35B00F1D252 /* MapVC.swift */; };
+		439A41BC2AF8C3A500F1D252 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 439A41BB2AF8C3A500F1D252 /* MapKit.framework */; };
+		439A41BE2AF8D0CD00F1D252 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41BD2AF8D0CD00F1D252 /* MapViewModel.swift */; };
+		439A41C02AF8D1CC00F1D252 /* MapCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41BF2AF8D1CC00F1D252 /* MapCollectionCell.swift */; };
+		439A41C42AF909AC00F1D252 /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41C32AF909AC00F1D252 /* CustomAnnotationView.swift */; };
+		439A41C62AF90D5900F1D252 /* PinImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41C52AF90D5900F1D252 /* PinImage.swift */; };
 		43B4DEF02ADC7A77000E4C18 /* InputBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B4DEEF2ADC7A77000E4C18 /* InputBox.swift */; };
 		43DF6CF52ADC5B8D00DEDD3A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DF6CF42ADC5B8D00DEDD3A /* AppDelegate.swift */; };
 		43DF6CF72ADC5B8D00DEDD3A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DF6CF62ADC5B8D00DEDD3A /* SceneDelegate.swift */; };
@@ -132,6 +138,12 @@
 		43933FA52AF2690400A1AF39 /* PlaceDetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailCollectionViewCell.swift; sourceTree = "<group>"; };
 		439A41A42AF2A5EA00F1D252 /* TabbarUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarUI.swift; sourceTree = "<group>"; };
 		439A41AD2AF3B90700F1D252 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		439A41B82AF8C35B00F1D252 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
+		439A41BB2AF8C3A500F1D252 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		439A41BD2AF8D0CD00F1D252 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		439A41BF2AF8D1CC00F1D252 /* MapCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCollectionCell.swift; sourceTree = "<group>"; };
+		439A41C32AF909AC00F1D252 /* CustomAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
+		439A41C52AF90D5900F1D252 /* PinImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinImage.swift; sourceTree = "<group>"; };
 		43B4DEEF2ADC7A77000E4C18 /* InputBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputBox.swift; sourceTree = "<group>"; };
 		43DF6CF12ADC5B8D00DEDD3A /* travioapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = travioapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43DF6CF42ADC5B8D00DEDD3A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -152,6 +164,7 @@
 				4354F2882AE926E60002D438 /* Alamofire in Frameworks */,
 				43DF6D0F2ADC5BF900DEDD3A /* SnapKit in Frameworks */,
 				43DF6D112ADC5BF900DEDD3A /* SnapKit-Dynamic in Frameworks */,
+				439A41BC2AF8C3A500F1D252 /* MapKit.framework in Frameworks */,
 				439A41B12AF4D04A00F1D252 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -202,6 +215,7 @@
 				35B2D11E2AEA4BF000FD61EF /* SignUpViewModel.swift */,
 				3518A6A82AEBC75F00357E9E /* MyVisitsViewModel.swift */,
 				439A41AD2AF3B90700F1D252 /* HomeViewModel.swift */,
+				439A41BD2AF8D0CD00F1D252 /* MapViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -236,6 +250,7 @@
 		4335A09E2AE91210003C53D5 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				439A41B72AF8C31100F1D252 /* MapKit */,
 				35BB4AD42AF3F1D10030F916 /* EditProfile */,
 				439A41A32AF2A5CC00F1D252 /* Tabbar */,
 				43933F9E2AF16EC800A1AF39 /* HomeDetails */,
@@ -337,11 +352,31 @@
 			path = Tabbar;
 			sourceTree = "<group>";
 		};
+		439A41B72AF8C31100F1D252 /* MapKit */ = {
+			isa = PBXGroup;
+			children = (
+				439A41B82AF8C35B00F1D252 /* MapVC.swift */,
+				439A41BF2AF8D1CC00F1D252 /* MapCollectionCell.swift */,
+				439A41C32AF909AC00F1D252 /* CustomAnnotationView.swift */,
+				439A41C52AF90D5900F1D252 /* PinImage.swift */,
+			);
+			path = MapKit;
+			sourceTree = "<group>";
+		};
+		439A41BA2AF8C3A500F1D252 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				439A41BB2AF8C3A500F1D252 /* MapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		43DF6CE82ADC5B8D00DEDD3A = {
 			isa = PBXGroup;
 			children = (
 				43DF6CF32ADC5B8D00DEDD3A /* travioapp */,
 				43DF6CF22ADC5B8D00DEDD3A /* Products */,
+				439A41BA2AF8C3A500F1D252 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -477,6 +512,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				439A41BE2AF8D0CD00F1D252 /* MapViewModel.swift in Sources */,
 				4354F2912AE92E610002D438 /* NetworkingHelper.swift in Sources */,
 				43DF6CF92ADC5B8D00DEDD3A /* LoginVc.swift in Sources */,
 				43DF6CF52ADC5B8D00DEDD3A /* AppDelegate.swift in Sources */,
@@ -502,11 +538,14 @@
 				3565736C2AF0FA2B007BFC26 /* MyVisitsCell.swift in Sources */,
 				4354F28F2AE92E0C0002D438 /* Router.swift in Sources */,
 				4354F28F2AE92E0C0002D438 /* Router.swift in Sources */,
+				439A41B92AF8C35B00F1D252 /* MapVC.swift in Sources */,
 				43933FA22AF23BB600A1AF39 /* CustomView.swift in Sources */,
+				439A41C42AF909AC00F1D252 /* CustomAnnotationView.swift in Sources */,
 				35BB4AD62AF3F23F0030F916 /* EditProfileVC.swift in Sources */,
 				4354F2932AE92F9E0002D438 /* LoginViewModel.swift in Sources */,
 				35C5193D2AF24BF5003EE986 /* SettingsCellModel.swift in Sources */,
 				356239DF2AF2A0F600328B2B /* SecuritySettingsView.swift in Sources */,
+				439A41C02AF8D1CC00F1D252 /* MapCollectionCell.swift in Sources */,
 				35C5193B2AF24608003EE986 /* SettingsCell.swift in Sources */,
 				4300A4012AEA4BE20011B846 /* UserToken.swift in Sources */,
 				356239E52AF2CE4A00328B2B /* SettingsHeaderCollectionReusableView.swift in Sources */,
@@ -518,6 +557,7 @@
 				350669A42AF10ABE00DBB2F7 /* MyVisitView.swift in Sources */,
 				353A66052AEFC75A002E8FE7 /* PlaceDetailVC.swift in Sources */,
 				35C519392AF245DA003EE986 /* SettingsView.swift in Sources */,
+				439A41C62AF90D5900F1D252 /* PinImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
