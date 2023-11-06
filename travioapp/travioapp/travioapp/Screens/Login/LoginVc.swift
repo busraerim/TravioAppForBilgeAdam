@@ -99,12 +99,19 @@ class LoginVc: UIViewController {
         return LoginViewModel()
     }()
     
-    @objc func btnLoginTapped(){
-            let email = emailView.txtPlaceholder.text!
-            let password = passwordView.txtPlaceholder.text!
-            viewModel.loginControl(email: email, password: password)
-    }
+    @objc func btnLoginTapped() {
+        guard let email = emailView.txtPlaceholder.text,
+              let password = passwordView.txtPlaceholder.text else { return }
         
+        viewModel.loginControl(email: email, password: password)
+        
+        viewModel.onSuccessLogin = { [weak self] in
+            let vc = TabbarUI()
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+
+    }
+    
     @objc func btnSignupTapped(){
         let vc = SignUpVC()
         self.navigationController?.pushViewController(vc, animated: true)
@@ -126,15 +133,14 @@ class LoginVc: UIViewController {
                 }
             }
         }
+        
     }
+    
         
-        
-  
-        
-        
-     override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(red: 0.22, green: 0.68, blue: 0.66, alpha: 1.00)
+         self.navigationController?.isNavigationBarHidden = true
         setupViews()
         initVM()
             

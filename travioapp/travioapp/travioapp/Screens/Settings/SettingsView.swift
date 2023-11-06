@@ -21,7 +21,9 @@ struct SettingsViewC_Preview: PreviewProvider {
 #endif
 
 class SettingsView: UIViewController {
-    
+
+    var profile:ProfileResponse?
+
     let cellModelArray: [SettingsCellModel] = [
         SettingsCellModel(iconImage: "user-alt", label: "Security Settings"),
         SettingsCellModel(iconImage: "app-icon", label: "App Defaults"),
@@ -90,6 +92,11 @@ class SettingsView: UIViewController {
         return lbl
     }()
     
+    func updateUI(with profile:ProfileResponse){
+        lblProfileName.text = profile.full_name
+//        profileImage.image = UIImage(named: profile.pp_url)
+    }
+    
     private lazy var lblProfileName:UILabel = {
         var lbl = UILabel()
         lbl.textColor = .black
@@ -114,12 +121,33 @@ class SettingsView: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    @objc func buttonLogOutTapped(){
-        print("log out")
+    lazy var viewModel:EditProfileViewModel = {
+        return EditProfileViewModel()
+    }()
+    
+    
+    // logout bakılacak
+    @objc func buttonLogOutTapped() {
+        AuthManager.shared.deleteAccessToken()
+
+        let vc = LoginVc() // Replace with the actual login view controller
+        let navigationController = UINavigationController(rootViewController: vc)
+        navigationController.isNavigationBarHidden = true
+
+        UIApplication.shared.windows.first?.rootViewController = navigationController
+        UIApplication.shared.windows.first?.makeKeyAndVisible()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController?.isNavigationBarHidden = true
+
+        viewModel.dataTransferClosure = { [weak self] profile in
+            self?.updateUI(with: profile)
+        }
+        
+        viewModel.getProfileInfo()
         
         setupViews()
     }
@@ -183,9 +211,9 @@ class SettingsView: UIViewController {
 
 extension SettingsView:UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.section == 0 {
+        if indexPath.item == 0 {
             let vc = SecuritySettingsView()
-            vc.navigationController?.pushViewController(vc, animated: true)
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
 }

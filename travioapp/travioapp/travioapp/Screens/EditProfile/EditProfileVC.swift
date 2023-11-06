@@ -10,6 +10,8 @@ import SnapKit
 
 class EditProfileVC: UIViewController {
     
+    var profile:ProfileResponse?
+    
     private lazy var lblTitle:UILabel = {
         let lbl = UILabel()
         lbl.text = "Edit Profile"
@@ -69,14 +71,14 @@ class EditProfileVC: UIViewController {
     
     private lazy var profileRoleView:EditProfileCustomView = {
         let view = EditProfileCustomView()
-        view.textfield.placeholder = "admin role"
+        view.label.text = "Admin"
         view.icon.image = .userRoleIcon
         return view
     }()
     
     private lazy var profileCreatedTimeView:EditProfileCustomView = {
         let view = EditProfileCustomView()
-        view.textfield.placeholder = "created at"
+        view.label.text = "3 Kasım 2023"
         view.icon.image = .userCreatedIcon
         return view
     }()
@@ -113,8 +115,45 @@ class EditProfileVC: UIViewController {
         return sv
     }()
     
+    lazy var viewModel:EditProfileViewModel = {
+        return EditProfileViewModel()
+    }()
+    
+    
+    func updateUI(with profile: ProfileResponse) {
+        lblProfileName.text = profile.full_name
+
+        // Profil fotoğrafı (eğer bir URL kullanılıyorsa, bu URL'yi kullanarak bir görsel indirme işlemi gerekebilir)
+        // Örnek: profilePhotoImageView.setImageFromURL(profile.pp_url)
+
+        
+        //formatlamaya bakılacak
+        profileRoleView.label.text = profile.role
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        if let sourceDate = dateFormatter.date(from: profile.created_at) {
+            dateFormatter.dateFormat = "d MMMM yyyy"
+            dateFormatter.locale = Locale(identifier: "tr_TR")
+            let formattedDate = dateFormatter.string(from: sourceDate)
+            profileCreatedTimeView.label.text = formattedDate
+        } else {
+            print("Tarih dönüşümü başarısız.")
+        }
+        
+        
+        emailInputView.txtPlaceholder.text = profile.email
+        fullNameInputView.txtPlaceholder.text = profile.full_name
+    }
+    
     @objc func saveButtonTapped(){
         print("saved")
+        guard let email = emailInputView.txtPlaceholder.text,
+              let full_name = fullNameInputView.txtPlaceholder.text,
+              let pp_url = profilePhotoImageView.image else { return }
+        
+        viewModel.changeProfileInfo(profile: EditProfileRequest(full_name: full_name, email: email, pp_url: pp_url.description))
+        
+        lblProfileName.text = full_name
     }
     
     @objc func changePhotoButtonTapped(){
@@ -123,21 +162,26 @@ class EditProfileVC: UIViewController {
     
     // image = .close-icon, basınca go back to settings
     @objc func closeButtonTapped(){
-        print("closed")
         self.navigationController?.popViewController(animated: true)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.navigationController?.isNavigationBarHidden = true
         self.view.backgroundColor = .background
+
+        viewModel.dataTransferClosure = { [weak self] profile in
+            self?.updateUI(with: profile)
+        }
+        
+        viewModel.getProfileInfo()
+        
         setupViews()
     }
     
     func setupViews(){
         self.view.addSubviews(lblTitle, closeButton, editProfileItemView)
-        inputsStackView.addArrangedSubviews(emailInputView, fullNameInputView)
+        inputsStackView.addArrangedSubviews(fullNameInputView, emailInputView)
         horizontalStackView.addArrangedSubviews(profileCreatedTimeView, profileRoleView)
         editProfileItemView.addSubviews(profilePhotoImageView, changePhotoButton, lblProfileName, horizontalStackView, inputsStackView, saveButton)
         setupLayout()

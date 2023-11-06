@@ -18,7 +18,9 @@ enum Router {
     case getNew
     case getPopularWith(params:Parameters)
     case getNewPlacesWith(params:Parameters)
-   
+    case me
+    case editProfile(param:Parameters)
+    case changePassword(param:Parameters)
 
     
     var baseURL:String {
@@ -39,6 +41,12 @@ enum Router {
             return "/v1/places/popular"
         case .getNewPlacesWith, .getNew:
             return "/v1/places/last"
+        case .me:
+            return "/v1/me"
+        case .changePassword:
+            return "/v1/change-password"
+        case .editProfile:
+            return "/v1/edit-profile"
         }
     }
     
@@ -47,8 +55,10 @@ enum Router {
         switch self {
         case .login, .register, .refresh:
             return .post
-        case .visits, .getPopular ,.getPopularWith, .getNewPlacesWith, .getNew:
+        case .visits, .getPopular ,.getPopularWith, .getNewPlacesWith, .getNew, .me:
             return .get
+        case .editProfile, .changePassword:
+            return .put
         }
     
     }
@@ -58,19 +68,17 @@ enum Router {
         switch self {
         case .login, .register, .refresh, .getPopular, .getPopularWith, .getNewPlacesWith, .getNew:
             return [:]
-        case .visits:
-            guard let data = KeychainHelper.shared.read(service: "access-token", account: "travio") else { return [:] }
-            let token = String(data: data, encoding: .utf8)!
-            return ["access-token":token]
-       
+        case .visits, .me, .changePassword, .editProfile:
+            guard let token = AuthManager.shared.getAccessToken() else { return [:] }
+            return ["Authorization": "Bearer \(token)"]
         }
     }
     
     var parameters:Parameters? {
         switch self {
-        case .login(let params), .register(let params), .refresh(let params), .getPopularWith(let params), .getNewPlacesWith(let params):
+        case .login(let params), .register(let params), .refresh(let params), .getPopularWith(let params), .getNewPlacesWith(let params), .editProfile(let params), .changePassword(let params):
             return params
-        case .visits, .getPopular, .getNew:
+        case .visits, .getPopular, .getNew, .me:
             return nil
 
         }
@@ -89,7 +97,7 @@ extension Router:URLRequestConvertible {
         
         let encoding:ParameterEncoding = {
             switch method {
-            case .post:
+            case .post, .put:
                 return JSONEncoding.default
             default:
                 return URLEncoding.default
