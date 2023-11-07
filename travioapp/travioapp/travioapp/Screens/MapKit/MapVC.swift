@@ -48,6 +48,13 @@ class MapVC: UIViewController {
         self.mapView.addAnnotation(annotation)
     }
     
+    @objc func longPress(gestureRecognizer: UILongPressGestureRecognizer) {
+        let coordinate = mapView.centerCoordinate
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        mapView.addAnnotation(annotation)
+    }
+    
     private lazy var collectionView:UICollectionView = {
         let layout = makeCollectionViewLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -58,6 +65,10 @@ class MapVC: UIViewController {
   
     override func viewDidLoad() {
         super.viewDidLoad()
+        let gestureRecognizer = UILongPressGestureRecognizer(target: self, action:#selector(longPress))
+        gestureRecognizer.minimumPressDuration = 2.0
+        gestureRecognizer.delegate = self
+        mapView.addGestureRecognizer(gestureRecognizer)
         networkingGetDataAllPlacesMap()
         setupViews()
        
@@ -149,7 +160,7 @@ extension MapVC:MKMapViewDelegate{
                 annotationView!.canShowCallout = true
             }
         
-            let pinImage = UIImage(named: "Vector 1")
+            let pinImage = UIImage(named: "Group 11")
             
             annotationView!.image = pinImage
             mapView.isZoomEnabled = true
@@ -158,18 +169,11 @@ extension MapVC:MKMapViewDelegate{
         }
 }
 
-class CustomAnnotation: NSObject, MKAnnotation {
-    var coordinate: CLLocationCoordinate2D
-    var title: String?
-    var subtitle: String?
-    var id: String?
-    var image: UIImage?
-
-    init(coordinate: CLLocationCoordinate2D) {
-        self.coordinate = coordinate
-        super.init()
-    }
+extension MapVC:UIGestureRecognizerDelegate{
+    
 }
+
+
 
 
 

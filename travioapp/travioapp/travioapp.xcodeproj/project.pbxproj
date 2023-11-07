@@ -68,8 +68,8 @@
 		439A41BC2AF8C3A500F1D252 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 439A41BB2AF8C3A500F1D252 /* MapKit.framework */; };
 		439A41BE2AF8D0CD00F1D252 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41BD2AF8D0CD00F1D252 /* MapViewModel.swift */; };
 		439A41C02AF8D1CC00F1D252 /* MapCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41BF2AF8D1CC00F1D252 /* MapCollectionCell.swift */; };
-		439A41C42AF909AC00F1D252 /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41C32AF909AC00F1D252 /* CustomAnnotationView.swift */; };
 		439A41C62AF90D5900F1D252 /* PinImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41C52AF90D5900F1D252 /* PinImage.swift */; };
+		439A41C82AFA0EE200F1D252 /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41C72AFA0EE200F1D252 /* CustomAnnotation.swift */; };
 		43B4DEF02ADC7A77000E4C18 /* InputBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B4DEEF2ADC7A77000E4C18 /* InputBox.swift */; };
 		43DF6CF52ADC5B8D00DEDD3A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DF6CF42ADC5B8D00DEDD3A /* AppDelegate.swift */; };
 		43DF6CF72ADC5B8D00DEDD3A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DF6CF62ADC5B8D00DEDD3A /* SceneDelegate.swift */; };
@@ -142,8 +142,8 @@
 		439A41BB2AF8C3A500F1D252 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		439A41BD2AF8D0CD00F1D252 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		439A41BF2AF8D1CC00F1D252 /* MapCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCollectionCell.swift; sourceTree = "<group>"; };
-		439A41C32AF909AC00F1D252 /* CustomAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
 		439A41C52AF90D5900F1D252 /* PinImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinImage.swift; sourceTree = "<group>"; };
+		439A41C72AFA0EE200F1D252 /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
 		43B4DEEF2ADC7A77000E4C18 /* InputBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputBox.swift; sourceTree = "<group>"; };
 		43DF6CF12ADC5B8D00DEDD3A /* travioapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = travioapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43DF6CF42ADC5B8D00DEDD3A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -357,8 +357,8 @@
 			children = (
 				439A41B82AF8C35B00F1D252 /* MapVC.swift */,
 				439A41BF2AF8D1CC00F1D252 /* MapCollectionCell.swift */,
-				439A41C32AF909AC00F1D252 /* CustomAnnotationView.swift */,
 				439A41C52AF90D5900F1D252 /* PinImage.swift */,
+				439A41C72AFA0EE200F1D252 /* CustomAnnotation.swift */,
 			);
 			path = MapKit;
 			sourceTree = "<group>";
@@ -540,9 +540,9 @@
 				4354F28F2AE92E0C0002D438 /* Router.swift in Sources */,
 				439A41B92AF8C35B00F1D252 /* MapVC.swift in Sources */,
 				43933FA22AF23BB600A1AF39 /* CustomView.swift in Sources */,
-				439A41C42AF909AC00F1D252 /* CustomAnnotationView.swift in Sources */,
 				35BB4AD62AF3F23F0030F916 /* EditProfileVC.swift in Sources */,
 				4354F2932AE92F9E0002D438 /* LoginViewModel.swift in Sources */,
+				439A41C82AFA0EE200F1D252 /* CustomAnnotation.swift in Sources */,
 				35C5193D2AF24BF5003EE986 /* SettingsCellModel.swift in Sources */,
 				356239DF2AF2A0F600328B2B /* SecuritySettingsView.swift in Sources */,
 				439A41C02AF8D1CC00F1D252 /* MapCollectionCell.swift in Sources */,
