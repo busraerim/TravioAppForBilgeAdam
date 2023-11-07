@@ -18,14 +18,11 @@ enum Router {
     case getNew
     case getPopularWith(params:Parameters)
     case getNewPlacesWith(params:Parameters)
-<<<<<<< HEAD
     case getAllPlacesMap
-   
-=======
     case me
     case editProfile(param:Parameters)
     case changePassword(param:Parameters)
->>>>>>> Sprint3/Networking
+
 
     
     var baseURL:String {
@@ -46,17 +43,14 @@ enum Router {
             return "/v1/places/popular"
         case .getNewPlacesWith, .getNew:
             return "/v1/places/last"
-<<<<<<< HEAD
         case .getAllPlacesMap:
             return "/v1/places"
-=======
         case .me:
             return "/v1/me"
         case .changePassword:
             return "/v1/change-password"
         case .editProfile:
             return "/v1/edit-profile"
->>>>>>> Sprint3/Networking
         }
     }
     
@@ -65,11 +59,7 @@ enum Router {
         switch self {
         case .login, .register, .refresh:
             return .post
-<<<<<<< HEAD
-        case .visits, .getPopular ,.getPopularWith, .getNewPlacesWith, .getNew, .getAllPlacesMap:
-=======
-        case .visits, .getPopular ,.getPopularWith, .getNewPlacesWith, .getNew, .me:
->>>>>>> Sprint3/Networking
+        case .visits, .getPopular ,.getPopularWith, .getNewPlacesWith, .getNew, .getAllPlacesMap, .me:
             return .get
         case .editProfile, .changePassword:
             return .put
@@ -92,11 +82,7 @@ enum Router {
         switch self {
         case .login(let params), .register(let params), .refresh(let params), .getPopularWith(let params), .getNewPlacesWith(let params), .editProfile(let params), .changePassword(let params):
             return params
-<<<<<<< HEAD
-        case .visits, .getPopular, .getNew, .getAllPlacesMap:
-=======
-        case .visits, .getPopular, .getNew, .me:
->>>>>>> Sprint3/Networking
+        case .visits, .getPopular, .getNew, .getAllPlacesMap, .me:
             return nil
 
         }
