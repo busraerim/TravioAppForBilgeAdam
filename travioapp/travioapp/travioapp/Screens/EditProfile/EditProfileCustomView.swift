@@ -10,10 +10,10 @@ import SnapKit
 
 class EditProfileCustomView: UIView {
     
-    lazy var textfield:UITextField = {
-        let tf = UITextField()
-        tf.font = UIFont(name: "Poppins-Medium", size: 12)
-        return tf
+    lazy var label:UILabel = {
+        let lbl = UILabel()
+        lbl.font = UIFont(name: "Poppins-Medium", size: 12)
+        return lbl
     }()
     
     lazy var icon:UIImageView = {
@@ -32,7 +32,7 @@ class EditProfileCustomView: UIView {
     }
     
     private func setupViews() {
-        addSubviews(icon, textfield)
+        addSubviews(icon, label)
         setupLayout()
     }
     
@@ -43,7 +43,7 @@ class EditProfileCustomView: UIView {
             make.centerY.equalToSuperview()
         })
         
-        textfield.snp.makeConstraints({ make in
+        label.snp.makeConstraints({ make in
             make.leading.equalTo(icon.snp.trailing).offset(10)
             make.centerY.equalToSuperview()
         })

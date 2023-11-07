@@ -11,7 +11,6 @@ import Alamofire
 
 class LoginViewModel{
      
-    
     var kisiler:[User] = [] {
         didSet {
             self.transferData?()
@@ -19,15 +18,15 @@ class LoginViewModel{
     }
     
     var alertMessage: String? {
-            didSet {
-                self.showAlertClosure?()
-            }
+        didSet {
+            self.showAlertClosure?()
         }
+    }
     
     
+    var onSuccessLogin:(()->())?
     var showAlertClosure: (()->())?
     var transferData: (()->())?
-    
 
     func loginControl(email:String, password:String){
         if !email.isEmpty && !password.isEmpty{
@@ -44,8 +43,9 @@ class LoginViewModel{
             case .success(let user):
                 if let accessToken = user.accessToken {
                     let accessTokenData = Data(accessToken.utf8)
-                    KeychainHelper.shared.save(accessTokenData, service: "access-token", account: "travio")
+                    AuthManager.shared.saveAccessToken(accessToken)
                     print("Erişim Token'ı: \(accessToken)")
+                    self.onSuccessLogin?()
                 } else {
                     print("Hata: Erişim Token'ı bulunamadı.")
                 }

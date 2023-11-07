@@ -29,7 +29,6 @@ class ChangePasswordCell: UIView {
     lazy var textfieldPassword:UITextField = {
         let tf = UITextField()
         tf.font = UIFont(name: "Poppins-Medium", size: 12)
-        tf.text = ""
         return tf
     }()
     
@@ -73,6 +72,10 @@ class ChangePasswordCell: UIView {
         stackView.snp.makeConstraints{ make in
             make.edges.equalToSuperview().inset(8)
         }
+        
+        textfieldPassword.snp.makeConstraints({ make in
+            make.width.equalTo(325)
+        })
     }
     
     required init?(coder aDecoder: NSCoder) {

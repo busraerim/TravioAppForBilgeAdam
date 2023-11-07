@@ -22,10 +22,6 @@ struct SecuritySettingsView_Preview: PreviewProvider {
 
 class SecuritySettingsView: UIViewController {
     
-    let passwordTitles = ["New Password", "New Password Confirm"]
-    let privacyTitles = ["Camera", "Photo Library", "Location"]
-    let headers = ["Change Password", "Privacy"]
-    
     private lazy var lblTitle:UILabel = {
         let lbl = UILabel()
         lbl.text = "Security Settings"
@@ -119,19 +115,53 @@ class SecuritySettingsView: UIViewController {
         return lbl
     }
     
+    lazy var viewModel:SecuritySettingsViewModel = {
+        return SecuritySettingsViewModel()
+    }()
+    
     @objc private func saveButtonTapped(){
-        print("saved")
+        guard let password = newPassword.textfieldPassword.text,
+              let passwordConfirm = newPasswordConfirm.textfieldPassword.text else { return }
+        
+        viewModel.controlPassworRequirement(password: password, passwordConfirm: passwordConfirm)
+    }
+    
+    
+    func showAlert(buttonTitle:String, title:String, message:String, style: UIAlertAction.Style = .default){
+        let btnRetry = UIAlertAction(title: buttonTitle, style: style)
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(btnRetry)
+        self.present(alert, animated: true)
+    }
+    
+    func initVM(){
+        viewModel.showErrorAlertClosure = { [weak self] () in
+            DispatchQueue.main.async {
+                if let message = self?.viewModel.errorAlertMessage {
+                    self?.showAlert(buttonTitle:"Yeniden Dene", title: "Hata", message: message, style: .destructive)
+                }
+            }
+        }
+        
+        viewModel.showSuccessAlertClosure = { [weak self] () in
+            DispatchQueue.main.async {
+                if let message = self?.viewModel.successAlertMessage {
+                    self?.showAlert(buttonTitle:"Kapat", title: "Başarılı", message: message)
+                }
+                
+            }
+        }
     }
     
     @objc private func backButtonTapped(){
-
         navigationController?.popViewController(animated: true)
-        print("tapped")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        initVM()
     }
     
     private func setupViews() {
