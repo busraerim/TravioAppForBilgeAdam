@@ -13,6 +13,7 @@ class HomeUIVC: UIViewController {
     
     var homeAllPlaces:HomeList = []
     var seeAllPlaces:[[PlaceItem]] = []
+    var myAddedPlaces:[PlaceItem] = []
     
     var popularPlaceWithLimit:[PlaceItem] = []
     var newPlaceWithLimit:[PlaceItem] = []
@@ -70,6 +71,8 @@ class HomeUIVC: UIViewController {
         networkingGetDataNewPlaceWithParams(limit: 1)
         networkingGetDataPopularPlace()
         networkingGetDataNewPlace()
+        networkingGetDataMyAddedPlaces()
+        
     }
     
     func networkingGetDataPopularPlaceWithParams(limit:Int) -> HomeList{
@@ -131,6 +134,24 @@ class HomeUIVC: UIViewController {
         viewModel.getDataNewPlaces()
         return newPlaceAll
     }
+    
+    func networkingGetDataMyAddedPlaces() -> HomeList{
+        let viewModel = HomeViewModel()
+              
+        viewModel.dataTransferClosure = { [weak self] place in
+            guard let this = self else { return }
+            this.myAddedPlaces = place
+            this.collectionView.reloadData()
+//            print(this.newPlaceWithLimit)
+            var myAddedTuple = (title:"My Added Places", places: this.myAddedPlaces)
+            this.homeAllPlaces.append(myAddedTuple)
+
+//            print("new place geldi miiiii \(this.homeAllPlaces)")
+        }
+        viewModel.getDataAllPlacesForUser()
+        return homeAllPlaces
+    }
+ 
    
 
     func setupViews() {
@@ -171,7 +192,16 @@ extension HomeUIVC:UICollectionViewDelegate{
             let vc = SeeAllVC()
 //            print(self.homeAllPlaces)
             vc.labelTitle.text = self.homeAllPlaces[indexPath.section].title
-            vc.dataPlaceSeeAll = self.seeAllPlaces[indexPath.section]
+            switch indexPath.section{
+            case 0 :
+                vc.dataPlaceSeeAll = self.seeAllPlaces[indexPath.section]
+            case 1:
+                vc.dataPlaceSeeAll = self.seeAllPlaces[indexPath.section]
+            case 2:
+                vc.dataPlaceSeeAll = self.homeAllPlaces[indexPath.section].places
+            default:
+                break
+            }
             self.navigationController?.pushViewController(vc, animated: true)
         }
         return header

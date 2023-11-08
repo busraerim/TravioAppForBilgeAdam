@@ -49,6 +49,7 @@ class InputBox: UIView {
     public lazy var txtPlaceholder: UITextField = {
        let placeholder = UITextField()
         placeholder.font = UIFont(name: "Poppins-Light", size: 12)
+        placeholder.autocapitalizationType = .none
         return placeholder
     }()
     
@@ -70,7 +71,6 @@ class InputBox: UIView {
 
     }
     
-
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

@@ -12,6 +12,10 @@ import MapKit
 import CoreLocation
 import TinyConstraints
 
+protocol GetData:AnyObject {
+    func getDataFromApi()
+}
+
 class MapVC: UIViewController {
     
     var mapAllPlaces:[PlaceItem] = []
@@ -31,9 +35,10 @@ class MapVC: UIViewController {
             guard let this = self else { return }
             this.mapAllPlaces = place
             this.collectionView.reloadData()
+            this.addingPin(place: self!.mapAllPlaces)
             
             let initialLocation = CLLocationCoordinate2D(latitude: this.mapAllPlaces[0].latitude, longitude: this.mapAllPlaces[0].longitude)
-            let region = MKCoordinateRegion(center: initialLocation, latitudinalMeters: 500, longitudinalMeters: 500)
+            let region = MKCoordinateRegion(center: initialLocation, latitudinalMeters: 50, longitudinalMeters: 50)
             this.mapView.setRegion(region, animated: true)
 
         }
@@ -41,11 +46,14 @@ class MapVC: UIViewController {
         return mapAllPlaces
     }
     
-    func addingPin(latitude:Double, longitude:Double, title:String){
-        let annotation = CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
-        annotation.title = title
-        //        annotation.title = title
-        self.mapView.addAnnotation(annotation)
+    func addingPin(place: [PlaceItem]){
+        for item in 0..<place.count{
+            
+            let annotation = CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: place[item].latitude, longitude: place[item].longitude))
+            annotation.title = place[item].title
+            self.mapView.addAnnotation(annotation)
+        }
+
     }
     
     @objc func longPress(gestureRecognizer: UILongPressGestureRecognizer) {
@@ -53,6 +61,45 @@ class MapVC: UIViewController {
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
         mapView.addAnnotation(annotation)
+        getCityCountry(gestureRecognizer: gestureRecognizer)
+     }
+    
+    private func getCityCountry(gestureRecognizer: UILongPressGestureRecognizer){
+        let vc = AddNewPlaceVC()
+        if gestureRecognizer.state == .began {
+            let touchPoint = gestureRecognizer.location(in: mapView)
+            let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+                
+            let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+            let geocoder = CLGeocoder()
+
+            vc.delegate = self
+            vc.getCoordinate = {
+                vc.lat = location.coordinate.latitude
+                vc.long = location.coordinate.longitude
+            }
+            
+            geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+                if let error = error {
+                    print("Reverse geocoding hatası: \(error.localizedDescription)")
+                    return
+                }
+
+                if let placemark = placemarks?.first {
+                    if let city = placemark.locality, let country = placemark.country {
+                        let place = "\(city), \(country)"
+                        vc.labelCountry.text = place
+                        print("Şehir: \(city)")
+                        print("Ülke: \(country)")
+                    } else {
+                        print("Şehir ve Ülke bilgisi bulunamadı.")
+                    }
+                } else {
+                    print("Bilgi bulunamadı.")
+                }
+            }
+        }
+        self.present(vc, animated: true)
     }
     
     private lazy var collectionView:UICollectionView = {
@@ -66,10 +113,10 @@ class MapVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let gestureRecognizer = UILongPressGestureRecognizer(target: self, action:#selector(longPress))
-        gestureRecognizer.minimumPressDuration = 2.0
+        gestureRecognizer.minimumPressDuration = 1.0
         gestureRecognizer.delegate = self
         mapView.addGestureRecognizer(gestureRecognizer)
-        networkingGetDataAllPlacesMap()
+        var allPlaces = networkingGetDataAllPlacesMap()
         setupViews()
        
     }
@@ -138,7 +185,6 @@ extension MapVC:UICollectionViewDataSource{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as!  MapCollectionCell
         let object = mapAllPlaces[indexPath.row]
         cell.configure(object: object)
-        self.addingPin(latitude: object.latitude, longitude: object.longitude, title: object.title)
         return cell
     }
     
@@ -173,6 +219,12 @@ extension MapVC:UIGestureRecognizerDelegate{
     
 }
 
+
+extension MapVC:GetData{
+    func getDataFromApi() {
+        networkingGetDataAllPlacesMap()
+    }
+}
 
 
 

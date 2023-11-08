@@ -77,6 +77,13 @@
 		439A41C02AF8D1CC00F1D252 /* MapCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41BF2AF8D1CC00F1D252 /* MapCollectionCell.swift */; };
 		439A41C62AF90D5900F1D252 /* PinImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41C52AF90D5900F1D252 /* PinImage.swift */; };
 		439A41C82AFA0EE200F1D252 /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41C72AFA0EE200F1D252 /* CustomAnnotation.swift */; };
+		439A41CB2AFA176800F1D252 /* AddNewPlaceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41CA2AFA176700F1D252 /* AddNewPlaceVC.swift */; };
+		439A41CD2AFA182000F1D252 /* CustomNewPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41CC2AFA182000F1D252 /* CustomNewPlaceView.swift */; };
+		439A41CF2AFA1BA300F1D252 /* DefaultFontColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41CE2AFA1BA300F1D252 /* DefaultFontColor.swift */; };
+		439A41D12AFA2E2400F1D252 /* AddNewPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41D02AFA2E2400F1D252 /* AddNewPlaceCell.swift */; };
+		439A41D42AFA623300F1D252 /* PageScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41D32AFA623300F1D252 /* PageScroll.swift */; };
+		439A41D62AFA6C8B00F1D252 /* AddNewPlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41D52AFA6C8B00F1D252 /* AddNewPlaceViewModel.swift */; };
+		439A41D82AFA6DB100F1D252 /* AddNewPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41D72AFA6DB100F1D252 /* AddNewPlace.swift */; };
 		43B4DEF02ADC7A77000E4C18 /* InputBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B4DEEF2ADC7A77000E4C18 /* InputBox.swift */; };
 		43DF6CF52ADC5B8D00DEDD3A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DF6CF42ADC5B8D00DEDD3A /* AppDelegate.swift */; };
 		43DF6CF72ADC5B8D00DEDD3A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DF6CF62ADC5B8D00DEDD3A /* SceneDelegate.swift */; };
@@ -157,6 +164,13 @@
 		439A41BF2AF8D1CC00F1D252 /* MapCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCollectionCell.swift; sourceTree = "<group>"; };
 		439A41C52AF90D5900F1D252 /* PinImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinImage.swift; sourceTree = "<group>"; };
 		439A41C72AFA0EE200F1D252 /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
+		439A41CA2AFA176700F1D252 /* AddNewPlaceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPlaceVC.swift; sourceTree = "<group>"; };
+		439A41CC2AFA182000F1D252 /* CustomNewPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNewPlaceView.swift; sourceTree = "<group>"; };
+		439A41CE2AFA1BA300F1D252 /* DefaultFontColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFontColor.swift; sourceTree = "<group>"; };
+		439A41D02AFA2E2400F1D252 /* AddNewPlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPlaceCell.swift; sourceTree = "<group>"; };
+		439A41D32AFA623300F1D252 /* PageScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageScroll.swift; sourceTree = "<group>"; };
+		439A41D52AFA6C8B00F1D252 /* AddNewPlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPlaceViewModel.swift; sourceTree = "<group>"; };
+		439A41D72AFA6DB100F1D252 /* AddNewPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPlace.swift; sourceTree = "<group>"; };
 		43B4DEEF2ADC7A77000E4C18 /* InputBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputBox.swift; sourceTree = "<group>"; };
 		43DF6CF12ADC5B8D00DEDD3A /* travioapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = travioapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43DF6CF42ADC5B8D00DEDD3A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -265,6 +279,7 @@
 			children = (
 				43DF6D082ADC5BCD00DEDD3A /* Extensions.swift */,
 				35C519332AF23EA1003EE986 /* KeychainHelper.swift */,
+				439A41CE2AFA1BA300F1D252 /* DefaultFontColor.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -272,6 +287,8 @@
 		4335A09E2AE91210003C53D5 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				439A41D22AFA620600F1D252 /* PageScroll */,
+				439A41C92AFA174F00F1D252 /* AddNewPlace */,
 				439A41B72AF8C31100F1D252 /* MapKit */,
 				35BB4AD42AF3F1D10030F916 /* EditProfile */,
 				439A41A32AF2A5CC00F1D252 /* Tabbar */,
@@ -319,6 +336,7 @@
 				350726F22AF8DFFC002856B8 /* ChangePasswordRequest.swift */,
 				350726F42AF8E0D5002856B8 /* EditProfileRequest.swift */,
 				350726F62AF8E15B002856B8 /* ProfileResponse.swift */,
+				439A41D72AFA6DB100F1D252 /* AddNewPlace.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -394,6 +412,25 @@
 				439A41BB2AF8C3A500F1D252 /* MapKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		439A41C92AFA174F00F1D252 /* AddNewPlace */ = {
+			isa = PBXGroup;
+			children = (
+				439A41CA2AFA176700F1D252 /* AddNewPlaceVC.swift */,
+				439A41CC2AFA182000F1D252 /* CustomNewPlaceView.swift */,
+				439A41D02AFA2E2400F1D252 /* AddNewPlaceCell.swift */,
+				439A41D52AFA6C8B00F1D252 /* AddNewPlaceViewModel.swift */,
+			);
+			path = AddNewPlace;
+			sourceTree = "<group>";
+		};
+		439A41D22AFA620600F1D252 /* PageScroll */ = {
+			isa = PBXGroup;
+			children = (
+				439A41D32AFA623300F1D252 /* PageScroll.swift */,
+			);
+			path = PageScroll;
 			sourceTree = "<group>";
 		};
 		43DF6CE82ADC5B8D00DEDD3A = {
@@ -554,16 +591,20 @@
 				356239E32AF2A49F00328B2B /* PrivacyCell.swift in Sources */,
 				3518A6A92AEBC75F00357E9E /* MyVisitsViewModel.swift in Sources */,
 				3518A6A32AEBC6FF00357E9E /* MyVisits.swift in Sources */,
+				439A41D12AFA2E2400F1D252 /* AddNewPlaceCell.swift in Sources */,
 				43DF6CF72ADC5B8D00DEDD3A /* SceneDelegate.swift in Sources */,
 				436FD80D2AEC0E1C00EEA47F /* CustomCollectionCell.swift in Sources */,
 				43DF6D092ADC5BCD00DEDD3A /* Extensions.swift in Sources */,
 				43933FA62AF2690400A1AF39 /* PlaceDetailCollectionViewCell.swift in Sources */,
 				35B2D11F2AEA4BF000FD61EF /* SignUpViewModel.swift in Sources */,
 				35B2D1182AE990F200FD61EF /* Register.swift in Sources */,
+				439A41CF2AFA1BA300F1D252 /* DefaultFontColor.swift in Sources */,
 				43933FA02AF16EEC00A1AF39 /* SeeAllVC.swift in Sources */,
 				35BB4AD82AF40C6B0030F916 /* EditProfileCustomView.swift in Sources */,
 				43B4DEF02ADC7A77000E4C18 /* InputBox.swift in Sources */,
+				439A41CB2AFA176800F1D252 /* AddNewPlaceVC.swift in Sources */,
 				435DD3472AEF817900BFA41F /* Visits.swift in Sources */,
+				439A41D42AFA623300F1D252 /* PageScroll.swift in Sources */,
 				3565736C2AF0FA2B007BFC26 /* MyVisitsCell.swift in Sources */,
 				4354F28F2AE92E0C0002D438 /* Router.swift in Sources */,
 				4354F28F2AE92E0C0002D438 /* Router.swift in Sources */,
@@ -574,6 +615,7 @@
 				439A41C82AFA0EE200F1D252 /* CustomAnnotation.swift in Sources */,
 				35C5193D2AF24BF5003EE986 /* SettingsCellModel.swift in Sources */,
 				356239DF2AF2A0F600328B2B /* SecuritySettingsView.swift in Sources */,
+				439A41D82AFA6DB100F1D252 /* AddNewPlace.swift in Sources */,
 				439A41C02AF8D1CC00F1D252 /* MapCollectionCell.swift in Sources */,
 				35C5193B2AF24608003EE986 /* SettingsCell.swift in Sources */,
 				350726F92AF8E25F002856B8 /* EditProfileViewModel.swift in Sources */,
@@ -581,6 +623,7 @@
 				356239E52AF2CE4A00328B2B /* SettingsHeaderCollectionReusableView.swift in Sources */,
 				356239E12AF2A46900328B2B /* ChangePasswordCell.swift in Sources */,
 				4354F28D2AE92CB80002D438 /* User.swift in Sources */,
+				439A41D62AFA6C8B00F1D252 /* AddNewPlaceViewModel.swift in Sources */,
 				350726F72AF8E15B002856B8 /* ProfileResponse.swift in Sources */,
 				35B2D11A2AE9911400FD61EF /* BaseResponse.swift in Sources */,
 				439A41AE2AF3B90700F1D252 /* HomeViewModel.swift in Sources */,
@@ -589,6 +632,7 @@
 				350669A42AF10ABE00DBB2F7 /* MyVisitView.swift in Sources */,
 				353A66052AEFC75A002E8FE7 /* PlaceDetailVC.swift in Sources */,
 				35C519392AF245DA003EE986 /* SettingsView.swift in Sources */,
+				439A41CD2AFA182000F1D252 /* CustomNewPlaceView.swift in Sources */,
 				439A41C62AF90D5900F1D252 /* PinImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

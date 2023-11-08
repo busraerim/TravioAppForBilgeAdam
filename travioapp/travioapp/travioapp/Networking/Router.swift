@@ -22,6 +22,8 @@ enum Router {
     case me
     case editProfile(param:Parameters)
     case changePassword(param:Parameters)
+    case createAPlace(param:Parameters)
+    case getAllPlacesforUser
 
 
     
@@ -51,15 +53,19 @@ enum Router {
             return "/v1/change-password"
         case .editProfile:
             return "/v1/edit-profile"
+        case .createAPlace:
+            return "/v1/places"
+        case .getAllPlacesforUser:
+            return "/v1/places/user"
         }
     }
     
     
     var method:HTTPMethod {
         switch self {
-        case .login, .register, .refresh:
+        case .login, .register, .refresh, .createAPlace:
             return .post
-        case .visits, .getPopular ,.getPopularWith, .getNewPlacesWith, .getNew, .getAllPlacesMap, .me:
+        case .visits, .getPopular ,.getPopularWith, .getNewPlacesWith, .getNew, .getAllPlacesMap, .me ,.getAllPlacesforUser:
             return .get
         case .editProfile, .changePassword:
             return .put
@@ -72,7 +78,7 @@ enum Router {
         switch self {
         case .login, .register, .refresh, .getPopular, .getPopularWith, .getNewPlacesWith, .getNew, .getAllPlacesMap:
             return [:]
-        case .visits, .me, .changePassword, .editProfile:
+        case .visits, .me, .changePassword, .editProfile, .createAPlace, .getAllPlacesforUser:
             guard let token = AuthManager.shared.getAccessToken() else { return [:] }
             return ["Authorization": "Bearer \(token)"]
         }
@@ -80,9 +86,9 @@ enum Router {
     
     var parameters:Parameters? {
         switch self {
-        case .login(let params), .register(let params), .refresh(let params), .getPopularWith(let params), .getNewPlacesWith(let params), .editProfile(let params), .changePassword(let params):
+        case .login(let params), .register(let params), .refresh(let params), .getPopularWith(let params), .getNewPlacesWith(let params), .editProfile(let params), .changePassword(let params), .createAPlace(let params):
             return params
-        case .visits, .getPopular, .getNew, .getAllPlacesMap, .me:
+        case .visits, .getPopular, .getNew, .getAllPlacesMap, .me, .getAllPlacesforUser:
             return nil
 
         }
