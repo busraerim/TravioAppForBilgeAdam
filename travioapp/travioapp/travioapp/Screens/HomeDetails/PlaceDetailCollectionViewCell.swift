@@ -18,7 +18,7 @@ class SeeAllCollectionCell: UICollectionViewCell {
     
     private lazy var icon:UIImageView = {
         let icon = UIImageView()
-        icon.image = UIImage(named: "Vector-20")
+        icon.image = UIImage(named: "Vector-21")
         return icon
     }()
     
@@ -65,7 +65,6 @@ class SeeAllCollectionCell: UICollectionViewCell {
     }
     
     private func setupLayout(){
-        icon.image = .locationItem
 
         placeView.edgesToSuperview()
         

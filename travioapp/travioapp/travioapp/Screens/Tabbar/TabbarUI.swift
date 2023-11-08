@@ -20,6 +20,11 @@ class TabbarUI: UITabBarController {
         self.tabBar.isTranslucent = false
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
     private func setupControllers()->[UIViewController]{
         let homeVC = HomeUIVC()
         let homeNC = UINavigationController(rootViewController: homeVC)
