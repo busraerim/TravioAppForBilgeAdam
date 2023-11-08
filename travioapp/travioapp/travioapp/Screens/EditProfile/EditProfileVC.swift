@@ -126,20 +126,17 @@ class EditProfileVC: UIViewController {
         // Profil fotoğrafı (eğer bir URL kullanılıyorsa, bu URL'yi kullanarak bir görsel indirme işlemi gerekebilir)
         // Örnek: profilePhotoImageView.setImageFromURL(profile.pp_url)
 
-        
-        //formatlamaya bakılacak
         profileRoleView.label.text = profile.role
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-        if let sourceDate = dateFormatter.date(from: profile.created_at) {
-            dateFormatter.dateFormat = "d MMMM yyyy"
-            dateFormatter.locale = Locale(identifier: "tr_TR")
-            let formattedDate = dateFormatter.string(from: sourceDate)
-            profileCreatedTimeView.label.text = formattedDate
-        } else {
-            print("Tarih dönüşümü başarısız.")
-        }
         
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
+        guard let date = df.date(from: profile.created_at) else { return }
+
+        let outdf = DateFormatter()
+        outdf.dateFormat = "d MMMM yyyy"
+        outdf.locale = Locale(identifier: "tr_TR")
+        let formattedDate = outdf.string(from: date)
+        profileCreatedTimeView.label.text = formattedDate
         
         emailInputView.txtPlaceholder.text = profile.email
         fullNameInputView.txtPlaceholder.text = profile.full_name
