@@ -8,15 +8,35 @@
 import Foundation
 import UIKit
 
-struct MyVisits:Codable {
-    var place:String?
-    var title:String?
-    //    var description:String?
-    var imageUrl:String?
-    //    var latitude:String?
-    //    var longitude:String?
-    
-    enum CodingKeys: String, CodingKey {
-        case imageUrl = "cover_image_url"
-    }
+
+struct ApiResponse: Codable {
+    let data: MyVisitData
+    let status: String
+}
+
+struct MyVisitData: Codable {
+    let count: Int
+    let visits: [MyVisit]
+}
+
+struct MyVisit: Codable {
+    let id: String
+    let place_id: String
+    let visited_at: String
+    let created_at: String
+    let updated_at: String
+    let place: MyVisitPlace
+}
+
+struct MyVisitPlace: Codable {
+    let id: String
+    let creator: String
+    let place: String
+    let title: String
+    let description: String
+    let cover_image_url: String
+    let latitude: Double
+    let longitude: Double
+    let created_at: String
+    let updated_at: String
 }

@@ -22,8 +22,10 @@ enum Router {
     case me
     case editProfile(param:Parameters)
     case changePassword(param:Parameters)
-    case createAPlace(param:Parameters)
+    case postAPlace(param:Parameters)
     case getAllPlacesforUser
+    case getAllVisits
+    
 
 
     
@@ -53,19 +55,21 @@ enum Router {
             return "/v1/change-password"
         case .editProfile:
             return "/v1/edit-profile"
-        case .createAPlace:
+        case .postAPlace:
             return "/v1/places"
         case .getAllPlacesforUser:
             return "/v1/places/user"
+        case .getAllVisits:
+            return "/v1/visits"
         }
     }
     
     
     var method:HTTPMethod {
         switch self {
-        case .login, .register, .refresh, .createAPlace:
+        case .login, .register, .refresh, .postAPlace:
             return .post
-        case .visits, .getPopular ,.getPopularWith, .getNewPlacesWith, .getNew, .getAllPlacesMap, .me ,.getAllPlacesforUser:
+        case .visits, .getPopular ,.getPopularWith, .getNewPlacesWith, .getNew, .getAllPlacesMap, .me ,.getAllPlacesforUser, .getAllVisits:
             return .get
         case .editProfile, .changePassword:
             return .put
@@ -78,7 +82,7 @@ enum Router {
         switch self {
         case .login, .register, .refresh, .getPopular, .getPopularWith, .getNewPlacesWith, .getNew, .getAllPlacesMap:
             return [:]
-        case .visits, .me, .changePassword, .editProfile, .createAPlace, .getAllPlacesforUser:
+        case .visits, .me, .changePassword, .editProfile, .postAPlace, .getAllPlacesforUser, .getAllVisits:
             guard let token = AuthManager.shared.getAccessToken() else { return [:] }
             return ["Authorization": "Bearer \(token)"]
         }
@@ -86,9 +90,9 @@ enum Router {
     
     var parameters:Parameters? {
         switch self {
-        case .login(let params), .register(let params), .refresh(let params), .getPopularWith(let params), .getNewPlacesWith(let params), .editProfile(let params), .changePassword(let params), .createAPlace(let params):
+        case .login(let params), .register(let params), .refresh(let params), .getPopularWith(let params), .getNewPlacesWith(let params), .editProfile(let params), .changePassword(let params), .postAPlace(let params):
             return params
-        case .visits, .getPopular, .getNew, .getAllPlacesMap, .me, .getAllPlacesforUser:
+        case .visits, .getPopular, .getNew, .getAllPlacesMap, .me, .getAllPlacesforUser, .getAllVisits:
             return nil
 
         }

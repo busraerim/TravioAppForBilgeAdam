@@ -22,11 +22,13 @@ struct MyVisitsView_Preview: PreviewProvider {
 
 class MyVisitsView: UIViewController {
 
-    var places:[MyVisits] = [
-        MyVisits(place: "Rome", title: "Colleseum", imageUrl: "colleseum"),
-        MyVisits(place: "İstanbul", title: "Süleymaniye", imageUrl: "ayasofya"),
-        MyVisits(place: "İstanbul", title: "Süleymaniye", imageUrl: "suleymaniye"),
-        MyVisits(place: "Rome", title: "Colleseum", imageUrl: "colleseum")]
+    var myVisitsPlace:[MyVisit] = []
+    
+//    var places:[MyVisits] = [
+//        MyVisits(place: "Rome", title: "Colleseum", imageUrl: "colleseum"),
+//        MyVisits(place: "İstanbul", title: "Süleymaniye", imageUrl: "ayasofya"),
+//        MyVisits(place: "İstanbul", title: "Süleymaniye", imageUrl: "suleymaniye"),
+//        MyVisits(place: "Rome", title: "Colleseum", imageUrl: "colleseum")]
     
     private lazy var lblTitle:UILabel = {
         var view = UILabel()
@@ -58,13 +60,28 @@ class MyVisitsView: UIViewController {
         
         return cv
     }()
+    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        networkingMyVisitPlaces()
         setupViews()
     }
 
+    func networkingMyVisitPlaces()->[MyVisit]{
+        let viewModel = HomeViewModel()
+              
+        viewModel.dataTransferClosureForMyVisit = { [weak self] place in
+            guard let this = self else { return }
+            this.myVisitsPlace = place
+            this.collectionView.reloadData()
+        }
+        
+        viewModel.getDataMyVisitsPlaces()
+        return myVisitsPlace
+    }
+    
     private func setupViews(){
         view.backgroundColor = .background
         self.view.addSubviews(lblTitle, itemView)
@@ -94,21 +111,6 @@ class MyVisitsView: UIViewController {
 }
 
 extension MyVisitsView:UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        //print(indexPath)
-    }
-    /*
-     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-     return
-     }
-     */
-    
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         return CGSize(width: (collectionView.frame.width), height: (collectionView.frame.height))
@@ -123,13 +125,12 @@ extension MyVisitsView:UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return places.count
+        return myVisitsPlace.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MyVisitsCell
-        let object = places[indexPath.row]
-        
+        let object = myVisitsPlace[indexPath.row]
         cell.configure(object:object)
         
         return cell

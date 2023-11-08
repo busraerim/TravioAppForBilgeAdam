@@ -132,6 +132,7 @@ class SettingsView: UIViewController {
 
         let vc = LoginVc() // Replace with the actual login view controller
         let navigationController = UINavigationController(rootViewController: vc)
+        
         navigationController.isNavigationBarHidden = true
 
         UIApplication.shared.windows.first?.rootViewController = navigationController
@@ -142,6 +143,8 @@ class SettingsView: UIViewController {
         super.viewDidLoad()
         
         self.navigationController?.isNavigationBarHidden = true
+ 
+
 
         viewModel.dataTransferClosure = { [weak self] profile in
             self?.updateUI(with: profile)
@@ -214,8 +217,13 @@ extension SettingsView:UICollectionViewDelegate {
         if indexPath.item == 0 {
             let vc = SecuritySettingsView()
             navigationController?.pushViewController(vc, animated: true)
+        }else if indexPath.item == 2 {
+            let vc = MyAddedPlacesVC()
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
+    
+    
 }
 
 extension SettingsView:UICollectionViewDataSource {

@@ -13,13 +13,12 @@ class SeeAllCollectionCell: UICollectionViewCell {
     
     public lazy var placeView:CustomView = {
         let view = CustomView()
-        
         return view
     }()
     
     private lazy var icon:UIImageView = {
         let icon = UIImageView()
-        icon.image = UIImage(named: "Vector-18")
+        icon.image = UIImage(named: "Vector-20")
         return icon
     }()
     

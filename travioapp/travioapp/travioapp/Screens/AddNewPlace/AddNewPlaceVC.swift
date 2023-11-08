@@ -104,7 +104,7 @@ class AddNewPlaceVC: UIViewController {
             let place = labelCountry.text!
             let title = txtTitle.text!
             let description = txtDescription.text!
-            let cover_image_url = "https://isbh.tmgrup.com.tr/sbh/2016/04/28/650x344/1461845294399.jpg"
+            let cover_image_url = "https://iasbh.tmgrup.com.tr/55d07f/650/344/0/0/724/380?u=https://isbh.tmgrup.com.tr/sbh/2022/06/13/galata-kulesi-nerede-galata-kulesi-hangi-semtte-nasil-gidilir-k1-1655117338390.jpg"
             let latitude = self.lat
             let longitude = self.long
             

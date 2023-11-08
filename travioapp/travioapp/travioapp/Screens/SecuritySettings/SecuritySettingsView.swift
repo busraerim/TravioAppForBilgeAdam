@@ -156,6 +156,7 @@ class SecuritySettingsView: UIViewController {
     
     @objc private func backButtonTapped(){
         navigationController?.popViewController(animated: true)
+        print("bastı back")
     }
     
     override func viewDidLoad() {
@@ -220,4 +221,7 @@ class SecuritySettingsView: UIViewController {
     }
 }
     
+
+
+
 

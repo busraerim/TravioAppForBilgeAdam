@@ -84,6 +84,7 @@
 		439A41D42AFA623300F1D252 /* PageScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41D32AFA623300F1D252 /* PageScroll.swift */; };
 		439A41D62AFA6C8B00F1D252 /* AddNewPlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41D52AFA6C8B00F1D252 /* AddNewPlaceViewModel.swift */; };
 		439A41D82AFA6DB100F1D252 /* AddNewPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41D72AFA6DB100F1D252 /* AddNewPlace.swift */; };
+		439A41DA2AFB89EF00F1D252 /* MyAddedPlacesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41D92AFB89EF00F1D252 /* MyAddedPlacesVC.swift */; };
 		43B4DEF02ADC7A77000E4C18 /* InputBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B4DEEF2ADC7A77000E4C18 /* InputBox.swift */; };
 		43DF6CF52ADC5B8D00DEDD3A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DF6CF42ADC5B8D00DEDD3A /* AppDelegate.swift */; };
 		43DF6CF72ADC5B8D00DEDD3A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DF6CF62ADC5B8D00DEDD3A /* SceneDelegate.swift */; };
@@ -171,6 +172,7 @@
 		439A41D32AFA623300F1D252 /* PageScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageScroll.swift; sourceTree = "<group>"; };
 		439A41D52AFA6C8B00F1D252 /* AddNewPlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPlaceViewModel.swift; sourceTree = "<group>"; };
 		439A41D72AFA6DB100F1D252 /* AddNewPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPlace.swift; sourceTree = "<group>"; };
+		439A41D92AFB89EF00F1D252 /* MyAddedPlacesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAddedPlacesVC.swift; sourceTree = "<group>"; };
 		43B4DEEF2ADC7A77000E4C18 /* InputBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputBox.swift; sourceTree = "<group>"; };
 		43DF6CF12ADC5B8D00DEDD3A /* travioapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = travioapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43DF6CF42ADC5B8D00DEDD3A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 		4335A09E2AE91210003C53D5 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				439A41DB2AFBA5C900F1D252 /* MyAddedPlace */,
 				439A41D22AFA620600F1D252 /* PageScroll */,
 				439A41C92AFA174F00F1D252 /* AddNewPlace */,
 				439A41B72AF8C31100F1D252 /* MapKit */,
@@ -431,6 +434,14 @@
 				439A41D32AFA623300F1D252 /* PageScroll.swift */,
 			);
 			path = PageScroll;
+			sourceTree = "<group>";
+		};
+		439A41DB2AFBA5C900F1D252 /* MyAddedPlace */ = {
+			isa = PBXGroup;
+			children = (
+				439A41D92AFB89EF00F1D252 /* MyAddedPlacesVC.swift */,
+			);
+			path = MyAddedPlace;
 			sourceTree = "<group>";
 		};
 		43DF6CE82ADC5B8D00DEDD3A = {
@@ -592,6 +603,7 @@
 				3518A6A92AEBC75F00357E9E /* MyVisitsViewModel.swift in Sources */,
 				3518A6A32AEBC6FF00357E9E /* MyVisits.swift in Sources */,
 				439A41D12AFA2E2400F1D252 /* AddNewPlaceCell.swift in Sources */,
+				439A41DA2AFB89EF00F1D252 /* MyAddedPlacesVC.swift in Sources */,
 				43DF6CF72ADC5B8D00DEDD3A /* SceneDelegate.swift in Sources */,
 				436FD80D2AEC0E1C00EEA47F /* CustomCollectionCell.swift in Sources */,
 				43DF6D092ADC5BCD00DEDD3A /* Extensions.swift in Sources */,

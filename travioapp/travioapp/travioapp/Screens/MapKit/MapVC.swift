@@ -18,6 +18,8 @@ protocol GetData:AnyObject {
 
 class MapVC: UIViewController {
     
+    var selectedPin: CustomAnnotation?
+
     var mapAllPlaces:[PlaceItem] = []
     
     private lazy var mapView: MKMapView = {
@@ -38,7 +40,7 @@ class MapVC: UIViewController {
             this.addingPin(place: self!.mapAllPlaces)
             
             let initialLocation = CLLocationCoordinate2D(latitude: this.mapAllPlaces[0].latitude, longitude: this.mapAllPlaces[0].longitude)
-            let region = MKCoordinateRegion(center: initialLocation, latitudinalMeters: 50, longitudinalMeters: 50)
+            let region = MKCoordinateRegion(center: initialLocation, latitudinalMeters: 500, longitudinalMeters: 500)
             this.mapView.setRegion(region, animated: true)
 
         }
@@ -55,6 +57,8 @@ class MapVC: UIViewController {
         }
 
     }
+    
+    
     
     @objc func longPress(gestureRecognizer: UILongPressGestureRecognizer) {
         let coordinate = mapView.centerCoordinate
@@ -107,6 +111,7 @@ class MapVC: UIViewController {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(MapCollectionCell.self, forCellWithReuseIdentifier: "cell")
         cv.dataSource = self
+        cv.delegate = self
         return cv
     }()
   
@@ -171,6 +176,16 @@ extension MapVC {
 
 }
 
+extension MapVC:UICollectionViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let location = CLLocation(latitude: mapAllPlaces[indexPath.row].latitude, longitude: mapAllPlaces[indexPath.row].longitude)
+            let zoomRadius: CLLocationDistance = 400
+            let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: zoomRadius, longitudinalMeters: zoomRadius)
+            mapView.setRegion(region, animated: true)
+
+    }
+}
+
 extension MapVC:UICollectionViewDataSource{
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -213,11 +228,26 @@ extension MapVC:MKMapViewDelegate{
             mapView.isScrollEnabled = true
             return annotationView
         }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if let annotation = view.annotation as? CustomAnnotation {
+            let location = CLLocation(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
+            let zoomRadius: CLLocationDistance = 400
+            let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: zoomRadius, longitudinalMeters: zoomRadius)
+            let index = mapAllPlaces.firstIndex(where: { $0.latitude == annotation.coordinate.latitude && $0.longitude == annotation.coordinate.longitude })
+            let indexPath = IndexPath(item: index!, section: 0)
+                collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+            mapView.setRegion(region, animated: true)
+            
+            }
+        }
+        
 }
 
 extension MapVC:UIGestureRecognizerDelegate{
-    
+
 }
+
 
 
 extension MapVC:GetData{

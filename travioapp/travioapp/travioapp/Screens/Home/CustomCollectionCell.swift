@@ -40,6 +40,12 @@ class CustomCollectionCell: UICollectionViewCell {
         return lbl
     }()
     
+    private lazy var gradient:UIImageView = {
+        let iv = UIImageView()
+        iv.image = UIImage(named: "Rectangle 12")
+        return iv
+    }()
+    
     func configure(object: PlaceItem) {
         let url = URL(string: object.cover_image_url)
         image.kf.setImage(with: url)
@@ -58,6 +64,7 @@ class CustomCollectionCell: UICollectionViewCell {
         backgroundColor = .clear
         self.contentView.addSubview(placeView)
         placeView.addSubviews(image,lblPlace,lblVisitLocation)
+        image.addSubviews(gradient)
         image.addSubview(icon)
         setupLayout()
     }
@@ -67,6 +74,9 @@ class CustomCollectionCell: UICollectionViewCell {
 
         placeView.edgesToSuperview()
         image.edges(to: placeView)
+        gradient.bottomToSuperview()
+        gradient.leadingToSuperview()
+        gradient.trailingToSuperview()
         lblVisitLocation.leading(to: placeView, offset: 16)
         lblVisitLocation.bottom(to: placeView, offset: -26)
         lblPlace.bottom(to: placeView, offset: -5)

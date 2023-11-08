@@ -1,17 +1,17 @@
 //
 //  
-//  PlaceDetailsVC.swift
+//  MyAddedPlacesVC.swift
 //  travioapp
 //
-//  Created by Büşra Erim on 31.10.2023.
+//  Created by Büşra Erim on 8.11.2023.
 //
 //
 import UIKit
 import TinyConstraints
 
-class SeeAllVC: UIViewController {
+class MyAddedPlacesVC: UIViewController {
     
-    var dataPlaceSeeAll:[PlaceItem] = []
+    var myAddedPlacesSetting:[PlaceItem] = []
 
     
     private lazy var customView:CustomView = {
@@ -30,6 +30,7 @@ class SeeAllVC: UIViewController {
     public lazy var labelTitle:UILabel = {
        let label = UILabel()
         label.textColor = .white
+        label.text = "My Added Places"
         label.font = UIFont(name: "Poppins-SemiBold", size: 36)
        return label
     }()
@@ -42,17 +43,29 @@ class SeeAllVC: UIViewController {
         return cv
     }()
     
+    func networkingGetDataMyAddedPlaces(){
+        let viewModel = HomeViewModel()
+              
+        viewModel.dataTransferClosure = { [weak self] place in
+            guard let this = self else { return }
+            this.myAddedPlacesSetting = place
+            this.collectionView.reloadData()
+        }
+        viewModel.getDataAllPlacesForUser()
+        return
+    }
     
-  
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(red: 0.22, green: 0.678, blue: 0.663, alpha: 1)
-        
+        networkingGetDataMyAddedPlaces()
+//        print(dataPlaceSeeAll)
         setupViews()
     }
   
     func setupViews() {
         self.view.addSubviews(backView,labelTitle)
+//        backView.addSubviews(customView)
         backView.addSubviews(collectionView)
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -68,7 +81,6 @@ class SeeAllVC: UIViewController {
     
     @objc func backButtonTapped(){
         self.navigationController?.popViewController(animated: true)
-        
     }
     
     func setupLayout() {
@@ -87,20 +99,19 @@ class SeeAllVC: UIViewController {
   
 }
 
-
-extension SeeAllVC:UICollectionViewDataSource{
+extension MyAddedPlacesVC:UICollectionViewDataSource{
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataPlaceSeeAll.count
+        return myAddedPlacesSetting.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! SeeAllCollectionCell
-        let object = dataPlaceSeeAll[indexPath.row]
+        let object = myAddedPlacesSetting[indexPath.row]
         cell.configure(object: object)
 
         return cell
@@ -109,7 +120,7 @@ extension SeeAllVC:UICollectionViewDataSource{
 }
 
 
-extension SeeAllVC {
+extension MyAddedPlacesVC {
     func makeCollectionViewLayout()->UICollectionViewLayout{
         
         UICollectionViewCompositionalLayout {
@@ -135,15 +146,14 @@ extension SeeAllVC {
 }
 
 
-
 #if DEBUG
 import SwiftUI
 
 @available(iOS 13, *)
-struct PlaceDetailsVC_Preview: PreviewProvider {
+struct MyAddedPlacesVC_Preview: PreviewProvider {
     static var previews: some View{
          
-        SeeAllVC().showPreview()
+        MyAddedPlacesVC().showPreview()
     }
 }
 #endif
