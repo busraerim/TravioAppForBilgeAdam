@@ -89,19 +89,45 @@ class AddNewPlaceVC: UIViewController {
         return button
     }()
     
+    func showAlert(title:String,message:String) {
+       let btnRetry = UIAlertAction(title: "Yeniden Dene", style: .destructive)
+       let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+       alert.addAction(btnRetry)
+       self.present(alert, animated: true)
+   }
+    
     @objc func btnAddTapped(){
-        getCoordinate!()
-        print("addnewplace bastı")
-        let place = labelCountry.text!
-        let title = txtTitle.text!
-        let description = txtDescription.text!
-        let cover_image_url = "https://isbh.tmgrup.com.tr/sbh/2016/04/28/650x344/1461845294399.jpg"
-        let latitude = self.lat
-        let longitude = self.long
         
-        AddNewPlaceViewModel().postNewPlace(request:AddNewPlace(place: place, title: title, description: description, cover_image_url: cover_image_url, latitude: latitude, longitude: longitude))
+        if !txtTitle.text!.isEmpty && !txtDescription.text.isEmpty{
+            getCoordinate!()
+            print("addnewplace bastı")
+            let place = labelCountry.text!
+            let title = txtTitle.text!
+            let description = txtDescription.text!
+            let cover_image_url = "https://isbh.tmgrup.com.tr/sbh/2016/04/28/650x344/1461845294399.jpg"
+            let latitude = self.lat
+            let longitude = self.long
+            
+            AddNewPlaceViewModel().postNewPlace(request:AddNewPlace(place: place, title: title, description: description, cover_image_url: cover_image_url, latitude: latitude, longitude: longitude))
+            
+            self.dismiss(animated: true, completion: {self.delegate?.getDataFromApi()})
+        }else{
+            self.showAlert(title: "Hata", message: "Title ve Description boş bırakılamaz.")
+        }
+    
         
-        self.dismiss(animated: true, completion: {self.delegate?.getDataFromApi()})
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }
     
     override func viewDidLoad() {
