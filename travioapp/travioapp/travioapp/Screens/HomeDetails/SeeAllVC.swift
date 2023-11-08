@@ -34,6 +34,13 @@ class SeeAllVC: UIViewController {
        return label
     }()
     
+    private lazy var buttonSorted:UIButton = {
+        let button = UIButton()
+        button.setImage(.zDenAYa, for: .normal)
+        button.addTarget(self, action: #selector(buttonSortedTapped), for: .touchUpInside)
+        return button
+    }()
+    
     private lazy var collectionView:UICollectionView = {
         let layout = makeCollectionViewLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -42,18 +49,29 @@ class SeeAllVC: UIViewController {
         return cv
     }()
     
+    @objc func buttonSortedTapped(){
+        if buttonSorted.currentImage == .zDenAYa{
+            dataPlaceSeeAll.sort { $0.title ?? "" < $1.title ?? "" }
+            buttonSorted.setImage(.zDenAYa, for: .normal)
+            collectionView.reloadData()
+
+        }else{
+            buttonSorted.setImage(.aDanZYe, for: .normal)
+            dataPlaceSeeAll.sort { $0.title ?? "" > $1.title ?? "" }
+            collectionView.reloadData()
+
+        }
+    }
     
-  
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(red: 0.22, green: 0.678, blue: 0.663, alpha: 1)
-        
         setupViews()
     }
   
     func setupViews() {
         self.view.addSubviews(backView,labelTitle)
-        backView.addSubviews(collectionView)
+        backView.addSubviews(collectionView,buttonSorted)
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
@@ -82,6 +100,9 @@ class SeeAllVC: UIViewController {
 
         collectionView.backgroundColor = .clear
         collectionView.edgesToSuperview()
+        
+        buttonSorted.topToSuperview(offset:24)
+        buttonSorted.trailingToSuperview(offset: 24)
         
     }
   
