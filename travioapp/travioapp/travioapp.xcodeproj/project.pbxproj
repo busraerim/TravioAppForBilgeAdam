@@ -37,6 +37,8 @@
 		35DA0CB82AF9486D00CC9BF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35DA0CB72AF9486D00CC9BF4 /* Assets.xcassets */; };
 		35FBF77E2AFB8B0B0066FCE6 /* DetailBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FBF77D2AFB8B0B0066FCE6 /* DetailBottomView.swift */; };
 		4300A4012AEA4BE20011B846 /* UserToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4300A4002AEA4BE20011B846 /* UserToken.swift */; };
+		43086B5D2AFCC3FE00A70CE3 /* ScrollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43086B5C2AFCC3FE00A70CE3 /* ScrollCell.swift */; };
+		43086B622AFD044C00A70CE3 /* DetailScrollVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43086B612AFD044C00A70CE3 /* DetailScrollVC.swift */; };
 		4354F2882AE926E60002D438 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4354F2872AE926E60002D438 /* Alamofire */; };
 		4354F28D2AE92CB80002D438 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4354F28C2AE92CB80002D438 /* User.swift */; };
 		4354F28F2AE92E0C0002D438 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4354F28E2AE92E0C0002D438 /* Router.swift */; };
@@ -82,7 +84,6 @@
 		439A41CD2AFA182000F1D252 /* CustomNewPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41CC2AFA182000F1D252 /* CustomNewPlaceView.swift */; };
 		439A41CF2AFA1BA300F1D252 /* DefaultFontColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41CE2AFA1BA300F1D252 /* DefaultFontColor.swift */; };
 		439A41D12AFA2E2400F1D252 /* AddNewPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41D02AFA2E2400F1D252 /* AddNewPlaceCell.swift */; };
-		439A41D42AFA623300F1D252 /* PageScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41D32AFA623300F1D252 /* PageScroll.swift */; };
 		439A41D62AFA6C8B00F1D252 /* AddNewPlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41D52AFA6C8B00F1D252 /* AddNewPlaceViewModel.swift */; };
 		439A41D82AFA6DB100F1D252 /* AddNewPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41D72AFA6DB100F1D252 /* AddNewPlace.swift */; };
 		439A41DA2AFB89EF00F1D252 /* MyAddedPlacesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41D92AFB89EF00F1D252 /* MyAddedPlacesVC.swift */; };
@@ -128,6 +129,8 @@
 		35DA0CB72AF9486D00CC9BF4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		35FBF77D2AFB8B0B0066FCE6 /* DetailBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBottomView.swift; sourceTree = "<group>"; };
 		4300A4002AEA4BE20011B846 /* UserToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserToken.swift; sourceTree = "<group>"; };
+		43086B5C2AFCC3FE00A70CE3 /* ScrollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollCell.swift; sourceTree = "<group>"; };
+		43086B612AFD044C00A70CE3 /* DetailScrollVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScrollVC.swift; sourceTree = "<group>"; };
 		4354F28C2AE92CB80002D438 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4354F28E2AE92E0C0002D438 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		4354F2902AE92E610002D438 /* NetworkingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingHelper.swift; sourceTree = "<group>"; };
@@ -171,7 +174,6 @@
 		439A41CC2AFA182000F1D252 /* CustomNewPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNewPlaceView.swift; sourceTree = "<group>"; };
 		439A41CE2AFA1BA300F1D252 /* DefaultFontColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFontColor.swift; sourceTree = "<group>"; };
 		439A41D02AFA2E2400F1D252 /* AddNewPlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPlaceCell.swift; sourceTree = "<group>"; };
-		439A41D32AFA623300F1D252 /* PageScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageScroll.swift; sourceTree = "<group>"; };
 		439A41D52AFA6C8B00F1D252 /* AddNewPlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPlaceViewModel.swift; sourceTree = "<group>"; };
 		439A41D72AFA6DB100F1D252 /* AddNewPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPlace.swift; sourceTree = "<group>"; };
 		439A41D92AFB89EF00F1D252 /* MyAddedPlacesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAddedPlacesVC.swift; sourceTree = "<group>"; };
@@ -434,7 +436,8 @@
 		439A41D22AFA620600F1D252 /* PageScroll */ = {
 			isa = PBXGroup;
 			children = (
-				439A41D32AFA623300F1D252 /* PageScroll.swift */,
+				43086B5C2AFCC3FE00A70CE3 /* ScrollCell.swift */,
+				43086B612AFD044C00A70CE3 /* DetailScrollVC.swift */,
 			);
 			path = PageScroll;
 			sourceTree = "<group>";
@@ -611,16 +614,17 @@
 				43DF6CF72ADC5B8D00DEDD3A /* SceneDelegate.swift in Sources */,
 				436FD80D2AEC0E1C00EEA47F /* CustomCollectionCell.swift in Sources */,
 				43DF6D092ADC5BCD00DEDD3A /* Extensions.swift in Sources */,
+				43086B5D2AFCC3FE00A70CE3 /* ScrollCell.swift in Sources */,
 				43933FA62AF2690400A1AF39 /* PlaceDetailCollectionViewCell.swift in Sources */,
 				35B2D11F2AEA4BF000FD61EF /* SignUpViewModel.swift in Sources */,
 				35B2D1182AE990F200FD61EF /* Register.swift in Sources */,
 				439A41CF2AFA1BA300F1D252 /* DefaultFontColor.swift in Sources */,
+				43086B622AFD044C00A70CE3 /* DetailScrollVC.swift in Sources */,
 				43933FA02AF16EEC00A1AF39 /* SeeAllVC.swift in Sources */,
 				35BB4AD82AF40C6B0030F916 /* EditProfileCustomView.swift in Sources */,
 				43B4DEF02ADC7A77000E4C18 /* InputBox.swift in Sources */,
 				439A41CB2AFA176800F1D252 /* AddNewPlaceVC.swift in Sources */,
 				435DD3472AEF817900BFA41F /* Visits.swift in Sources */,
-				439A41D42AFA623300F1D252 /* PageScroll.swift in Sources */,
 				3565736C2AF0FA2B007BFC26 /* MyVisitsCell.swift in Sources */,
 				4354F28F2AE92E0C0002D438 /* Router.swift in Sources */,
 				4354F28F2AE92E0C0002D438 /* Router.swift in Sources */,

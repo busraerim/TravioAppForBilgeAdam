@@ -19,41 +19,41 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-        //        let vc = LoginVc()
-        //        let rootViewController = UINavigationController(rootViewController: vc)
-        //        window.rootViewController = rootViewController
-        //        window.makeKeyAndVisible()
-        //        self.window = window
-        if hasUserLoggedIn() {
-            let vc = TabbarUI()
-            let rootViewController = UINavigationController(rootViewController: vc)
-            window.rootViewController = rootViewController
-            window.makeKeyAndVisible()
-            self.window = window
-            
-        }else {
-            let vc = LoginVc()
-            let rootViewController = UINavigationController(rootViewController: vc)
-            window.rootViewController = rootViewController
-            window.makeKeyAndVisible()
-            self.window = window
-        }
-    }
-    func hasUserLoggedIn() -> Bool {
-        
-        guard let accessToken = AuthManager.shared.getAccessToken() else {
-            print("accessToken bulunamadı")
-            
-            return false
-        }
-        guard let refreshToken = AuthManager.shared.getAccessToken() else {
-            print("refreshToken bulunamadı")
-            
-            return false
-        }
-        
-        
-        return true
+                let vc = DetailScrollVC()
+                let rootViewController = UINavigationController(rootViewController: vc)
+                window.rootViewController = rootViewController
+                window.makeKeyAndVisible()
+                self.window = window
+//        if hasUserLoggedIn() {
+//            let vc = TabbarUI()
+//            let rootViewController = UINavigationController(rootViewController: vc)
+//            window.rootViewController = rootViewController
+//            window.makeKeyAndVisible()
+//            self.window = window
+//            
+//        }else {
+//            let vc = LoginVc()
+//            let rootViewController = UINavigationController(rootViewController: vc)
+//            window.rootViewController = rootViewController
+//            window.makeKeyAndVisible()
+//            self.window = window
+//        }
+//    }
+//    func hasUserLoggedIn() -> Bool {
+//        
+//        guard let accessToken = AuthManager.shared.getAccessToken() else {
+//            print("accessToken bulunamadı")
+//            
+//            return false
+//        }
+//        guard let refreshToken = AuthManager.shared.getAccessToken() else {
+//            print("refreshToken bulunamadı")
+//            
+//            return false
+//        }
+//        
+//        
+//        return true
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {

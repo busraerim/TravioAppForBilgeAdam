@@ -29,6 +29,14 @@ class MapVC: UIViewController {
         return map
     }()
     
+    private lazy var collectionView:UICollectionView = {
+        let layout = makeCollectionViewLayout()
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.register(MapCollectionCell.self, forCellWithReuseIdentifier: "cell")
+        cv.dataSource = self
+        cv.delegate = self
+        return cv
+    }()
     
     func networkingGetDataAllPlacesMap()->[PlaceItem]{
         let viewModel = MapViewModel()
@@ -106,15 +114,7 @@ class MapVC: UIViewController {
         self.present(vc, animated: true)
     }
     
-    private lazy var collectionView:UICollectionView = {
-        let layout = makeCollectionViewLayout()
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.register(MapCollectionCell.self, forCellWithReuseIdentifier: "cell")
-        cv.dataSource = self
-        cv.delegate = self
-        return cv
-    }()
-  
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         let gestureRecognizer = UILongPressGestureRecognizer(target: self, action:#selector(longPress))
