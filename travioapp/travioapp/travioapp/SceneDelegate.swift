@@ -38,7 +38,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.makeKeyAndVisible()
             self.window = window
         }
-        
     }
     func hasUserLoggedIn() -> Bool {
         

@@ -237,7 +237,6 @@ extension SettingsView:UICollectionViewDataSource {
         let data = cellModelArray[indexPath.item]
         cell.configure(data: data)
         
-        //case e göre sayfalara gitme
         
         return cell
     }
