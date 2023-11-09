@@ -8,38 +8,31 @@
 import UIKit
 
 class ScrollViewController: UIViewController {
-    
-    private lazy var scrollView:UIScrollView = {
-        let scrollView = UIScrollView(frame: view.bounds)
-        scrollView.contentSize = CGSize(width: view.bounds.width * 3, height: view.bounds.height)
-        scrollView.isPagingEnabled = true
-        return scrollView
-    }()
         
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        
-        view.addSubview(scrollView)
-        
-        let imageView1 = UIImageView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
-        imageView1.image = UIImage(named: "Vector-5")
-        imageView1.contentMode = .scaleAspectFit
-        scrollView.addSubview(imageView1)
-        
-        let imageView2 = UIImageView(frame: CGRect(x: view.bounds.width, y: 0, width: view.bounds.width, height: view.bounds.height))
-        imageView2.image = UIImage(named: "Vector-6")
-        imageView2.contentMode = .scaleAspectFit
-        scrollView.addSubview(imageView2)
-        
-        let imageView3 = UIImageView(frame: CGRect(x: view.bounds.width * 2, y: 0, width: view.bounds.width, height: view.bounds.height))
-        imageView3.image = UIImage(named: "Vector-7")
-        imageView3.contentMode = .scaleAspectFit
-        scrollView.addSubview(imageView3)
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            
+            // UIScrollView'ü oluştur
+            let scrollView = UIScrollView()
+            scrollView.backgroundColor = .red
+            scrollView.frame = view.bounds
+            scrollView.contentSize = CGSize(width: view.bounds.width, height: 1000) // İçerik boyutunu ayarla
+            
+            // UILabel oluştur ve içeriği ayarla
+            let label = UILabel()
+            label.text = "ScrollView Örneği\n" + String(repeating: "Bu bir örnek metin. ", count: 20)
+            label.numberOfLines = 0 // Metni birden fazla satırda göster
+            label.frame = CGRect(x: 20, y: 20, width: view.bounds.width - 40, height: 0)
+            label.sizeToFit() // Etiketin boyutunu içeriğe göre otomatik ayarla
+            
+            // UILabel'i UIScrollView'e ekle
+            scrollView.addSubview(label)
+            
+            // UIScrollView'ü görünüme ekle
+            view.addSubview(scrollView)
+        }
     }
-}
+
 
 
 #if DEBUG
