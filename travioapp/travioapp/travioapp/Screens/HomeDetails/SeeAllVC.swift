@@ -36,7 +36,7 @@ class SeeAllVC: UIViewController {
     
     private lazy var buttonSorted:UIButton = {
         let button = UIButton()
-        button.setImage(.zDenAYa, for: .normal)
+        button.setImage(.atoZ, for: .normal)
         button.addTarget(self, action: #selector(buttonSortedTapped), for: .touchUpInside)
         return button
     }()
@@ -50,14 +50,14 @@ class SeeAllVC: UIViewController {
     }()
     
     @objc func buttonSortedTapped(){
-        if buttonSorted.currentImage == .zDenAYa{
+        if buttonSorted.currentImage == .ztoA{
             dataPlaceSeeAll.sort { $0.title ?? "" < $1.title ?? "" }
-            buttonSorted.setImage(.zDenAYa, for: .normal)
+            buttonSorted.setImage(.atoZ, for: .normal)
             collectionView.reloadData()
 
         }else{
-            buttonSorted.setImage(.aDanZYe, for: .normal)
             dataPlaceSeeAll.sort { $0.title ?? "" > $1.title ?? "" }
+            buttonSorted.setImage(.ztoA, for: .normal)
             collectionView.reloadData()
 
         }
@@ -65,6 +65,7 @@ class SeeAllVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        dataPlaceSeeAll.sort { $0.title ?? "" < $1.title ?? "" }
         self.view.backgroundColor = UIColor(red: 0.22, green: 0.678, blue: 0.663, alpha: 1)
         setupViews()
     }

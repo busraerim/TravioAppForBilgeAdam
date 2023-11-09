@@ -24,6 +24,8 @@
 		356239E52AF2CE4A00328B2B /* SettingsHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356239E42AF2CE4A00328B2B /* SettingsHeaderCollectionReusableView.swift */; };
 		3565736C2AF0FA2B007BFC26 /* MyVisitsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3565736B2AF0FA2B007BFC26 /* MyVisitsCell.swift */; };
 		3569A7672AE96486007E53B6 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3569A7662AE96486007E53B6 /* SignUpVC.swift */; };
+		35732B782AFCC12F00A74ED5 /* UploadResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35732B772AFCC12F00A74ED5 /* UploadResponse.swift */; };
+		35732B7A2AFCC7A300A74ED5 /* UploadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35732B792AFCC7A300A74ED5 /* UploadViewModel.swift */; };
 		359024682AEC10800060D6C9 /* Vector.svg in Resources */ = {isa = PBXBuildFile; fileRef = 359024672AEC10800060D6C9 /* Vector.svg */; };
 		35B2D1182AE990F200FD61EF /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B2D1172AE990F200FD61EF /* Register.swift */; };
 		35B2D11A2AE9911400FD61EF /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B2D1192AE9911400FD61EF /* BaseResponse.swift */; };
@@ -115,6 +117,8 @@
 		356239E42AF2CE4A00328B2B /* SettingsHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		3565736B2AF0FA2B007BFC26 /* MyVisitsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVisitsCell.swift; sourceTree = "<group>"; };
 		3569A7662AE96486007E53B6 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
+		35732B772AFCC12F00A74ED5 /* UploadResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadResponse.swift; sourceTree = "<group>"; };
+		35732B792AFCC7A300A74ED5 /* UploadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadViewModel.swift; sourceTree = "<group>"; };
 		359024672AEC10800060D6C9 /* Vector.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Vector.svg; sourceTree = "<group>"; };
 		35B2D1172AE990F200FD61EF /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
 		35B2D1192AE9911400FD61EF /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
@@ -257,6 +261,7 @@
 				439A41BD2AF8D0CD00F1D252 /* MapViewModel.swift */,
 				350726F82AF8E25F002856B8 /* EditProfileViewModel.swift */,
 				350726FA2AF9171A002856B8 /* SecuritySettingsViewModel.swift */,
+				35732B792AFCC7A300A74ED5 /* UploadViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -343,6 +348,7 @@
 				350726F42AF8E0D5002856B8 /* EditProfileRequest.swift */,
 				350726F62AF8E15B002856B8 /* ProfileResponse.swift */,
 				439A41D72AFA6DB100F1D252 /* AddNewPlace.swift */,
+				35732B772AFCC12F00A74ED5 /* UploadResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -617,6 +623,7 @@
 				439A41CF2AFA1BA300F1D252 /* DefaultFontColor.swift in Sources */,
 				43933FA02AF16EEC00A1AF39 /* SeeAllVC.swift in Sources */,
 				35BB4AD82AF40C6B0030F916 /* EditProfileCustomView.swift in Sources */,
+				35732B7A2AFCC7A300A74ED5 /* UploadViewModel.swift in Sources */,
 				43B4DEF02ADC7A77000E4C18 /* InputBox.swift in Sources */,
 				439A41CB2AFA176800F1D252 /* AddNewPlaceVC.swift in Sources */,
 				435DD3472AEF817900BFA41F /* Visits.swift in Sources */,
@@ -634,6 +641,7 @@
 				439A41D82AFA6DB100F1D252 /* AddNewPlace.swift in Sources */,
 				439A41C02AF8D1CC00F1D252 /* MapCollectionCell.swift in Sources */,
 				35C5193B2AF24608003EE986 /* SettingsCell.swift in Sources */,
+				35732B782AFCC12F00A74ED5 /* UploadResponse.swift in Sources */,
 				350726F92AF8E25F002856B8 /* EditProfileViewModel.swift in Sources */,
 				4300A4012AEA4BE20011B846 /* UserToken.swift in Sources */,
 				356239E52AF2CE4A00328B2B /* SettingsHeaderCollectionReusableView.swift in Sources */,

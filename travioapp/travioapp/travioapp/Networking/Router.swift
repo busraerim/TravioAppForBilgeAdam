@@ -25,7 +25,7 @@ enum Router {
     case postAPlace(param:Parameters)
     case getAllPlacesforUser
     case getAllVisits
-    
+    case upload(param:Parameters)
 
 
     
@@ -61,13 +61,15 @@ enum Router {
             return "/v1/places/user"
         case .getAllVisits:
             return "/v1/visits"
+        case .upload:
+            return "/v1/upload"
         }
     }
     
     
     var method:HTTPMethod {
         switch self {
-        case .login, .register, .refresh, .postAPlace:
+        case .login, .register, .refresh, .postAPlace, .upload:
             return .post
         case .visits, .getPopular ,.getPopularWith, .getNewPlacesWith, .getNew, .getAllPlacesMap, .me ,.getAllPlacesforUser, .getAllVisits:
             return .get
@@ -85,12 +87,15 @@ enum Router {
         case .visits, .me, .changePassword, .editProfile, .postAPlace, .getAllPlacesforUser, .getAllVisits:
             guard let token = AuthManager.shared.getAccessToken() else { return [:] }
             return ["Authorization": "Bearer \(token)"]
+        case .upload:
+            let boundary = "Boundary-\(UUID().uuidString)"
+            return ["Content-Type": "multipart/form-data; boundary=\(boundary)"]
         }
     }
     
     var parameters:Parameters? {
         switch self {
-        case .login(let params), .register(let params), .refresh(let params), .getPopularWith(let params), .getNewPlacesWith(let params), .editProfile(let params), .changePassword(let params), .postAPlace(let params):
+        case .login(let params), .register(let params), .refresh(let params), .getPopularWith(let params), .getNewPlacesWith(let params), .editProfile(let params), .changePassword(let params), .postAPlace(let params), .upload(let params):
             return params
         case .visits, .getPopular, .getNew, .getAllPlacesMap, .me, .getAllPlacesforUser, .getAllVisits:
             return nil
