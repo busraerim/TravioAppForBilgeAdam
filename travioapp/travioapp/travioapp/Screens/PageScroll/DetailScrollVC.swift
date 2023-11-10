@@ -8,127 +8,156 @@
 //
 import UIKit
 import TinyConstraints
+import MapKit
+
 
 class DetailScrollVC: UIViewController {
     
-  
+    var detailPlace:PlaceItem?
     
-    private lazy var backView:UIView = {
-        let view = UIView()
-//        view.backgroundColor = .opaqueSeparator
-        return view
+    var getGallery:[Image] = []
+    
+    var images:[String] = []
+    
+    lazy var viewModel: DetailViewModel = {
+        return DetailViewModel()
+    }()
+
+    private lazy var collectionView:UICollectionView = {
+        let layout = makeCollectionViewLayout()
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.register(ScrollCell.self, forCellWithReuseIdentifier: "cell")
+        cv.dataSource = self
+        cv.delegate = self
+        cv.contentInsetAdjustmentBehavior = .never
+        cv.isScrollEnabled = false
+        return cv
     }()
     
-    private lazy var labelTitle:UILabel = {
-        let lbl = UILabel()
-        lbl.textColor = UIColor(red: 0.239, green: 0.239, blue: 0.239, alpha: 1)
-        lbl.font =  UIFont(name: "Poppins-SemiBold", size: 30)
-        lbl.text = "İstanbul"
-//        lbl.backgroundColor = .link
-        lbl.numberOfLines = 0
-        return lbl
-    }()
-    
-    private lazy var lblCreatedDate:UILabel = {
-        let lbl = UILabel()
-        lbl.textColor = UIColor(red: 0.239, green: 0.239, blue: 0.239, alpha: 1)
-        lbl.font = UIFont(name: "Poppins-Regular", size: 14)
-//        lbl.backgroundColor = .link
-        lbl.numberOfLines = 0
-        lbl.text =  "jnfdk"
-        return lbl
-    }()
-    
-    private lazy var lblAddedByWho:UILabel = {
-        let lbl = UILabel()
-        lbl.text = "added by" //creator
-        lbl.textColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
-        lbl.font = UIFont(name: "Poppins-Regular", size: 10)
-//        lbl.backgroundColor = .brown
-        lbl.numberOfLines = 0
-        return lbl
-    }()
-    
-    private lazy var stackView:UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .vertical
-//        stack.backgroundColor = .purple
-        stack.spacing = 10
-        stack.distribution = .fillProportionally
-        return stack
-    }()
-    
-    private lazy var lblDescription:UILabel = {
-        let lbl = UILabel()
-        lbl.textColor = UIColor(red: 0.239, green: 0.239, blue: 0.239, alpha: 1)
-        lbl.font = UIFont(name: "Poppins-Regular", size: 12)
-        lbl.text = "Lorem Ipsum is simply dummy text of thrlngeindustry. Lorem Ipsum has been the industry's standarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjnstandarkjgnkejlrgnjn12635137615271654127645123764512645154175417252176451276415776352"
-        lbl.numberOfLines = 0
-//        lbl.backgroundColor = .darkGray
-        return lbl
-    }()
-    
-    private lazy var mapView: MKMapView = {
-        let map = MKMapView()
-        map.layer.cornerRadius = 16
-        map.clipsToBounds = true
-        return map
+    private lazy var scrollView:ScrollView = {
+        let v = ScrollView()
+        v.labelTitle.text = detailPlace?.place
+        v.lblCreatedDate.text = detailPlace?.creator
+        v.lblAddedByWho.text = "added by \(detailPlace!.created_at)"   
+        v.lblDescription.text = detailPlace?.description
+        let location = CLLocation(latitude: self.detailPlace!.latitude, longitude: self.detailPlace!.longitude)
+        let zoomRadius: CLLocationDistance = 240
+        let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: zoomRadius, longitudinalMeters: zoomRadius)
+        v.mapView.setRegion(region, animated: true)
+        return v
     }()
    
-    private lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.backgroundColor = .link
-        scrollView.isScrollEnabled = true
-        scrollView.isUserInteractionEnabled = true
-        scrollView.delaysContentTouches = false
-        scrollView.alwaysBounceVertical = true
-        scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: 1000)
-        return scrollView
-    }()
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        print("Content Size: \(scrollView.contentSize)")
-       setupViews()
-       
+       super.viewDidLoad()
+       self.getAllGalery(placeId: detailPlace!.id)
+
     }
     
+    public func getAllGalery(placeId:String){
+        viewModel.dataTransferClosure = { [weak self] image in
+            guard let this = self else { return }
+            this.getGallery = image
+            
+            for index in 0..<this.getGallery.count{
+                this.images.append(this.getGallery[index].image_url)
+            }
+            print(this.images)
+            
+            this.setupViews()
+
+        }
+        viewModel.getDataAllPlacesMap(placeId: placeId)
+    }
+     
 
     func setupViews() {
+        self.view.addSubviews(collectionView)
         self.view.addSubviews(scrollView)
-        scrollView.addSubviews(backView)
-        stackView.addArrangedSubviews(labelTitle,lblCreatedDate,lblAddedByWho)
-
-        backView.addSubviews(stackView,mapView,lblDescription)
+        self.view.backgroundColor = UIColor(red: 0.971, green: 0.971, blue: 0.971, alpha: 1)
+        
+        navigationController?.navigationBar.isTranslucent = true
+        
+        let leftButtonImage = UIImage(named:"backWard")
+        let leftBarButton = UIBarButtonItem(image: leftButtonImage, style: .plain, target: self, action: #selector(backButtonTapped))
+        leftBarButton.tintColor = UIColor(hex: "FFFFFF")
+        self.navigationItem.leftBarButtonItem = leftBarButton
         setupLayout()
+    }
+    
+    @objc func backButtonTapped(){
+        self.navigationController?.popViewController(animated: true)
+        
     }
     
     func setupLayout() {
         
-        scrollView.edgesToSuperview()
-                
-        backView.edgesToSuperview(usingSafeArea: true)
-
-        stackView.topToSuperview(offset: 24)
-        stackView.leadingToSuperview(offset: 24)
-        stackView.trailingToSuperview(offset: 24)
-
-        mapView.topToBottom(of: stackView, offset: 16)
-        mapView.leadingToSuperview(offset: 16)
-        mapView.trailingToSuperview(offset: 16)
-        mapView.height(220)
-
-        lblDescription.topToBottom(of: mapView, offset: 24)
-        lblDescription.leadingToSuperview(offset: 16)
-        lblDescription.trailingToSuperview(offset: 16)
+        collectionView.topToSuperview()
+        collectionView.height(230)
+        collectionView.leadingToSuperview()
+        collectionView.trailingToSuperview()
+        collectionView.layoutIfNeeded()
         
-
-
-        
-
+        scrollView.topToBottom(of: collectionView)
+        scrollView.bottomToSuperview()
+        scrollView.leadingToSuperview()
+        scrollView.trailingToSuperview()
     }
-  
 }
+
+extension DetailScrollVC {
+    func makeCollectionViewLayout()->UICollectionViewLayout{
+        
+        UICollectionViewCompositionalLayout {
+            [weak self] sectionIndex, environment in
+            return self?.makeSliderLayoutSection()
+        }
+    }
+    
+    func makeSliderLayoutSection() -> NSCollectionLayoutSection {
+        
+        
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+
+        let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let layoutGroup = NSCollectionLayoutGroup.horizontal(layoutSize: layoutGroupSize, subitems: [item])
+        
+       
+        let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
+        layoutSection.orthogonalScrollingBehavior = .groupPaging
+//        layoutSection.interGroupSpacing = 18
+        return layoutSection
+    }
+
+}
+
+extension DetailScrollVC:UICollectionViewDataSource{
+
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return images.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as!  ScrollCell
+        let object = images[indexPath.row]
+        cell.configure(object: object)
+        return cell
+    }
+    
+}
+
+extension DetailScrollVC:UICollectionViewDelegate{
+}
+
+
+
+
 
 #if DEBUG
 import SwiftUI

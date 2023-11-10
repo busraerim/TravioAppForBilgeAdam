@@ -11,9 +11,10 @@ import Kingfisher
 
 class ScrollCell: UICollectionViewCell {
     
+
         public lazy var placeView:UIView = {
             let view = UIView()
-            view.backgroundColor = .orange
+//            view.backgroundColor = .orange
             return view
         }()
     
@@ -26,16 +27,16 @@ class ScrollCell: UICollectionViewCell {
         public lazy var image:UIImageView = {
             let image = UIImageView()
             image.contentMode = .scaleAspectFill
-            image.layer.cornerRadius = 20
+//            image.layer.cornerRadius = 20
             image.clipsToBounds = true
             return image
         }()
     
-        func configure(object: PlaceItem) {
-            let url = URL(string: object.cover_image_url)
+        func configure(object: String) {
+            let url = URL(string: object)
             image.kf.setImage(with: url)
         }
-        
+ 
         override init(frame: CGRect) {
             super.init(frame: frame)
             setupViews()

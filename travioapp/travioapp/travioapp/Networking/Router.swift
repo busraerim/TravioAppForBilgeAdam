@@ -25,6 +25,7 @@ enum Router {
     case postAPlace(param:Parameters)
     case getAllPlacesforUser
     case getAllVisits
+    case getAllGallerybyPlaceID(id:String)
     
 
 
@@ -61,6 +62,8 @@ enum Router {
             return "/v1/places/user"
         case .getAllVisits:
             return "/v1/visits"
+        case .getAllGallerybyPlaceID(let id):
+            return "/v1/galleries/\(id)"
         }
     }
     
@@ -69,7 +72,7 @@ enum Router {
         switch self {
         case .login, .register, .refresh, .postAPlace:
             return .post
-        case .visits, .getPopular ,.getPopularWith, .getNewPlacesWith, .getNew, .getAllPlacesMap, .me ,.getAllPlacesforUser, .getAllVisits:
+        case .visits, .getPopular ,.getPopularWith, .getNewPlacesWith, .getNew, .getAllPlacesMap, .me ,.getAllPlacesforUser, .getAllVisits, .getAllGallerybyPlaceID:
             return .get
         case .editProfile, .changePassword:
             return .put
@@ -80,7 +83,7 @@ enum Router {
     
     var headers:HTTPHeaders {
         switch self {
-        case .login, .register, .refresh, .getPopular, .getPopularWith, .getNewPlacesWith, .getNew, .getAllPlacesMap:
+        case .login, .register, .refresh, .getPopular, .getPopularWith, .getNewPlacesWith, .getNew, .getAllPlacesMap, .getAllGallerybyPlaceID:
             return [:]
         case .visits, .me, .changePassword, .editProfile, .postAPlace, .getAllPlacesforUser, .getAllVisits:
             guard let token = AuthManager.shared.getAccessToken() else { return [:] }
@@ -92,7 +95,7 @@ enum Router {
         switch self {
         case .login(let params), .register(let params), .refresh(let params), .getPopularWith(let params), .getNewPlacesWith(let params), .editProfile(let params), .changePassword(let params), .postAPlace(let params):
             return params
-        case .visits, .getPopular, .getNew, .getAllPlacesMap, .me, .getAllPlacesforUser, .getAllVisits:
+        case .visits, .getPopular, .getNew, .getAllPlacesMap, .me, .getAllPlacesforUser, .getAllVisits, .getAllGallerybyPlaceID:
             return nil
 
         }

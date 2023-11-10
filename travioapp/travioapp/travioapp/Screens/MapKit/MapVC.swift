@@ -117,6 +117,11 @@ class MapVC: UIViewController {
  
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+        
         let gestureRecognizer = UILongPressGestureRecognizer(target: self, action:#selector(longPress))
         gestureRecognizer.minimumPressDuration = 1.0
         gestureRecognizer.delegate = self
@@ -182,7 +187,9 @@ extension MapVC:UICollectionViewDelegate{
             let zoomRadius: CLLocationDistance = 400
             let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: zoomRadius, longitudinalMeters: zoomRadius)
             mapView.setRegion(region, animated: true)
-
+        let vc = DetailScrollVC()  
+        vc.detailPlace = mapAllPlaces[indexPath.row]
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 

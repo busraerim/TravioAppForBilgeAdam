@@ -58,7 +58,6 @@ class HomeUIVC: UIViewController {
         super.viewDidLoad()
  
         getHomeData()
-        
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
@@ -72,7 +71,6 @@ class HomeUIVC: UIViewController {
         networkingGetDataPopularPlace()
         networkingGetDataNewPlace()
         networkingGetDataMyAddedPlaces()
-        
     }
     
     func networkingGetDataPopularPlaceWithParams(limit:Int) -> HomeList{
