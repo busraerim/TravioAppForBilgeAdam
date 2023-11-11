@@ -128,7 +128,7 @@ class SettingsView: UIViewController {
     
     // logout bakılacak
     @objc func buttonLogOutTapped() {
-        AuthManager.shared.deleteAccessToken()
+        AuthManager.shared.deleteToken(accountIdentifier: "access-token")
 
         let vc = LoginVc() // Replace with the actual login view controller
         let navigationController = UINavigationController(rootViewController: vc)
@@ -214,12 +214,27 @@ class SettingsView: UIViewController {
 
 extension SettingsView:UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.item == 0 {
+        switch indexPath.item {
+        case 0:
             let vc = SecuritySettingsView()
             navigationController?.pushViewController(vc, animated: true)
-        }else if indexPath.item == 2 {
+//        case 1:
+//            let vc = AppDefaultVC()
+//            navigationController?.pushViewController(vc, animated: true)
+        case 2:
             let vc = MyAddedPlacesVC()
             navigationController?.pushViewController(vc, animated: true)
+        case 3:
+            let vc = HelpSupportVC()
+            navigationController?.pushViewController(vc, animated: true)
+//        case 4:
+//            let vc = AboutVC()
+//            navigationController?.pushViewController(vc, animated: true)
+//        case 5:
+//            let vc = TermOfUsesVC()
+//            navigationController?.pushViewController(vc, animated: true)
+        default:
+            break
         }
     }
     

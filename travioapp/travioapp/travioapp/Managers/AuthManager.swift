@@ -13,55 +13,59 @@ class AuthManager {
     
     private let keychainService = "com.travio"
     
-    func saveAccessToken(_ token: String) {
+    func saveToken(_ token: String, accountIdentifier: String) {
         if let data = token.data(using: .utf8) {
             let query: [String: Any] = [
                 kSecClass as String: kSecClassGenericPassword,
-                kSecAttrService as String: keychainService
+                kSecAttrService as String: keychainService,
+                kSecAttrAccount as String: accountIdentifier,
+                kSecValueData as String: data
             ]
-            
+
             var existingItem: CFTypeRef?
             let status = SecItemCopyMatching(query as CFDictionary, &existingItem)
-            
+
             if status == errSecSuccess {
                 let attributesToUpdate: [String: Any] = [
                     kSecValueData as String: data
                 ]
-                
+
                 let updateStatus = SecItemUpdate(query as CFDictionary, attributesToUpdate as CFDictionary)
-                
+
                 if updateStatus != errSecSuccess {
-                    print("Error updating access token in Keychain: \(updateStatus)")
+                    print("Error updating token in Keychain: \(updateStatus)")
                 }
             } else if status == errSecItemNotFound {
                 let newItem: [String: Any] = [
                     kSecClass as String: kSecClassGenericPassword,
                     kSecAttrService as String: keychainService,
+                    kSecAttrAccount as String: accountIdentifier,
                     kSecValueData as String: data
                 ]
-                
+
                 let addStatus = SecItemAdd(newItem as CFDictionary, nil)
-                
+
                 if addStatus != errSecSuccess {
-                    print("Error adding access token to Keychain: \(addStatus)")
+                    print("Error adding token to Keychain: \(addStatus)")
                 }
             } else {
                 print("Error accessing Keychain: \(status)")
             }
         }
     }
-
-    func getAccessToken() -> String? {
+    
+    func getToken(accountIdentifier: String) -> String? {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: keychainService,
+            kSecAttrAccount as String: accountIdentifier,
             kSecMatchLimit as String: kSecMatchLimitOne,
             kSecReturnData as String: kCFBooleanTrue
         ]
-        
+
         var item: CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &item)
-        
+
         if status == errSecSuccess, let data = item as? Data, let token = String(data: data, encoding: .utf8) {
             return token
         } else {
@@ -69,9 +73,10 @@ class AuthManager {
         }
     }
     
-    func deleteAccessToken() {
+    func deleteToken(accountIdentifier: String) {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: accountIdentifier,
             kSecAttrService as String: keychainService
         ]
         

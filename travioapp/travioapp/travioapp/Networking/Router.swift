@@ -85,7 +85,7 @@ enum Router {
         case .login, .register, .refresh, .getPopular, .getPopularWith, .getNewPlacesWith, .getNew, .getAllPlacesMap:
             return [:]
         case .visits, .me, .changePassword, .editProfile, .postAPlace, .getAllPlacesforUser, .getAllVisits:
-            guard let token = AuthManager.shared.getAccessToken() else { return [:] }
+            guard let token = AuthManager.shared.getToken(accountIdentifier: "access-token") else { return [:] }
             return ["Authorization": "Bearer \(token)"]
         case .upload:
             let boundary = "Boundary-\(UUID().uuidString)"

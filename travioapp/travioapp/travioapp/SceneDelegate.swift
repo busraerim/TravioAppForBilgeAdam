@@ -41,12 +41,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     func hasUserLoggedIn() -> Bool {
         
-        guard let accessToken = AuthManager.shared.getAccessToken() else {
+        guard let accessToken = AuthManager.shared.getToken(accountIdentifier: "access-token") else {
             print("accessToken bulunamadı")
             
             return false
         }
-        guard let refreshToken = AuthManager.shared.getAccessToken() else {
+        guard let refreshToken = AuthManager.shared.getToken(accountIdentifier: "refresh-token") else {
             print("refreshToken bulunamadı")
             
             return false

@@ -9,8 +9,6 @@ import UIKit
 
 class SettingsCell: UICollectionViewCell {
     
-    var buttonAction: (() -> Void)?
-    
     func configure(data: SettingsCellModel){
         label.text = data.label
         iconImageView.image = UIImage(named: data.iconImage)
@@ -42,7 +40,6 @@ class SettingsCell: UICollectionViewCell {
     private lazy var button:UIButton = {
         let btn = UIButton(type: .custom)
         btn.setImage(.arrowRight, for: .normal)
-        btn.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return btn
     }()
     
@@ -52,11 +49,6 @@ class SettingsCell: UICollectionViewCell {
         sv.spacing = 8
         return sv
     }()
-    
-    
-    @objc private func buttonTapped() {
-        buttonAction?()
-    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

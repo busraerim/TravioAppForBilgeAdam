@@ -36,6 +36,10 @@ class LoginViewModel{
         }
     }
 
+    func getRefreshToken(){
+        
+    }
+    
     func postData(email:String,password:String){
         let params = [ "email": email, "password": password]
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .login(param: params), callback: { (result:Result<UserToken,Error>) in
@@ -43,11 +47,18 @@ class LoginViewModel{
             case .success(let user):
                 if let accessToken = user.accessToken {
                     let accessTokenData = Data(accessToken.utf8)
-                    AuthManager.shared.saveAccessToken(accessToken)
+                    AuthManager.shared.saveToken(accessToken, accountIdentifier: "access-token")
                     print("Erişim Token'ı: \(accessToken)")
                     self.onSuccessLogin?()
                 } else {
                     print("Hata: Erişim Token'ı bulunamadı.")
+                }
+                if let refreshToken = user.refreshToken {
+                    let refreshTokenData = Data(refreshToken.utf8)
+                    AuthManager.shared.saveToken(refreshToken, accountIdentifier: "refresh-token")
+                    print("refresh token: \(refreshToken)")
+                }else {
+                    print("Hata: Refresh Token'ı bulunamadı.")
                 }
             case .failure(let failure):
                 if failure.localizedDescription == "Response status code was unacceptable: 401."{
