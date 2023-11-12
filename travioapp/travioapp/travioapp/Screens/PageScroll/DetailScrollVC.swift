@@ -37,8 +37,8 @@ class DetailScrollVC: UIViewController {
     private lazy var scrollView:ScrollView = {
         let v = ScrollView()
         v.labelTitle.text = detailPlace?.place
-        v.lblCreatedDate.text = detailPlace?.creator
-        v.lblAddedByWho.text = "added by \(detailPlace!.created_at)"   
+        v.lblCreatedDate.text = detailPlace!.created_at
+        v.lblAddedByWho.text = "added by @\(detailPlace!.creator)"
         v.lblDescription.text = detailPlace?.description
         let location = CLLocation(latitude: self.detailPlace!.latitude, longitude: self.detailPlace!.longitude)
         let zoomRadius: CLLocationDistance = 240
@@ -62,6 +62,11 @@ class DetailScrollVC: UIViewController {
             for index in 0..<this.getGallery.count{
                 this.images.append(this.getGallery[index].image_url)
             }
+            
+            if this.images.count == 0{
+                this.images.append("https://yekpar.com/writable/uploads/medias/files/istockphoto-1357365823-612x612.jpg")
+            }
+            
             print(this.images)
             
             this.setupViews()

@@ -18,6 +18,7 @@ class DetailViewModel{
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .getAllGallerybyPlaceID(id: placeId), callback: { (result:Result<APIResponse,Error>) in
             switch result {
             case .success(let obj):
+                print(obj.data.images)
                 self.dataTransferClosure!(obj.data.images)
             case .failure(let failure):
                 print(failure.localizedDescription)

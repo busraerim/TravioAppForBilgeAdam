@@ -40,6 +40,7 @@ class MyAddedPlacesVC: UIViewController {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(SeeAllCollectionCell.self, forCellWithReuseIdentifier: "cell")
         cv.dataSource = self
+        cv.delegate = self
         return cv
     }()
     
@@ -97,6 +98,14 @@ class MyAddedPlacesVC: UIViewController {
         
     }
   
+}
+
+extension MyAddedPlacesVC:UICollectionViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = DetailScrollVC()
+        vc.detailPlace = myAddedPlacesSetting[indexPath.row]
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 extension MyAddedPlacesVC:UICollectionViewDataSource{
