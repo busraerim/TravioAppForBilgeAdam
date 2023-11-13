@@ -10,7 +10,7 @@
 import UIKit
 import TinyConstraints
 
-class AddNewPlaceVC: UIViewController {
+class AddNewPlaceVC: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
     weak var delegate:GetData?
     
@@ -75,6 +75,7 @@ class AddNewPlaceVC: UIViewController {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(AddNewPlaceCell.self, forCellWithReuseIdentifier: "cell")
         cv.dataSource = self
+        cv.delegate = self
         return cv
     }()
     
@@ -218,6 +219,19 @@ extension AddNewPlaceVC {
         return layoutSection
     }
 
+}
+
+extension AddNewPlaceVC:UICollectionViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        openGallery()
+    }
+    
+    @objc func openGallery() {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .photoLibrary
+            present(imagePicker, animated: true, completion: nil)
+    }
 }
 
 extension AddNewPlaceVC:UICollectionViewDataSource{
