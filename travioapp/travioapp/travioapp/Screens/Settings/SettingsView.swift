@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 
 #if DEBUG
@@ -64,7 +65,8 @@ class SettingsView: UIViewController {
     
     private lazy var profileImage:UIImageView = {
         let profileImage = UIImageView()
-        profileImage.image = UIImage(named: "profile-image")
+        profileImage.layer.cornerRadius = 60
+        profileImage.clipsToBounds = true
         return profileImage
     }()
     
@@ -91,12 +93,7 @@ class SettingsView: UIViewController {
         lbl.textAlignment = .center
         return lbl
     }()
-    
-    func updateUI(with profile:ProfileResponse){
-        lblProfileName.text = profile.full_name
-//        profileImage.image = UIImage(named: profile.pp_url)
-    }
-    
+        
     private lazy var lblProfileName:UILabel = {
         var lbl = UILabel()
         lbl.textColor = .black
@@ -139,18 +136,16 @@ class SettingsView: UIViewController {
         UIApplication.shared.windows.first?.makeKeyAndVisible()
     }
     
+    func updateUI(with profile:ProfileResponse){
+        lblProfileName.text = profile.full_name
+        let url = URL(string: profile.pp_url)
+        profileImage.kf.setImage(with: url)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationController?.isNavigationBarHidden = true
- 
-
-
-        viewModel.dataTransferClosure = { [weak self] profile in
-            self?.updateUI(with: profile)
-        }
-        
-        viewModel.getProfileInfo()
         
         setupViews()
     }
@@ -162,7 +157,19 @@ class SettingsView: UIViewController {
        
         setupLayout()
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        print("setting sayfasının willi")
+        viewModel.dataTransferClosure = { [weak self] profile in
+            self?.updateUI(with: profile)
+//            self!.lblProfileName.text = profile.full_name
+        }
+        
+        viewModel.getProfileInfo()
+        
+    }
+    
     private func setupLayout(){
         
         
@@ -186,6 +193,8 @@ class SettingsView: UIViewController {
         profileImage.snp.makeConstraints({ make in
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(24)
+            make.width.equalTo(120)
+            make.height.equalTo(120)
         })
         
         lblProfileName.snp.makeConstraints({ make in

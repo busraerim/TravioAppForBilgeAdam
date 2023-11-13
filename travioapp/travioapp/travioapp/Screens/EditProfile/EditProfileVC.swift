@@ -7,10 +7,19 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class EditProfileVC: UIViewController {
     
     var profile:ProfileResponse?
+    
+    var selectedImage:UIImage?
+    
+    var profileImage:[Data] = []
+    
+    var profilePhoto:String =  ""
+    
+    var oldPP:String = ""
     
     private lazy var lblTitle:UILabel = {
         let lbl = UILabel()
@@ -56,7 +65,9 @@ class EditProfileVC: UIViewController {
     
     private lazy var profilePhotoImageView:UIImageView = {
         let iv = UIImageView()
-        iv.image = .profile
+//        iv.image = .userAlt
+        iv.layer.cornerRadius = 60
+        iv.clipsToBounds = true
         return iv
     }()
     
@@ -119,6 +130,10 @@ class EditProfileVC: UIViewController {
         return EditProfileViewModel()
     }()
     
+    lazy var uploadViewModel:AddNewPlaceViewModel = {
+        return AddNewPlaceViewModel()
+    }()
+    
     
     func updateUI(with profile: ProfileResponse) {
         lblProfileName.text = profile.full_name
@@ -140,40 +155,78 @@ class EditProfileVC: UIViewController {
         
         emailInputView.txtPlaceholder.text = profile.email
         fullNameInputView.txtPlaceholder.text = profile.full_name
+        let url = URL(string: profile.pp_url)
+        profilePhotoImageView.kf.setImage(with: url)
     }
     
     @objc func saveButtonTapped(){
         print("saved")
-        guard let email = emailInputView.txtPlaceholder.text,
-              let full_name = fullNameInputView.txtPlaceholder.text,
-              let pp_url = profilePhotoImageView.image else { return }
         
-        viewModel.changeProfileInfo(profile: EditProfileRequest(full_name: full_name, email: email, pp_url: pp_url.description))
+        if self.selectedImage == nil {
+            saveInfos(profilPhoto: oldPP)
+
+        }else{
+            uploadImage()
+        }
+
+        
+    }
+    
+    @objc func openGallery() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    @objc func changePhotoButtonTapped(){
+        openGallery()
+    }
+    
+    @objc func closeButtonTapped(){
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    private func uploadImage(){
+        uploadViewModel.imageTransferClosure = { [weak self] image in
+            guard let this = self else { return }
+            this.saveInfos(profilPhoto: image[0])
+            }
+        
+         uploadViewModel.uploadImage(data: self.profileImage)
+        
+    }
+    
+    private func saveInfos(profilPhoto: String){
+        
+        
+        guard let email = emailInputView.txtPlaceholder.text,
+              let full_name = fullNameInputView.txtPlaceholder.text else {return}
+        
+        viewModel.changeProfileInfo(profile: EditProfileRequest(full_name: full_name, email: email, pp_url: profilPhoto))
         
         lblProfileName.text = full_name
     }
     
-    @objc func changePhotoButtonTapped(){
-        print("photo changed")
-    }
-    
-    // image = .close-icon, basınca go back to settings
-    @objc func closeButtonTapped(){
-        self.navigationController?.popViewController(animated: true)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
         self.view.backgroundColor = .background
 
-        viewModel.dataTransferClosure = { [weak self] profile in
-            self?.updateUI(with: profile)
-        }
         
         viewModel.getProfileInfo()
         
         setupViews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+
+        viewModel.dataTransferClosure = { [weak self] profile in
+            self?.updateUI(with: profile)
+            self?.oldPP = profile.pp_url
+        }
     }
     
     func setupViews(){
@@ -205,6 +258,8 @@ class EditProfileVC: UIViewController {
         profilePhotoImageView.snp.makeConstraints({ make in
             make.top.equalToSuperview().offset(24)
             make.centerX.equalToSuperview()
+            make.width.equalTo(120)
+            make.height.equalTo(120)
         })
         
         changePhotoButton.snp.makeConstraints({ make in
@@ -231,6 +286,25 @@ class EditProfileVC: UIViewController {
             make.bottom.equalToSuperview().offset(-35)
             make.leading.trailing.equalToSuperview().inset(24)
         })
+    }
+}
+
+extension EditProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
+        guard let imageData = pickedImage.jpegData(compressionQuality: 1) else { return }
+        self.profileImage.append(imageData)
+        
+        self.selectedImage = pickedImage
+        
+        profilePhotoImageView.image = pickedImage
+
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
 }
 

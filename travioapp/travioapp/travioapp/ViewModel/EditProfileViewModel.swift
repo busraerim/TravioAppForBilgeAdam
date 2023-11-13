@@ -24,7 +24,7 @@ class EditProfileViewModel {
     }
     
     func changeProfileInfo(profile:EditProfileRequest){
-        let params = ["full_name": profile.full_name, "email": profile.email, "pp_url": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.imdb.com%2Fname%2Fnm0000093%2Fbio%2F&psig=AOvVaw2AS0FsBGFMAbPecZTs4FUR&ust=1699359812146000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCNCJieKur4IDFQAAAAAdAAAAABAE"]
+        let params = ["full_name": profile.full_name, "email": profile.email, "pp_url": profile.pp_url]
         
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .editProfile(param: params), callback: { (result:Result<BaseResponse, Error>) in
             switch result {
