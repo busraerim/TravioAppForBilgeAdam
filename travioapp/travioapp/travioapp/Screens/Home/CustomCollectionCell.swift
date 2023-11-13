@@ -71,6 +71,10 @@ class CustomCollectionCell: UICollectionViewCell {
     
     private func setupLayout(){
 //        icon.image = .locationItem
+        
+        self.contentView.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.15).cgColor
+        self.contentView.layer.shadowRadius = 20
+        self.contentView.layer.shadowOpacity = 0.15
 
         placeView.edgesToSuperview()
         image.edges(to: placeView)

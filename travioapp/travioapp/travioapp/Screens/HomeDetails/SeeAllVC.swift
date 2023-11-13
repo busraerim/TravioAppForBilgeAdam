@@ -46,6 +46,7 @@ class SeeAllVC: UIViewController {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(SeeAllCollectionCell.self, forCellWithReuseIdentifier: "cell")
         cv.dataSource = self
+        cv.delegate = self
         return cv
     }()
     
@@ -65,7 +66,7 @@ class SeeAllVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dataPlaceSeeAll.sort { $0.title ?? "" < $1.title ?? "" }
+//        dataPlaceSeeAll.sort { $0.title ?? "" < $1.title ?? "" }
         self.view.backgroundColor = UIColor(red: 0.22, green: 0.678, blue: 0.663, alpha: 1)
         setupViews()
     }
@@ -109,6 +110,13 @@ class SeeAllVC: UIViewController {
   
 }
 
+extension SeeAllVC:UICollectionViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = DetailScrollVC()
+        vc.detailPlace = dataPlaceSeeAll[indexPath.row]
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+}
 
 extension SeeAllVC:UICollectionViewDataSource{
 
