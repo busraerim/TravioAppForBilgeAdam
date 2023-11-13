@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UploadResponse {
+struct UploadResponse:Codable {
     var messageType:String
     var message:String
     var urls:[String]

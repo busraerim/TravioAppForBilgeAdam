@@ -14,6 +14,8 @@ class AddNewPlaceVC: UIViewController {
     
     weak var delegate:GetData?
     
+    var imageDataArray:[Data] = []
+    
     var getCoordinate:(()->())?
     
     var lat:Double = 0.0
@@ -97,21 +99,53 @@ class AddNewPlaceVC: UIViewController {
        self.present(alert, animated: true)
    }
     
+    private func uploadImage(){
+        let viewModel = AddNewPlaceViewModel()
+        
+        viewModel.imageTransferClosure = { [weak self] image in
+            guard let this = self else { return }
+            var coverImage = image[0]
+            this.postAPlace(coverImage: coverImage , data: image)
+        }
+        viewModel.uploadImage(data: self.imageDataArray)
+    }
+    
+    private func postAPlace(coverImage: String, data: [String]){
+        let viewModel = AddNewPlaceViewModel()
+        
+        viewModel.placeIdClosure = { [weak self] placeId in
+            guard let this = self else { return }
+            var placeId = placeId
+            this.postAGallery(placeId: placeId, data: data)
+        }
+        
+    
+        let place = labelCountry.text!
+        let title = txtTitle.text!
+        let description = txtDescription.text!
+        let cover_image_url = coverImage
+        let latitude = self.lat
+        let longitude = self.long
+
+        viewModel.postNewPlace(request:AddNewPlace(place: place, title: title, description: description, cover_image_url: cover_image_url, latitude: latitude, longitude: longitude))
+
+        self.dismiss(animated: true, completion: {self.delegate?.getDataFromApi()})
+    }
+    
+    private func postAGallery(placeId: String, data:[String]){
+        for index in 0..<data.count{
+            
+            AddNewPlaceViewModel().postAGallery(request: PostAGallery(place_id: placeId, image_url: data[index]))
+            
+        }
+    }
+    
     @objc func btnAddTapped(){
         
         if !txtTitle.text!.isEmpty && !txtDescription.text.isEmpty{
             getCoordinate!()
             print("addnewplace bastı")
-            let place = labelCountry.text!
-            let title = txtTitle.text!
-            let description = txtDescription.text!
-            let cover_image_url = "https://iasbh.tmgrup.com.tr/55d07f/650/344/0/0/724/380?u=https://isbh.tmgrup.com.tr/sbh/2022/06/13/galata-kulesi-nerede-galata-kulesi-hangi-semtte-nasil-gidilir-k1-1655117338390.jpg"
-            let latitude = self.lat
-            let longitude = self.long
-            
-            AddNewPlaceViewModel().postNewPlace(request:AddNewPlace(place: place, title: title, description: description, cover_image_url: cover_image_url, latitude: latitude, longitude: longitude))
-            
-            self.dismiss(animated: true, completion: {self.delegate?.getDataFromApi()})
+            self.uploadImage()
         }else{
             self.showAlert(title: "Hata", message: "Title ve Description boş bırakılamaz.")
         }
@@ -227,6 +261,11 @@ extension AddNewPlaceVC: UIImagePickerControllerDelegate, UINavigationController
             if let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first {
                 let cell = collectionView.cellForItem(at: selectedIndexPath) as? AddNewPlaceCell
                 cell?.setImage(image: pickedImage)
+                
+                if let imageData = pickedImage.jpegData(compressionQuality: 1){
+                    self.imageDataArray.append(imageData)
+                    print(self.imageDataArray)
+                }
             }
         }
 

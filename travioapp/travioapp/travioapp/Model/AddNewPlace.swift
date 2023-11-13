@@ -16,3 +16,8 @@ struct AddNewPlace:Codable {
     var longitude:Double
 }
 
+struct PostAGallery:Codable {
+    var place_id: String
+    var image_url: String
+}
+

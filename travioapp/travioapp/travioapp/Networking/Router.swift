@@ -25,9 +25,9 @@ enum Router {
     case postAPlace(param:Parameters)
     case getAllPlacesforUser
     case getAllVisits
-    case upload(param:Parameters)
+    case upload(imageData: [Data])
     case getAllGallerybyPlaceID(id:String)
-    
+    case postAGallery(param: Parameters)
 
 
     
@@ -64,16 +64,18 @@ enum Router {
         case .getAllVisits:
             return "/v1/visits"
         case .upload:
-            return "/v1/upload"
+            return "/upload"
         case .getAllGallerybyPlaceID(let id):
             return "/v1/galleries/\(id)"
+        case .postAGallery:
+            return "/v1/galleries"
         }
     }
     
     
     var method:HTTPMethod {
         switch self {
-        case .login, .register, .refresh, .postAPlace, .upload:
+        case .login, .register, .refresh, .postAPlace, .upload, .postAGallery:
             return .post
         case .visits, .getPopular ,.getPopularWith, .getNewPlacesWith, .getNew, .getAllPlacesMap, .me ,.getAllPlacesforUser, .getAllVisits, .getAllGallerybyPlaceID:
             return .get
@@ -88,20 +90,33 @@ enum Router {
         switch self {
         case .login, .register, .refresh, .getPopular, .getPopularWith, .getNewPlacesWith, .getNew, .getAllPlacesMap, .getAllGallerybyPlaceID:
             return [:]
-        case .visits, .me, .changePassword, .editProfile, .postAPlace, .getAllPlacesforUser, .getAllVisits:
+        case .visits, .me, .changePassword, .editProfile, .postAPlace, .getAllPlacesforUser, .getAllVisits, .postAGallery:
             guard let token = AuthManager.shared.getToken(accountIdentifier: "access-token") else { return [:] }
             return ["Authorization": "Bearer \(token)"]
         case .upload:
-            let boundary = "Boundary-\(UUID().uuidString)"
-            return ["Content-Type": "multipart/form-data; boundary=\(boundary)"]
+            return ["Content-Type": "multipart/form-data"]
         }
+    }
+    
+    var multipartFormData: MultipartFormData {
+      let formData = MultipartFormData()
+      switch self {
+      case .upload(let imageData):
+          imageData.forEach { image in
+              formData.append(image, withName: "file", fileName: "image.jpg", mimeType: "image/jpeg")
+          }
+          return formData
+      default:
+          break
+      }
+      return formData
     }
     
     var parameters:Parameters? {
         switch self {
-        case .login(let params), .register(let params), .refresh(let params), .getPopularWith(let params), .getNewPlacesWith(let params), .editProfile(let params), .changePassword(let params), .postAPlace(let params), .upload(let params):
+        case .login(let params), .register(let params), .refresh(let params), .getPopularWith(let params), .getNewPlacesWith(let params), .editProfile(let params), .changePassword(let params), .postAPlace(let params), .postAGallery(let params):
             return params
-        case .visits, .getPopular, .getNew, .getAllPlacesMap, .me, .getAllPlacesforUser, .getAllVisits, .getAllGallerybyPlaceID:
+        case .visits, .getPopular, .getNew, .getAllPlacesMap, .me, .getAllPlacesforUser, .getAllVisits, .getAllGallerybyPlaceID, .upload:
             return nil
 
         }
