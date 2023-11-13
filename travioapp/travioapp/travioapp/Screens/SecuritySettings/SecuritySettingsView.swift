@@ -71,7 +71,7 @@ class SecuritySettingsView: UIViewController {
         return lbl
     }()
     
-    
+
     private lazy var privacyStackView = {
         let sv = UIStackView()
         sv.spacing = 20

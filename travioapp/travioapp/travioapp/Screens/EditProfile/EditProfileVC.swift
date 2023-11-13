@@ -54,6 +54,7 @@ class EditProfileVC: UIViewController {
         return btn
     }()
     
+    
     private lazy var profilePhotoImageView:UIImageView = {
         let iv = UIImageView()
         iv.image = .profile
@@ -206,7 +207,7 @@ class EditProfileVC: UIViewController {
             make.top.equalToSuperview().offset(24)
             make.centerX.equalToSuperview()
         })
-        
+    
         changePhotoButton.snp.makeConstraints({ make in
             make.centerX.equalToSuperview()
             make.top.equalTo(profilePhotoImageView.snp.bottom).offset(7)
