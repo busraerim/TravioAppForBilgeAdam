@@ -10,7 +10,7 @@
 import UIKit
 import TinyConstraints
 
-class AddNewPlaceVC: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+class AddNewPlaceVC: UIViewController {
     
     weak var delegate:GetData?
     
@@ -115,20 +115,6 @@ class AddNewPlaceVC: UIViewController, UIImagePickerControllerDelegate & UINavig
         }else{
             self.showAlert(title: "Hata", message: "Title ve Description boş bırakılamaz.")
         }
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
     }
     
     override func viewDidLoad() {
@@ -227,12 +213,32 @@ extension AddNewPlaceVC:UICollectionViewDelegate{
     }
     
     @objc func openGallery() {
-            let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.sourceType = .photoLibrary
-            present(imagePicker, animated: true, completion: nil)
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
     }
 }
+
+extension AddNewPlaceVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            if let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first {
+                let cell = collectionView.cellForItem(at: selectedIndexPath) as? AddNewPlaceCell
+                cell?.setImage(image: pickedImage)
+            }
+        }
+
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+
 
 extension AddNewPlaceVC:UICollectionViewDataSource{
 

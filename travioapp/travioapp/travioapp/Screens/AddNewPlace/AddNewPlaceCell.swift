@@ -37,14 +37,26 @@ class AddNewPlaceCell: UICollectionViewCell {
         return view
     }()
     
+    private lazy var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleToFill
+        imageView.clipsToBounds = true
+        return imageView
+    }()
+    
+    func setImage(image: UIImage) {
+            imageView.image = image
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
     }
     
+    
     private func setupViews(){
         self.addSubviews(customView, stackView)
-        customView.addSubviews(stackView)
+        customView.addSubviews(stackView,imageView)
         stackView.addArrangedSubviews(addImage,label)
         setupLayout()
     }
@@ -57,8 +69,7 @@ class AddNewPlaceCell: UICollectionViewCell {
         customView.layoutIfNeeded()
         customView.roundAllCorners(radius: 16)
 
-        
-        stackView.centerInSuperview()
+        imageView.edgesToSuperview()
     }
     
     required init?(coder: NSCoder) {
