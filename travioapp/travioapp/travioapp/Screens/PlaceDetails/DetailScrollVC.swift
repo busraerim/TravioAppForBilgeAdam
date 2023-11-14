@@ -35,9 +35,20 @@ class DetailScrollVC: UIViewController {
         cv.delegate = self
         cv.contentInsetAdjustmentBehavior = .never
         cv.isScrollEnabled = false
+        cv.isPagingEnabled = true
         return cv
     }()
     
+    private lazy var pageControl: UIPageControl = {
+        let pc = UIPageControl()
+        pc.numberOfPages = images.count
+        pc.currentPage = 0
+        pc.translatesAutoresizingMaskIntoConstraints = false
+        pc.pageIndicatorTintColor = .lightGray
+        pc.currentPageIndicatorTintColor = .black
+        pc.backgroundStyle = .prominent
+        return pc
+    }()
 
     func formatDateString(_ dateString: String) -> String? {
         let dateFormatter = DateFormatter()
@@ -138,7 +149,7 @@ class DetailScrollVC: UIViewController {
      
 
     func setupViews() {
-        self.view.addSubviews(collectionView, saveButton)
+        self.view.addSubviews(collectionView, saveButton, pageControl)
         self.view.addSubviews(scrollView)
         self.view.backgroundColor = UIColor(red: 0.971, green: 0.971, blue: 0.971, alpha: 1)
         
@@ -166,7 +177,7 @@ class DetailScrollVC: UIViewController {
     func setupLayout() {
         
         collectionView.topToSuperview()
-        collectionView.height(230)
+        collectionView.height(280)
         collectionView.leadingToSuperview()
         collectionView.trailingToSuperview()
         collectionView.layoutIfNeeded()
@@ -178,6 +189,9 @@ class DetailScrollVC: UIViewController {
         
         saveButton.topToSuperview(offset:50)
         saveButton.trailingToSuperview(offset:17)
+        
+        pageControl.centerXToSuperview()
+        pageControl.bottomToTop(of: scrollView, offset: -10)
         
        
      
@@ -212,6 +226,16 @@ extension DetailScrollVC {
 
 }
 
+
+extension DetailScrollVC:UICollectionViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let visibleIndexPaths = collectionView.indexPathsForVisibleItems
+        if  let firstIndex = visibleIndexPaths.first{
+            pageControl.currentPage = firstIndex.item
+        }
+    }
+}
+
 extension DetailScrollVC:UICollectionViewDataSource{
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -231,8 +255,6 @@ extension DetailScrollVC:UICollectionViewDataSource{
     
 }
 
-extension DetailScrollVC:UICollectionViewDelegate{
-}
 
 
 
