@@ -66,8 +66,8 @@ class HomeUIVC: UIViewController {
     }
     
     func getHomeData(){
-        networkingGetDataPopularPlaceWithParams(limit: 2)
-        networkingGetDataNewPlaceWithParams(limit: 1)
+        networkingGetDataPopularPlaceWithParams(limit: 5)
+        networkingGetDataNewPlaceWithParams(limit: 5)
         networkingGetDataPopularPlace()
         networkingGetDataNewPlace()
         networkingGetDataMyAddedPlaces()
