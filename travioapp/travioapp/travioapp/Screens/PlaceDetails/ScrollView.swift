@@ -82,6 +82,7 @@ final class ScrollView: UIView {
         var longitude = 0.0
         map.layer.cornerRadius = 16
         map.clipsToBounds = true
+        map.delegate = self
         return map
     }()
 
@@ -96,9 +97,16 @@ final class ScrollView: UIView {
        lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
     }()
-
+    
+    
+    func addingPin(place: PlaceItem ){
+        
+        let annotation = CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude))
+        annotation.title = place.title
+        self.mapView.addAnnotation(annotation)
+        
+    }
        
-
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         setupViews()
@@ -155,7 +163,7 @@ final class ScrollView: UIView {
 
 
 
-    extension ScrollView:MKMapViewDelegate{
+extension ScrollView:MKMapViewDelegate{
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is CustomAnnotation == false {
             return nil
@@ -177,4 +185,4 @@ final class ScrollView: UIView {
         mapView.isScrollEnabled = true
         return annotationView
     }
-    }
+}

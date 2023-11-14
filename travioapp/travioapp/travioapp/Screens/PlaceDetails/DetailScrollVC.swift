@@ -38,12 +38,45 @@ class DetailScrollVC: UIViewController {
         return cv
     }()
     
+
+    func formatDateString(_ dateString: String) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
+        
+        if let date = dateFormatter.date(from: dateString) {
+            // Tarih çıkarımı
+            let dayFormatter = DateFormatter()
+            dayFormatter.dateFormat = "dd"
+            let day = dayFormatter.string(from: date)
+            
+            // Ay ismi
+            let monthFormatter = DateFormatter()
+            monthFormatter.dateFormat = "MMMM"
+            let month = monthFormatter.string(from: date)
+            
+            // Yıl çıkarımı
+            let yearFormatter = DateFormatter()
+            yearFormatter.dateFormat = "yyyy"
+            let year = yearFormatter.string(from: date)
+            
+            // sonuc
+            let formattedDate = "\(day) \(month) \(year)"
+            
+            return formattedDate
+        }
+        
+        return nil
+    }
+
+    
+    
     private lazy var scrollView:ScrollView = {
         let v = ScrollView()
         v.labelTitle.text = detailPlace?.place
-        v.lblCreatedDate.text = detailPlace!.created_at
+        v.lblCreatedDate.text = formatDateString(detailPlace!.created_at)
         v.lblAddedByWho.text = "added by @\(detailPlace!.creator)"
         v.lblDescription.text = detailPlace?.description
+        v.addingPin(place: detailPlace!)
         let location = CLLocation(latitude: self.detailPlace!.latitude, longitude: self.detailPlace!.longitude)
         let zoomRadius: CLLocationDistance = 240
         let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: zoomRadius, longitudinalMeters: zoomRadius)
@@ -74,7 +107,7 @@ class DetailScrollVC: UIViewController {
             saveButton.setImage(.notmarked, for: .normal)
         }
     }
-    
+
     
     override func viewDidLoad() {
        super.viewDidLoad()
@@ -110,16 +143,19 @@ class DetailScrollVC: UIViewController {
         self.view.backgroundColor = UIColor(red: 0.971, green: 0.971, blue: 0.971, alpha: 1)
         
         navigationController?.navigationBar.isTranslucent = true
+
+        let saveBarButton = UIBarButtonItem(customView: saveButton)
+
         
         let leftButtonImage = UIImage(named:"backButton")
         let leftBarButton = UIBarButtonItem(image: leftButtonImage, style: .plain, target: self, action: #selector(backButtonTapped))
         leftBarButton.tintColor = UIColor(hex: "FFFFFF")
         
-//        let rightBarButton = UIBarButtonItem(image: rightButtonImage, style: .done, target: self, action: #selector(buttonSaveTapped))
-
         
+
         self.navigationItem.leftBarButtonItem = leftBarButton
-//        self.navigationItem.rightBarButtonItem = rightBarButton
+        self.navigationItem.rightBarButtonItem = saveBarButton
+
         setupLayout()
     }
     
@@ -140,7 +176,7 @@ class DetailScrollVC: UIViewController {
         scrollView.leadingToSuperview()
         scrollView.trailingToSuperview()
         
-        saveButton.topToSuperview(offset:150)
+        saveButton.topToSuperview(offset:50)
         saveButton.trailingToSuperview(offset:17)
         
        
@@ -197,8 +233,6 @@ extension DetailScrollVC:UICollectionViewDataSource{
 
 extension DetailScrollVC:UICollectionViewDelegate{
 }
-
-
 
 
 
