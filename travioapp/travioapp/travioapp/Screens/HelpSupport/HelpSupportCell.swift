@@ -76,8 +76,7 @@ class HelpSupportCell: UICollectionViewCell {
         }
         
         lblTitle.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(6)
-            make.width.equalTo(240)
+            make.top.equalToSuperview().offset(20)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-50)
         }

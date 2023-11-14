@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		35018CD72B03730300DFA5C5 /* HelpSupportData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35018CD62B03730300DFA5C5 /* HelpSupportData.swift */; };
 		350669A42AF10ABE00DBB2F7 /* MyVisitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350669A32AF10ABE00DBB2F7 /* MyVisitView.swift */; };
 		350726F12AF8D62E002856B8 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350726F02AF8D62E002856B8 /* AuthManager.swift */; };
 		350726F32AF8DFFC002856B8 /* ChangePasswordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350726F22AF8DFFC002856B8 /* ChangePasswordRequest.swift */; };
@@ -106,6 +107,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		35018CD62B03730300DFA5C5 /* HelpSupportData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpSupportData.swift; sourceTree = "<group>"; };
 		350669A32AF10ABE00DBB2F7 /* MyVisitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVisitView.swift; sourceTree = "<group>"; };
 		350726F02AF8D62E002856B8 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		350726F22AF8DFFC002856B8 /* ChangePasswordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordRequest.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 			children = (
 				35732B842AFCF53C00A74ED5 /* HelpSupportVC.swift */,
 				35732B862AFCF58000A74ED5 /* HelpSupportCell.swift */,
+				35018CD62B03730300DFA5C5 /* HelpSupportData.swift */,
 			);
 			path = HelpSupport;
 			sourceTree = "<group>";
@@ -615,6 +618,7 @@
 			files = (
 				439A41BE2AF8D0CD00F1D252 /* MapViewModel.swift in Sources */,
 				4354F2912AE92E610002D438 /* NetworkingHelper.swift in Sources */,
+				35018CD72B03730300DFA5C5 /* HelpSupportData.swift in Sources */,
 				350726F12AF8D62E002856B8 /* AuthManager.swift in Sources */,
 				350726F32AF8DFFC002856B8 /* ChangePasswordRequest.swift in Sources */,
 				43DF6CF92ADC5B8D00DEDD3A /* LoginVc.swift in Sources */,
