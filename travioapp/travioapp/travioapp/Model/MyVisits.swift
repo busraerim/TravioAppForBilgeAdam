@@ -25,18 +25,18 @@ struct MyVisit: Codable {
     let visited_at: String
     let created_at: String
     let updated_at: String
-    let place: MyVisitPlace
+    let place: PlaceItem
 }
 
-struct MyVisitPlace: Codable {
-    let id: String
-    let creator: String
-    let place: String
-    let title: String
-    let description: String
-    let cover_image_url: String
-    let latitude: Double
-    let longitude: Double
-    let created_at: String
-    let updated_at: String
-}
+//struct MyVisitPlace: Codable {
+//    let id: String
+//    let creator: String
+//    let place: String
+//    let title: String
+//    let description: String
+//    let cover_image_url: String
+//    let latitude: Double
+//    let longitude: Double
+//    let created_at: String
+//    let updated_at: String
+//}

@@ -24,11 +24,7 @@ class MyVisitsView: UIViewController {
 
     var myVisitsPlace:[MyVisit] = []
     
-//    var places:[MyVisits] = [
-//        MyVisits(place: "Rome", title: "Colleseum", imageUrl: "colleseum"),
-//        MyVisits(place: "İstanbul", title: "Süleymaniye", imageUrl: "ayasofya"),
-//        MyVisits(place: "İstanbul", title: "Süleymaniye", imageUrl: "suleymaniye"),
-//        MyVisits(place: "Rome", title: "Colleseum", imageUrl: "colleseum")]
+
     
     private lazy var lblTitle:UILabel = {
         var view = UILabel()
@@ -61,12 +57,38 @@ class MyVisitsView: UIViewController {
         return cv
     }()
     
+    func checkVisit(placeId:String, place:PlaceItem){
+    
+      let vc = DetailScrollVC()
+      let viewModel = PlaceDetailViewModel()
+
+        
+      viewModel.checkStatus = { [weak self] status in
+          print("burası see allda \(status)")
+          if status == "success" {
+              vc.saveButton.setImage(.marked, for: .normal)
+          }else{
+              vc.saveButton.setImage(.notmarked, for: .normal)
+          }
+          vc.detailPlace = place
+          self!.navigationController?.pushViewController(vc, animated: true)
+      }
+        
+      viewModel.checkVisitByPlaceID(placeId: placeId )
+
+    }
+    
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         networkingMyVisitPlaces()
         setupViews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        networkingMyVisitPlaces()
     }
 
     func networkingMyVisitPlaces()->[MyVisit]{
@@ -108,6 +130,18 @@ class MyVisitsView: UIViewController {
         
     }
     
+}
+
+
+extension MyVisitsView:UICollectionViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        var place = myVisitsPlace[indexPath.row].place
+        var placeId = place.id
+        
+        checkVisit(placeId: placeId, place: place)
+
+    }
 }
 
 extension MyVisitsView:UICollectionViewDelegateFlowLayout {

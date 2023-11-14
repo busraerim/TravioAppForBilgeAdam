@@ -94,6 +94,7 @@
 		43B4DEF02ADC7A77000E4C18 /* InputBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B4DEEF2ADC7A77000E4C18 /* InputBox.swift */; };
 		43CD21672AFE501200D96784 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CD21662AFE501200D96784 /* DetailViewModel.swift */; };
 		43CD21692AFE533300D96784 /* GetGalleryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CD21682AFE533300D96784 /* GetGalleryModel.swift */; };
+		43CD216B2B03496800D96784 /* PlaceDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CD216A2B03496800D96784 /* PlaceDetailViewModel.swift */; };
 		43DF6CF52ADC5B8D00DEDD3A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DF6CF42ADC5B8D00DEDD3A /* AppDelegate.swift */; };
 		43DF6CF72ADC5B8D00DEDD3A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DF6CF62ADC5B8D00DEDD3A /* SceneDelegate.swift */; };
 		43DF6CF92ADC5B8D00DEDD3A /* LoginVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DF6CF82ADC5B8D00DEDD3A /* LoginVc.swift */; };
@@ -190,6 +191,7 @@
 		43B4DEEF2ADC7A77000E4C18 /* InputBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputBox.swift; sourceTree = "<group>"; };
 		43CD21662AFE501200D96784 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		43CD21682AFE533300D96784 /* GetGalleryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetGalleryModel.swift; sourceTree = "<group>"; };
+		43CD216A2B03496800D96784 /* PlaceDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailViewModel.swift; sourceTree = "<group>"; };
 		43DF6CF12ADC5B8D00DEDD3A /* travioapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = travioapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43DF6CF42ADC5B8D00DEDD3A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43DF6CF62ADC5B8D00DEDD3A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -456,6 +458,7 @@
 				43086B612AFD044C00A70CE3 /* DetailScrollVC.swift */,
 				4319CA9E2AFD6419000406CA /* ScrollView.swift */,
 				43CD21682AFE533300D96784 /* GetGalleryModel.swift */,
+				43CD216A2B03496800D96784 /* PlaceDetailViewModel.swift */,
 			);
 			path = PlaceDetails;
 			sourceTree = "<group>";
@@ -667,6 +670,7 @@
 				356239E52AF2CE4A00328B2B /* SettingsHeaderCollectionReusableView.swift in Sources */,
 				356239E12AF2A46900328B2B /* ChangePasswordCell.swift in Sources */,
 				4354F28D2AE92CB80002D438 /* User.swift in Sources */,
+				43CD216B2B03496800D96784 /* PlaceDetailViewModel.swift in Sources */,
 				439A41D62AFA6C8B00F1D252 /* AddNewPlaceViewModel.swift in Sources */,
 				350726F72AF8E15B002856B8 /* ProfileResponse.swift in Sources */,
 				35B2D11A2AE9911400FD61EF /* BaseResponse.swift in Sources */,

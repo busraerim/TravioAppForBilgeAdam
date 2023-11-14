@@ -56,6 +56,27 @@ class MapVC: UIViewController {
         return mapAllPlaces
     }
     
+    func checkVisit(placeId:String, place:PlaceItem){
+    
+      let vc = DetailScrollVC()
+      let viewModel = PlaceDetailViewModel()
+
+        
+      viewModel.checkStatus = { [weak self] status in
+          print("burası see allda \(status)")
+          if status == "success" {
+              vc.saveButton.setImage(.marked, for: .normal)
+          }else{
+              vc.saveButton.setImage(.notmarked, for: .normal)
+          }
+          vc.detailPlace = place
+          self!.navigationController?.pushViewController(vc, animated: true)
+      }
+        
+      viewModel.checkVisitByPlaceID(placeId: placeId )
+
+    }
+    
     func addingPin(place: [PlaceItem]){
         for item in 0..<place.count{
             
@@ -187,9 +208,12 @@ extension MapVC:UICollectionViewDelegate{
             let zoomRadius: CLLocationDistance = 400
             let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: zoomRadius, longitudinalMeters: zoomRadius)
             mapView.setRegion(region, animated: true)
-        let vc = DetailScrollVC()  
-        vc.detailPlace = mapAllPlaces[indexPath.row]
-        self.navigationController?.pushViewController(vc, animated: true)
+        
+        var place = mapAllPlaces[indexPath.row]
+        var placeId = place.id
+        
+        checkVisit(placeId: placeId, place: place)
+
     }
 }
 

@@ -24,3 +24,9 @@ struct APIResponse: Codable {
     let data: ImageData
     let status: String
 }
+
+
+struct PostAVisit{
+    let place_id:String
+    let visited_at:String
+}

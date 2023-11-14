@@ -64,6 +64,27 @@ class SeeAllVC: UIViewController {
         }
     }
     
+    func checkVisit(placeId:String, place:PlaceItem){
+    
+      let vc = DetailScrollVC()
+      let viewModel = PlaceDetailViewModel()
+
+        
+      viewModel.checkStatus = { [weak self] status in
+          print("burası see allda \(status)")
+          if status == "success" {
+              vc.saveButton.setImage(.marked, for: .normal)
+          }else{
+              vc.saveButton.setImage(.notmarked, for: .normal)
+          }
+          vc.detailPlace = place
+          self!.navigationController?.pushViewController(vc, animated: true)
+      }
+        
+      viewModel.checkVisitByPlaceID(placeId: placeId )
+
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 //        dataPlaceSeeAll.sort { $0.title ?? "" < $1.title ?? "" }
@@ -112,9 +133,8 @@ class SeeAllVC: UIViewController {
 
 extension SeeAllVC:UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = DetailScrollVC()
-        vc.detailPlace = dataPlaceSeeAll[indexPath.row]
-        self.navigationController?.pushViewController(vc, animated: true)
+        print(dataPlaceSeeAll[indexPath.row].id)
+        checkVisit(placeId: dataPlaceSeeAll[indexPath.row].id, place: dataPlaceSeeAll[indexPath.row])
     }
 }
 
