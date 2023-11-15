@@ -21,6 +21,10 @@ struct SettingsViewC_Preview: PreviewProvider {
 }
 #endif
 
+protocol SettingsViewProtocol:AnyObject{
+    func saveButtonTapped()
+}
+
 class SettingsView: UIViewController {
 
     var profile:ProfileResponse?
@@ -35,7 +39,7 @@ class SettingsView: UIViewController {
         collection.showsHorizontalScrollIndicator = false
         collection.backgroundColor = .clear
         
-        collection.register(SettingsCell.self, forCellWithReuseIdentifier: "settings")
+        collection.register(SettingsCell.self, forCellWithReuseIdentifier: SettingsCell.identifier)
         collection.dataSource = self
         collection.delegate = self
         return collection
@@ -109,7 +113,8 @@ class SettingsView: UIViewController {
     
     @objc func buttonEditProfileTapped(){
         let vc = EditProfileVC()
-        self.present(vc, animated: true)
+        vc.delegate = self
+        self.present(vc, animated: true, completion: nil)
     }
     
     lazy var viewModel:EditProfileViewModel = {
@@ -135,9 +140,30 @@ class SettingsView: UIViewController {
         profileImage.kf.setImage(with: url)
     }
 
+    func getDataFromApi() {
+        
+        viewModel.dataTransferClosure = { [weak self] profile in
+            self?.updateUI(with: profile)
+        }
+        
+        viewModel.getProfileInfo()
+        
+//        viewModel.dataTransferClosure = { [weak self] profile in
+//            guard let this = self else { return }
+//            self?.lblProfileName.text = this.profile?.full_name
+//            
+//            let url = URL(string: profile.pp_url)
+//            self?.profileImage.kf.setImage(with: url)
+//            
+//        }
+    
+    }
+    
+   
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        getDataFromApi()
         self.navigationController?.isNavigationBarHidden = true
         
         setupViews()
@@ -150,16 +176,16 @@ class SettingsView: UIViewController {
        
         setupLayout()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        viewModel.dataTransferClosure = { [weak self] profile in
-            self?.updateUI(with: profile)
-        }
-        
-        viewModel.getProfileInfo()
-        
-    }
+//    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(true)
+//        viewModel.dataTransferClosure = { [weak self] profile in
+//            self?.updateUI(with: profile)
+//        }
+//        
+//        viewModel.getProfileInfo()
+//        
+//    }
     
     private func setupLayout(){
         
@@ -287,4 +313,16 @@ extension SettingsView {
         
         return layoutSection
     }
+}
+
+extension SettingsView:SettingsViewProtocol {
+    func saveButtonTapped() {
+        viewModel.dataTransferClosure = { [weak self] profile in
+            self?.updateUI(with: profile)
+        }
+        
+        viewModel.getProfileInfo()
+    }
+    
+    
 }
