@@ -56,6 +56,27 @@ class MyAddedPlacesVC: UIViewController {
         return
     }
     
+    func checkVisit(placeId:String, place:PlaceItem){
+    
+      let vc = DetailScrollVC()
+      let viewModel = PlaceDetailViewModel()
+
+        
+      viewModel.checkStatus = { [weak self] status in
+          print("burası see allda \(status)")
+          if status == "success" {
+              vc.saveButton.setImage(.marked, for: .normal)
+          }else{
+              vc.saveButton.setImage(.notmarked, for: .normal)
+          }
+          vc.detailPlace = place
+          self!.navigationController?.pushViewController(vc, animated: true)
+      }
+        
+      viewModel.checkVisitByPlaceID(placeId: placeId )
+
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(red: 0.22, green: 0.678, blue: 0.663, alpha: 1)
@@ -102,9 +123,9 @@ class MyAddedPlacesVC: UIViewController {
 
 extension MyAddedPlacesVC:UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = DetailScrollVC()
-        vc.detailPlace = myAddedPlacesSetting[indexPath.row]
-        self.navigationController?.pushViewController(vc, animated: true)
+        
+        let place = myAddedPlacesSetting[indexPath.row]
+        self.checkVisit(placeId: place.id, place: place)
     }
 }
 
