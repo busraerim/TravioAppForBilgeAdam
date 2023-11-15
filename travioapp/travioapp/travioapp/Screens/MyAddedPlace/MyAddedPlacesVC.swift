@@ -35,6 +35,35 @@ class MyAddedPlacesVC: UIViewController {
        return label
     }()
     
+    private lazy var backButton:UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "backButtonImage"), for: .normal)
+        button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var sortedButton:UIButton = {
+        let btn = UIButton()
+        btn.setImage(.atoZ, for: .normal)
+        btn.addTarget(self, action: #selector(sortedButtonTapped), for: .touchUpInside)
+        return btn
+    }()
+    
+    
+    @objc func sortedButtonTapped(){
+        if sortedButton.currentImage == .ztoA{
+            myAddedPlacesSetting.sort { $0.title ?? "" < $1.title ?? "" }
+            sortedButton.setImage(.atoZ, for: .normal)
+            collectionView.reloadData()
+
+        }else{
+            myAddedPlacesSetting.sort { $0.title ?? "" > $1.title ?? "" }
+            sortedButton.setImage(.ztoA, for: .normal)
+            collectionView.reloadData()
+
+        }
+    }
+    
     private lazy var collectionView:UICollectionView = {
         let layout = makeCollectionViewLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -86,18 +115,18 @@ class MyAddedPlacesVC: UIViewController {
     }
   
     func setupViews() {
-        self.view.addSubviews(backView,labelTitle)
+        self.view.addSubviews(backView,labelTitle,backButton)
 //        backView.addSubviews(customView)
-        backView.addSubviews(collectionView)
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = true
+        backView.addSubviews(collectionView, sortedButton)
+//        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//        navigationController?.navigationBar.shadowImage = UIImage()
+//        navigationController?.navigationBar.isTranslucent = true
         
-        let leftButtonImage = UIImage(named:"backWard")
-        let leftBarButton = UIBarButtonItem(image: leftButtonImage, style: .plain, target: self, action: #selector(backButtonTapped))
-        leftBarButton.tintColor = UIColor(hex: "FFFFFF")
-        self.navigationItem.leftBarButtonItem = leftBarButton
-        self.navigationItem.titleView = labelTitle
+//        let leftButtonImage = UIImage(named:"backWard")
+//        let leftBarButton = UIBarButtonItem(image: leftButtonImage, style: .plain, target: self, action: #selector(backButtonTapped))
+//        leftBarButton.tintColor = UIColor(hex: "FFFFFF")
+//        self.navigationItem.leftBarButtonItem = leftBarButton
+//        self.navigationItem.titleView = labelTitle
         setupLayout()
     }
     
@@ -111,9 +140,15 @@ class MyAddedPlacesVC: UIViewController {
         backView.layoutIfNeeded()
         backView.roundCorners(corners: .topLeft, radius: 80)
         
-        labelTitle.topToSuperview(offset:46)
-        labelTitle.leadingToSuperview(offset:24)
+        backButton.topToSuperview(offset:60)
+        backButton.leadingToSuperview(offset:24)
+        
+        labelTitle.top(to: backButton, offset: -15)
+        labelTitle.leadingToTrailing(of: backButton, offset: 25)
 
+        sortedButton.topToSuperview(offset:24)
+        sortedButton.trailingToSuperview(offset: 24)
+        
         collectionView.backgroundColor = .clear
         collectionView.edgesToSuperview()
         
