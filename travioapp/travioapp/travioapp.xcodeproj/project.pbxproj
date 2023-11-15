@@ -94,6 +94,7 @@
 		439A41D62AFA6C8B00F1D252 /* AddNewPlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41D52AFA6C8B00F1D252 /* AddNewPlaceViewModel.swift */; };
 		439A41D82AFA6DB100F1D252 /* AddNewPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41D72AFA6DB100F1D252 /* AddNewPlace.swift */; };
 		439A41DA2AFB89EF00F1D252 /* MyAddedPlacesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41D92AFB89EF00F1D252 /* MyAddedPlacesVC.swift */; };
+		439B9BED2B04D70F00B8BF1F /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439B9BEC2B04D70E00B8BF1F /* Protocol.swift */; };
 		43B4DEF02ADC7A77000E4C18 /* InputBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B4DEEF2ADC7A77000E4C18 /* InputBox.swift */; };
 		43CD21672AFE501200D96784 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CD21662AFE501200D96784 /* DetailViewModel.swift */; };
 		43CD21692AFE533300D96784 /* GetGalleryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CD21682AFE533300D96784 /* GetGalleryModel.swift */; };
@@ -194,6 +195,7 @@
 		439A41D52AFA6C8B00F1D252 /* AddNewPlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPlaceViewModel.swift; sourceTree = "<group>"; };
 		439A41D72AFA6DB100F1D252 /* AddNewPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPlace.swift; sourceTree = "<group>"; };
 		439A41D92AFB89EF00F1D252 /* MyAddedPlacesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAddedPlacesVC.swift; sourceTree = "<group>"; };
+		439B9BEC2B04D70E00B8BF1F /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		43B4DEEF2ADC7A77000E4C18 /* InputBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputBox.swift; sourceTree = "<group>"; };
 		43CD21662AFE501200D96784 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		43CD21682AFE533300D96784 /* GetGalleryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetGalleryModel.swift; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 		4335A09E2AE91210003C53D5 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				439B9BEB2B04D6AF00B8BF1F /* Protocols */,
 				35732B832AFCF50E00A74ED5 /* HelpSupport */,
 				439A41DB2AFBA5C900F1D252 /* MyAddedPlace */,
 				439A41D22AFA620600F1D252 /* PlaceDetails */,
@@ -478,6 +481,14 @@
 				439A41D92AFB89EF00F1D252 /* MyAddedPlacesVC.swift */,
 			);
 			path = MyAddedPlace;
+			sourceTree = "<group>";
+		};
+		439B9BEB2B04D6AF00B8BF1F /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				439B9BEC2B04D70E00B8BF1F /* Protocol.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		43DF6CE82ADC5B8D00DEDD3A = {
@@ -666,6 +677,7 @@
 				4354F28F2AE92E0C0002D438 /* Router.swift in Sources */,
 				4354F28F2AE92E0C0002D438 /* Router.swift in Sources */,
 				439A41B92AF8C35B00F1D252 /* MapVC.swift in Sources */,
+				439B9BED2B04D70F00B8BF1F /* Protocol.swift in Sources */,
 				43933FA22AF23BB600A1AF39 /* CustomView.swift in Sources */,
 				35018CD92B038F2000DFA5C5 /* AppHeaderView.swift in Sources */,
 				35BB4AD62AF3F23F0030F916 /* EditProfileVC.swift in Sources */,
@@ -841,6 +853,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = travioapp/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -869,6 +884,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = travioapp/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

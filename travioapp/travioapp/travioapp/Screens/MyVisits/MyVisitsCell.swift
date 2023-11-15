@@ -11,7 +11,7 @@ import Kingfisher
 class MyVisitsCell: UICollectionViewCell {
     
     static let identifier = "myVisitCell"
-   
+    
     lazy var backView:UIView = {
         let view = UIView()
         view.clipsToBounds = true

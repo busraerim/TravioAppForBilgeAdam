@@ -9,6 +9,9 @@ import UIKit
 import SnapKit
 import Kingfisher
 
+
+
+
 class EditProfileVC: UIViewController {
     
     weak var delegate:SettingsViewProtocol?
@@ -177,7 +180,8 @@ class EditProfileVC: UIViewController {
     }
     
     @objc func changePhotoButtonTapped(){
-        openGallery()
+            openGallery()
+      
     }
     
     @objc func closeButtonTapped(){
@@ -318,3 +322,5 @@ struct EditProfileVC_Preview: PreviewProvider {
     }
 }
 #endif
+
+
