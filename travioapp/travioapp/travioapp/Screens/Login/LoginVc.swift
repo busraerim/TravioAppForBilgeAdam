@@ -175,7 +175,6 @@ class LoginVc: UIViewController {
             btnLogin.topToBottom(of: stackView, offset: 48)
             btnLogin.centerX(to: stackView)
             
-//            stackSignup.topToBottom(of: btnLogin, offset:141)
             stackSignup.bottomToSuperview(offset: -21)
             stackSignup.centerX(to: stackView)
             
@@ -183,8 +182,6 @@ class LoginVc: UIViewController {
             lblWelcome.topToSuperview(offset: 40)
             lblWelcome.centerX(to: stackView)
             
-//            travioImage.width(149)
-//            travioImage.height(178)
             travioImage.topToSuperview(offset: 44)
             travioImage.horizontalToSuperview(insets: .left(120) + .right(121))
             

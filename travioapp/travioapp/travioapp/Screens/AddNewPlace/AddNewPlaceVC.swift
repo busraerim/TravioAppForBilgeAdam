@@ -144,7 +144,6 @@ class AddNewPlaceVC: UIViewController {
         
         if !txtTitle.text!.isEmpty && !txtDescription.text.isEmpty{
             getCoordinate!()
-            print("addnewplace bastı")
             self.uploadImage()
         }else{
             self.showAlert(title: "Hata", message: "Title ve Description boş bırakılamaz.")

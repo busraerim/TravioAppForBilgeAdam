@@ -9,6 +9,8 @@ import UIKit
 
 class SettingsCell: UICollectionViewCell {
     
+    static let identifier = "settings"
+    
     func configure(data: SettingsCellModel){
         label.text = data.label
         iconImageView.image = UIImage(named: data.iconImage)

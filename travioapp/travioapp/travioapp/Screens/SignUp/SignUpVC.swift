@@ -66,13 +66,11 @@ class SignUpVC: UIViewController {
         let button = UIButton()
         button.height(54)
         button.layer.cornerRadius = 10
-//        button.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
         button.setTitle("Sign Up", for: .normal)
         button.backgroundColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
         return button
     }()
     
-    //back button??
     private lazy var backButton: UIButton = {
         let button = UIButton()
         if let backButtonImage = UIImage(named: "backButtonImage") {

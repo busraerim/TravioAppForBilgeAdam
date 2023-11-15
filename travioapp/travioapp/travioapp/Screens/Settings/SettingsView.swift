@@ -25,14 +25,7 @@ class SettingsView: UIViewController {
 
     var profile:ProfileResponse?
 
-    let cellModelArray: [SettingsCellModel] = [
-        SettingsCellModel(iconImage: "user-alt", label: "Security Settings"),
-        SettingsCellModel(iconImage: "app-icon", label: "App Defaults"),
-        SettingsCellModel(iconImage: "map-icon", label: "My Added Places"),
-        SettingsCellModel(iconImage: "help-icon", label: "Help & Supports"),
-        SettingsCellModel(iconImage: "about-icon", label: "About"),
-        SettingsCellModel(iconImage: "term-icon", label: "Terms of Use")]
-    
+    let cellModelArray = SettingsData.cellModelArray
     
     private lazy var collectionView:UICollectionView = {
         let layout = makeSettingsLayout()
@@ -65,6 +58,7 @@ class SettingsView: UIViewController {
     
     private lazy var profileImage:UIImageView = {
         let profileImage = UIImageView()
+        profileImage.image = .profile
         profileImage.layer.cornerRadius = 60
         profileImage.clipsToBounds = true
         return profileImage
@@ -115,7 +109,7 @@ class SettingsView: UIViewController {
     
     @objc func buttonEditProfileTapped(){
         let vc = EditProfileVC()
-        self.navigationController?.pushViewController(vc, animated: true)
+        self.present(vc, animated: true)
     }
     
     lazy var viewModel:EditProfileViewModel = {
@@ -123,11 +117,10 @@ class SettingsView: UIViewController {
     }()
     
     
-    // logout bakılacak
     @objc func buttonLogOutTapped() {
         AuthManager.shared.deleteToken(accountIdentifier: "access-token")
 
-        let vc = LoginVc() // Replace with the actual login view controller
+        let vc = LoginVc()
         let navigationController = UINavigationController(rootViewController: vc)
         
         navigationController.isNavigationBarHidden = true
@@ -160,10 +153,8 @@ class SettingsView: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        print("setting sayfasının willi")
         viewModel.dataTransferClosure = { [weak self] profile in
             self?.updateUI(with: profile)
-//            self!.lblProfileName.text = profile.full_name
         }
         
         viewModel.getProfileInfo()
@@ -256,7 +247,7 @@ extension SettingsView:UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "settings", for: indexPath) as! SettingsCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SettingsCell.identifier, for: indexPath) as! SettingsCell
         
         let data = cellModelArray[indexPath.item]
         cell.configure(data: data)

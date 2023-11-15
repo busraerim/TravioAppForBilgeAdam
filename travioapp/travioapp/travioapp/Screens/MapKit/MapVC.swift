@@ -63,7 +63,6 @@ class MapVC: UIViewController {
 
         
       viewModel.checkStatus = { [weak self] status in
-          print("burası see allda \(status)")
           if status == "success" {
               vc.saveButton.setImage(.marked, for: .normal)
           }else{
