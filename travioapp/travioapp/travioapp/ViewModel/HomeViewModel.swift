@@ -21,7 +21,6 @@ class HomeViewModel{
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .getPopular, callback: { (result:Result<Place,Error>) in
             switch result {
             case .success(let obj):
-//                print(obj.data.places)
                 self.dataTransferClosure!(obj.data.places)
             case .failure(let failure):
                 print(failure.localizedDescription)
@@ -74,7 +73,6 @@ class HomeViewModel{
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .getAllPlacesforUser, callback: { (result:Result<Place,Error>) in
             switch result {
             case .success(let obj):
-//                print(obj.data.places)
                 self.dataTransferClosure!(obj.data.places)
             case .failure(let failure):
                 print(failure.localizedDescription)

@@ -71,7 +71,6 @@ class SeeAllVC: UIViewController {
 
         
       viewModel.checkStatus = { [weak self] status in
-          print("burası see allda \(status)")
           if status == "success" {
               vc.saveButton.setImage(.marked, for: .normal)
           }else{
@@ -133,7 +132,6 @@ class SeeAllVC: UIViewController {
 
 extension SeeAllVC:UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(dataPlaceSeeAll[indexPath.row].id)
         checkVisit(placeId: dataPlaceSeeAll[indexPath.row].id, place: dataPlaceSeeAll[indexPath.row])
     }
 }

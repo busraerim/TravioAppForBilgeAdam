@@ -24,7 +24,6 @@ class MyVisitsView: UIViewController {
 
     var myVisitsPlace:[MyVisit] = []
     
-
     
     private lazy var lblTitle:UILabel = {
         var view = UILabel()
@@ -64,7 +63,6 @@ class MyVisitsView: UIViewController {
 
         
       viewModel.checkStatus = { [weak self] status in
-          print("burası see allda \(status)")
           if status == "success" {
               vc.saveButton.setImage(.marked, for: .normal)
           }else{
@@ -163,7 +161,7 @@ extension MyVisitsView:UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MyVisitsCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyVisitsCell.identifier, for: indexPath) as! MyVisitsCell
         let object = myVisitsPlace[indexPath.row]
         cell.configure(object:object)
         
@@ -195,7 +193,6 @@ extension MyVisitsView {
         
         let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
         
-        // tabbar geldikten sonra bottom ver 
         layoutSection.contentInsets = NSDirectionalEdgeInsets(top:30, leading: 16, bottom: 0, trailing: 16)
         layoutSection.interGroupSpacing = 16
         

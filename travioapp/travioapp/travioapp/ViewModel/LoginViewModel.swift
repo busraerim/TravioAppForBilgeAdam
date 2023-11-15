@@ -48,7 +48,6 @@ class LoginViewModel{
                 if let accessToken = user.accessToken {
                     let accessTokenData = Data(accessToken.utf8)
                     AuthManager.shared.saveToken(accessToken, accountIdentifier: "access-token")
-                    print("Erişim Token'ı: \(accessToken)")
                     self.onSuccessLogin?()
                 } else {
                     print("Hata: Erişim Token'ı bulunamadı.")
@@ -56,7 +55,6 @@ class LoginViewModel{
                 if let refreshToken = user.refreshToken {
                     let refreshTokenData = Data(refreshToken.utf8)
                     AuthManager.shared.saveToken(refreshToken, accountIdentifier: "refresh-token")
-                    print("refresh token: \(refreshToken)")
                 }else {
                     print("Hata: Refresh Token'ı bulunamadı.")
                 }

@@ -80,11 +80,9 @@ class HomeUIVC: UIViewController {
             guard let this = self else { return }
             this.popularPlaceWithLimit = place
             this.collectionView.reloadData()
-//            print(this.popularPlaceWithLimit)
             var popularPlaceTuple = (title:"Popular Places", places: this.popularPlaceWithLimit)
             this.homeAllPlaces.append(popularPlaceTuple)
 
-//            print("\(this.homeAllPlaces) bundan sonra eklendi mi?????")
         }
         viewModel.getDataPopularPlacesWithParam(limit: limit)
         return homeAllPlaces
@@ -110,11 +108,9 @@ class HomeUIVC: UIViewController {
             guard let this = self else { return }
             this.newPlaceWithLimit = place
             this.collectionView.reloadData()
-//            print(this.newPlaceWithLimit)
             var newPlaceTuple = (title:"New Places", places: this.newPlaceWithLimit)
             this.homeAllPlaces.append(newPlaceTuple)
 
-//            print("new place geldi miiiii \(this.homeAllPlaces)")
         }
         viewModel.getDataNewPlacesWithParam(limit: limit)
         return homeAllPlaces
@@ -140,11 +136,9 @@ class HomeUIVC: UIViewController {
             guard let this = self else { return }
             this.myAddedPlaces = place
             this.collectionView.reloadData()
-//            print(this.newPlaceWithLimit)
             var myAddedTuple = (title:"My Added Places", places: this.myAddedPlaces)
             this.homeAllPlaces.append(myAddedTuple)
 
-//            print("new place geldi miiiii \(this.homeAllPlaces)")
         }
         viewModel.getDataAllPlacesForUser()
         return homeAllPlaces
@@ -188,7 +182,6 @@ extension HomeUIVC:UICollectionViewDelegate{
         
         header.dataClosure = {
             let vc = SeeAllVC()
-//            print(self.homeAllPlaces)
             vc.labelTitle.text = self.homeAllPlaces[indexPath.section].title
             switch indexPath.section{
             case 0 :
@@ -221,7 +214,6 @@ extension HomeUIVC:UICollectionViewDataSource{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCollectionCell
         let object = homeAllPlaces[indexPath.section].places[indexPath.row]
         cell.configure(object: object)
-//        print(self.homeAllPlaces[indexPath.section].places[indexPath.row])
         return cell
     }
     

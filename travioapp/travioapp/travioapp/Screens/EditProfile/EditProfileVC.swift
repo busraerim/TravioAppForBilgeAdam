@@ -65,13 +65,12 @@ class EditProfileVC: UIViewController {
     
     private lazy var profilePhotoImageView:UIImageView = {
         let iv = UIImageView()
-//        iv.image = .userAlt
+        iv.image = .profile
         iv.layer.cornerRadius = 60
         iv.clipsToBounds = true
         return iv
     }()
     
-    // buttona bakılacak..
     private lazy var changePhotoButton:UIButton = {
         let btn = UIButton(type: .custom)
         btn.setTitle("Change Photo", for: .normal)
@@ -138,9 +137,6 @@ class EditProfileVC: UIViewController {
     func updateUI(with profile: ProfileResponse) {
         lblProfileName.text = profile.full_name
 
-        // Profil fotoğrafı (eğer bir URL kullanılıyorsa, bu URL'yi kullanarak bir görsel indirme işlemi gerekebilir)
-        // Örnek: profilePhotoImageView.setImageFromURL(profile.pp_url)
-
         profileRoleView.label.text = profile.role
         
         let df = DateFormatter()
@@ -160,7 +156,6 @@ class EditProfileVC: UIViewController {
     }
     
     @objc func saveButtonTapped(){
-        print("saved")
         
         if self.selectedImage == nil {
             saveInfos(profilPhoto: oldPP)
@@ -184,7 +179,7 @@ class EditProfileVC: UIViewController {
     }
     
     @objc func closeButtonTapped(){
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true)
     }
     
     private func uploadImage(){
@@ -239,9 +234,8 @@ class EditProfileVC: UIViewController {
     
     func setupLayout(){
         
-        //safearea??
         lblTitle.snp.makeConstraints({ make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(-25)
+            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(10)
             make.leading.equalToSuperview().offset(24)
         })
         

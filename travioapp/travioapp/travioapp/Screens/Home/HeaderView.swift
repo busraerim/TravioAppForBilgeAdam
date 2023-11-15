@@ -43,7 +43,6 @@ class HeaderView: UICollectionReusableView {
     }
     
     @objc func btnSeeAll(){
-        print("bastı")
         dataClosure?()
     }
     
