@@ -163,7 +163,7 @@ extension MyVisitsView:UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MyVisitsCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyVisitsCell.identifier, for: indexPath) as! MyVisitsCell
         let object = myVisitsPlace[indexPath.row]
         cell.configure(object:object)
         
