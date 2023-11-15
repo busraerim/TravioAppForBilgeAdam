@@ -11,6 +11,8 @@ import Kingfisher
 
 class EditProfileVC: UIViewController {
     
+    weak var delegate:SettingsViewProtocol?
+
     var profile:ProfileResponse?
     
     var selectedImage:UIImage?
@@ -179,7 +181,10 @@ class EditProfileVC: UIViewController {
     }
     
     @objc func closeButtonTapped(){
+        viewModel.getProfileInfo()
+        delegate?.saveButtonTapped()
         self.dismiss(animated: true)
+        
     }
     
     private func uploadImage(){

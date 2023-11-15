@@ -24,10 +24,6 @@ class MyVisitsView: UIViewController {
 
     var myVisitsPlace:[MyVisit] = []
     
-<<<<<<< HEAD
-    
-=======
->>>>>>> Sprint4.1/PlaceDetailRefactor
     private lazy var lblTitle:UILabel = {
         var view = UILabel()
         view.textColor = .white
@@ -51,7 +47,7 @@ class MyVisitsView: UIViewController {
         //layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         let cv = UICollectionView(frame: .zero, collectionViewLayout: lay)
        
-        cv.register(MyVisitsCell.self, forCellWithReuseIdentifier: "cell")
+        cv.register(MyVisitsCell.self, forCellWithReuseIdentifier: MyVisitsCell.identifier)
         cv.isPagingEnabled = true
         cv.dataSource = self
         cv.delegate = self
