@@ -130,6 +130,17 @@ class EditProfileVC: UIViewController {
         return sv
     }()
     
+    func showAlertPhotoLibrary(buttonTitle:String, title:String, message:String, style: UIAlertAction.Style = .default){
+        let btnOK = UIAlertAction(title: buttonTitle, style: style, handler: { action in
+            self.dismiss(animated: true, completion: nil)
+        })
+
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(btnOK)
+        self.present(alert, animated: true)
+    }
+    
     lazy var viewModel:EditProfileViewModel = {
         return EditProfileViewModel()
     }()
@@ -180,7 +191,14 @@ class EditProfileVC: UIViewController {
     }
     
     @objc func changePhotoButtonTapped(){
+        let vc = SecuritySettingsView()
+        
+        if vc.status == .authorized {
             openGallery()
+        }else{
+            self.showAlertPhotoLibrary(buttonTitle: "Tamam", title: "Hata", message: "Fotoğraf kütüphanesine erişim izni vermediniz. Menüden bu ayarları değiştirebilirsiniz.")
+        }
+           
       
     }
     

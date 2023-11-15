@@ -26,11 +26,10 @@ import CoreLocation
 
 
 
-
 class SecuritySettingsView: UIViewController {
     
-    
     var status = PHPhotoLibrary.authorizationStatus()
+
     
     var cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
 
@@ -398,3 +397,4 @@ extension SecuritySettingsView{
         }
     }
 }
+

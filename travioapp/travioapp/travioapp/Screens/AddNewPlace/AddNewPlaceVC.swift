@@ -12,6 +12,7 @@ import TinyConstraints
 
 class AddNewPlaceVC: UIViewController {
     
+    
     weak var delegate:GetData?
     
     var imageDataArray:[Data] = []
@@ -98,6 +99,17 @@ class AddNewPlaceVC: UIViewController {
        alert.addAction(btnRetry)
        self.present(alert, animated: true)
    }
+    
+    func showAlertPhotoLibrary(buttonTitle:String, title:String, message:String, style: UIAlertAction.Style = .default){
+        let btnOK = UIAlertAction(title: buttonTitle, style: style, handler: { action in
+            self.dismiss(animated: true, completion: nil)
+        })
+
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(btnOK)
+        self.present(alert, animated: true)
+    }
     
     private func uploadImage(){
         let viewModel = AddNewPlaceViewModel()
@@ -242,7 +254,14 @@ extension AddNewPlaceVC {
 
 extension AddNewPlaceVC:UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        openGallery()
+        let vc = SecuritySettingsView()
+        
+        if vc.status == .authorized {
+            openGallery()
+        }else{
+            self.showAlertPhotoLibrary(buttonTitle: "Tamam", title: "Hata", message: "Fotoğraf kütüphanesine erişim izni vermediniz. Menüden bu ayarları değiştirebilirsiniz.")
+        }
+
     }
     
     @objc func openGallery() {
