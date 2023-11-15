@@ -24,7 +24,10 @@ class MyVisitsView: UIViewController {
 
     var myVisitsPlace:[MyVisit] = []
     
+<<<<<<< HEAD
     
+=======
+>>>>>>> Sprint4.1/PlaceDetailRefactor
     private lazy var lblTitle:UILabel = {
         var view = UILabel()
         view.textColor = .white
@@ -56,6 +59,7 @@ class MyVisitsView: UIViewController {
         return cv
     }()
     
+
     func checkVisit(placeId:String, place:PlaceItem){
     
       let vc = DetailScrollVC()
@@ -81,6 +85,7 @@ class MyVisitsView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         networkingMyVisitPlaces()
+ 
         setupViews()
     }
     
@@ -182,7 +187,7 @@ extension MyVisitsView {
         }
         
     }
-    
+     
     func makeListLayoutSection() -> NSCollectionLayoutSection {
         
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))

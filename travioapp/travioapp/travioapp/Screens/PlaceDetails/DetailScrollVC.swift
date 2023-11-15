@@ -11,7 +11,12 @@ import TinyConstraints
 import MapKit
 
 
+
+
+
 class DetailScrollVC: UIViewController {
+    
+
     
     var detailPlace:PlaceItem?
     
@@ -35,15 +40,60 @@ class DetailScrollVC: UIViewController {
         cv.delegate = self
         cv.contentInsetAdjustmentBehavior = .never
         cv.isScrollEnabled = false
+        cv.isPagingEnabled = true
         return cv
     }()
+    
+    private lazy var pageControl: UIPageControl = {
+        let pc = UIPageControl()
+        pc.numberOfPages = images.count
+        pc.currentPage = 0
+        pc.translatesAutoresizingMaskIntoConstraints = false
+        pc.pageIndicatorTintColor = .lightGray
+        pc.currentPageIndicatorTintColor = .black
+        pc.backgroundStyle = .prominent
+        return pc
+    }()
+
+
+    func formatDateString(_ dateString: String) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
+        
+        if let date = dateFormatter.date(from: dateString) {
+            // Tarih çıkarımı
+            let dayFormatter = DateFormatter()
+            dayFormatter.dateFormat = "dd"
+            let day = dayFormatter.string(from: date)
+            
+            // Ay ismi
+            let monthFormatter = DateFormatter()
+            monthFormatter.dateFormat = "MMMM"
+            let month = monthFormatter.string(from: date)
+            
+            // Yıl çıkarımı
+            let yearFormatter = DateFormatter()
+            yearFormatter.dateFormat = "yyyy"
+            let year = yearFormatter.string(from: date)
+            
+            // sonuc
+            let formattedDate = "\(day) \(month) \(year)"
+            
+            return formattedDate
+        }
+        
+        return nil
+    }
+
+    
     
     private lazy var scrollView:ScrollView = {
         let v = ScrollView()
         v.labelTitle.text = detailPlace?.place
-        v.lblCreatedDate.text = detailPlace!.created_at
+        v.lblCreatedDate.text = formatDateString(detailPlace!.created_at)
         v.lblAddedByWho.text = "added by @\(detailPlace!.creator)"
         v.lblDescription.text = detailPlace?.description
+        v.addingPin(place: detailPlace!)
         let location = CLLocation(latitude: self.detailPlace!.latitude, longitude: self.detailPlace!.longitude)
         let zoomRadius: CLLocationDistance = 240
         let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: zoomRadius, longitudinalMeters: zoomRadius)
@@ -58,8 +108,12 @@ class DetailScrollVC: UIViewController {
        return button
     }()
     
+
+    
     @objc func buttonSaveTapped(){
         print("bastı")
+        
+        
         let currentDate = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"
@@ -73,8 +127,12 @@ class DetailScrollVC: UIViewController {
             PlaceDetailViewModel().deleteAVisitByPlaceId(placeId: detailPlace!.id)
             saveButton.setImage(.notmarked, for: .normal)
         }
+        
+        
+
+
     }
-    
+
     
     override func viewDidLoad() {
        super.viewDidLoad()
@@ -105,21 +163,24 @@ class DetailScrollVC: UIViewController {
      
 
     func setupViews() {
-        self.view.addSubviews(collectionView, saveButton)
+        self.view.addSubviews(collectionView, saveButton, pageControl)
         self.view.addSubviews(scrollView)
         self.view.backgroundColor = UIColor(red: 0.971, green: 0.971, blue: 0.971, alpha: 1)
         
         navigationController?.navigationBar.isTranslucent = true
+
+        let saveBarButton = UIBarButtonItem(customView: saveButton)
+
         
         let leftButtonImage = UIImage(named:"backButton")
         let leftBarButton = UIBarButtonItem(image: leftButtonImage, style: .plain, target: self, action: #selector(backButtonTapped))
         leftBarButton.tintColor = UIColor(hex: "FFFFFF")
         
-//        let rightBarButton = UIBarButtonItem(image: rightButtonImage, style: .done, target: self, action: #selector(buttonSaveTapped))
-
         
+
         self.navigationItem.leftBarButtonItem = leftBarButton
-//        self.navigationItem.rightBarButtonItem = rightBarButton
+        self.navigationItem.rightBarButtonItem = saveBarButton
+
         setupLayout()
     }
     
@@ -130,7 +191,7 @@ class DetailScrollVC: UIViewController {
     func setupLayout() {
         
         collectionView.topToSuperview()
-        collectionView.height(230)
+        collectionView.height(280)
         collectionView.leadingToSuperview()
         collectionView.trailingToSuperview()
         collectionView.layoutIfNeeded()
@@ -140,12 +201,16 @@ class DetailScrollVC: UIViewController {
         scrollView.leadingToSuperview()
         scrollView.trailingToSuperview()
         
-        saveButton.topToSuperview(offset:150)
+        saveButton.topToSuperview(offset:50)
         saveButton.trailingToSuperview(offset:17)
+        
+        pageControl.centerXToSuperview()
+        pageControl.bottomToTop(of: scrollView, offset: -10)
         
        
      
     }
+
 }
 
 extension DetailScrollVC {
@@ -176,6 +241,16 @@ extension DetailScrollVC {
 
 }
 
+
+extension DetailScrollVC:UICollectionViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let visibleIndexPaths = collectionView.indexPathsForVisibleItems
+        if  let firstIndex = visibleIndexPaths.first{
+            pageControl.currentPage = firstIndex.item
+        }
+    }
+}
+
 extension DetailScrollVC:UICollectionViewDataSource{
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -194,10 +269,6 @@ extension DetailScrollVC:UICollectionViewDataSource{
     }
     
 }
-
-extension DetailScrollVC:UICollectionViewDelegate{
-}
-
 
 
 
