@@ -55,6 +55,7 @@ class DetailScrollVC: UIViewController {
         return pc
     }()
 
+
     func formatDateString(_ dateString: String) -> String? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
@@ -106,6 +107,8 @@ class DetailScrollVC: UIViewController {
         button.addTarget(self, action: #selector(buttonSaveTapped), for: .touchUpInside)
        return button
     }()
+    
+
     
     @objc func buttonSaveTapped(){
         print("bastı")
@@ -207,6 +210,7 @@ class DetailScrollVC: UIViewController {
        
      
     }
+
 }
 
 extension DetailScrollVC {
