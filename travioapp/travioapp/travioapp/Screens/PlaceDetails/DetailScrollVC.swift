@@ -11,7 +11,12 @@ import TinyConstraints
 import MapKit
 
 
+
+
+
 class DetailScrollVC: UIViewController {
+    
+
     
     var detailPlace:PlaceItem?
     
@@ -104,6 +109,8 @@ class DetailScrollVC: UIViewController {
     
     @objc func buttonSaveTapped(){
         print("bastı")
+        
+        
         let currentDate = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"
@@ -117,6 +124,10 @@ class DetailScrollVC: UIViewController {
             PlaceDetailViewModel().deleteAVisitByPlaceId(placeId: detailPlace!.id)
             saveButton.setImage(.notmarked, for: .normal)
         }
+        
+        
+
+
     }
 
     
