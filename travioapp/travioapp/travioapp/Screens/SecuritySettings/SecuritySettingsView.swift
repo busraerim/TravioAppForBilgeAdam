@@ -5,9 +5,6 @@
 //  Created by Sabri DİNDAR on 1.11.2023.
 //
 
-import UIKit
-import SnapKit
-
 #if DEBUG
 import SwiftUI
 
@@ -20,7 +17,23 @@ struct SecuritySettingsView_Preview: PreviewProvider {
 }
 #endif
 
+
+import UIKit
+import SnapKit
+import Photos
+import AVFoundation
+import CoreLocation
+
+
+
+
 class SecuritySettingsView: UIViewController {
+    
+    
+    var status = PHPhotoLibrary.authorizationStatus()
+    
+    var cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
+
     
     private lazy var lblTitle:UILabel = {
         let lbl = UILabel()
@@ -56,21 +69,55 @@ class SecuritySettingsView: UIViewController {
     private lazy var cameraLabel:PrivacyCell = {
         let lbl = PrivacyCell()
         lbl.labelText.text = "Camera"
+        lbl.toggleSwitch.addTarget(self, action: #selector(cameraToggleChanged), for: .valueChanged)
         return lbl
     }()
     
+    @objc func cameraToggleChanged(_ sender: UISwitch) {
+        if sender.isOn {
+            checkCameraPermission()
+        }else{
+            showSettingsAlert(title:"Camera Access Denied" , message:"Please enable access to your camera in Settings.")
+        }
+    }
+
     private lazy var photoLibraryLabel:PrivacyCell = {
         let lbl = PrivacyCell()
         lbl.labelText.text = "Photo Library"
+        lbl.toggleSwitch.addTarget(self, action: #selector(photoLibraryToggleChanged), for: .valueChanged)
         return lbl
     }()
     
+    @objc func photoLibraryToggleChanged(_ sender: UISwitch) {
+        if sender.isOn {
+            checkPhotoLibraryPermission()
+        }else{
+            showSettingsAlert(title: "Photo Library Access Denied", message: "Please enable access to your photo library in Settings.")
+        }
+    }
+    
+    private lazy var locationManager: CLLocationManager = {
+        let manager = CLLocationManager()
+        manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        
+        return manager
+    }()
+
     private lazy var locationLabel:PrivacyCell = {
         let lbl = PrivacyCell()
         lbl.labelText.text = "Location"
+        lbl.toggleSwitch.addTarget(self, action: #selector(locationToggleChanged), for: .valueChanged)
         return lbl
     }()
     
+    @objc func locationToggleChanged(_ sender: UISwitch) {
+          if sender.isOn {
+              checkLocationPermission()
+          } else {
+              showSettingsAlert(title: "Location Access Denied", message: "Please enable access to your location in Settings.")
+          }
+    }
     
     private lazy var privacyStackView = {
         let sv = UIStackView()
@@ -79,8 +126,7 @@ class SecuritySettingsView: UIViewController {
         sv.distribution = .fillEqually
         return sv
     }()
-    
-    
+
     private lazy var backButton:UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "backButtonImage"), for: .normal)
@@ -106,6 +152,7 @@ class SecuritySettingsView: UIViewController {
         btn.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         return btn
     }()
+
     
     func createLabel(title:String) -> UILabel {
         let lbl = UILabel()
@@ -160,6 +207,7 @@ class SecuritySettingsView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        controlStatusPermission()
         setupViews()
         initVM()
     }
@@ -222,5 +270,131 @@ class SecuritySettingsView: UIViewController {
     
 
 
+extension SecuritySettingsView:CLLocationManagerDelegate{
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse || status == .authorizedAlways {
+            print("Location access is granted now")
+            self.locationLabel.toggleSwitch.isOn = true
+        } else {
+            print("Location access is still not granted")
+            self.locationLabel.toggleSwitch.isOn = false
+        }
+    }
+
+}
 
 
+
+
+extension SecuritySettingsView{
+    func checkCameraPermission() {
+        switch cameraAuthorizationStatus {
+        case .authorized:
+            print("Kamera erişimi zaten var")
+            self.cameraLabel.toggleSwitch.isOn = true
+        case .denied, .restricted:
+            print("Kamera izni daha önce reddedilmiş veya sınırlı")
+            showSettingsAlert(title: "Camera Access Denied", message: "Please enable access to your camera in Settings.")
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video) { granted in
+                if granted {
+                    print("Kamera izni verildi")
+                    self.cameraLabel.toggleSwitch.isOn = true
+                } else {
+                    print("Kamera izni reddedildi")
+                    self.cameraLabel.toggleSwitch.isOn = false
+                }
+            }
+        @unknown default:
+            break
+        }
+    }
+    
+    
+    func checkPhotoLibraryPermission() {
+        switch status {
+        case .authorized:
+            print("erişim zaten var")
+            self.photoLibraryLabel.toggleSwitch.isOn = true
+            break
+        case .denied, .restricted:
+            print("daha önce reddedilmiş")
+            showSettingsAlert(title: "Photo Library Access Denied", message: "Please enable access to your photo library in Settings.")
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization { status in
+                if status == .authorized {
+                    print("izin var")
+
+                 
+                } else {
+                    print("izin yok")
+                    self.photoLibraryLabel.toggleSwitch.isOn = false
+                }
+            }
+        @unknown default:
+            break
+        }
+    }
+    
+    
+    
+    func checkLocationPermission() {
+        switch locationManager.authorizationStatus {
+        case .authorizedAlways, .authorizedWhenInUse:
+            print("Location access is already granted")
+            self.locationLabel.toggleSwitch.isOn = true
+        case .denied, .restricted:
+            print("Location access was denied or restricted")
+            showSettingsAlert(title: "Location Access Denied", message: "Please enable access to your location in Settings.")
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        @unknown default:
+            break
+        }
+    }
+}
+
+
+extension SecuritySettingsView{
+    
+    func showSettingsAlert(title:String, message:String) {
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Settings", style: .default) { _ in
+            if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
+            }
+        })
+
+        present(alert, animated: true, completion: nil)
+    }
+    
+}
+
+extension SecuritySettingsView{
+    
+    func controlStatusPermission(){
+        if status == .authorized{
+            self.photoLibraryLabel.toggleSwitch.isOn = true
+        }else{
+            self.photoLibraryLabel.toggleSwitch.isOn = false
+        }
+        
+        if cameraAuthorizationStatus == .authorized{
+            self.cameraLabel.toggleSwitch.isOn = true
+        }else{
+            self.cameraLabel.toggleSwitch.isOn = false
+        }
+        
+        if locationManager.authorizationStatus == .authorizedAlways || locationManager.authorizationStatus == .authorizedWhenInUse{
+            self.locationLabel.toggleSwitch.isOn = true
+        }else{
+            self.locationLabel.toggleSwitch.isOn = false
+        }
+    }
+}

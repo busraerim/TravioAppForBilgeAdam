@@ -9,8 +9,11 @@ import UIKit
 import SnapKit
 import Kingfisher
 
+
+
+
 class EditProfileVC: UIViewController {
-    
+
     var profile:ProfileResponse?
     
     var selectedImage:UIImage?
@@ -175,7 +178,8 @@ class EditProfileVC: UIViewController {
     }
     
     @objc func changePhotoButtonTapped(){
-        openGallery()
+            openGallery()
+      
     }
     
     @objc func closeButtonTapped(){
@@ -313,3 +317,5 @@ struct EditProfileVC_Preview: PreviewProvider {
     }
 }
 #endif
+
+

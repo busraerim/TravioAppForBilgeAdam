@@ -9,9 +9,21 @@
 import UIKit
 import SnapKit
 import TinyConstraints
+import Photos
+
 
 class LoginVc: UIViewController {
     
+    var status = PHPhotoLibrary.authorizationStatus()
+    
+    
+    func getPermission(){
+        let vc = SecuritySettingsView()
+        vc.checkPhotoLibraryPermission()
+        vc.checkCameraPermission()
+        vc.checkLocationPermission()
+    }
+
     private lazy var travioImage:UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "travio-logo 1")
@@ -107,6 +119,7 @@ class LoginVc: UIViewController {
         
         viewModel.onSuccessLogin = { [weak self] in
             let vc = TabbarUI()
+            self!.getPermission()
             self?.navigationController?.pushViewController(vc, animated: true)
         }
 
