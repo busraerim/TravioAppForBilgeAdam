@@ -12,8 +12,6 @@ import MapKit
 
 
 
-
-
 class DetailScrollVC: UIViewController {
     
 
@@ -133,7 +131,6 @@ class DetailScrollVC: UIViewController {
 
     }
 
-    
     override func viewDidLoad() {
        super.viewDidLoad()
        self.getAllGalery(placeId: detailPlace!.id)

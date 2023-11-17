@@ -95,6 +95,8 @@ class SecuritySettingsView: UIViewController {
         }
     }
     
+  
+    
     private lazy var locationManager: CLLocationManager = {
         let manager = CLLocationManager()
         manager.delegate = self
@@ -323,8 +325,6 @@ extension SecuritySettingsView{
             PHPhotoLibrary.requestAuthorization { status in
                 if status == .authorized {
                     print("izin var")
-
-                 
                 } else {
                     print("izin yok")
                     self.photoLibraryLabel.toggleSwitch.isOn = false

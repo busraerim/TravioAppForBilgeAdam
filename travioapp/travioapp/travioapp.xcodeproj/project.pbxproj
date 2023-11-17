@@ -95,6 +95,7 @@
 		439A41D82AFA6DB100F1D252 /* AddNewPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41D72AFA6DB100F1D252 /* AddNewPlace.swift */; };
 		439A41DA2AFB89EF00F1D252 /* MyAddedPlacesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A41D92AFB89EF00F1D252 /* MyAddedPlacesVC.swift */; };
 		439B9BED2B04D70F00B8BF1F /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439B9BEC2B04D70E00B8BF1F /* Protocol.swift */; };
+		439B9BF02B075EFA00B8BF1F /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 439B9BEF2B075EFA00B8BF1F /* IQKeyboardManagerSwift */; };
 		43B4DEF02ADC7A77000E4C18 /* InputBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B4DEEF2ADC7A77000E4C18 /* InputBox.swift */; };
 		43CD21672AFE501200D96784 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CD21662AFE501200D96784 /* DetailViewModel.swift */; };
 		43CD21692AFE533300D96784 /* GetGalleryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CD21682AFE533300D96784 /* GetGalleryModel.swift */; };
@@ -106,7 +107,6 @@
 		43DF6D092ADC5BCD00DEDD3A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DF6D082ADC5BCD00DEDD3A /* Extensions.swift */; };
 		43DF6D0C2ADC5BE900DEDD3A /* TinyConstraints in Frameworks */ = {isa = PBXBuildFile; productRef = 43DF6D0B2ADC5BE900DEDD3A /* TinyConstraints */; };
 		43DF6D0F2ADC5BF900DEDD3A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 43DF6D0E2ADC5BF900DEDD3A /* SnapKit */; };
-		43DF6D112ADC5BF900DEDD3A /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 43DF6D102ADC5BF900DEDD3A /* SnapKit-Dynamic */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -217,9 +217,9 @@
 				43DF6D0C2ADC5BE900DEDD3A /* TinyConstraints in Frameworks */,
 				4354F2882AE926E60002D438 /* Alamofire in Frameworks */,
 				43DF6D0F2ADC5BF900DEDD3A /* SnapKit in Frameworks */,
-				43DF6D112ADC5BF900DEDD3A /* SnapKit-Dynamic in Frameworks */,
 				439A41BC2AF8C3A500F1D252 /* MapKit.framework in Frameworks */,
 				439A41B12AF4D04A00F1D252 /* Kingfisher in Frameworks */,
+				439B9BF02B075EFA00B8BF1F /* IQKeyboardManagerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -548,9 +548,9 @@
 			packageProductDependencies = (
 				43DF6D0B2ADC5BE900DEDD3A /* TinyConstraints */,
 				43DF6D0E2ADC5BF900DEDD3A /* SnapKit */,
-				43DF6D102ADC5BF900DEDD3A /* SnapKit-Dynamic */,
 				4354F2872AE926E60002D438 /* Alamofire */,
 				439A41B02AF4D04A00F1D252 /* Kingfisher */,
+				439B9BEF2B075EFA00B8BF1F /* IQKeyboardManagerSwift */,
 			);
 			productName = travioapp;
 			productReference = 43DF6CF12ADC5B8D00DEDD3A /* travioapp.app */;
@@ -585,6 +585,7 @@
 				43DF6D0D2ADC5BF900DEDD3A /* XCRemoteSwiftPackageReference "SnapKit" */,
 				4354F2862AE926E60002D438 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				439A41AF2AF4D04A00F1D252 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				439B9BEE2B075EFA00B8BF1F /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = 43DF6CF22ADC5B8D00DEDD3A /* Products */;
 			projectDirPath = "";
@@ -775,7 +776,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -832,7 +833,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -944,6 +945,14 @@
 				minimumVersion = 7.10.0;
 			};
 		};
+		439B9BEE2B075EFA00B8BF1F /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.5.16;
+			};
+		};
 		43DF6D0A2ADC5BE900DEDD3A /* XCRemoteSwiftPackageReference "TinyConstraints" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/roberthein/TinyConstraints.git";
@@ -973,6 +982,11 @@
 			package = 439A41AF2AF4D04A00F1D252 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
+		439B9BEF2B075EFA00B8BF1F /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 439B9BEE2B075EFA00B8BF1F /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
 		43DF6D0B2ADC5BE900DEDD3A /* TinyConstraints */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 43DF6D0A2ADC5BE900DEDD3A /* XCRemoteSwiftPackageReference "TinyConstraints" */;
@@ -982,11 +996,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 43DF6D0D2ADC5BF900DEDD3A /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		43DF6D102ADC5BF900DEDD3A /* SnapKit-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 43DF6D0D2ADC5BF900DEDD3A /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = "SnapKit-Dynamic";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

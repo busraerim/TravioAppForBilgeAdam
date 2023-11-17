@@ -141,6 +141,53 @@ class EditProfileVC: UIViewController {
         self.present(alert, animated: true)
     }
     
+    func showAlertForPermission(buttonTitle:String, title:String, message:String, style: UIAlertAction.Style = .default){
+        let btnOK = UIAlertAction(title: buttonTitle, style: style, handler: { action in
+            self.dismiss(animated: true, completion: nil)
+        })
+
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(btnOK)
+        self.present(alert, animated: true)
+    }
+    
+    func checkPhotoLibrary(){
+        let vc = SecuritySettingsView()
+        
+        if vc.status == .authorized {
+            openGallery(sourceType: .photoLibrary)
+        }else{
+            self.showAlertForPermission(buttonTitle: "Tamam", title: "Hata", message: "Fotoğraf kütüphanesine erişim izni vermediniz. Menüden bu ayarları değiştirebilirsiniz.")
+        }
+    }
+    
+    func checkCamera(){
+        let vc = SecuritySettingsView()
+        
+        if vc.cameraAuthorizationStatus == .authorized {
+            openGallery(sourceType: .camera)
+        }else{
+            self.showAlertForPermission(buttonTitle: "Tamam", title: "Hata", message: "Kameraya erişim izni vermediniz. Menüden bu ayarları değiştirebilirsiniz.")
+        }
+    }
+    
+    func showAlertCameraorPhotoLibrary(title:String,message:String) {
+       let btnCamera = UIAlertAction(title: "Open Camera", style: .destructive, handler: { action in
+           self.checkCamera()
+       })
+        
+       let btnPhotoLibrary = UIAlertAction(title: "Open Photo Library", style: .destructive, handler: { action in
+           self.checkPhotoLibrary()
+       })
+        
+       let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+       alert.addAction(btnCamera)
+       alert.addAction(btnPhotoLibrary)
+        
+       self.present(alert, animated: true)
+   }
+    
+    
     lazy var viewModel:EditProfileViewModel = {
         return EditProfileViewModel()
     }()
@@ -183,21 +230,23 @@ class EditProfileVC: UIViewController {
         
     }
     
-    @objc func openGallery() {
+    @objc func openGallery(sourceType: UIImagePickerController.SourceType) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
+        imagePicker.sourceType = sourceType
         present(imagePicker, animated: true, completion: nil)
     }
     
     @objc func changePhotoButtonTapped(){
-        let vc = SecuritySettingsView()
-        
-        if vc.status == .authorized {
-            openGallery()
-        }else{
-            self.showAlertPhotoLibrary(buttonTitle: "Tamam", title: "Hata", message: "Fotoğraf kütüphanesine erişim izni vermediniz. Menüden bu ayarları değiştirebilirsiniz.")
-        }
+        showAlertCameraorPhotoLibrary(title: "Chance Photo" , message: "")
+
+//        let vc = SecuritySettingsView()
+//        
+//        if vc.status == .authorized {
+//            openGallery()
+//        }else{
+//            self.showAlertPhotoLibrary(buttonTitle: "Tamam", title: "Hata", message: "Fotoğraf kütüphanesine erişim izni vermediniz. Menüden bu ayarları değiştirebilirsiniz.")
+//        }
            
       
     }

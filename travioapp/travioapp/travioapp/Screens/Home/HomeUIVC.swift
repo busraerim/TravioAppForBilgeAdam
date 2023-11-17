@@ -49,7 +49,7 @@ class HomeUIVC: UIViewController {
         cv.register(CustomCollectionCell.self, forCellWithReuseIdentifier: "cell")
         cv.register(HeaderView.self, forSupplementaryViewOfKind:UICollectionView.elementKindSectionHeader , withReuseIdentifier: HeaderView.reuseId)
         cv.dataSource = self
-//        cv.delegate = self
+        cv.delegate = self
         return cv
     }()
     
@@ -110,7 +110,6 @@ class HomeUIVC: UIViewController {
             this.collectionView.reloadData()
             var newPlaceTuple = (title:"New Places", places: this.newPlaceWithLimit)
             this.homeAllPlaces.append(newPlaceTuple)
-
         }
         viewModel.getDataNewPlacesWithParam(limit: limit)
         return homeAllPlaces
@@ -135,15 +134,34 @@ class HomeUIVC: UIViewController {
         viewModel.dataTransferClosure = { [weak self] place in
             guard let this = self else { return }
             this.myAddedPlaces = place
-            this.collectionView.reloadData()
-            var myAddedTuple = (title:"My Added Places", places: this.myAddedPlaces)
+            let myAddedTuple = (title:"My Added Places", places: this.myAddedPlaces)
             this.homeAllPlaces.append(myAddedTuple)
+            this.collectionView.reloadData()
 
         }
         viewModel.getDataAllPlacesForUser()
         return homeAllPlaces
     }
- 
+    
+    func checkVisit(placeId:String, place:PlaceItem){
+    
+      let vc = DetailScrollVC()
+      let viewModel = PlaceDetailViewModel()
+
+        
+      viewModel.checkStatus = { [weak self] status in
+          if status == "success" {
+              vc.saveButton.setImage(.marked, for: .normal)
+          }else{
+              vc.saveButton.setImage(.notmarked, for: .normal)
+          }
+          vc.detailPlace = place
+          self!.navigationController?.pushViewController(vc, animated: true)
+      }
+        
+      viewModel.checkVisitByPlaceID(placeId: placeId )
+
+    }
    
 
     func setupViews() {
@@ -174,6 +192,12 @@ class HomeUIVC: UIViewController {
 }
 
 extension HomeUIVC:UICollectionViewDelegate{
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let place = homeAllPlaces[indexPath.section].places[indexPath.row]
+        let placeId = place.id
+        checkVisit(placeId: placeId, place: place)
+    }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderView.reuseId, for: indexPath) as! HeaderView
@@ -197,6 +221,7 @@ extension HomeUIVC:UICollectionViewDelegate{
         }
         return header
     }
+    
     
 }
 
@@ -257,6 +282,7 @@ extension HomeUIVC {
 
 #if DEBUG
 import SwiftUI
+import CoreLocation
 
 @available(iOS 13, *)
 struct HomeUIVC_Preview: PreviewProvider {
