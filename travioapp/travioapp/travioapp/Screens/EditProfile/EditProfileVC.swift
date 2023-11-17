@@ -202,6 +202,17 @@ class EditProfileVC: UIViewController {
       
     }
     
+     func showAlert(title:String,message:String) {
+         let btn = UIAlertAction(title: "Tamam", style: .default) { _ in
+             self.delegate?.saveButtonTapped()
+             self.dismiss(animated: true)
+         }
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(btn)
+        self.present(alert, animated: true)
+    }
+    
+    
     @objc func closeButtonTapped(){
         viewModel.getProfileInfo()
         delegate?.saveButtonTapped()
@@ -226,10 +237,21 @@ class EditProfileVC: UIViewController {
               let full_name = fullNameInputView.txtPlaceholder.text else {return}
         
         viewModel.changeProfileInfo(profile: EditProfileRequest(full_name: full_name, email: email, pp_url: profilPhoto))
+        initVM()
         
         lblProfileName.text = full_name
     }
     
+    func initVM(){
+        viewModel.showAlertClosure = { [weak self] () in
+            DispatchQueue.main.async {
+                if let message = self?.viewModel.alertMessage {
+                    self?.showAlert(title: "Başarılı.", message: message)
+                }
+            }
+        }
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -238,7 +260,7 @@ class EditProfileVC: UIViewController {
 
         
         viewModel.getProfileInfo()
-        
+        initVM()
         setupViews()
     }
     
