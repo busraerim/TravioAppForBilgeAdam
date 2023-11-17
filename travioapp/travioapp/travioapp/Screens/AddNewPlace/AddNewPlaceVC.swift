@@ -100,16 +100,51 @@ class AddNewPlaceVC: UIViewController {
        self.present(alert, animated: true)
    }
     
-    func showAlertPhotoLibrary(buttonTitle:String, title:String, message:String, style: UIAlertAction.Style = .default){
+    func showAlertForPermission(buttonTitle:String, title:String, message:String, style: UIAlertAction.Style = .default){
         let btnOK = UIAlertAction(title: buttonTitle, style: style, handler: { action in
             self.dismiss(animated: true, completion: nil)
         })
 
-        
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(btnOK)
         self.present(alert, animated: true)
     }
+    
+    func checkPhotoLibrary(){
+        let vc = SecuritySettingsView()
+        
+        if vc.status == .authorized {
+            openGallery(sourceType: .photoLibrary)
+        }else{
+            self.showAlertForPermission(buttonTitle: "Tamam", title: "Hata", message: "Fotoğraf kütüphanesine erişim izni vermediniz. Menüden bu ayarları değiştirebilirsiniz.")
+        }
+    }
+    
+    func checkCamera(){
+        let vc = SecuritySettingsView()
+        
+        if vc.cameraAuthorizationStatus == .authorized {
+            openGallery(sourceType: .camera)
+        }else{
+            self.showAlertForPermission(buttonTitle: "Tamam", title: "Hata", message: "Kameraya erişim izni vermediniz. Menüden bu ayarları değiştirebilirsiniz.")
+        }
+    }
+    
+    func showAlertCameraorPhotoLibrary(title:String,message:String) {
+       let btnCamera = UIAlertAction(title: "Camera", style: .destructive, handler: { action in
+           self.checkCamera()
+       })
+        
+       let btnPhotoLibrary = UIAlertAction(title: "Photo Library", style: .destructive, handler: { action in
+           self.checkPhotoLibrary()
+       })
+        
+       let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+       alert.addAction(btnCamera)
+       alert.addAction(btnPhotoLibrary)
+       self.present(alert, animated: true)
+   }
+    
     
     private func uploadImage(){
         let viewModel = AddNewPlaceViewModel()
@@ -254,20 +289,22 @@ extension AddNewPlaceVC {
 
 extension AddNewPlaceVC:UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = SecuritySettingsView()
         
-        if vc.status == .authorized {
-            openGallery()
-        }else{
-            self.showAlertPhotoLibrary(buttonTitle: "Tamam", title: "Hata", message: "Fotoğraf kütüphanesine erişim izni vermediniz. Menüden bu ayarları değiştirebilirsiniz.")
-        }
+        showAlertCameraorPhotoLibrary(title: "Başlık", message: "Mesaj")
+//        let vc = SecuritySettingsView()
+//        
+//        if vc.status == .authorized {
+//            openGallery()
+//        }else{
+//            self.showAlertPhotoLibrary(buttonTitle: "Tamam", title: "Hata", message: "Fotoğraf kütüphanesine erişim izni vermediniz. Menüden bu ayarları değiştirebilirsiniz.")
+//        }
 
     }
     
-    @objc func openGallery() {
+    @objc func openGallery(sourceType: UIImagePickerController.SourceType) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
+        imagePicker.sourceType = sourceType
         present(imagePicker, animated: true, completion: nil)
     }
 }
@@ -313,6 +350,12 @@ extension AddNewPlaceVC:UICollectionViewDataSource{
     }
     
 }
+
+
+
+
+
+
 
 #if DEBUG
 import SwiftUI
