@@ -10,7 +10,14 @@ import Foundation
 class EditProfileViewModel {
     
     var dataTransferClosure: ((ProfileResponse) -> Void)?
-
+    
+    var alertMessage: String? {
+        didSet {
+            self.showAlertClosure?()
+        }
+    }
+    
+    var showAlertClosure: (() -> ())?
     
     func getProfileInfo(){
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .me, callback: {(result:Result<ProfileResponse, Error>) in
@@ -30,6 +37,7 @@ class EditProfileViewModel {
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .editProfile(param: params), callback: { (result:Result<BaseResponse, Error>) in
             switch result {
             case .success(let success):
+                self.alertMessage = "Profil başarıyla güncellenmiştir."
                 print(success.message ?? "A")
             case .failure(let failure):
                 print(failure.localizedDescription)
