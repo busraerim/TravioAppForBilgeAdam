@@ -53,7 +53,7 @@ class SettingsView: UIViewController {
     
     private lazy var settingsItemView:UIView = {
         let view = UIView()
-        view.layer.cornerRadius = 80
+        view.layer.cornerRadius = 60
         view.layer.maskedCorners = .layerMinXMinYCorner
         view.clipsToBounds = true
         view.backgroundColor = .contentcolor
@@ -64,6 +64,7 @@ class SettingsView: UIViewController {
         let profileImage = UIImageView()
         profileImage.image = .profile
         profileImage.layer.cornerRadius = 60
+        profileImage.contentMode = .scaleAspectFill
         profileImage.clipsToBounds = true
         return profileImage
     }()

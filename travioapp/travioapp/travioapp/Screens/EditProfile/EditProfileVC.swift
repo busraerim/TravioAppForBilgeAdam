@@ -44,7 +44,7 @@ class EditProfileVC: UIViewController {
     
     private lazy var editProfileItemView:UIView = {
         let view = UIView()
-        view.layer.cornerRadius = 80
+        view.layer.cornerRadius = 60
         view.layer.maskedCorners = .layerMinXMinYCorner
         view.clipsToBounds = true
         view.backgroundColor = .contentcolor
@@ -72,6 +72,8 @@ class EditProfileVC: UIViewController {
         let iv = UIImageView()
         iv.image = .profile
         iv.layer.cornerRadius = 60
+        iv.contentMode = .scaleAspectFill
+        iv.layer.masksToBounds = true
         iv.clipsToBounds = true
         return iv
     }()
@@ -347,12 +349,14 @@ class EditProfileVC: UIViewController {
             make.height.equalToSuperview().multipliedBy(0.83)
         })
         
+        
         profilePhotoImageView.snp.makeConstraints({ make in
             make.top.equalToSuperview().offset(24)
             make.centerX.equalToSuperview()
             make.width.equalTo(120)
             make.height.equalTo(120)
         })
+        
         
         changePhotoButton.snp.makeConstraints({ make in
             make.centerX.equalToSuperview()

@@ -76,7 +76,7 @@ class SecuritySettingsView: UIViewController {
         if sender.isOn {
             checkCameraPermission()
         }else{
-            showSettingsAlert(title:"Camera Access Denied" , message:"Please enable access to your camera in Settings.")
+            showSettingsAlert(title:"Camera Access Denied" , message:"Please enable access to your camera in Settings.", toggle: cameraLabel.toggleSwitch)
         }
     }
 
@@ -91,7 +91,7 @@ class SecuritySettingsView: UIViewController {
         if sender.isOn {
             checkPhotoLibraryPermission()
         }else{
-            showSettingsAlert(title: "Photo Library Access Denied", message: "Please enable access to your photo library in Settings.")
+            showSettingsAlert(title: "Photo Library Access Denied", message: "Please enable access to your photo library in Settings.", toggle: photoLibraryLabel.toggleSwitch)
         }
     }
     
@@ -116,7 +116,7 @@ class SecuritySettingsView: UIViewController {
           if sender.isOn {
               checkLocationPermission()
           } else {
-              showSettingsAlert(title: "Location Access Denied", message: "Please enable access to your location in Settings.")
+              showSettingsAlert(title: "Location Access Denied", message: "Please enable access to your location in Settings.", toggle: locationLabel.toggleSwitch)
           }
     }
     
@@ -295,7 +295,7 @@ extension SecuritySettingsView{
             self.cameraLabel.toggleSwitch.isOn = true
         case .denied, .restricted:
             print("Kamera izni daha önce reddedilmiş veya sınırlı")
-            showSettingsAlert(title: "Camera Access Denied", message: "Please enable access to your camera in Settings.")
+            showSettingsAlert(title: "Camera Access Denied", message: "Please enable access to your camera in Settings." , toggle: cameraLabel.toggleSwitch)
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video) { granted in
                 if granted {
@@ -320,7 +320,7 @@ extension SecuritySettingsView{
             break
         case .denied, .restricted:
             print("daha önce reddedilmiş")
-            showSettingsAlert(title: "Photo Library Access Denied", message: "Please enable access to your photo library in Settings.")
+            showSettingsAlert(title: "Photo Library Access Denied", message: "Please enable access to your photo library in Settings.", toggle: photoLibraryLabel.toggleSwitch)
         case .notDetermined:
             PHPhotoLibrary.requestAuthorization { status in
                 if status == .authorized {
@@ -344,7 +344,7 @@ extension SecuritySettingsView{
             self.locationLabel.toggleSwitch.isOn = true
         case .denied, .restricted:
             print("Location access was denied or restricted")
-            showSettingsAlert(title: "Location Access Denied", message: "Please enable access to your location in Settings.")
+            showSettingsAlert(title: "Location Access Denied", message: "Please enable access to your location in Settings.", toggle: locationLabel.toggleSwitch)
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
         @unknown default:
@@ -356,14 +356,22 @@ extension SecuritySettingsView{
 
 extension SecuritySettingsView{
     
-    func showSettingsAlert(title:String, message:String) {
+    
+    func showSettingsAlert(title:String, message:String, toggle: UISwitch ) {
+        
         let alert = UIAlertController(
             title: title,
             message: message,
             preferredStyle: .alert
         )
 
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {_ in
+            if toggle.isOn == false {
+                toggle.isOn = true
+            }else{
+                toggle.isOn = false
+            }
+        }))
         alert.addAction(UIAlertAction(title: "Settings", style: .default) { _ in
             if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
                 UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
