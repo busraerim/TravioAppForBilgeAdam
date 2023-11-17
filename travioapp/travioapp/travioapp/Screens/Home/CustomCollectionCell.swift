@@ -8,7 +8,6 @@ class CustomCollectionCell: UICollectionViewCell {
     
     public lazy var placeView:UIView = {
         let view = UIView()
-//        view.backgroundColor = .black
         return view
     }()
     
@@ -49,7 +48,6 @@ class CustomCollectionCell: UICollectionViewCell {
     func configure(object: PlaceItem) {
         let url = URL(string: object.cover_image_url)
         image.kf.setImage(with: url)
-//        image.image = UIImage(named: object.cover_image_url)
         lblPlace.text = object.place
         lblVisitLocation.text = object.title
     }

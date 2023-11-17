@@ -13,13 +13,14 @@ class HomeUIVC: UIViewController {
     
     var homeAllPlaces:HomeList = []
     var seeAllPlaces:[[PlaceItem]] = []
-    var myAddedPlaces:[PlaceItem] = []
+   
     
     var popularPlaceWithLimit:[PlaceItem] = []
     var newPlaceWithLimit:[PlaceItem] = []
     
     var popularPlaceAll:[PlaceItem] = []
     var newPlaceAll:[PlaceItem] = []
+    var myAddedPlaces:[PlaceItem] = []
     
 
 
@@ -49,7 +50,6 @@ class HomeUIVC: UIViewController {
         cv.register(CustomCollectionCell.self, forCellWithReuseIdentifier: "cell")
         cv.register(HeaderView.self, forSupplementaryViewOfKind:UICollectionView.elementKindSectionHeader , withReuseIdentifier: HeaderView.reuseId)
         cv.dataSource = self
-//        cv.delegate = self
         return cv
     }()
     
@@ -58,6 +58,7 @@ class HomeUIVC: UIViewController {
         super.viewDidLoad()
  
         getHomeData()
+        
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
@@ -72,6 +73,7 @@ class HomeUIVC: UIViewController {
         networkingGetDataNewPlace()
         networkingGetDataMyAddedPlaces()
     }
+    
     
     func networkingGetDataPopularPlaceWithParams(limit:Int) -> HomeList{
         let viewModel = HomeViewModel()
@@ -144,7 +146,6 @@ class HomeUIVC: UIViewController {
         return homeAllPlaces
     }
  
-   
 
     func setupViews() {
         self.view.addSubviews(backView,travioLogoImage,travioImage)
