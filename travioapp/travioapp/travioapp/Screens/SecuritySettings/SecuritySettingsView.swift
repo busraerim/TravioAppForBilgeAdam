@@ -23,6 +23,7 @@ import SnapKit
 import Photos
 import AVFoundation
 import CoreLocation
+import TinyConstraints
 
 
 
@@ -153,6 +154,15 @@ class SecuritySettingsView: UIViewController {
         btn.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         return btn
     }()
+    
+    private lazy var scrollView:UIScrollView = {
+        let scroll = UIScrollView()
+        scroll.backgroundColor = .contentcolor
+        scroll.layer.cornerRadius = 80
+        scroll.layer.maskedCorners = .layerMinXMinYCorner
+        scroll.translatesAutoresizingMaskIntoConstraints = false
+        return scroll
+    }()
 
     
     func createLabel(title:String) -> UILabel {
@@ -216,7 +226,8 @@ class SecuritySettingsView: UIViewController {
     private func setupViews() {
         self.navigationController?.isNavigationBarHidden = true
         view.backgroundColor = .background
-        self.view.addSubviews(settingsItemView, backButton, lblTitle)
+        self.view.addSubviews(settingsItemView, backButton, lblTitle, scrollView)
+        scrollView.addSubviews(settingsItemView)
         passwordStackView.addArrangedSubviews(newPassword, newPasswordConfirm)
         privacyStackView.addArrangedSubviews(cameraLabel, photoLibraryLabel, locationLabel)
         settingsItemView.addSubviews(changePasswordTitle, passwordStackView, privacyTitle, privacyStackView, saveButton)
@@ -234,11 +245,22 @@ class SecuritySettingsView: UIViewController {
             make.top.equalTo(backButton).offset(-10)
         })
         
-        settingsItemView.snp.makeConstraints({ make in
+        scrollView.snp.makeConstraints({ make in
             make.height.equalToSuperview().multipliedBy(0.85)
             make.leading.trailing.bottom.equalToSuperview()
         })
+        scrollView.layoutIfNeeded()
         
+        
+        let heightConstraint = settingsItemView.height(scrollView.frame.height + changePasswordTitle.frame.height + passwordStackView.frame.height + privacyTitle.frame.height + privacyStackView.frame.height + saveButton.frame.height )
+        heightConstraint.priority = UILayoutPriority(250)
+        
+        settingsItemView.edges(to: scrollView)
+        settingsItemView.width(to: scrollView)
+        settingsItemView.height(heightConstraint.constant)
+        settingsItemView.layoutIfNeeded()
+        
+      
         changePasswordTitle.snp.makeConstraints({ make in
             make.top.equalToSuperview().offset(40)
             make.leading.equalToSuperview().offset(20)
@@ -262,7 +284,7 @@ class SecuritySettingsView: UIViewController {
         })
         
         saveButton.snp.makeConstraints({ make in
-            make.bottom.equalToSuperview().offset(-30)
+            make.top.equalTo(privacyStackView.snp.bottom).offset(100)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
         })
