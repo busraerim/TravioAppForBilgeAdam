@@ -80,6 +80,7 @@ class MyAddedPlacesVC: UIViewController {
             guard let this = self else { return }
             this.myAddedPlacesSetting = place
             this.collectionView.reloadData()
+            
         }
         viewModel.getDataAllPlacesForUser()
         return

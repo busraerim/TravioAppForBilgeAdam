@@ -33,7 +33,7 @@ struct Place: Codable {
     let status: String
 }
 
-typealias PopularPlaceList = (title:String, places:[PlaceItem])
+typealias PlaceTitleTupple = (title:String, places:[PlaceItem])
 
 typealias HomeList = [(title:String, places:[PlaceItem])]
 

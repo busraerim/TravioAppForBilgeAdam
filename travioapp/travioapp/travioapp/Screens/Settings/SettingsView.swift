@@ -62,7 +62,7 @@ class SettingsView: UIViewController {
     
     private lazy var profileImage:UIImageView = {
         let profileImage = UIImageView()
-        profileImage.image = .profile
+        profileImage.image = UIImage(named: "no-user-image")
         profileImage.layer.cornerRadius = 60
         profileImage.contentMode = .scaleAspectFill
         profileImage.clipsToBounds = true
@@ -139,6 +139,8 @@ class SettingsView: UIViewController {
         lblProfileName.text = profile.full_name
         let url = URL(string: profile.pp_url)
         profileImage.kf.setImage(with: url)
+   
+      
     }
 
     func getDataFromApi() {

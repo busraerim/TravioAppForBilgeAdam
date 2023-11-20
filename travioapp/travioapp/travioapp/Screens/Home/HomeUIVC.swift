@@ -13,15 +13,6 @@ class HomeUIVC: UIViewController {
     
     var homeAllPlaces:HomeList = []
     var seeAllPlaces:[[PlaceItem]] = []
-    var myAddedPlaces:[PlaceItem] = []
-    
-    var popularPlaceWithLimit:[PlaceItem] = []
-    var newPlaceWithLimit:[PlaceItem] = []
-    
-    var popularPlaceAll:[PlaceItem] = []
-    var newPlaceAll:[PlaceItem] = []
-    
-
 
     private lazy var travioLogoImage:UIImageView = {
         let image = UIImageView(frame: CGRect(x: 0, y:0, width: 56, height: 62))
@@ -56,91 +47,23 @@ class HomeUIVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
- 
-        getHomeData()
+        getData()
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
-
         setupViews()
     }
     
-    func getHomeData(){
-        networkingGetDataPopularPlaceWithParams(limit: 5)
-        networkingGetDataNewPlaceWithParams(limit: 5)
-        networkingGetDataPopularPlace()
-        networkingGetDataNewPlace()
-        networkingGetDataMyAddedPlaces()
-    }
-    
-    func networkingGetDataPopularPlaceWithParams(limit:Int) -> HomeList{
+    func getData(){
         let viewModel = HomeViewModel()
-              
-        viewModel.dataTransferClosure = { [weak self] place in
-            guard let this = self else { return }
-            this.popularPlaceWithLimit = place
-            this.collectionView.reloadData()
-            var popularPlaceTuple = (title:"Popular Places", places: this.popularPlaceWithLimit)
-            this.homeAllPlaces.append(popularPlaceTuple)
-
+        viewModel.homeGetData()
+        viewModel.homeDataClosure = {place in
+            self.homeAllPlaces = place
+            self.collectionView.reloadData()
         }
-        viewModel.getDataPopularPlacesWithParam(limit: limit)
-        return homeAllPlaces
-    }
-    
-    func networkingGetDataPopularPlace()->[PlaceItem]{
-        let viewModel = HomeViewModel()
-              
-        viewModel.dataTransferClosure = { [weak self] place in
-            guard let this = self else { return }
-            this.popularPlaceAll = place
-            this.collectionView.reloadData()
-            this.seeAllPlaces.append(this.popularPlaceAll)
+        viewModel.seeAllDataClosure = { place in
+            self.seeAllPlaces = place
         }
-        viewModel.getDataPopularPlaces()
-        return popularPlaceAll
-    }
-    
-    func networkingGetDataNewPlaceWithParams(limit:Int) -> HomeList{
-        let viewModel = HomeViewModel()
-              
-        viewModel.dataTransferClosure = { [weak self] place in
-            guard let this = self else { return }
-            this.newPlaceWithLimit = place
-            this.collectionView.reloadData()
-            var newPlaceTuple = (title:"New Places", places: this.newPlaceWithLimit)
-            this.homeAllPlaces.append(newPlaceTuple)
-        }
-        viewModel.getDataNewPlacesWithParam(limit: limit)
-        return homeAllPlaces
-    }
-    
-    func networkingGetDataNewPlace()->[PlaceItem]{
-        let viewModel = HomeViewModel()
-              
-        viewModel.dataTransferClosure = { [weak self] place in
-            guard let this = self else { return }
-            this.newPlaceAll = place
-            this.collectionView.reloadData()
-            this.seeAllPlaces.append(this.newPlaceAll)
-        }
-        viewModel.getDataNewPlaces()
-        return newPlaceAll
-    }
-    
-    func networkingGetDataMyAddedPlaces() -> HomeList{
-        let viewModel = HomeViewModel()
-              
-        viewModel.dataTransferClosure = { [weak self] place in
-            guard let this = self else { return }
-            this.myAddedPlaces = place
-            let myAddedTuple = (title:"My Added Places", places: this.myAddedPlaces)
-            this.homeAllPlaces.append(myAddedTuple)
-            this.collectionView.reloadData()
-
-        }
-        viewModel.getDataAllPlacesForUser()
-        return homeAllPlaces
     }
     
     func checkVisit(placeId:String, place:PlaceItem){
@@ -148,7 +71,6 @@ class HomeUIVC: UIViewController {
       let vc = DetailScrollVC()
       let viewModel = PlaceDetailViewModel()
 
-        
       viewModel.checkStatus = { [weak self] status in
           if status == "success" {
               vc.saveButton.setImage(.marked, for: .normal)
@@ -158,7 +80,6 @@ class HomeUIVC: UIViewController {
           vc.detailPlace = place
           self!.navigationController?.pushViewController(vc, animated: true)
       }
-        
       viewModel.checkVisitByPlaceID(placeId: placeId )
 
     }
