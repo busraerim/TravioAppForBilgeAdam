@@ -27,7 +27,7 @@ class AddNewPlaceCell: UICollectionViewCell {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.spacing = 5
-        stack.distribution = .fillProportionally
+        stack.distribution = .fillEqually
         return stack
     }()
     
@@ -56,7 +56,7 @@ class AddNewPlaceCell: UICollectionViewCell {
     
     private func setupViews(){
         self.addSubviews(customView, stackView)
-        customView.addSubviews(stackView,imageView)
+        customView.addSubviews(stackView,imageView, addImage)
         stackView.addArrangedSubviews(addImage,label)
         setupLayout()
     }
@@ -65,6 +65,8 @@ class AddNewPlaceCell: UICollectionViewCell {
         customView.height(215)
         customView.width(269)
         customView.edgesToSuperview()
+        
+        stackView.centerInSuperview()
         
         customView.layoutIfNeeded()
         customView.roundAllCorners(radius: 16)
