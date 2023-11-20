@@ -26,7 +26,7 @@ class HomeViewModel{
 
     var homeDataClosure: ((HomeList)->Void)?
 
-    
+
     var seeAllDataClosure: (([[PlaceItem]]) -> Void)?
 
     var dataTransferClosure: (([PlaceItem]) -> Void)?
@@ -42,7 +42,6 @@ class HomeViewModel{
                 let place = obj.data.places
                 self.popularPlaceAll = place
                 self.dispatchGroup.leave()
-//                self.dataTransferClosure!(obj.data.places)
             case .failure(let failure):
                 print(failure.localizedDescription)
             }
