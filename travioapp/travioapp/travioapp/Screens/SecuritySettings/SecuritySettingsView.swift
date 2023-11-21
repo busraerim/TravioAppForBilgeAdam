@@ -62,7 +62,7 @@ class SecuritySettingsView: UIViewController {
         let sv = UIStackView()
         sv.spacing = 3
         sv.axis = .vertical
-        sv.distribution = .fillProportionally
+        sv.distribution = .fillEqually
         return sv
     }()
     
@@ -125,7 +125,7 @@ class SecuritySettingsView: UIViewController {
         let sv = UIStackView()
         sv.spacing = 20
         sv.axis = .vertical
-        sv.distribution = .fillProportionally
+        sv.distribution = .fillEqually
         return sv
     }()
 
@@ -242,24 +242,15 @@ class SecuritySettingsView: UIViewController {
     
     private func setupLayout() {
         
-        backButton.snp.makeConstraints({ make in
-            make.top.equalToSuperview().offset(55)
-            make.leading.equalToSuperview().offset(30)
-        })
-        
-        lblTitle.snp.makeConstraints({ make in
-            make.leading.equalTo(backButton.snp.trailing).offset(30)
-            make.top.equalTo(backButton).offset(-10)
-        })
-        
         scrollView.snp.makeConstraints({ make in
             make.height.equalToSuperview().multipliedBy(0.85)
             make.leading.trailing.bottom.equalToSuperview()
+            make.bottom.equalToSuperview()
         })
         scrollView.layoutIfNeeded()
         
         
-        let heightConstraint = settingsItemView.height(scrollView.frame.height + changePasswordTitle.frame.height + passwordStackView.frame.height + privacyTitle.frame.height + privacyStackView.frame.height + saveButton.frame.height + 250)
+        let heightConstraint = settingsItemView.height(scrollView.frame.height + changePasswordTitle.frame.height + passwordStackView.frame.height + privacyTitle.frame.height + privacyStackView.frame.height + saveButton.frame.height + 190)
         heightConstraint.priority = UILayoutPriority(230)
         
         settingsItemView.edges(to: scrollView)
@@ -271,9 +262,11 @@ class SecuritySettingsView: UIViewController {
         changePasswordTitle.snp.makeConstraints({ make in
             make.top.equalToSuperview().offset(40)
             make.leading.equalToSuperview().offset(20)
+            make.height.equalTo(21)
         })
         
         passwordStackView.dropShadow()
+        newPassword.height(74)
         passwordStackView.snp.makeConstraints({ make in
             make.top.equalTo(changePasswordTitle).offset(30)
             make.leading.trailing.equalToSuperview().inset(10)
@@ -285,6 +278,7 @@ class SecuritySettingsView: UIViewController {
         })
         
         privacyStackView.dropShadow()
+        cameraLabel.height(74)
         privacyStackView.snp.makeConstraints({ make in
             make.top.equalTo(privacyTitle).offset(30)
             make.leading.trailing.equalToSuperview().inset(20)
