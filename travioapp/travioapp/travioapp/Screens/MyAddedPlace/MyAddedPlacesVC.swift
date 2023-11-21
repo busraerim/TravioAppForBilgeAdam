@@ -38,7 +38,7 @@ class MyAddedPlacesVC: UIViewController {
        let label = UILabel()
         label.textColor = .white
         label.text = "My Added Places"
-        label.font = UIFont(name: "Poppins-SemiBold", size: 36)
+        label.font = UIFont(name: "Poppins-SemiBold", size: 32)
        return label
     }()
     
@@ -113,6 +113,13 @@ class MyAddedPlacesVC: UIViewController {
     func setupViews() {
         self.view.addSubviews(backView,labelTitle,backButton)
         backView.addSubviews(collectionView, sortedButton)
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+        let backButtonBar = UIBarButtonItem(customView: backButton)
+        self.navigationItem.leftBarButtonItem = backButtonBar
+        self.navigationItem.titleView = labelTitle
+
         setupLayout()
     }
     
@@ -121,16 +128,10 @@ class MyAddedPlacesVC: UIViewController {
     }
     
     func setupLayout() {
-        backView.topToSuperview(offset:125)
         backView.edgesToSuperview(excluding: .top)
+        backView.heightToSuperview(multiplier: 0.82)
         backView.layoutIfNeeded()
         backView.roundCorners(corners: .topLeft, radius: 80)
-        
-        backButton.topToSuperview(offset:60)
-        backButton.leadingToSuperview(offset:24)
-        
-        labelTitle.top(to: backButton, offset: -15)
-        labelTitle.leadingToTrailing(of: backButton, offset: 25)
 
         sortedButton.topToSuperview(offset:24)
         sortedButton.trailingToSuperview(offset: 24)

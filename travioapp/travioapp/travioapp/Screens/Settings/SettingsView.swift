@@ -150,25 +150,14 @@ class SettingsView: UIViewController {
         }
         
         viewModel.getProfileInfo()
-        
-//        viewModel.dataTransferClosure = { [weak self] profile in
-//            guard let this = self else { return }
-//            self?.lblProfileName.text = this.profile?.full_name
-//            
-//            let url = URL(string: profile.pp_url)
-//            self?.profileImage.kf.setImage(with: url)
-//            
-//        }
-    
+
     }
     
-   
 
     override func viewDidLoad() {
         super.viewDidLoad()
         getDataFromApi()
-        self.navigationController?.isNavigationBarHidden = true
-        
+//        self.navigationController?.isNavigationBarHidden = true
         setupViews()
     }
 
@@ -176,40 +165,23 @@ class SettingsView: UIViewController {
         self.view.backgroundColor = .background
         self.view.addSubviews(settingsItemView, lblTitle, buttonLogOut)
         settingsItemView.addSubviews(profileImage, lblProfileName, buttonEditProfile, collectionView)
-       
+       navigationController?.navigationBar.isTranslucent = true
+       let logOutBarButton = UIBarButtonItem(customView: buttonLogOut)
+       self.navigationItem.rightBarButtonItem = logOutBarButton
+       self.navigationItem.titleView = lblTitle
+        
         setupLayout()
     }
-//    
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(true)
-//        viewModel.dataTransferClosure = { [weak self] profile in
-//            self?.updateUI(with: profile)
-//        }
-//        
-//        viewModel.getProfileInfo()
-//        
-//    }
     
     private func setupLayout(){
         
         
         settingsItemView.snp.makeConstraints({ make in
-            make.height.equalToSuperview().multipliedBy(0.85)
+            make.height.equalToSuperview().multipliedBy(0.82)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         })
-        
-        lblTitle.snp.makeConstraints({ make in
-            make.top.equalTo(55)
-            make.leading.equalTo(30)
-        })
-        
-        buttonLogOut.snp.makeConstraints({make in
-            make.trailing.equalToSuperview().offset(-48)
-            make.top.equalTo(lblTitle).offset(10)
-        })
-        
-        
+
         profileImage.snp.makeConstraints({ make in
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(24)

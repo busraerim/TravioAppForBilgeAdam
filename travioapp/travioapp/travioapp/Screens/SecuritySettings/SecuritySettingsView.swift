@@ -214,28 +214,23 @@ class SecuritySettingsView: UIViewController {
     }
     
     private func setupViews() {
-        self.navigationController?.isNavigationBarHidden = true
         view.backgroundColor = .background
         self.view.addSubviews(settingsItemView, backButton, lblTitle)
         passwordStackView.addArrangedSubviews(newPassword, newPasswordConfirm)
         privacyStackView.addArrangedSubviews(cameraLabel, photoLibraryLabel, locationLabel)
         settingsItemView.addSubviews(changePasswordTitle, passwordStackView, privacyTitle, privacyStackView, saveButton)
+        navigationController?.navigationBar.isTranslucent = true
+        let backButtonBar = UIBarButtonItem(customView: backButton)
+        self.navigationItem.leftBarButtonItem = backButtonBar
+        self.navigationItem.titleView = lblTitle
+
         setupLayout()
     }
     
     private func setupLayout() {
-        backButton.snp.makeConstraints({ make in
-            make.top.equalToSuperview().offset(55)
-            make.leading.equalToSuperview().offset(30)
-        })
-        
-        lblTitle.snp.makeConstraints({ make in
-            make.leading.equalTo(backButton.snp.trailing).offset(30)
-            make.top.equalTo(backButton).offset(-10)
-        })
         
         settingsItemView.snp.makeConstraints({ make in
-            make.height.equalToSuperview().multipliedBy(0.85)
+            make.height.equalToSuperview().multipliedBy(0.82)
             make.leading.trailing.bottom.equalToSuperview()
         })
         

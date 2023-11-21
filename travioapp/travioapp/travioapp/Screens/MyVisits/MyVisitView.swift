@@ -114,7 +114,7 @@ class MyVisitsView: UIViewController {
     private func setupLayout(){
         
         itemView.snp.makeConstraints({ make in
-            make.height.equalToSuperview().multipliedBy(0.85)
+            make.height.equalToSuperview().multipliedBy(0.82)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         })

@@ -91,8 +91,8 @@ class HomeUIVC: UIViewController {
     }
     
     func setupLayout() {
-        backView.topToSuperview(offset:125)
         backView.edgesToSuperview(excluding: .top)
+        backView.heightToSuperview(multiplier: 0.82)
         backView.layoutIfNeeded()
         backView.roundCorners(corners: .topLeft, radius: 80)
 
