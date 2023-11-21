@@ -15,6 +15,9 @@ class PrivacyCell: UIView {
         view.clipsToBounds = true
         view.backgroundColor = .white
         view.layer.cornerRadius = 16
+        view.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.15).cgColor
+        view.layer.shadowRadius = 20
+        view.layer.shadowOpacity = 0.15
         return view
     }()
     

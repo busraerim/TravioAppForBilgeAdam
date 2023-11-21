@@ -32,7 +32,7 @@ class InputBox: UIView {
         }
     }
 
-    var boxPlaceholder:TitlePlaceholderText = .placeholder(placeholder: ""){
+    var boxPlaceholder:TitlePlaceholderText = .placeholder(placeholder: " "){
         didSet{
             txtPlaceholder.placeholder = boxPlaceholder.text
         }
@@ -65,9 +65,11 @@ class InputBox: UIView {
 
         lblTitle.topToSuperview(offset: 8)
         lblTitle.leadingToSuperview(offset: 12)
+        lblTitle.trailingToSuperview(offset:12)
         
         txtPlaceholder.topToBottom(of: lblTitle, offset: 8)
         txtPlaceholder.leadingToSuperview(offset: 12)
+        txtPlaceholder.trailingToSuperview(offset:12)
 
     }
     

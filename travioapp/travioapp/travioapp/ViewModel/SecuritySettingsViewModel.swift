@@ -31,7 +31,7 @@ class SecuritySettingsViewModel {
             return
         }
         
-        guard password.count > 6  else {
+        guard password.count >= 6  else {
             self.errorAlertMessage = "Geçersiz şifre"
 
             return

@@ -46,21 +46,21 @@ class SecuritySettingsView: UIViewController {
     private lazy var changePasswordTitle = createLabel(title: "Change Password")
     private lazy var privacyTitle = createLabel(title: "Privacy")
     
-    private lazy var newPassword:ChangePasswordCell = {
-        let pass = ChangePasswordCell()
-        pass.label.text = "New Password"
-        return pass
+    private lazy var newPassword:InputBox = {
+        let newPassword = InputBox()
+        newPassword.boxTitle = .label(label: "New Password")
+        return newPassword
     }()
     
-    private lazy var newPasswordConfirm:ChangePasswordCell = {
-        let pass = ChangePasswordCell()
-        pass.label.text = "New Password Confirm"
-        return pass
+    private lazy var newPasswordConfirm:InputBox = {
+        let newPasswordConfirm = InputBox()
+        newPasswordConfirm.boxTitle = .label(label: "New Password Confirm")
+        return newPasswordConfirm
     }()
     
     private lazy var passwordStackView = {
         let sv = UIStackView()
-        sv.spacing = 3
+        sv.spacing = 10
         sv.axis = .vertical
         sv.distribution = .fillEqually
         return sv
@@ -123,7 +123,7 @@ class SecuritySettingsView: UIViewController {
     
     private lazy var privacyStackView = {
         let sv = UIStackView()
-        sv.spacing = 20
+        sv.spacing = 10
         sv.axis = .vertical
         sv.distribution = .fillEqually
         return sv
@@ -178,8 +178,8 @@ class SecuritySettingsView: UIViewController {
     }()
     
     @objc private func saveButtonTapped(){
-        guard let password = newPassword.textfieldPassword.text,
-              let passwordConfirm = newPasswordConfirm.textfieldPassword.text else { return }
+        guard let password =  newPassword.txtPlaceholder.text,
+              let passwordConfirm = newPasswordConfirm.txtPlaceholder.text else { return }
         
         viewModel.controlPassworRequirement(password: password, passwordConfirm: passwordConfirm)
     }
@@ -250,8 +250,9 @@ class SecuritySettingsView: UIViewController {
         scrollView.layoutIfNeeded()
         
         
-        let heightConstraint = settingsItemView.height(scrollView.frame.height + changePasswordTitle.frame.height + passwordStackView.frame.height + privacyTitle.frame.height + privacyStackView.frame.height + saveButton.frame.height + 190)
-        heightConstraint.priority = UILayoutPriority(230)
+        let heightConstraint = settingsItemView.height(scrollView.frame.height + changePasswordTitle.frame.height + passwordStackView.frame.height + privacyTitle.frame.height + privacyStackView.frame.height + saveButton.frame.height + 150)
+        heightConstraint.priority = UILayoutPriority(200)
+
         
         settingsItemView.edges(to: scrollView)
         settingsItemView.width(to: scrollView)
@@ -266,12 +267,11 @@ class SecuritySettingsView: UIViewController {
         })
         
         passwordStackView.dropShadow()
-        newPassword.height(74)
         passwordStackView.snp.makeConstraints({ make in
             make.top.equalTo(changePasswordTitle).offset(30)
-            make.leading.trailing.equalToSuperview().inset(10)
+            make.leading.trailing.equalToSuperview().inset(24)
         })
-        
+    
         privacyTitle.snp.makeConstraints({ make in
             make.top.equalTo(passwordStackView.snp.bottom).offset(30)
             make.leading.equalTo(changePasswordTitle.snp.leading)

@@ -207,16 +207,16 @@ class LoginVc: UIViewController {
     }
 
 
-//
-//#if DEBUG
-//import SwiftUI
-//
-//@available(iOS 13, *)
-//struct LoginVc_Preview: PreviewProvider {
-//    static var previews: some View{
-//         
-//        LoginVc().showPreview()
-//    }
-//}
-//#endif
-//
+
+#if DEBUG
+import SwiftUI
+
+@available(iOS 13, *)
+struct LoginVc_Preview: PreviewProvider {
+    static var previews: some View{
+         
+        LoginVc().showPreview()
+    }
+}
+#endif
+
