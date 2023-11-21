@@ -218,15 +218,18 @@ extension SettingsView:UICollectionViewDelegate {
         switch indexPath.item {
         case 0:
             let vc = SecuritySettingsView()
+            vc.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(vc, animated: true)
 //        case 1:
 //            let vc = AppDefaultVC()
 //            navigationController?.pushViewController(vc, animated: true)
         case 2:
             let vc = MyAddedPlacesVC()
+            vc.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(vc, animated: true)
         case 3:
             let vc = HelpSupportVC()
+            vc.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(vc, animated: true)
 //        case 4:
 //            let vc = AboutVC()
