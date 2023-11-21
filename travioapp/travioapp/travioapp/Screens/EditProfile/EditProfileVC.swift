@@ -157,9 +157,9 @@ class EditProfileVC: UIViewController {
         let vc = SecuritySettingsView()
         
         if vc.status == .authorized {
-            openGallery(sourceType: .photoLibrary)
+            imagePickerControl(sourceType: .photoLibrary)
         }else{
-            self.showAlertForPermission(buttonTitle: "Tamam", title: "Hata", message: "Fotoğraf kütüphanesine erişim izni vermediniz. Menüden bu ayarları değiştirebilirsiniz.")
+            self.showAlertForPermission(buttonTitle: "OK", title: "Error", message: "You have not granted access to the photo library. You can change these settings from the menu.")
         }
     }
     
@@ -167,9 +167,9 @@ class EditProfileVC: UIViewController {
         let vc = SecuritySettingsView()
         
         if vc.cameraAuthorizationStatus == .authorized {
-            openGallery(sourceType: .camera)
+            imagePickerControl(sourceType: .camera)
         }else{
-            self.showAlertForPermission(buttonTitle: "Tamam", title: "Hata", message: "Kameraya erişim izni vermediniz. Menüden bu ayarları değiştirebilirsiniz.")
+            self.showAlertForPermission(buttonTitle: "OK", title: "Error", message: "You have not granted access to the camera. You can change these settings from the menu.")
         }
     }
     
@@ -232,7 +232,7 @@ class EditProfileVC: UIViewController {
         
     }
     
-    @objc func openGallery(sourceType: UIImagePickerController.SourceType) {
+    @objc func imagePickerControl(sourceType: UIImagePickerController.SourceType) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = sourceType
