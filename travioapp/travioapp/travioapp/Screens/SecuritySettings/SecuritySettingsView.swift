@@ -62,7 +62,7 @@ class SecuritySettingsView: UIViewController {
         let sv = UIStackView()
         sv.spacing = 3
         sv.axis = .vertical
-        sv.distribution = .fillEqually
+        sv.distribution = .fillProportionally
         return sv
     }()
     
@@ -125,7 +125,7 @@ class SecuritySettingsView: UIViewController {
         let sv = UIStackView()
         sv.spacing = 20
         sv.axis = .vertical
-        sv.distribution = .fillEqually
+        sv.distribution = .fillProportionally
         return sv
     }()
 
@@ -259,8 +259,8 @@ class SecuritySettingsView: UIViewController {
         scrollView.layoutIfNeeded()
         
         
-        let heightConstraint = settingsItemView.height(scrollView.frame.height + changePasswordTitle.frame.height + passwordStackView.frame.height + privacyTitle.frame.height + privacyStackView.frame.height + saveButton.frame.height )
-        heightConstraint.priority = UILayoutPriority(250)
+        let heightConstraint = settingsItemView.height(scrollView.frame.height + changePasswordTitle.frame.height + passwordStackView.frame.height + privacyTitle.frame.height + privacyStackView.frame.height + saveButton.frame.height + 250)
+        heightConstraint.priority = UILayoutPriority(230)
         
         settingsItemView.edges(to: scrollView)
         settingsItemView.width(to: scrollView)

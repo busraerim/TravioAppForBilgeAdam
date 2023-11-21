@@ -242,15 +242,6 @@ class EditProfileVC: UIViewController {
     @objc func changePhotoButtonTapped(){
         showAlertCameraorPhotoLibrary(title: "Chance Photo" , message: "")
 
-//        let vc = SecuritySettingsView()
-//        
-//        if vc.status == .authorized {
-//            openGallery()
-//        }else{
-//            self.showAlertPhotoLibrary(buttonTitle: "Tamam", title: "Hata", message: "Fotoğraf kütüphanesine erişim izni vermediniz. Menüden bu ayarları değiştirebilirsiniz.")
-//        }
-           
-      
     }
     
      func showAlert(title:String,message:String) {
