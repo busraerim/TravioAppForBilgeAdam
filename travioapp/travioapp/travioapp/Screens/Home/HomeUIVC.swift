@@ -16,13 +16,7 @@ class HomeUIVC: UIViewController {
 
     private lazy var travioLogoImage:UIImageView = {
         let image = UIImageView(frame: CGRect(x: 0, y:0, width: 56, height: 62))
-        image.image = UIImage(named: "travio-logo 1")
-        return image
-    }()
-    
-    private lazy var travioImage:UIImageView = {
-        let image = UIImageView(frame: CGRect(x: 84.11, y: 44.28, width: 102.44, height: 28.04))
-        image.image = UIImage(named: "travio")
+        image.image = UIImage(named: "Group 19")
         return image
     }()
 
@@ -84,7 +78,7 @@ class HomeUIVC: UIViewController {
    
 
     func setupViews() {
-        self.view.addSubviews(backView,travioLogoImage,travioImage)
+        self.view.addSubviews(backView,travioLogoImage)
         backView.addSubview(collectionView)
         self.view.backgroundColor = UIColor(red: 0.22, green: 0.678, blue: 0.663, alpha: 1)
         setupLayout()
@@ -96,12 +90,8 @@ class HomeUIVC: UIViewController {
         backView.layoutIfNeeded()
         backView.roundCorners(corners: .topLeft, radius: 80)
 
-        travioLogoImage.height(62)
-        travioLogoImage.width(66)
         travioLogoImage.leadingToSuperview(offset: 16)
-        travioLogoImage.topToSuperview(offset: 50)
-        travioImage.topToSuperview(offset: 60)
-        travioImage.leadingToTrailing(of: travioLogoImage)
+        travioLogoImage.bottomToTop(of: backView, offset: -35)
         
         collectionView.backgroundColor = .clear
         collectionView.edgesToSuperview()
