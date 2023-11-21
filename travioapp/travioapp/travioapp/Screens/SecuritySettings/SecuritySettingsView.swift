@@ -240,13 +240,11 @@ class SecuritySettingsView: UIViewController {
     
     private func setupLayout() {
         
-<<<<<<< HEAD
         settingsItemView.snp.makeConstraints({ make in
             make.height.equalToSuperview().multipliedBy(0.82)
-=======
+        })
         scrollView.snp.makeConstraints({ make in
             make.height.equalToSuperview().multipliedBy(0.85)
->>>>>>> Sprint4.1/SecuritySettingsScrollEkleme
             make.leading.trailing.bottom.equalToSuperview()
         })
         scrollView.layoutIfNeeded()
@@ -289,9 +287,9 @@ class SecuritySettingsView: UIViewController {
             make.trailing.equalToSuperview().offset(-16)
         })
     }
+
 }
     
-
 
 extension SecuritySettingsView:CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -310,28 +308,28 @@ extension SecuritySettingsView:CLLocationManagerDelegate{
 
 
 extension SecuritySettingsView{
-    func checkCameraPermission() {
-        switch cameraAuthorizationStatus {
-        case .authorized:
-            print("Kamera erişimi zaten var")
-            self.cameraLabel.toggleSwitch.isOn = true
-        case .denied, .restricted:
-            print("Kamera izni daha önce reddedilmiş veya sınırlı")
-            showSettingsAlert(title: "Camera Access Denied", message: "Please enable access to your camera in Settings." , toggle: cameraLabel.toggleSwitch)
-        case .notDetermined:
-            AVCaptureDevice.requestAccess(for: .video) { granted in
-                if granted {
-                    print("Kamera izni verildi")
+            func checkCameraPermission() {
+                switch cameraAuthorizationStatus {
+                case .authorized:
+                    print("Kamera erişimi zaten var")
                     self.cameraLabel.toggleSwitch.isOn = true
-                } else {
-                    print("Kamera izni reddedildi")
-                    self.cameraLabel.toggleSwitch.isOn = false
+                case .denied, .restricted:
+                    print("Kamera izni daha önce reddedilmiş veya sınırlı")
+                    showSettingsAlert(title: "Camera Access Denied", message: "Please enable access to your camera in Settings." , toggle: cameraLabel.toggleSwitch)
+                case .notDetermined:
+                    AVCaptureDevice.requestAccess(for: .video) { granted in
+                        if granted {
+                            print("Kamera izni verildi")
+                            self.cameraLabel.toggleSwitch.isOn = true
+                        } else {
+                            print("Kamera izni reddedildi")
+                            self.cameraLabel.toggleSwitch.isOn = false
+                        }
+                    }
+                @unknown default:
+                    break
                 }
             }
-        @unknown default:
-            break
-        }
-    }
     
     
     func checkPhotoLibraryPermission() {
