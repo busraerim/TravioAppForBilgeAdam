@@ -157,7 +157,6 @@ class SettingsView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         getDataFromApi()
-//        self.navigationController?.isNavigationBarHidden = true
         setupViews()
     }
 
@@ -168,8 +167,9 @@ class SettingsView: UIViewController {
        navigationController?.navigationBar.isTranslucent = true
        let logOutBarButton = UIBarButtonItem(customView: buttonLogOut)
        self.navigationItem.rightBarButtonItem = logOutBarButton
-       self.navigationItem.titleView = lblTitle
-        
+    
+        let navigationBarTitle = UIBarButtonItem(customView: lblTitle)
+        self.navigationItem.leftBarButtonItem = navigationBarTitle
         setupLayout()
     }
     

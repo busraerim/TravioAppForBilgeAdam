@@ -141,10 +141,17 @@ class HomeViewModel{
         getDataPopularPlaces()
         getDataNewPlaces()
         dispatchGroup.notify(queue: .main) {
-        self.homeAllPlaces.append(contentsOf: [self.popularPlaceTuple!, self.newPlaceTuple! /*self.myAddedTuple!*/])
-        self.seeAllPlaces.append(contentsOf: [self.popularPlaceAll, self.newPlaceAll, self.myAddedPlaceAll])
-        self.homeDataClosure!(self.homeAllPlaces)
-        self.seeAllDataClosure!(self.seeAllPlaces)
+            if let myAddedPlace = self.myAddedTuple {
+                self.homeAllPlaces.append(contentsOf: [self.popularPlaceTuple!, self.newPlaceTuple!, self.myAddedTuple!])
+                self.seeAllPlaces.append(contentsOf: [self.popularPlaceAll, self.newPlaceAll, self.myAddedPlaceAll])
+                self.homeDataClosure!(self.homeAllPlaces)
+                self.seeAllDataClosure!(self.seeAllPlaces)
+            }else{
+                self.homeAllPlaces.append(contentsOf: [self.popularPlaceTuple!, self.newPlaceTuple!])
+                self.seeAllPlaces.append(contentsOf: [self.popularPlaceAll, self.newPlaceAll])
+                self.homeDataClosure!(self.homeAllPlaces)
+                self.seeAllDataClosure!(self.seeAllPlaces)
+            }
         }
     }
     
