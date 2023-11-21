@@ -12,8 +12,11 @@ import TinyConstraints
 class SeeAllVC: UIViewController {
     
     var dataPlaceSeeAll:[PlaceItem] = []
-
     
+    let placeDetailVC = DetailScrollVC()
+    
+    let placeDetailViewModel = PlaceDetailViewModel()
+
     private lazy var customView:CustomView = {
         let view = CustomView()
         return view
@@ -52,12 +55,11 @@ class SeeAllVC: UIViewController {
     
     @objc func buttonSortedTapped(){
         if buttonSorted.currentImage == .ztoA{
-            dataPlaceSeeAll.sort { $0.title ?? "" < $1.title ?? "" }
+            dataPlaceSeeAll.sort { $0.title < $1.title }
             buttonSorted.setImage(.atoZ, for: .normal)
             collectionView.reloadData()
-
         }else{
-            dataPlaceSeeAll.sort { $0.title ?? "" > $1.title ?? "" }
+            dataPlaceSeeAll.sort { $0.title > $1.title }
             buttonSorted.setImage(.ztoA, for: .normal)
             collectionView.reloadData()
 
@@ -65,22 +67,16 @@ class SeeAllVC: UIViewController {
     }
     
     func checkVisit(placeId:String, place:PlaceItem){
-    
-      let vc = DetailScrollVC()
-      let viewModel = PlaceDetailViewModel()
-
-        
-      viewModel.checkStatus = { [weak self] status in
+        placeDetailViewModel.checkStatus = { [weak self] status in
           if status == "success" {
-              vc.saveButton.setImage(.marked, for: .normal)
+              self!.placeDetailVC.saveButton.setImage(.marked, for: .normal)
           }else{
-              vc.saveButton.setImage(.notmarked, for: .normal)
+              self!.placeDetailVC.saveButton.setImage(.notmarked, for: .normal)
           }
-          vc.detailPlace = place
-          self!.navigationController?.pushViewController(vc, animated: true)
+          self!.placeDetailVC.detailPlace = place
+          self!.navigationController?.pushViewController(self!.placeDetailVC, animated: true)
       }
-        
-      viewModel.checkVisitByPlaceID(placeId: placeId )
+        placeDetailViewModel.checkVisitByPlaceID(placeId: placeId )
 
     }
     
@@ -108,7 +104,6 @@ class SeeAllVC: UIViewController {
     
     @objc func backButtonTapped(){
         self.navigationController?.popViewController(animated: true)
-        
     }
     
     func setupLayout() {
@@ -128,6 +123,24 @@ class SeeAllVC: UIViewController {
         
     }
   
+}
+
+extension SeeAllVC: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y > 0 {
+            buttonSorted.alpha = 0
+        } else {
+            buttonSorted.alpha = 1
+        }
+    }
+
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            UIView.animate(withDuration: 0.3) {
+                self.buttonSorted.alpha = 1
+            }
+        }
+    }
 }
 
 extension SeeAllVC:UICollectionViewDelegate{

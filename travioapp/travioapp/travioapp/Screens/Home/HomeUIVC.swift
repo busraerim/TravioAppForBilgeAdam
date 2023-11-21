@@ -56,7 +56,7 @@ class HomeUIVC: UIViewController {
     
     func getData(){
         let viewModel = HomeViewModel()
-        viewModel.homeGetData()
+        viewModel.getAllData()
         viewModel.homeDataClosure = {place in
             self.homeAllPlaces = place
             self.collectionView.reloadData()
@@ -67,7 +67,6 @@ class HomeUIVC: UIViewController {
     }
     
     func checkVisit(placeId:String, place:PlaceItem){
-    
       let vc = DetailScrollVC()
       let viewModel = PlaceDetailViewModel()
 
@@ -81,7 +80,6 @@ class HomeUIVC: UIViewController {
           self!.navigationController?.pushViewController(vc, animated: true)
       }
       viewModel.checkVisitByPlaceID(placeId: placeId )
-
     }
    
 

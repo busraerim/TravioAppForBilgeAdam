@@ -26,31 +26,35 @@ class HomeViewModel{
 
     var homeDataClosure: ((HomeList)->Void)?
 
-    
     var seeAllDataClosure: (([[PlaceItem]]) -> Void)?
+    
+    var myAddedSettingClosure: (([PlaceItem])->Void)?
+
 
     var dataTransferClosure: (([PlaceItem]) -> Void)?
 
     var dataTransferClosureForMyVisit: (([MyVisit]) -> Void)?
-
+        
     
     
     func getDataPopularPlaces(){
+        dispatchGroup.enter()
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .getPopular, callback: { (result:Result<Place,Error>) in
             switch result {
             case .success(let obj):
                 let place = obj.data.places
                 self.popularPlaceAll = place
                 self.dispatchGroup.leave()
-//                self.dataTransferClosure!(obj.data.places)
             case .failure(let failure):
                 print(failure.localizedDescription)
+                self.dispatchGroup.leave()
             }
         })
     }
 
     
     func getDataPopularPlacesWithParam(limit: Int){
+        dispatchGroup.enter()
         let parameters: Parameters = ["limit": "\(limit)"]
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .getPopularWith(params: parameters), callback: { (result:Result<Place,Error>) in
             switch result {
@@ -69,6 +73,7 @@ class HomeViewModel{
     
     
     func getDataNewPlacesWithParam(limit: Int){
+        dispatchGroup.enter()
         var parameters: Parameters = ["limit": "\(limit)"]
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .getPopularWith(params: parameters), callback: { (result:Result<Place,Error>) in
             switch result {
@@ -84,26 +89,29 @@ class HomeViewModel{
 }
     
     func getDataNewPlaces(){
+        dispatchGroup.enter()
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .getNew, callback: { (result:Result<Place,Error>) in
             switch result {
             case .success(let obj):
                 let place = obj.data.places
                 self.newPlaceAll = place
                 self.dispatchGroup.leave()
-//                self.dataTransferClosure!(obj.data.places)
             case .failure(let failure):
                 print(failure.localizedDescription)
+                self.dispatchGroup.leave()
             }
         })
     }
     
     
     func getDataAllPlacesForUser(){
+        dispatchGroup.enter()
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .getAllPlacesforUser, callback: { (result:Result<Place,Error>) in
             switch result {
             case .success(let obj):
                 let place = obj.data.places
                 self.myAddedPlaceAll = place
+                self.myAddedSettingClosure?(obj.data.places)
                 self.myAddedTuple = (title:"My Added Places", places: place)
                 self.dispatchGroup.leave()
             case .failure(let failure):
@@ -113,12 +121,38 @@ class HomeViewModel{
         })
     }
     
+    func getDataMyAddedPlaces(){
+        GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .getAllPlacesforUser, callback: { (result:Result<Place,Error>) in
+            switch result {
+            case .success(let obj):
+                let place = obj.data.places
+                self.myAddedPlaceAll = place
+                self.myAddedSettingClosure!(place)
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+        })
+    }
+    
+    func getAllData(){
+        getDataPopularPlacesWithParam(limit: 10)
+        getDataNewPlacesWithParam(limit: 10)
+        getDataAllPlacesForUser()
+        getDataPopularPlaces()
+        getDataNewPlaces()
+        dispatchGroup.notify(queue: .main) {
+        self.homeAllPlaces.append(contentsOf: [self.popularPlaceTuple!, self.newPlaceTuple!, self.myAddedTuple!])
+        self.seeAllPlaces.append(contentsOf: [self.popularPlaceAll, self.newPlaceAll, self.myAddedPlaceAll])
+        self.homeDataClosure!(self.homeAllPlaces)
+        self.seeAllDataClosure!(self.seeAllPlaces)
+        }
+    }
+    
     
     func getDataMyVisitsPlaces(){
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .getAllVisits, callback: { (result:Result<ApiResponse,Error>) in
             switch result {
             case .success(let obj):
-                print(obj.data.visits)
                 self.dataTransferClosureForMyVisit!(obj.data.visits)
             case .failure(let failure):
                 print(failure.localizedDescription)
@@ -126,33 +160,7 @@ class HomeViewModel{
         })
     }
     
-    
-    func homeGetData(){
-        dispatchGroup.enter()
-        getDataPopularPlacesWithParam(limit: 10)
-        
-
-        dispatchGroup.enter()
-        getDataNewPlacesWithParam(limit: 10)
-        
-        dispatchGroup.enter()
-        getDataAllPlacesForUser()
-        
-        dispatchGroup.enter()
-        getDataPopularPlaces()
-        
-        dispatchGroup.enter()
-        getDataNewPlaces()
-        
-        dispatchGroup.notify(queue: .main) {
-            self.homeAllPlaces.append(contentsOf: [self.popularPlaceTuple!, self.newPlaceTuple!, self.myAddedTuple!])
-            self.seeAllPlaces.append(contentsOf: [self.popularPlaceAll, self.newPlaceAll, self.myAddedPlaceAll])
-            self.homeDataClosure!(self.homeAllPlaces)
-            self.seeAllDataClosure!(self.seeAllPlaces)
-            print(self.homeAllPlaces)
-        }
-    }
-    
+  
     
 }
     

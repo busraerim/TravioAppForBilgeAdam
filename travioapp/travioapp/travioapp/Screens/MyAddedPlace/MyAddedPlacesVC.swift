@@ -12,6 +12,13 @@ import TinyConstraints
 class MyAddedPlacesVC: UIViewController {
     
     var myAddedPlacesSetting:[PlaceItem] = []
+   
+    let viewModel = HomeViewModel()
+    
+    let placeDetailVC = DetailScrollVC()
+    
+    let placeDetailViewModel = PlaceDetailViewModel()
+
 
     
     private lazy var customView:CustomView = {
@@ -74,36 +81,25 @@ class MyAddedPlacesVC: UIViewController {
     }()
     
     func networkingGetDataMyAddedPlaces(){
-        let viewModel = HomeViewModel()
-              
-        viewModel.dataTransferClosure = { [weak self] place in
-            guard let this = self else { return }
-            this.myAddedPlacesSetting = place
-            this.collectionView.reloadData()
-            
-        }
         viewModel.getDataAllPlacesForUser()
-        return
+        viewModel.myAddedSettingClosure = { place in
+            self.myAddedPlacesSetting = place
+            self.collectionView.reloadData()
+        }
     }
     
     func checkVisit(placeId:String, place:PlaceItem){
-    
-      let vc = DetailScrollVC()
-      let viewModel = PlaceDetailViewModel()
-
-        
-      viewModel.checkStatus = { [weak self] status in
-          print("burası see allda \(status)")
+        placeDetailViewModel.checkStatus = { [weak self] status in
           if status == "success" {
-              vc.saveButton.setImage(.marked, for: .normal)
+              self!.placeDetailVC.saveButton.setImage(.marked, for: .normal)
           }else{
-              vc.saveButton.setImage(.notmarked, for: .normal)
+              self!.placeDetailVC.saveButton.setImage(.notmarked, for: .normal)
           }
-          vc.detailPlace = place
-          self!.navigationController?.pushViewController(vc, animated: true)
+          self!.placeDetailVC.detailPlace = place
+          self!.navigationController?.pushViewController(self!.placeDetailVC, animated: true)
       }
         
-      viewModel.checkVisitByPlaceID(placeId: placeId )
+        placeDetailViewModel.checkVisitByPlaceID(placeId: placeId )
 
     }
     
@@ -111,23 +107,12 @@ class MyAddedPlacesVC: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(red: 0.22, green: 0.678, blue: 0.663, alpha: 1)
         networkingGetDataMyAddedPlaces()
-//        print(dataPlaceSeeAll)
         setupViews()
     }
   
     func setupViews() {
         self.view.addSubviews(backView,labelTitle,backButton)
-//        backView.addSubviews(customView)
         backView.addSubviews(collectionView, sortedButton)
-//        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-//        navigationController?.navigationBar.shadowImage = UIImage()
-//        navigationController?.navigationBar.isTranslucent = true
-        
-//        let leftButtonImage = UIImage(named:"backWard")
-//        let leftBarButton = UIBarButtonItem(image: leftButtonImage, style: .plain, target: self, action: #selector(backButtonTapped))
-//        leftBarButton.tintColor = UIColor(hex: "FFFFFF")
-//        self.navigationItem.leftBarButtonItem = leftBarButton
-//        self.navigationItem.titleView = labelTitle
         setupLayout()
     }
     
