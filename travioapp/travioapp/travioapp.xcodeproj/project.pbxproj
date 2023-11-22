@@ -72,6 +72,7 @@
 		435DD3702AEF8C4000BFA41F /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 435DD35D2AEF8C4000BFA41F /* Poppins-Italic.ttf */; };
 		435DD3712AEF8C4000BFA41F /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 435DD35E2AEF8C4000BFA41F /* Poppins-Bold.ttf */; };
 		435DD3732AEF97FE00BFA41F /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435DD3722AEF97FE00BFA41F /* HomeModel.swift */; };
+		4366B56B2B0DD83E007252C0 /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4366B56A2B0DD83E007252C0 /* CustomFont.swift */; };
 		436FD80B2AEBE63300EEA47F /* HomeUIVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436FD80A2AEBE63300EEA47F /* HomeUIVC.swift */; };
 		436FD80D2AEC0E1C00EEA47F /* CustomCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436FD80C2AEC0E1C00EEA47F /* CustomCollectionCell.swift */; };
 		43933F9D2AF0DB1100A1AF39 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43933F9C2AF0DB1100A1AF39 /* HeaderView.swift */; };
@@ -174,6 +175,7 @@
 		435DD35D2AEF8C4000BFA41F /* Poppins-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Italic.ttf"; sourceTree = "<group>"; };
 		435DD35E2AEF8C4000BFA41F /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		435DD3722AEF97FE00BFA41F /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
+		4366B56A2B0DD83E007252C0 /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
 		436FD80A2AEBE63300EEA47F /* HomeUIVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUIVC.swift; sourceTree = "<group>"; };
 		436FD80C2AEC0E1C00EEA47F /* CustomCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionCell.swift; sourceTree = "<group>"; };
 		43933F9C2AF0DB1100A1AF39 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
@@ -375,6 +377,7 @@
 				439A41D72AFA6DB100F1D252 /* AddNewPlace.swift */,
 				35732B772AFCC12F00A74ED5 /* UploadResponse.swift */,
 				35732B882AFCF98F00A74ED5 /* HelpSupportCellModel.swift */,
+				4366B56A2B0DD83E007252C0 /* CustomFont.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -679,6 +682,7 @@
 				4354F28F2AE92E0C0002D438 /* Router.swift in Sources */,
 				439A41B92AF8C35B00F1D252 /* MapVC.swift in Sources */,
 				439B9BED2B04D70F00B8BF1F /* Protocol.swift in Sources */,
+				4366B56B2B0DD83E007252C0 /* CustomFont.swift in Sources */,
 				43933FA22AF23BB600A1AF39 /* CustomView.swift in Sources */,
 				35018CD92B038F2000DFA5C5 /* AppHeaderView.swift in Sources */,
 				35BB4AD62AF3F23F0030F916 /* EditProfileVC.swift in Sources */,
