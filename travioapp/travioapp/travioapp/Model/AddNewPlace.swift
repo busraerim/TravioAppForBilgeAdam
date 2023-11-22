@@ -11,13 +11,28 @@ struct AddNewPlace:Codable {
     var place:String
     var title:String
     var description:String
-    var cover_image_url:String
+    var coverImageUrl:String
     var latitude:Double
     var longitude:Double
+    
+    enum CodingKeys:String,CodingKey {
+        case place
+        case title
+        case description
+        case coverImageUrl = "cover_image_url"
+        case latitude
+        case longitude
+    }
 }
 
 struct PostAGallery:Codable {
-    var place_id: String
-    var image_url: String
+    var placeId: String
+    var imageUrl: String
+    
+    enum CodingKeys:String,CodingKey {
+        case placeId = "place_id"
+        case imageUrl = "image_url"
+        
+    }
 }
 

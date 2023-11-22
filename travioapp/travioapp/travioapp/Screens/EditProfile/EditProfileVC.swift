@@ -200,13 +200,13 @@ class EditProfileVC: UIViewController {
     
     
     func updateUI(with profile: ProfileResponse) {
-        lblProfileName.text = profile.full_name
+        lblProfileName.text = profile.fullName
 
         profileRoleView.label.text = profile.role
         
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
-        guard let date = df.date(from: profile.created_at) else { return }
+        guard let date = df.date(from: profile.createdAt) else { return }
 
         let outdf = DateFormatter()
         outdf.dateFormat = "d MMMM yyyy"
@@ -215,8 +215,8 @@ class EditProfileVC: UIViewController {
         profileCreatedTimeView.label.text = formattedDate
         
         emailInputView.txtPlaceholder.text = profile.email
-        fullNameInputView.txtPlaceholder.text = profile.full_name
-        let url = URL(string: profile.pp_url)
+        fullNameInputView.txtPlaceholder.text = profile.fullName
+        let url = URL(string: profile.ppUrl)
         profilePhotoImageView.kf.setImage(with: url)
     }
     
@@ -311,7 +311,7 @@ class EditProfileVC: UIViewController {
 
         viewModel.dataTransferClosure = { [weak self] profile in
             self?.updateUI(with: profile)
-            self?.oldPP = profile.pp_url
+            self?.oldPP = profile.ppUrl
         }
     }
     

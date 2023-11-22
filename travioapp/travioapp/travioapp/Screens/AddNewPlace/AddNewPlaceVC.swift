@@ -187,14 +187,14 @@ class AddNewPlaceVC: UIViewController {
         let latitude = self.lat
         let longitude = self.long
 
-        viewModel.postNewPlace(request:AddNewPlace(place: place, title: title, description: description, cover_image_url: cover_image_url, latitude: latitude, longitude: longitude))
+        viewModel.postNewPlace(request:AddNewPlace(place: place, title: title, description: description, coverImageUrl: cover_image_url, latitude: latitude, longitude: longitude))
 
         self.dismiss(animated: true, completion: {self.delegate?.getDataFromApi()})
     }
     
     private func postAGallery(placeId: String, data:[String]){
         for index in 0..<data.count{
-            AddNewPlaceViewModel().postAGallery(request: PostAGallery(place_id: placeId, image_url: data[index]))
+            AddNewPlaceViewModel().postAGallery(request: PostAGallery(placeId: placeId, imageUrl: data[index]))
         }
     }
     

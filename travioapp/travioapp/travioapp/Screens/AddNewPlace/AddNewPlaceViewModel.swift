@@ -17,7 +17,7 @@ class AddNewPlaceViewModel{
     var placeIdClosure: ((String) -> Void)?
 
     func postNewPlace(request:AddNewPlace){
-        let params = ["place": request.place, "title": request.title, "description": request.description, "cover_image_url": request.cover_image_url, "latitude": request.latitude, "longitude": request.longitude] as [String : Any]
+        let params = ["place": request.place, "title": request.title, "description": request.description, "cover_image_url": request.coverImageUrl, "latitude": request.latitude, "longitude": request.longitude] as [String : Any]
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .postAPlace(param: params), callback: { (result:Result<BaseResponse, Error>) in
             switch result {
             case .success(let success):
@@ -41,7 +41,7 @@ class AddNewPlaceViewModel{
     }
     
     func postAGallery(request:PostAGallery){
-        let params = ["place_id": request.place_id, "image_url": request.image_url] as [String : Any]
+        let params = ["place_id": request.placeId, "image_url": request.imageUrl] as [String : Any]
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .postAGallery(param: params), callback: { (result:Result<BaseResponse, Error>) in
             switch result {
             case .success(let success): 

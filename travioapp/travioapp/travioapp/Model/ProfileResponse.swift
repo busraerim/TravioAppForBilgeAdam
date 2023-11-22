@@ -8,9 +8,18 @@
 import Foundation
 
 struct ProfileResponse:Codable {
-    var full_name:String
+    var fullName:String
     var email:String
-    var pp_url:String
+    var ppUrl:String
     var role:String
-    var created_at:String
+    var createdAt:String
+    
+    enum CodingKeys:String,CodingKey {
+        case fullName = "full_name"
+        case email
+        case ppUrl = "pp_url"
+        case role
+        case createdAt = "created_at"
+        
+    }
 }

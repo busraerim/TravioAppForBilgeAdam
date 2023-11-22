@@ -136,8 +136,8 @@ class SettingsView: UIViewController {
     }
     
     func updateUI(with profile:ProfileResponse){
-        lblProfileName.text = profile.full_name
-        let url = URL(string: profile.pp_url)
+        lblProfileName.text = profile.fullName
+        let url = URL(string: profile.ppUrl)
         profileImage.kf.setImage(with: url)
    
       
