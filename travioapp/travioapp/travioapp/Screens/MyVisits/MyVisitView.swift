@@ -43,10 +43,7 @@ class MyVisitsView: UIViewController {
     
     private lazy var collectionView:UICollectionView = {
         let lay = makeCollectionViewLayout()
-        
-        //layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         let cv = UICollectionView(frame: .zero, collectionViewLayout: lay)
-       
         cv.register(MyVisitsCell.self, forCellWithReuseIdentifier: MyVisitsCell.identifier)
         cv.isPagingEnabled = true
         cv.dataSource = self

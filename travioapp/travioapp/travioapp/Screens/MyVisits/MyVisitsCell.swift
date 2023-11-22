@@ -78,6 +78,7 @@ class MyVisitsCell: UICollectionViewCell {
         gradient.leadingToSuperview()
         gradient.trailingToSuperview()
         lblTitle.leading(to: backView, offset: 16)
+        lblTitle.leading(to: backView, offset: 16)
         lblTitle.bottom(to: backView, offset: -26)
         lblSubtitle.centerY(to: icon)
         lblSubtitle.leadingToTrailing(of: icon, offset: 6)

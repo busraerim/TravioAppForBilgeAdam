@@ -78,6 +78,7 @@ class CustomCollectionCell: UICollectionViewCell {
         gradient.leadingToSuperview()
         gradient.trailingToSuperview()
         lblVisitLocation.leading(to: placeView, offset: 16)
+        lblVisitLocation.leading(to: placeView, offset: 16)
         lblVisitLocation.bottom(to: placeView, offset: -26)
         lblPlace.bottom(to: placeView, offset: -5)
         lblPlace.leading(to: placeView, offset: 31)

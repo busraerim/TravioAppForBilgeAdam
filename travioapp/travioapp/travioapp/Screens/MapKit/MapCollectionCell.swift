@@ -12,7 +12,6 @@ class MapCollectionCell: UICollectionViewCell {
     
     public lazy var placeView:UIView = {
         let view = UIView()
-//        view.backgroundColor = .black
         return view
     }()
     
@@ -71,6 +70,7 @@ class MapCollectionCell: UICollectionViewCell {
         placeView.edgesToSuperview()
         image.edges(to: placeView)
         lblVisitLocation.leading(to: placeView, offset: 16)
+        lblVisitLocation.trailing(to: placeView, offset: -6)
         lblVisitLocation.bottom(to: placeView, offset: -26)
         lblPlace.bottom(to: placeView, offset: -5)
         lblPlace.leading(to: placeView, offset: 31)
