@@ -20,7 +20,7 @@ class HelpSupportCell: UICollectionViewCell {
     
     private lazy var lblTitle:UILabel = {
         let lbl = UILabel()
-        lbl.font = UIFont(name: "Poppins-Medium", size: 14)
+        lbl.font = CustomFont.title1.font
         lbl.numberOfLines = 0
         lbl.lineBreakMode = .byWordWrapping
         lbl.textColor = .textcolor
@@ -36,7 +36,7 @@ class HelpSupportCell: UICollectionViewCell {
     
     private lazy var lblSubTitle:UILabel = {
         let lbl = UILabel()
-        lbl.font = UIFont(name: "Poppins-Light", size: 10)
+        lbl.font = CustomFont.title3.font
         lbl.numberOfLines = 0
         lbl.lineBreakMode = .byWordWrapping
         lbl.textColor = .textcolor

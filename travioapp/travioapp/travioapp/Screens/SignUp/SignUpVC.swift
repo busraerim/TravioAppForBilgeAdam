@@ -31,7 +31,7 @@ class SignUpVC: UIViewController {
     private lazy var lblTitle:UILabel = {
         var view = UILabel()
         view.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
-        view.font = UIFont(name: "Poppins-SemiBold", size: 36)
+        view.font = CustomFont.header1.font
         view.text = "Sign Up"
         return view
     }()

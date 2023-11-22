@@ -31,7 +31,7 @@ class SeeAllCollectionCell: UICollectionViewCell {
     private lazy var lblVisitLocation:UILabel = {
         let lbl = UILabel()
         lbl.textColor = .black
-        lbl.font = UIFont(name: "Poppins-SemiBold", size: 24)
+        lbl.font = CustomFont.header4.font
         lbl.height(36)
         return lbl
     }()
@@ -39,7 +39,7 @@ class SeeAllCollectionCell: UICollectionViewCell {
     private lazy var lblPlace:UILabel = {
         let lbl = UILabel()
         lbl.textColor = .black
-        lbl.font = UIFont(name: "Poppins-Light", size: 14)
+        lbl.font = CustomFont.subTitle2.font
         return lbl
     }()
     

@@ -29,7 +29,7 @@ class EditProfileVC: UIViewController {
     private lazy var lblTitle:UILabel = {
         let lbl = UILabel()
         lbl.text = "Edit Profile"
-        lbl.font = UIFont(name: "Poppins-SemiBold", size: 32)
+        lbl.font = CustomFont.header2.font
         lbl.textColor = .white
         return lbl
     }()
@@ -37,7 +37,7 @@ class EditProfileVC: UIViewController {
     private lazy var lblProfileName:UILabel = {
         let lbl = UILabel()
         lbl.text = "Bruce Wills"
-        lbl.font = UIFont(name: "Poppins-SemiBold", size: 24)
+        lbl.font = CustomFont.header4.font
         lbl.textColor = .black
         return lbl
     }()

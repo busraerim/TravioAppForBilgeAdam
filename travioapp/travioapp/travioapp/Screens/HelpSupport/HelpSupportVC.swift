@@ -43,7 +43,7 @@ class HelpSupportVC: UIViewController {
     private lazy var lblTitle:UILabel = {
         let lbl = UILabel()
         lbl.text = "Help&Support"
-        lbl.font = UIFont(name: "Poppins-SemiBold", size: 32)
+        lbl.font = CustomFont.header2.font
         lbl.textColor = .white
         return lbl
     }()
@@ -59,7 +59,7 @@ class HelpSupportVC: UIViewController {
         let lbl = UILabel()
         lbl.text = "FAQ"
         lbl.textColor = .background
-        lbl.font = UIFont(name: "Poppins-SemiBold", size: 24)
+        lbl.font = CustomFont.subHeader1.font
         return lbl
     }()
     

@@ -48,7 +48,6 @@ class LoginVc: UIViewController {
         let password = InputBox()
         password.boxTitle = .label(label: "Password")
         password.boxPlaceholder = .placeholder(placeholder: "*************")
-        //        password.txtPlaceholder.isSecureTextEntry = true
         return password
     }()
     
@@ -76,7 +75,7 @@ class LoginVc: UIViewController {
         account.textColor = .black
         account.numberOfLines = 1
         account.textAlignment = .center
-        account.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        account.font = CustomFont.header6.font
         return account
     }()
     
@@ -84,7 +83,7 @@ class LoginVc: UIViewController {
         let signUp = UIButton()
         signUp.setTitle("Sign Up", for: .normal)
         signUp.setTitleColor(.black, for: .normal)
-        signUp.titleLabel?.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        signUp.titleLabel?.font = CustomFont.header6.font
         signUp.addTarget(self, action: #selector(btnSignupTapped), for: .touchUpInside)
         return signUp
     }()
@@ -100,7 +99,7 @@ class LoginVc: UIViewController {
         let welcome = UILabel()
         welcome.text = "Welcome to Travio"
         welcome.textColor = .black
-        welcome.font = UIFont(name: "Poppins", size: 24)
+        welcome.font = CustomFont.subHeader1.font
         welcome.width(226)
         welcome.height(36)
         welcome.textAlignment = .center

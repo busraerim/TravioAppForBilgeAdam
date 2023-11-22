@@ -28,10 +28,10 @@ class HeaderView: UICollectionReusableView {
     
     func setupContent() {
          
-        label.font = UIFont(name: "Poppins-Medium", size: 20)
+        label.font = CustomFont.subHeader2.font
         label.text = "Section ?? "
         button.setTitle("See All", for: .normal)
-        button.titleLabel?.font = UIFont(name: "Poppins-Medium", size: 14)
+        button.titleLabel?.font = CustomFont.subHeader3.font
         button.setTitleColor(.systemBlue, for: .normal)
         button.addTarget(HomeUIVC(), action: #selector(btnSeeAll), for: .touchUpInside)
         

@@ -38,7 +38,7 @@ class SecuritySettingsView: UIViewController {
     private lazy var lblTitle:UILabel = {
         let lbl = UILabel()
         lbl.text = "Security Settings"
-        lbl.font = UIFont(name: "Poppins-SemiBold", size: 32)
+        lbl.font = CustomFont.header2.font
         lbl.textColor = .white
         return lbl
     }()
@@ -168,7 +168,7 @@ class SecuritySettingsView: UIViewController {
     func createLabel(title:String) -> UILabel {
         let lbl = UILabel()
         lbl.text = title
-        lbl.font = UIFont(name: "Poppins-SemiBold", size: 16)
+        lbl.font = CustomFont.header5.font
         lbl.textColor = .background
         return lbl
     }

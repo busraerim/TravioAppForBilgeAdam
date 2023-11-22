@@ -87,7 +87,7 @@ class SettingsView: UIViewController {
     private lazy var lblTitle:UILabel = {
         var lbl = UILabel()
         lbl.textColor = .white
-        lbl.font = UIFont(name: "Poppins-SemiBold", size: 32)
+        lbl.font = CustomFont.header2.font
         lbl.text = "Settings"
         lbl.textAlignment = .center
         return lbl
@@ -96,21 +96,11 @@ class SettingsView: UIViewController {
     private lazy var lblProfileName:UILabel = {
         var lbl = UILabel()
         lbl.textColor = .black
-        lbl.font = UIFont(name: "Poppins-SemiBold", size: 16)
+        lbl.font = CustomFont.header5.font
         lbl.text = "Bruce Wills"
         lbl.textAlignment = .center
         return lbl
     }()
-    
-    private lazy var lblEditProfile:UILabel = {
-        var lbl = UILabel()
-        lbl.textColor = .seablue
-        lbl.font = UIFont(name: "Poppins-SemiBold", size: 12)
-        lbl.text = "Settings"
-        lbl.textAlignment = .center
-        return lbl
-    }()
-    
     
     @objc func buttonEditProfileTapped(){
         let vc = EditProfileVC()

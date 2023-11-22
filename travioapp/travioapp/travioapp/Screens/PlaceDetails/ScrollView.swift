@@ -17,7 +17,6 @@ final class ScrollView: UIView {
 
     private lazy var scrollView: UIScrollView = {
         let sv = UIScrollView()
-        //    sv.backgroundColor = .red
         sv.translatesAutoresizingMaskIntoConstraints = false
         return sv
     }()
@@ -25,32 +24,26 @@ final class ScrollView: UIView {
     private lazy var contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        //      let heightConstraint = contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
-        //      view.backgroundColor = .blue
         return view
     }()
 
     public lazy var labelTitle:UILabel = {
         let lbl = UILabel()
         lbl.textColor = UIColor(red: 0.239, green: 0.239, blue: 0.239, alpha: 1)
-        lbl.font =  UIFont(name: "Poppins-SemiBold", size: 30)
+        lbl.font =  CustomFont.header3.font
         lbl.text = ""
-//        lbl.backgroundColor = .link
         lbl.numberOfLines = 0
         lbl.translatesAutoresizingMaskIntoConstraints = false
-
         return lbl
     }()
     
     public lazy var lblCreatedDate:UILabel = {
         let lbl = UILabel()
         lbl.textColor = UIColor(red: 0.239, green: 0.239, blue: 0.239, alpha: 1)
-        lbl.font = UIFont(name: "Poppins-Regular", size: 14)
-//        lbl.backgroundColor = .link
+        lbl.font = CustomFont.subHeader3.font
         lbl.numberOfLines = 0
         lbl.text =  ""
         lbl.translatesAutoresizingMaskIntoConstraints = false
-
         return lbl
     }()
     
@@ -58,10 +51,9 @@ final class ScrollView: UIView {
         let lbl = UILabel()
         lbl.text = ""
         lbl.textColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
-        lbl.font = UIFont(name: "Poppins-Regular", size: 10)
+        lbl.font = CustomFont.title3.font
         lbl.numberOfLines = 0
         lbl.translatesAutoresizingMaskIntoConstraints = false
-
         return lbl
     }()
     
@@ -72,7 +64,6 @@ final class ScrollView: UIView {
         stack.spacing = 10
         stack.distribution = .fillProportionally
         stack.translatesAutoresizingMaskIntoConstraints = false
-
         return stack
     }()
 
@@ -91,7 +82,7 @@ final class ScrollView: UIView {
     public lazy var lblDescription:UILabel = {
        let lbl = UILabel()
        lbl.textColor = UIColor(red: 0.239, green: 0.239, blue: 0.239, alpha: 1)
-       lbl.font = UIFont(name: "Poppins-Regular", size: 12)
+       lbl.font = CustomFont.title2.font
        lbl.text = ""
        lbl.numberOfLines = 0
        lbl.translatesAutoresizingMaskIntoConstraints = false
@@ -152,7 +143,6 @@ final class ScrollView: UIView {
         
         contentView.edges(to: scrollView)
         contentView.width(to: scrollView)
-    //        contentView.height(heightConstraint.constant)
         contentView.height(heightConstraint.constant)
         contentView.layoutIfNeeded()
         

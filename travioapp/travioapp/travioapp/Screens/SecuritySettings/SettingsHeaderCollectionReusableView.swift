@@ -16,7 +16,7 @@ class SettingsHeaderCollectionReusableView: UICollectionReusableView {
         let lbl = UILabel()
         lbl.text = "Header"
         lbl.textColor = .background
-        lbl.font = UIFont(name: "Poppins-SemiBold", size: 16)
+         lbl.font = CustomFont.header5.font
         lbl.textAlignment = .left
         return lbl
     }()

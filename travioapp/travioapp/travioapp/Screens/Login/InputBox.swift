@@ -41,14 +41,14 @@ class InputBox: UIView {
     public lazy var lblTitle:UILabel = {
         let title = UILabel()
         title.textColor = .black
-        title.font = UIFont(name: "Poppins-Medium", size: 14)
+        title.font = CustomFont.subHeader3.font
         title.width(129)
         return title
     }()
     
     public lazy var txtPlaceholder: UITextField = {
        let placeholder = UITextField()
-        placeholder.font = UIFont(name: "Poppins-Light", size: 12)
+        placeholder.font = CustomFont.subTitle3.font
         placeholder.autocapitalizationType = .none
         return placeholder
     }()

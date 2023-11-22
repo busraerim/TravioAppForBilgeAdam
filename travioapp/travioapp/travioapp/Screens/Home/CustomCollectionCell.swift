@@ -8,7 +8,6 @@ class CustomCollectionCell: UICollectionViewCell {
     
     public lazy var placeView:UIView = {
         let view = UIView()
-//        view.backgroundColor = .black
         return view
     }()
     
@@ -29,14 +28,14 @@ class CustomCollectionCell: UICollectionViewCell {
     private lazy var lblVisitLocation:UILabel = {
         let lbl = UILabel()
         lbl.textColor = .white
-        lbl.font = UIFont(name: "Poppins-SemiBold", size: 24)
+        lbl.font = CustomFont.header4.font
         return lbl
     }()
     
     private lazy var lblPlace:UILabel = {
         let lbl = UILabel()
         lbl.textColor = .white
-        lbl.font = UIFont(name: "Poppins-Light", size: 16)
+        lbl.font = CustomFont.subTitle1.font
         return lbl
     }()
     
@@ -49,7 +48,6 @@ class CustomCollectionCell: UICollectionViewCell {
     func configure(object: PlaceItem) {
         let url = URL(string: object.coverImageUrl)
         image.kf.setImage(with: url)
-//        image.image = UIImage(named: object.cover_image_url)
         lblPlace.text = object.place
         lblVisitLocation.text = object.title
     }

@@ -61,7 +61,7 @@ class HomeUIVC: UIViewController {
     }
     
     func checkVisit(placeId:String, place:PlaceItem){
-      let vc = DetailScrollVC()
+      let vc = PlaceDetailVC()
       let viewModel = PlaceDetailViewModel()
 
       viewModel.checkStatus = { [weak self] status in

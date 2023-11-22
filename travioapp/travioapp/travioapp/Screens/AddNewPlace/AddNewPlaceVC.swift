@@ -25,19 +25,19 @@ class AddNewPlaceVC: UIViewController {
 
     private lazy var txtDescription:UITextView = {
         let text = UITextView()
-        text.font = Fonts.poppinsRegular(size: 12).font
+        text.font = CustomFont.title2.font
         return text
     }()
     
     public lazy var labelCountry:UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Poppins-Light", size: 12)
+        label.font = CustomFont.subHeader4.font
         return label
     }()
     
     private lazy var txtTitle:UITextField = {
         let text = UITextField()
-        text.font = Fonts.poppinsRegular(size: 12).font
+        text.font = CustomFont.title2.font
         text.placeholder = "Please write a place name."
         return text
     }()
@@ -45,21 +45,21 @@ class AddNewPlaceVC: UIViewController {
     private lazy var placeName:CustomNewPlaceView = {
         let view = CustomNewPlaceView()
         view.title.text = "Place Name"
-        view.title.font = Fonts.poppinsMedium(size: 14).font
+        view.title.font = CustomFont.subHeader3.font
         return view
     }()
     
     private lazy var visitDescription:CustomNewPlaceView = {
         let view = CustomNewPlaceView()
         view.title.text = "Visit Description"
-        view.title.font = Fonts.poppinsMedium(size: 14).font
+        view.title.font = CustomFont.subHeader3.font
         return view
     }()
     
     private lazy var countryCity:CustomNewPlaceView = {
         let view = CustomNewPlaceView()
         view.title.text = "Country City"
-        view.title.font = Fonts.poppinsMedium(size: 14).font
+        view.title.font = CustomFont.subHeader3.font
         return view
     }()
     

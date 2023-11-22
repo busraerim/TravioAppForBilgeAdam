@@ -58,7 +58,7 @@ class MyVisitsView: UIViewController {
 
     func checkVisit(placeId:String, place:PlaceItem){
     
-      let vc = DetailScrollVC()
+      let vc = PlaceDetailVC()
       let viewModel = PlaceDetailViewModel()
 
         

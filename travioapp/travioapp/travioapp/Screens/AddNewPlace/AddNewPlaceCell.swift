@@ -19,7 +19,7 @@ class AddNewPlaceCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "Add Photo"
         label.textColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
-        label.font = Fonts.poppinsLight(size: 12).font
+        label.font = CustomFont.subTitle3.font
         return label
     }()
     

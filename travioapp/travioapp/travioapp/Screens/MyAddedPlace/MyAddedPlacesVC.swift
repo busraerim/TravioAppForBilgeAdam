@@ -15,7 +15,7 @@ class MyAddedPlacesVC: UIViewController {
    
     let viewModel = HomeViewModel()
     
-    let placeDetailVC = DetailScrollVC()
+    let placeDetailVC = PlaceDetailVC()
     
     let placeDetailViewModel = PlaceDetailViewModel()
 
@@ -38,7 +38,7 @@ class MyAddedPlacesVC: UIViewController {
        let label = UILabel()
         label.textColor = .white
         label.text = "My Added Places"
-        label.font = UIFont(name: "Poppins-SemiBold", size: 32)
+        label.font = CustomFont.header2.font
        return label
     }()
     

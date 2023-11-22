@@ -13,7 +13,7 @@ class SeeAllVC: UIViewController {
     
     var dataPlaceSeeAll:[PlaceItem] = []
     
-    let placeDetailVC = DetailScrollVC()
+    let placeDetailVC = PlaceDetailVC()
     
     let placeDetailViewModel = PlaceDetailViewModel()
 
@@ -33,7 +33,7 @@ class SeeAllVC: UIViewController {
     public lazy var labelTitle:UILabel = {
        let label = UILabel()
         label.textColor = .white
-        label.font = UIFont(name: "Poppins-SemiBold", size: 36)
+        label.font = CustomFont.header1.font
        return label
     }()
     

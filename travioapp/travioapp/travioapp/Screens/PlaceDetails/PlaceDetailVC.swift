@@ -12,7 +12,7 @@ import MapKit
 
 
 
-class DetailScrollVC: UIViewController {
+class PlaceDetailVC: UIViewController {
     
 
     
@@ -59,22 +59,18 @@ class DetailScrollVC: UIViewController {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
         
         if let date = dateFormatter.date(from: dateString) {
-            // Tarih çıkarımı
             let dayFormatter = DateFormatter()
             dayFormatter.dateFormat = "dd"
             let day = dayFormatter.string(from: date)
             
-            // Ay ismi
             let monthFormatter = DateFormatter()
             monthFormatter.dateFormat = "MMMM"
             let month = monthFormatter.string(from: date)
             
-            // Yıl çıkarımı
             let yearFormatter = DateFormatter()
             yearFormatter.dateFormat = "yyyy"
             let year = yearFormatter.string(from: date)
             
-            // sonuc
             let formattedDate = "\(day) \(month) \(year)"
             
             return formattedDate
@@ -109,14 +105,11 @@ class DetailScrollVC: UIViewController {
 
     
     @objc func buttonSaveTapped(){
-        print("bastı")
-        
-        
+                
         let currentDate = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"
         let formattedDateString = dateFormatter.string(from: currentDate)
-//        print(formattedDateString)
         
         if saveButton.currentImage == .notmarked{
             PlaceDetailViewModel().postAVisit(request: PostAVisit(place_id: detailPlace!.id, visited_at: formattedDateString))
@@ -149,9 +142,7 @@ class DetailScrollVC: UIViewController {
             if this.images.count == 0{
                 this.images.append("https://yekpar.com/writable/uploads/medias/files/istockphoto-1357365823-612x612.jpg")
             }
-            
-            print(this.images)
-            
+                        
             this.setupViews()
 
         }
@@ -210,7 +201,7 @@ class DetailScrollVC: UIViewController {
 
 }
 
-extension DetailScrollVC {
+extension PlaceDetailVC {
     func makeCollectionViewLayout()->UICollectionViewLayout{
         
         UICollectionViewCompositionalLayout {
@@ -232,14 +223,13 @@ extension DetailScrollVC {
        
         let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
         layoutSection.orthogonalScrollingBehavior = .groupPaging
-//        layoutSection.interGroupSpacing = 18
         return layoutSection
     }
 
 }
 
 
-extension DetailScrollVC:UICollectionViewDelegate{
+extension PlaceDetailVC:UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let visibleIndexPaths = collectionView.indexPathsForVisibleItems
         if  let firstIndex = visibleIndexPaths.first{
@@ -248,7 +238,7 @@ extension DetailScrollVC:UICollectionViewDelegate{
     }
 }
 
-extension DetailScrollVC:UICollectionViewDataSource{
+extension PlaceDetailVC:UICollectionViewDataSource{
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -278,7 +268,7 @@ import MapKit
 struct DetailScrollVC_Preview: PreviewProvider {
     static var previews: some View{
          
-        DetailScrollVC().showPreview()
+        PlaceDetailVC().showPreview()
     }
 }
 #endif

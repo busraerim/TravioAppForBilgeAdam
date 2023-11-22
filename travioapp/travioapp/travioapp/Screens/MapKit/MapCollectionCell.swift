@@ -33,14 +33,14 @@ class MapCollectionCell: UICollectionViewCell {
     private lazy var lblVisitLocation:UILabel = {
         let lbl = UILabel()
         lbl.textColor = .white
-        lbl.font = UIFont(name: "Poppins-SemiBold", size: 24)
+        lbl.font = CustomFont.header4.font
         return lbl
     }()
     
     private lazy var lblPlace:UILabel = {
         let lbl = UILabel()
         lbl.textColor = .white
-        lbl.font = UIFont(name: "Poppins-Light", size: 16)
+        lbl.font = CustomFont.subTitle1.font
         return lbl
     }()
     

@@ -24,7 +24,7 @@ class PrivacyCell: UIView {
     
     lazy var labelText:UILabel = {
         let lbl = UILabel()
-        lbl.font = UIFont(name: "Poppins-Medium", size: 14)
+        lbl.font = CustomFont.subHeader3.font
         return lbl
     }()
     

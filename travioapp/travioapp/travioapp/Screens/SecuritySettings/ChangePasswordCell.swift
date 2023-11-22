@@ -21,14 +21,14 @@ class ChangePasswordCell: UIView {
     
     lazy var label:UILabel = {
         let lbl = UILabel()
-        lbl.font = UIFont(name: "Poppins-Medium", size: 14)
+        lbl.font = CustomFont.subHeader3.font
         lbl.textAlignment = .left
         return lbl
     }()
     
     lazy var textfieldPassword:UITextField = {
         let tf = UITextField()
-        tf.font = UIFont(name: "Poppins-Medium", size: 12)
+        tf.font = CustomFont.subHeader4.font
         return tf
     }()
     

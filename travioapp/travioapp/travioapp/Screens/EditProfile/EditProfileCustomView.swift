@@ -12,7 +12,7 @@ class EditProfileCustomView: UIView {
     
     lazy var label:UILabel = {
         let lbl = UILabel()
-        lbl.font = UIFont(name: "Poppins-Medium", size: 12)
+        lbl.font = CustomFont.subHeader4.font
         return lbl
     }()
     
