@@ -7,11 +7,15 @@
 
 import Foundation
 import Alamofire
+import UIKit
+import MapKit
 
 class MapViewModel{
 
     
     var dataTransferClosure: (([PlaceItem]) -> Void)?
+    
+
 
 
     func getDataAllPlacesMap(){
@@ -24,26 +28,8 @@ class MapViewModel{
             }
         })
     }
-    
-    
-    
-    
-    
-    
-    
+
     
     
     
 }
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-
-   

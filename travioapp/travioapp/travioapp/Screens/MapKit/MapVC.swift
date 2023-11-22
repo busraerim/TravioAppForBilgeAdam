@@ -22,6 +22,9 @@ class MapVC: UIViewController {
 
     var mapAllPlaces:[PlaceItem] = []
     
+    let mapViewModel = MapViewModel()
+
+    
     private lazy var mapView: MKMapView = {
         let map = MKMapView(frame: view.bounds)
         map.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -38,101 +41,35 @@ class MapVC: UIViewController {
         return cv
     }()
     
-    func networkingGetDataAllPlacesMap()->[PlaceItem]{
-        let viewModel = MapViewModel()
-              
-        viewModel.dataTransferClosure = { [weak self] place in
+    func networkingGetDataAllPlacesMap(){
+        mapViewModel.getDataAllPlacesMap()
+        
+        mapViewModel.dataTransferClosure = { [weak self] place in
             guard let this = self else { return }
             this.mapAllPlaces = place
             this.collectionView.reloadData()
             this.addingPin(place: self!.mapAllPlaces)
             
-            let initialLocation = CLLocationCoordinate2D(latitude: this.mapAllPlaces[0].latitude, longitude: this.mapAllPlaces[0].longitude)
+            let latitude = this.mapAllPlaces[0].latitude
+            let longitude = this.mapAllPlaces[0].longitude
+            
+            let initialLocation = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
             let region = MKCoordinateRegion(center: initialLocation, latitudinalMeters: 500, longitudinalMeters: 500)
             this.mapView.setRegion(region, animated: true)
-
         }
-        viewModel.getDataAllPlacesMap()
-        return mapAllPlaces
     }
-    
-    func checkVisit(placeId:String, place:PlaceItem){
-    
-      let vc = PlaceDetailVC()
-      let viewModel = PlaceDetailViewModel()
-
-        
-      viewModel.checkStatus = { [weak self] status in
-          if status == "success" {
-              vc.saveButton.setImage(.marked, for: .normal)
-          }else{
-              vc.saveButton.setImage(.notmarked, for: .normal)
-          }
-          vc.detailPlace = place
-          self!.navigationController?.pushViewController(vc, animated: true)
-      }
-        
-      viewModel.checkVisitByPlaceID(placeId: placeId )
-
-    }
-    
+  
     func addingPin(place: [PlaceItem]){
         for item in 0..<place.count{
-            
-            let annotation = CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: place[item].latitude, longitude: place[item].longitude))
-            annotation.title = place[item].title
+            let latitude = place[item].latitude
+            let longitude = place[item].longitude
+            let title = place[item].title
+            let annotation = CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude ))
+            annotation.title = title
             self.mapView.addAnnotation(annotation)
         }
-
     }
     
-    
-    
-    @objc func longPress(gestureRecognizer: UILongPressGestureRecognizer) {
-        let coordinate = mapView.centerCoordinate
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = coordinate
-        mapView.addAnnotation(annotation)
-        getCityCountry(gestureRecognizer: gestureRecognizer)
-     }
-    
-    private func getCityCountry(gestureRecognizer: UILongPressGestureRecognizer){
-        let vc = AddNewPlaceVC()
-        if gestureRecognizer.state == .began {
-            let touchPoint = gestureRecognizer.location(in: mapView)
-            let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
-                
-            let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-            let geocoder = CLGeocoder()
-
-            vc.delegate = self
-            vc.getCoordinate = {
-                vc.lat = location.coordinate.latitude
-                vc.long = location.coordinate.longitude
-            }
-            
-            geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
-                if let error = error {
-                    print("Reverse geocoding hatası: \(error.localizedDescription)")
-                    return
-                }
-
-                if let placemark = placemarks?.first {
-                    if let city = placemark.locality, let country = placemark.country {
-                        let place = "\(city), \(country)"
-                        vc.labelCountry.text = place
-                    } else {
-                        print("Şehir ve Ülke bilgisi bulunamadı.")
-                    }
-                } else {
-                    print("Bilgi bulunamadı.")
-                }
-            }
-        }
-        self.present(vc, animated: true)
-    }
-    
- 
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -142,11 +79,9 @@ class MapVC: UIViewController {
         
         let gestureRecognizer = UILongPressGestureRecognizer(target: self, action:#selector(longPress))
         gestureRecognizer.minimumPressDuration = 1.0
-        gestureRecognizer.delegate = self
         mapView.addGestureRecognizer(gestureRecognizer)
-        var allPlaces = networkingGetDataAllPlacesMap()
+        networkingGetDataAllPlacesMap()
         setupViews()
-       
     }
 
     func setupViews() {
@@ -210,7 +145,6 @@ extension MapVC:UICollectionViewDelegate{
         var placeId = place.id
         
         checkVisit(placeId: placeId, place: place)
-
     }
 }
 
@@ -234,28 +168,54 @@ extension MapVC:UICollectionViewDataSource{
 }
 
 
+extension MapVC {
+    
+    func checkVisit(placeId:String, place:PlaceItem){
+    
+      let vc = PlaceDetailVC()
+      let viewModel = PlaceDetailViewModel()
+
+        
+      viewModel.checkStatus = { [weak self] status in
+          if status == "success" {
+              vc.saveButton.setImage(.marked, for: .normal)
+          }else{
+              vc.saveButton.setImage(.notmarked, for: .normal)
+          }
+          vc.detailPlace = place
+          self!.navigationController?.pushViewController(vc, animated: true)
+      }
+        
+      viewModel.checkVisitByPlaceID(placeId: placeId )
+
+    }
+    
+}
+
+
 extension MapVC:MKMapViewDelegate{
+        
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-            if annotation is CustomAnnotation == false {
-                return nil
-            }
-        
-            let senderAnnotation = annotation as! CustomAnnotation
-
-            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "CustomAnnotation")
-
-            if annotationView == nil {
-                annotationView = MKAnnotationView(annotation: senderAnnotation, reuseIdentifier: "CustomAnnotation")
-                annotationView!.canShowCallout = true
-            }
-        
-            let pinImage = UIImage(named: "Group 11")
-            
-            annotationView!.image = pinImage
-            mapView.isZoomEnabled = true
-            mapView.isScrollEnabled = true
-            return annotationView
+        if annotation is CustomAnnotation == false {
+            return nil
         }
+    
+        let senderAnnotation = annotation as! CustomAnnotation
+
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "CustomAnnotation")
+
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: senderAnnotation, reuseIdentifier: "CustomAnnotation")
+            annotationView!.canShowCallout = true
+        }
+    
+        let pinImage = UIImage(named: "Group 11")
+        
+        annotationView!.image = pinImage
+        mapView.isZoomEnabled = true
+        mapView.isScrollEnabled = true
+        return annotationView
+    }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if let annotation = view.annotation as? CustomAnnotation {
@@ -268,14 +228,55 @@ extension MapVC:MKMapViewDelegate{
             mapView.setRegion(region, animated: true)
             
             }
-        }
+    }
         
 }
 
-extension MapVC:UIGestureRecognizerDelegate{
+extension MapVC {
+    @objc func longPress(gestureRecognizer: UILongPressGestureRecognizer) {
+        let coordinate = mapView.centerCoordinate
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        mapView.addAnnotation(annotation)
+        getCityCountry(gestureRecognizer: gestureRecognizer)
+     }
+    
+    private func getCityCountry(gestureRecognizer: UILongPressGestureRecognizer){
+        let vc = AddNewPlaceVC()
+        if gestureRecognizer.state == .began {
+            let touchPoint = gestureRecognizer.location(in: mapView)
+            let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+                
+            let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+            let geocoder = CLGeocoder()
 
+            vc.delegate = self
+            vc.getCoordinate = {
+                vc.lat = location.coordinate.latitude
+                vc.long = location.coordinate.longitude
+            }
+            
+            geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+                if let error = error {
+                    print("Reverse geocoding hatası: \(error.localizedDescription)")
+                    return
+                }
+
+                if let placemark = placemarks?.first {
+                    if let city = placemark.locality, let country = placemark.country {
+                        let place = "\(city), \(country)"
+                        vc.labelCountry.text = place
+                    } else {
+                        print("Şehir ve Ülke bilgisi bulunamadı.")
+                    }
+                } else {
+                    print("Bilgi bulunamadı.")
+                }
+            }
+        }
+        self.present(vc, animated: true)
+    }
 }
-
 
 
 extension MapVC:GetData{

@@ -68,5 +68,32 @@ class PlaceDetailViewModel{
         })
     }
     
+    func formatDateString(_ dateString: String) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
+        
+        if let date = dateFormatter.date(from: dateString) {
+            let dayFormatter = DateFormatter()
+            dayFormatter.dateFormat = "dd"
+            let day = dayFormatter.string(from: date)
+            
+            let monthFormatter = DateFormatter()
+            monthFormatter.dateFormat = "MMMM"
+            let month = monthFormatter.string(from: date)
+            
+            let yearFormatter = DateFormatter()
+            yearFormatter.dateFormat = "yyyy"
+            let year = yearFormatter.string(from: date)
+            
+            let formattedDate = "\(day) \(month) \(year)"
+            
+            return formattedDate
+        }
+        
+        return nil
+    }
+
+    
+    
     
 }

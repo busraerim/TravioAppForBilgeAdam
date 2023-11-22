@@ -53,41 +53,10 @@ class PlaceDetailVC: UIViewController {
         return pc
     }()
 
-
-    func formatDateString(_ dateString: String) -> String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
-        
-        if let date = dateFormatter.date(from: dateString) {
-            let dayFormatter = DateFormatter()
-            dayFormatter.dateFormat = "dd"
-            let day = dayFormatter.string(from: date)
-            
-            let monthFormatter = DateFormatter()
-            monthFormatter.dateFormat = "MMMM"
-            let month = monthFormatter.string(from: date)
-            
-            let yearFormatter = DateFormatter()
-            yearFormatter.dateFormat = "yyyy"
-            let year = yearFormatter.string(from: date)
-            
-            let formattedDate = "\(day) \(month) \(year)"
-            
-            return formattedDate
-        }
-        
-        return nil
-    }
-
-    
     
     private lazy var scrollView:ScrollView = {
         let v = ScrollView()
-        v.labelTitle.text = detailPlace?.place
-        v.lblCreatedDate.text = formatDateString(detailPlace!.createdAt)
-        v.lblAddedByWho.text = "added by @\(detailPlace!.creator)"
-        v.lblDescription.text = detailPlace?.description
-        v.addingPin(place: detailPlace!)
+        v.textData(title: detailPlace!.title, createdDate: detailPlace!.createdAt, creator: detailPlace!.creator, description: detailPlace!.description, place: detailPlace!)
         let location = CLLocation(latitude: self.detailPlace!.latitude, longitude: self.detailPlace!.longitude)
         let zoomRadius: CLLocationDistance = 240
         let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: zoomRadius, longitudinalMeters: zoomRadius)
@@ -119,9 +88,6 @@ class PlaceDetailVC: UIViewController {
             saveButton.setImage(.notmarked, for: .normal)
         }
         
-        
-
-
     }
 
     override func viewDidLoad() {
@@ -163,7 +129,6 @@ class PlaceDetailVC: UIViewController {
         let leftButtonImage = UIImage(named:"backButton")
         let leftBarButton = UIBarButtonItem(image: leftButtonImage, style: .plain, target: self, action: #selector(backButtonTapped))
         leftBarButton.tintColor = UIColor(hex: "FFFFFF")
-        
         
 
         self.navigationItem.leftBarButtonItem = leftBarButton

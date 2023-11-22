@@ -47,7 +47,7 @@ final class ScrollView: UIView {
         return lbl
     }()
     
-    public lazy var lblAddedByWho:UILabel = {
+    public lazy var lblCreator:UILabel = {
         let lbl = UILabel()
         lbl.text = ""
         lbl.textColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
@@ -97,6 +97,14 @@ final class ScrollView: UIView {
         self.mapView.addAnnotation(annotation)
         
     }
+    
+    func textData(title:String, createdDate:String, creator:String, description:String, place:PlaceItem){
+        labelTitle.text = title
+        lblCreatedDate.text = createdDate
+        lblCreator.text = "added by @\(creator)"
+        lblDescription.text = description
+        addingPin(place: place)
+    }
        
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
@@ -113,7 +121,7 @@ final class ScrollView: UIView {
         scrollView.addSubview(contentView)
         contentView.addSubview(stackView)
         contentView.addSubview(lblDescription)
-        stackView.addArrangedSubviews(labelTitle, lblCreatedDate, lblAddedByWho)
+        stackView.addArrangedSubviews(labelTitle, lblCreatedDate, lblCreator)
         contentView.addSubviews(mapView)
 
         setupLayout()
