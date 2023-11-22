@@ -15,4 +15,3 @@ protocol Permission:AnyObject{
     func showSettingsAlert()
 }
 
-

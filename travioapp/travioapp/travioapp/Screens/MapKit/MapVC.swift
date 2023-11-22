@@ -121,8 +121,6 @@ class MapVC: UIViewController {
                     if let city = placemark.locality, let country = placemark.country {
                         let place = "\(city), \(country)"
                         vc.labelCountry.text = place
-                        print("Şehir: \(city)")
-                        print("Ülke: \(country)")
                     } else {
                         print("Şehir ve Ülke bilgisi bulunamadı.")
                     }
