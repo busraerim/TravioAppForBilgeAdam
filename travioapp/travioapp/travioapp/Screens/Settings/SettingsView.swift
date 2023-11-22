@@ -223,12 +223,12 @@ extension SettingsView:UICollectionViewDelegate {
             let vc = HelpSupportVC()
             vc.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(vc, animated: true)
-//        case 4:
-//            let vc = AboutVC()
-//            navigationController?.pushViewController(vc, animated: true)
-//        case 5:
-//            let vc = TermOfUsesVC()
-//            navigationController?.pushViewController(vc, animated: true)
+        case 4:
+            let vc = AboutVC()
+            navigationController?.pushViewController(vc, animated: true)
+        case 5:
+            let vc = TermOfUsesVC()
+            navigationController?.pushViewController(vc, animated: true)
         default:
             break
         }

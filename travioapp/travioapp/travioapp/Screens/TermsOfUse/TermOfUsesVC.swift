@@ -23,7 +23,7 @@ class TermOfUsesVC: UIViewController {
     private lazy var lblTitle:UILabel = {
         let lbl = UILabel()
         lbl.text = "Terms of Use"
-        lbl.font = UIFont(name: "Poppins-SemiBold", size: 32)
+        lbl.font = CustomFont.header2.font
         lbl.textColor = .white
         lbl.textAlignment = .left
         return lbl

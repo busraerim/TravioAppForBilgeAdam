@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 
 
-class ScrollCell: UICollectionViewCell {
+class PlaceDetailCollectionCell: UICollectionViewCell {
     
 
         public lazy var placeView:UIView = {

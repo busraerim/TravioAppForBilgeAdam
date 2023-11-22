@@ -26,14 +26,14 @@ class PlaceDetailVC: UIViewController {
     var rightButtonImage = UIImage(named: "notmarked")
 
     
-    lazy var viewModel: DetailViewModel = {
-        return DetailViewModel()
+    lazy var viewModel: PlaceDetailViewModel = {
+        return PlaceDetailViewModel()
     }()
 
     private lazy var collectionView:UICollectionView = {
         let layout = makeCollectionViewLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.register(ScrollCell.self, forCellWithReuseIdentifier: "cell")
+        cv.register(PlaceDetailCollectionCell.self, forCellWithReuseIdentifier: "cell")
         cv.dataSource = self
         cv.delegate = self
         cv.contentInsetAdjustmentBehavior = .never
@@ -112,7 +112,7 @@ class PlaceDetailVC: UIViewController {
         let formattedDateString = dateFormatter.string(from: currentDate)
         
         if saveButton.currentImage == .notmarked{
-            PlaceDetailViewModel().postAVisit(request: PostAVisit(place_id: detailPlace!.id, visited_at: formattedDateString))
+            PlaceDetailViewModel().postAVisit(request: PostAVisit(placeId: detailPlace!.id, visitedAt: formattedDateString))
             saveButton.setImage(.marked, for: .normal)
         }else{
             PlaceDetailViewModel().deleteAVisitByPlaceId(placeId: detailPlace!.id)
@@ -136,7 +136,7 @@ class PlaceDetailVC: UIViewController {
             this.getGallery = image
             
             for index in 0..<this.getGallery.count{
-                this.images.append(this.getGallery[index].image_url)
+                this.images.append(this.getGallery[index].imageUrl)
             }
             
             if this.images.count == 0{
@@ -249,7 +249,7 @@ extension PlaceDetailVC:UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as!  ScrollCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as!  PlaceDetailCollectionCell
         let object = images[indexPath.row]
         cell.configure(object: object)
         return cell

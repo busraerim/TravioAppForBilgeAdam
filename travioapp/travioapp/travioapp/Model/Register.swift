@@ -8,7 +8,7 @@
 import Foundation
 
 struct Register:Codable{
-    var username:String? //full_name
+    var username:String? 
     var email:String?
     var password:String?
     

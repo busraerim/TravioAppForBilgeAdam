@@ -23,7 +23,7 @@ class AboutVC: UIViewController {
     private lazy var lblTitle:UILabel = {
         let lbl = UILabel()
         lbl.text = "About Us"
-        lbl.font = UIFont(name: "Poppins-SemiBold", size: 32)
+        lbl.font = CustomFont.header2.font
         lbl.textColor = .white
         lbl.textAlignment = .left
         return lbl

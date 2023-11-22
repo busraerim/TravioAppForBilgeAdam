@@ -14,10 +14,19 @@ struct ImageData: Codable {
 
 struct Image: Codable {
     let id: String
-    let place_id: String
-    let image_url: String
-    let created_at: String
-    let updated_at: String
+    let placeId: String
+    let imageUrl: String
+    let createdAt: String
+    let updatedAt: String
+    
+    enum CodingKeys:String,CodingKey {
+        case id
+        case placeId = "place_id"
+        case imageUrl = "image_url"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        
+    }
 }
 
 struct APIResponse: Codable {
@@ -27,6 +36,11 @@ struct APIResponse: Codable {
 
 
 struct PostAVisit{
-    let place_id:String
-    let visited_at:String
+    let placeId:String
+    let visitedAt:String
+    
+    enum CodingKeys:String,CodingKey {
+        case placeId = "place_id"
+        case visitedAt = "visited_at"
+    }
 }

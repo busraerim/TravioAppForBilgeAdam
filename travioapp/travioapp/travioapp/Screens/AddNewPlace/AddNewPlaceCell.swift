@@ -33,7 +33,7 @@ class AddNewPlaceCell: UICollectionViewCell {
     
     private lazy var customView:UIView = {
         let view = UIView()
-        view.backgroundColor =  Colors.boxColor.color
+        view.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
         return view
     }()
     

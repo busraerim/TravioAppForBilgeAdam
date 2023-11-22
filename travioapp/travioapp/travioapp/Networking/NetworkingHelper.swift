@@ -9,10 +9,7 @@ import Foundation
 import Alamofire
 
 class GenericNetworkingHelper {
-    
-    // test
-    
-    
+
     static let shared = GenericNetworkingHelper()
     
     typealias Callback<T:Codable> = (Result<T,Error>)->Void
@@ -20,7 +17,6 @@ class GenericNetworkingHelper {
     public func getDataFromRemote<T:Codable>(urlRequest:Router, callback:@escaping Callback<T>) {
         DispatchQueue.global(qos: .background).async {
             AF.request(urlRequest).validate().responseDecodable(of:T.self) { response in
-                
                 switch response.result {
                 case .success(let success):
                     callback(.success(success))
