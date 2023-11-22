@@ -200,11 +200,11 @@ class AddNewPlaceVC: UIViewController {
     
     @objc func btnAddTapped(){
         
-        if !txtTitle.text!.isEmpty && !txtDescription.text.isEmpty{
+        if !txtTitle.text!.isEmpty && !txtDescription.text.isEmpty && self.imageDataArray.count >= 2 {
             getCoordinate!()
             self.uploadImage()
         }else{
-            self.showAlertForEmptyText(title: "Hata", message: "Title ve Description boş bırakılamaz.")
+            self.showAlertForEmptyText(title: "Hata", message: "İlgili alanları doldurduğunuzdan emin olunuz.")
         }
     }
     

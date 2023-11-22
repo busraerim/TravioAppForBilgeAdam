@@ -14,10 +14,7 @@ class MyAddedPlacesVC: UIViewController {
     var myAddedPlacesSetting:[PlaceItem] = []
    
     let viewModel = HomeViewModel()
-    
-    let placeDetailVC = PlaceDetailVC()
-    
-    let placeDetailViewModel = PlaceDetailViewModel()
+        
 
 
     
@@ -89,14 +86,17 @@ class MyAddedPlacesVC: UIViewController {
     }
     
     func checkVisit(placeId:String, place:PlaceItem){
+        let placeDetailVC = PlaceDetailVC()
+        let placeDetailViewModel = PlaceDetailViewModel()
+
         placeDetailViewModel.checkStatus = { [weak self] status in
           if status == "success" {
-              self!.placeDetailVC.saveButton.setImage(.marked, for: .normal)
+              placeDetailVC.saveButton.setImage(.marked, for: .normal)
           }else{
-              self!.placeDetailVC.saveButton.setImage(.notmarked, for: .normal)
+              placeDetailVC.saveButton.setImage(.notmarked, for: .normal)
           }
-          self!.placeDetailVC.detailPlace = place
-          self!.navigationController?.pushViewController(self!.placeDetailVC, animated: true)
+          placeDetailVC.detailPlace = place
+          self!.navigationController?.pushViewController(placeDetailVC, animated: true)
       }
         
         placeDetailViewModel.checkVisitByPlaceID(placeId: placeId )
