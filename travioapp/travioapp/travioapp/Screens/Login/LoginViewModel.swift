@@ -10,6 +10,7 @@ import Alamofire
 
 
 class LoginViewModel{
+    
      
     var kisiler:[User] = [] {
         didSet {
@@ -49,6 +50,8 @@ class LoginViewModel{
                     let accessTokenData = Data(accessToken.utf8)
                     AuthManager.shared.saveToken(accessToken, accountIdentifier: "access-token")
                     self.onSuccessLogin?()
+                    info.email = email
+                    info.password = password
                 } else {
                     print("Hata: Erişim Token'ı bulunamadı.")
                 }

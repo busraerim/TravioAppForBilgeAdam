@@ -9,6 +9,7 @@ import Foundation
 
 class SecuritySettingsViewModel {
     
+    
     var showErrorAlertClosure:(()->())?
     var showSuccessAlertClosure:(()->())?
     
@@ -36,6 +37,14 @@ class SecuritySettingsViewModel {
 
             return
         }
+        
+        guard password != info.password else {
+            self.errorAlertMessage = "Yeni şifreniz güncel şifreniz ile aynı olamaz"
+            return
+        }
+        
+        
+        info.password = password
         
         let object = ChangePasswordRequest(newPassword: password)
         changePasswordMethod(request: object)

@@ -299,9 +299,12 @@ extension AddNewPlaceVC {
 }
 
 extension AddNewPlaceVC:UICollectionViewDelegate{
+
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         showActionSheetCameraorPhotoLibrary()
     }
+    
 }
 
 extension AddNewPlaceVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -325,6 +328,8 @@ extension AddNewPlaceVC: UIImagePickerControllerDelegate, UINavigationController
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
+    
+    
 }
 
 

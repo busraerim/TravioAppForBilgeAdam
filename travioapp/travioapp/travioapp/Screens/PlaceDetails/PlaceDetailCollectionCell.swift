@@ -25,7 +25,7 @@ class PlaceDetailCollectionCell: UICollectionViewCell {
         
         public lazy var image:UIImageView = {
             let image = UIImageView()
-            image.contentMode = .scaleAspectFill
+            image.contentMode = .scaleToFill
             image.clipsToBounds = true
             return image
         }()

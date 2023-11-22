@@ -46,6 +46,7 @@
 		43086B5D2AFCC3FE00A70CE3 /* PlaceDetailCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43086B5C2AFCC3FE00A70CE3 /* PlaceDetailCollectionCell.swift */; };
 		43086B622AFD044C00A70CE3 /* PlaceDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43086B612AFD044C00A70CE3 /* PlaceDetailVC.swift */; };
 		4319CA9F2AFD6419000406CA /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4319CA9E2AFD6419000406CA /* ScrollView.swift */; };
+		4342FBC92B0E2D91003D4710 /* PasswordControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4342FBC82B0E2D90003D4710 /* PasswordControl.swift */; };
 		4354F2882AE926E60002D438 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4354F2872AE926E60002D438 /* Alamofire */; };
 		4354F28D2AE92CB80002D438 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4354F28C2AE92CB80002D438 /* User.swift */; };
 		4354F28F2AE92E0C0002D438 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4354F28E2AE92E0C0002D438 /* Router.swift */; };
@@ -146,6 +147,7 @@
 		43086B5C2AFCC3FE00A70CE3 /* PlaceDetailCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailCollectionCell.swift; sourceTree = "<group>"; };
 		43086B612AFD044C00A70CE3 /* PlaceDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailVC.swift; sourceTree = "<group>"; };
 		4319CA9E2AFD6419000406CA /* ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
+		4342FBC82B0E2D90003D4710 /* PasswordControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordControl.swift; sourceTree = "<group>"; };
 		4354F28C2AE92CB80002D438 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4354F28E2AE92E0C0002D438 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		4354F2902AE92E610002D438 /* NetworkingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingHelper.swift; sourceTree = "<group>"; };
@@ -373,6 +375,7 @@
 				439A41D72AFA6DB100F1D252 /* AddNewPlace.swift */,
 				35732B772AFCC12F00A74ED5 /* UploadResponse.swift */,
 				4366B56A2B0DD83E007252C0 /* CustomFont.swift */,
+				4342FBC82B0E2D90003D4710 /* PasswordControl.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -688,6 +691,7 @@
 				350726F72AF8E15B002856B8 /* ProfileResponse.swift in Sources */,
 				35B2D11A2AE9911400FD61EF /* BaseResponse.swift in Sources */,
 				439A41AE2AF3B90700F1D252 /* HomeViewModel.swift in Sources */,
+				4342FBC92B0E2D91003D4710 /* PasswordControl.swift in Sources */,
 				43933F9D2AF0DB1100A1AF39 /* HeaderView.swift in Sources */,
 				350726FB2AF9171A002856B8 /* SecuritySettingsViewModel.swift in Sources */,
 				350669A42AF10ABE00DBB2F7 /* MyVisitView.swift in Sources */,
