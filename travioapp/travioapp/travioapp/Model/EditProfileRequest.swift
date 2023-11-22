@@ -8,7 +8,14 @@
 import Foundation
 
 struct EditProfileRequest:Codable {
-    var full_name:String
+    var fullName:String
     var email:String
-    var pp_url:String
+    var ppUrl:String
+    
+    enum CodingKeys:String,CodingKey {
+        case fullName = "full_name"
+        case email
+        case ppUrl = "pp_url"
+        
+    }
 }

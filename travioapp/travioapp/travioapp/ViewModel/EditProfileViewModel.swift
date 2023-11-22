@@ -32,7 +32,7 @@ class EditProfileViewModel {
     }
     
     func changeProfileInfo(profile:EditProfileRequest){
-        let params = ["full_name": profile.full_name, "email": profile.email, "pp_url": profile.pp_url]
+        let params = ["full_name": profile.fullName, "email": profile.email, "pp_url": profile.ppUrl]
         
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .editProfile(param: params), callback: { (result:Result<BaseResponse, Error>) in
             switch result {

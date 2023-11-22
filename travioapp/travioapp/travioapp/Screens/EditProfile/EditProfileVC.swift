@@ -278,7 +278,7 @@ class EditProfileVC: UIViewController {
         guard let email = emailInputView.txtPlaceholder.text,
               let full_name = fullNameInputView.txtPlaceholder.text else {return}
         
-        viewModel.changeProfileInfo(profile: EditProfileRequest(full_name: full_name, email: email, pp_url: profilPhoto))
+        viewModel.changeProfileInfo(profile: EditProfileRequest(fullName: full_name, email: email, ppUrl: profilPhoto))
         initVM()
         
         lblProfileName.text = full_name
