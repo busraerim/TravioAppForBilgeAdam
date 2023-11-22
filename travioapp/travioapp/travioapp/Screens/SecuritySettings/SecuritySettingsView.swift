@@ -241,6 +241,15 @@ class SecuritySettingsView: UIViewController {
     }
     
     private func setupLayout() {
+        backButton.snp.makeConstraints({ make in
+            make.top.equalToSuperview().offset(55)
+            make.leading.equalToSuperview().offset(30)
+        })
+        
+        lblTitle.snp.makeConstraints({ make in
+            make.leading.equalTo(backButton.snp.trailing).offset(30)
+            make.top.equalTo(backButton).offset(-10)
+        })
         
         scrollView.snp.makeConstraints({ make in
             make.height.equalToSuperview().multipliedBy(0.85)
@@ -250,9 +259,8 @@ class SecuritySettingsView: UIViewController {
         scrollView.layoutIfNeeded()
         
         
-        let heightConstraint = settingsItemView.height(scrollView.frame.height + changePasswordTitle.frame.height + passwordStackView.frame.height + privacyTitle.frame.height + privacyStackView.frame.height + saveButton.frame.height + 150)
-        heightConstraint.priority = UILayoutPriority(200)
-
+        let heightConstraint = settingsItemView.height(scrollView.frame.height + changePasswordTitle.frame.height + passwordStackView.frame.height + privacyTitle.frame.height + privacyStackView.frame.height + saveButton.frame.height )
+        heightConstraint.priority = UILayoutPriority(250)
         
         settingsItemView.edges(to: scrollView)
         settingsItemView.width(to: scrollView)
