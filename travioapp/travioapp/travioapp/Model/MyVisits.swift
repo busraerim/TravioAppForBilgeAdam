@@ -19,24 +19,20 @@ struct MyVisitData: Codable {
     let visits: [MyVisit]
 }
 
-struct MyVisit: Codable {
+struct MyVisit:Codable {
     let id: String
-    let place_id: String
-    let visited_at: String
-    let created_at: String
-    let updated_at: String
+    let placeId: String
+    let visitedAt: String
+    let createdAt: String
+    let updatedAt: String
     let place: PlaceItem
+    
+    enum CodingKeys:String,CodingKey {
+        case id
+        case placeId = "place_id"
+        case visitedAt = "visited_at"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case place
+    }
 }
-
-//struct MyVisitPlace: Codable {
-//    let id: String
-//    let creator: String
-//    let place: String
-//    let title: String
-//    let description: String
-//    let cover_image_url: String
-//    let latitude: Double
-//    let longitude: Double
-//    let created_at: String
-//    let updated_at: String
-//}
