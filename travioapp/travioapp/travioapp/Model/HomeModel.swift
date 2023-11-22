@@ -20,11 +20,25 @@ struct PlaceItem: Codable {
     let place: String
     let title: String
     let description: String
-    let cover_image_url: String
+    let coverImageUrl: String
     let latitude: Double
     let longitude: Double
-    let created_at: String
-    let updated_at: String
+    let createdAt: String
+    let updatedAt: String
+    
+    enum CodingKeys:String,CodingKey {
+        case id
+        case creator
+        case place
+        case title
+        case description
+        case coverImageUrl = "cover_image_url"
+        case latitude
+        case longitude
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        
+    }
     
 }
 

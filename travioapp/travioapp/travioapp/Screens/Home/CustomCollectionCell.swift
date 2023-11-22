@@ -47,7 +47,7 @@ class CustomCollectionCell: UICollectionViewCell {
     }()
     
     func configure(object: PlaceItem) {
-        let url = URL(string: object.cover_image_url)
+        let url = URL(string: object.coverImageUrl)
         image.kf.setImage(with: url)
 //        image.image = UIImage(named: object.cover_image_url)
         lblPlace.text = object.place

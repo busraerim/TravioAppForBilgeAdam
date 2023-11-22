@@ -45,7 +45,7 @@ class MapCollectionCell: UICollectionViewCell {
     }()
     
     func configure(object: PlaceItem) {
-        let url = URL(string: object.cover_image_url)
+        let url = URL(string: object.coverImageUrl)
         image.kf.setImage(with: url)
         lblPlace.text = object.place
         lblVisitLocation.text = object.title

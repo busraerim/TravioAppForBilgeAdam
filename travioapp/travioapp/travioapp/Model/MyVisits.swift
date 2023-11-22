@@ -35,4 +35,7 @@ struct MyVisit:Codable {
         case updatedAt = "updated_at"
         case place
     }
+    
+    
+    
 }

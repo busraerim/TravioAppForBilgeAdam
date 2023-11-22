@@ -88,7 +88,7 @@ class DetailScrollVC: UIViewController {
     private lazy var scrollView:ScrollView = {
         let v = ScrollView()
         v.labelTitle.text = detailPlace?.place
-        v.lblCreatedDate.text = formatDateString(detailPlace!.created_at)
+        v.lblCreatedDate.text = formatDateString(detailPlace!.createdAt)
         v.lblAddedByWho.text = "added by @\(detailPlace!.creator)"
         v.lblDescription.text = detailPlace?.description
         v.addingPin(place: detailPlace!)

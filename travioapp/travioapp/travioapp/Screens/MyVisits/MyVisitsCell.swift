@@ -58,7 +58,7 @@ class MyVisitsCell: UICollectionViewCell {
     }
     
     func configure(object: MyVisit) {
-        let url = URL(string: object.place.cover_image_url)
+        let url = URL(string: object.place.coverImageUrl)
         image.kf.setImage(with: url)
         lblSubtitle.text = object.place.place
         lblTitle.text = object.place.title
