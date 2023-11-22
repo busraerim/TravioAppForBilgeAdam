@@ -8,6 +8,11 @@
 import Foundation
 
 struct ChangePasswordRequest:Codable {
-    var new_password:String?
+    var newPassword:String?
+    
+    enum CodingKeys:String,CodingKey {
+        case newPassword = "new_password"
+        
+    }
     
 }

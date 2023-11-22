@@ -37,13 +37,13 @@ class SecuritySettingsViewModel {
             return
         }
         
-        let object = ChangePasswordRequest(new_password: password)
+        let object = ChangePasswordRequest(newPassword: password)
         changePasswordMethod(request: object)
         
     }
     
     func changePasswordMethod(request:ChangePasswordRequest){
-        let params = ["new_password": request.new_password]
+        let params = ["new_password": request.newPassword]
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .changePassword(param: params), callback: { (result:Result<BaseResponse, Error>) in
             switch result {
             case .success(let success):
