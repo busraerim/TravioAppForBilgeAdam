@@ -89,10 +89,24 @@ class PlaceDetailVC: UIViewController {
         }
         
     }
+    
+    func checkVisit(placeId:String){
+        let placeDetailViewModel = PlaceDetailViewModel()
+
+        placeDetailViewModel.checkStatus = { [weak self] status in
+          if status == "success" {
+              self!.saveButton.setImage(.marked, for: .normal)
+          }else{
+              self!.saveButton.setImage(.notmarked, for: .normal)
+          }
+      }
+        placeDetailViewModel.checkVisitByPlaceID(placeId: placeId )
+    }
 
     override func viewDidLoad() {
        super.viewDidLoad()
        self.getAllGalery(placeId: detailPlace!.id)
+       checkVisit(placeId: detailPlace!.id)
 
     }
  

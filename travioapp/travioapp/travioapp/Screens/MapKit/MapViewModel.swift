@@ -7,17 +7,17 @@
 
 import Foundation
 import Alamofire
-import UIKit
-import MapKit
+
 
 class MapViewModel{
-
+    
     
     var dataTransferClosure: (([PlaceItem]) -> Void)?
     
-
-
-
+    let dispatchGroup = DispatchGroup()
+    
+    
+    
     func getDataAllPlacesMap(){
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .getAllPlacesMap, callback: { (result:Result<Place,Error>) in
             switch result {
@@ -28,8 +28,8 @@ class MapViewModel{
             }
         })
     }
-
-    
-    
     
 }
+    
+    
+

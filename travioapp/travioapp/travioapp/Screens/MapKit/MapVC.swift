@@ -141,11 +141,10 @@ extension MapVC:UICollectionViewDelegate{
             let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: zoomRadius, longitudinalMeters: zoomRadius)
             mapView.setRegion(region, animated: true)
         
-        var place = mapAllPlaces[indexPath.row]
-        var placeId = place.id
-        
-        checkVisit(placeId: placeId, place: place)
-    }
+        var place = mapAllPlaces[indexPath.row]        
+        let placeDetailVC = PlaceDetailVC()
+        placeDetailVC.detailPlace = place
+        self.navigationController?.pushViewController(placeDetailVC, animated: true)      }
 }
 
 extension MapVC:UICollectionViewDataSource{
@@ -163,31 +162,6 @@ extension MapVC:UICollectionViewDataSource{
         let object = mapAllPlaces[indexPath.row]
         cell.configure(object: object)
         return cell
-    }
-    
-}
-
-
-extension MapVC {
-    
-    func checkVisit(placeId:String, place:PlaceItem){
-    
-      let vc = PlaceDetailVC()
-      let viewModel = PlaceDetailViewModel()
-
-        
-      viewModel.checkStatus = { [weak self] status in
-          if status == "success" {
-              vc.saveButton.setImage(.marked, for: .normal)
-          }else{
-              vc.saveButton.setImage(.notmarked, for: .normal)
-          }
-          vc.detailPlace = place
-          self!.navigationController?.pushViewController(vc, animated: true)
-      }
-        
-      viewModel.checkVisitByPlaceID(placeId: placeId )
-
     }
     
 }
@@ -240,6 +214,7 @@ extension MapVC {
         mapView.addAnnotation(annotation)
         getCityCountry(gestureRecognizer: gestureRecognizer)
      }
+    
     
     private func getCityCountry(gestureRecognizer: UILongPressGestureRecognizer){
         let vc = AddNewPlaceVC()

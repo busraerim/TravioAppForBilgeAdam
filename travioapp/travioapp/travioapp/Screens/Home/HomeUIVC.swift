@@ -59,22 +59,6 @@ class HomeUIVC: UIViewController {
             self.seeAllPlaces = place
         }
     }
-    
-    func checkVisit(placeId:String, place:PlaceItem){
-      let vc = PlaceDetailVC()
-      let viewModel = PlaceDetailViewModel()
-
-      viewModel.checkStatus = { [weak self] status in
-          if status == "success" {
-              vc.saveButton.setImage(.marked, for: .normal)
-          }else{
-              vc.saveButton.setImage(.notmarked, for: .normal)
-          }
-          vc.detailPlace = place
-          self!.navigationController?.pushViewController(vc, animated: true)
-      }
-      viewModel.checkVisitByPlaceID(placeId: placeId )
-    }
    
 
     func setupViews() {
@@ -104,8 +88,9 @@ extension HomeUIVC:UICollectionViewDelegate{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let place = homeAllPlaces[indexPath.section].places[indexPath.row]
-        let placeId = place.id
-        checkVisit(placeId: placeId, place: place)
+        let placeDetailVC = PlaceDetailVC()
+        placeDetailVC.detailPlace = place
+        self.navigationController?.pushViewController(placeDetailVC, animated: true)  
     }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

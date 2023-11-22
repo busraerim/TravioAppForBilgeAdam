@@ -62,26 +62,7 @@ class SeeAllVC: UIViewController {
 
         }
     }
-    
-    func checkVisit(placeId:String, place:PlaceItem){
-        
-        let placeDetailVC = PlaceDetailVC()
-        
-        let placeDetailViewModel = PlaceDetailViewModel()
-        
-        placeDetailViewModel.checkStatus = { [weak self] status in
-          if status == "success" {
-              placeDetailVC.saveButton.setImage(.marked, for: .normal)
-          }else{
-              placeDetailVC.saveButton.setImage(.notmarked, for: .normal)
-          }
-          placeDetailVC.detailPlace = place
-          self!.navigationController?.pushViewController(placeDetailVC, animated: true)
-      }
-        placeDetailViewModel.checkVisitByPlaceID(placeId: placeId )
 
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 //        dataPlaceSeeAll.sort { $0.title ?? "" < $1.title ?? "" }
@@ -148,7 +129,12 @@ extension SeeAllVC: UIScrollViewDelegate {
 
 extension SeeAllVC:UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        checkVisit(placeId: dataPlaceSeeAll[indexPath.row].id, place: dataPlaceSeeAll[indexPath.row])
+        
+        let place = dataPlaceSeeAll[indexPath.row]
+        let placeDetailVC = PlaceDetailVC()
+        placeDetailVC.detailPlace = place
+        self.navigationController?.pushViewController(placeDetailVC, animated: true)
+
     }
 }
 
