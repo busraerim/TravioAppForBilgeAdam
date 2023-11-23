@@ -45,7 +45,8 @@ class SeeAllCollectionCell: UICollectionViewCell {
     
     func configure(object: PlaceItem) {
         let url = URL(string: object.coverImageUrl)
-        image.kf.setImage(with: url)
+        let placeholderImage = UIImage(systemName: "photo.artframe")
+        image.kf.setImage(with: url, placeholder: placeholderImage)
         lblPlace.text = object.place
         lblVisitLocation.text = object.title
     }

@@ -70,7 +70,6 @@ class EditProfileVC: UIViewController {
     
     private lazy var profilePhotoImageView:UIImageView = {
         let iv = UIImageView()
-        iv.image = .profile
         iv.layer.cornerRadius = 60
         iv.contentMode = .scaleAspectFill
         iv.layer.masksToBounds = true
@@ -217,7 +216,8 @@ class EditProfileVC: UIViewController {
         emailInputView.txtPlaceholder.text = profile.email
         fullNameInputView.txtPlaceholder.text = profile.fullName
         let url = URL(string: profile.ppUrl)
-        profilePhotoImageView.kf.setImage(with: url)
+        let placeholderImage = UIImage(systemName: "person.crop.circle")
+        profilePhotoImageView.kf.setImage(with: url, placeholder: placeholderImage)
     }
     
     @objc func saveButtonTapped(){

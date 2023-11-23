@@ -60,7 +60,8 @@ class MyVisitsCell: UICollectionViewCell {
     
     func configure(object: MyVisit) {
         let url = URL(string: object.place.coverImageUrl)
-        image.kf.setImage(with: url)
+        let placeholderImage = UIImage(systemName: "photo.artframe")
+        image.kf.setImage(with: url, placeholder: placeholderImage)
         lblSubtitle.text = object.place.place
         lblTitle.text = object.place.title
     }

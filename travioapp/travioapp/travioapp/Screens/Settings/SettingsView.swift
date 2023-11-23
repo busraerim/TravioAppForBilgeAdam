@@ -62,10 +62,10 @@ class SettingsView: UIViewController {
     
     private lazy var profileImage:UIImageView = {
         let profileImage = UIImageView()
-        profileImage.image = UIImage(named: "no-user-image")
         profileImage.layer.cornerRadius = 60
         profileImage.contentMode = .scaleAspectFill
         profileImage.clipsToBounds = true
+//        profileImage.backgroundColor = .gray
         return profileImage
     }()
     
@@ -128,9 +128,8 @@ class SettingsView: UIViewController {
     func updateUI(with profile:ProfileResponse){
         lblProfileName.text = profile.fullName
         let url = URL(string: profile.ppUrl)
-        profileImage.kf.setImage(with: url)
-   
-      
+        let placeholderImage = UIImage(systemName: "person.crop.circle")
+        profileImage.kf.setImage(with: url, placeholder: placeholderImage)
     }
 
     func getDataFromApi() {

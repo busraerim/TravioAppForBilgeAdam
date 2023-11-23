@@ -21,7 +21,7 @@ class PlaceDetailVC: UIViewController {
     var getGallery:[Image] = []
     
     var images:[String] = []
-    
+   
     
     var rightButtonImage = UIImage(named: "notmarked")
 
@@ -71,6 +71,16 @@ class PlaceDetailVC: UIViewController {
        return button
     }()
     
+    public lazy var deleteButton:UIButton = {
+       let button = UIButton()
+        button.setImage(UIImage(systemName: "ellipsis"), for: .normal)
+        button.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
+       return button
+    }()
+    
+    @objc func deleteButtonTapped(){
+        
+    }
 
     
     @objc func buttonSaveTapped(){
@@ -103,11 +113,11 @@ class PlaceDetailVC: UIViewController {
         placeDetailViewModel.checkVisitByPlaceID(placeId: placeId )
     }
 
+
     override func viewDidLoad() {
        super.viewDidLoad()
        self.getAllGalery(placeId: detailPlace!.id)
        checkVisit(placeId: detailPlace!.id)
-
     }
  
     public func getAllGalery(placeId:String){
@@ -167,7 +177,7 @@ class PlaceDetailVC: UIViewController {
         scrollView.bottomToSuperview()
         scrollView.leadingToSuperview()
         scrollView.trailingToSuperview()
-        
+
         saveButton.topToSuperview(offset:50)
         saveButton.trailingToSuperview(offset:17)
         
