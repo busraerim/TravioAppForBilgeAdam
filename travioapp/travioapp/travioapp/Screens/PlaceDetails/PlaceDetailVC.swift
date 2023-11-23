@@ -14,7 +14,7 @@ import MapKit
 
 class PlaceDetailVC: UIViewController {
     
-
+    let myAddedPlaceVC = MyAddedPlacesVC()
     
     var detailPlace:PlaceItem?
     
@@ -71,18 +71,6 @@ class PlaceDetailVC: UIViewController {
        return button
     }()
     
-    public lazy var deleteButton:UIButton = {
-       let button = UIButton()
-        button.setImage(UIImage(systemName: "ellipsis"), for: .normal)
-        button.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
-       return button
-    }()
-    
-    @objc func deleteButtonTapped(){
-        
-    }
-
-    
     @objc func buttonSaveTapped(){
                 
         let currentDate = Date()
@@ -112,7 +100,7 @@ class PlaceDetailVC: UIViewController {
       }
         placeDetailViewModel.checkVisitByPlaceID(placeId: placeId )
     }
-
+    
 
     override func viewDidLoad() {
        super.viewDidLoad()

@@ -12,7 +12,8 @@ import TinyConstraints
 
 class AddNewPlaceVC: UIViewController {
     
-    
+    let dispatchGroup = DispatchGroup()
+
     weak var delegate:GetData?
     
     var imageDataArray:[Data] = []
@@ -162,21 +163,22 @@ class AddNewPlaceVC: UIViewController {
     func postANewPlace(){
         let viewModel = AddNewPlaceViewModel()
       
-        
-        let place = labelCountry.text!
+        let place = labelCountry.text ?? " "
         let title = txtTitle.text!
         let description = txtDescription.text!
         let latitude = self.lat
         let longitude = self.long
-
+        
         viewModel.addNewPlace(data: imageDataArray, place: place, title: title, description: description, latitude: latitude, longitude: longitude)
+        viewModel.dissmissControl = { bool in
+            self.dismiss(animated: true, completion: {self.delegate?.getDataFromApi()})
+        }
     }
     
     @objc func btnAddTapped(){
         
         if !txtTitle.text!.isEmpty && !txtDescription.text.isEmpty && self.imageDataArray.count >= 2 {
             getCoordinate!()
-//            self.uploadImage()
             self.postANewPlace()
         }else{
             self.showAlertForEmptyText(title: "Hata", message: "İlgili alanları doldurduğunuzdan emin olunuz.")

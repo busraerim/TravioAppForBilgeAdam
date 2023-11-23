@@ -47,15 +47,16 @@ class MapVC: UIViewController {
         mapViewModel.dataTransferClosure = { [weak self] place in
             guard let this = self else { return }
             this.mapAllPlaces = place
-            this.collectionView.reloadData()
             this.addingPin(place: self!.mapAllPlaces)
-            
+            this.collectionView.reloadData()
+
             let latitude = this.mapAllPlaces[0].latitude
             let longitude = this.mapAllPlaces[0].longitude
             
             let initialLocation = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
             let region = MKCoordinateRegion(center: initialLocation, latitudinalMeters: 500, longitudinalMeters: 500)
             this.mapView.setRegion(region, animated: true)
+
         }
     }
   
@@ -83,6 +84,12 @@ class MapVC: UIViewController {
         networkingGetDataAllPlacesMap()
         setupViews()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        networkingGetDataAllPlacesMap()
+    }
+
 
     func setupViews() {
         self.view.addSubviews(mapView)
@@ -200,7 +207,6 @@ extension MapVC:MKMapViewDelegate{
             let indexPath = IndexPath(item: index!, section: 0)
                 collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
             mapView.setRegion(region, animated: true)
-            
             }
     }
         
@@ -211,7 +217,7 @@ extension MapVC {
         let coordinate = mapView.centerCoordinate
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
-        mapView.addAnnotation(annotation)
+//        mapView.addAnnotation(annotation)
         getCityCountry(gestureRecognizer: gestureRecognizer)
      }
     
