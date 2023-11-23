@@ -226,10 +226,8 @@ class EditProfileVC: UIViewController {
             saveInfos(profilPhoto: oldPP)
 
         }else{
-            uploadImage()
+            changeProfilePhoto()
         }
-
-        
     }
     
     @objc func imagePickerControl(sourceType: UIImagePickerController.SourceType) {
@@ -262,15 +260,13 @@ class EditProfileVC: UIViewController {
         
     }
     
-    private func uploadImage(){
-        uploadViewModel.imageTransferClosure = { [weak self] image in
-            guard let this = self else { return }
-            this.saveInfos(profilPhoto: image[0])
-            }
-        
-         uploadViewModel.uploadImage(data: self.profileImage)
-        
+    private func changeProfilePhoto(){
+        uploadViewModel.chanceProfilePhoto(data: self.profileImage)
+        uploadViewModel.profilePhotoClosure = { pp in
+            self.saveInfos(profilPhoto: pp)
+        }
     }
+
     
     private func saveInfos(profilPhoto: String){
         

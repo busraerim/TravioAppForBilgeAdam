@@ -16,7 +16,7 @@ class AddNewPlaceVC: UIViewController {
     weak var delegate:GetData?
     
     var imageDataArray:[Data] = []
-    
+        
     var getCoordinate:(()->())?
     
     var lat:Double = 0.0
@@ -159,50 +159,25 @@ class AddNewPlaceVC: UIViewController {
         present(actionSheet, animated: true, completion: nil)
     }
     
-    
-    private func uploadImage(){
+    func postANewPlace(){
         let viewModel = AddNewPlaceViewModel()
-        
-        viewModel.imageTransferClosure = { [weak self] image in
-            guard let this = self else { return }
-            let coverImage = image[0]
-            this.postAPlace(coverImage: coverImage , data: image)
-        }
-        viewModel.uploadImage(data: self.imageDataArray)
-    }
-    
-    private func postAPlace(coverImage: String, data: [String]){
-        let viewModel = AddNewPlaceViewModel()
-        
-        viewModel.placeIdClosure = { [weak self] placeId in
-            guard let this = self else { return }
-            let placeId = placeId
-            this.postAGallery(placeId: placeId, data: data)
-    }
+      
         
         let place = labelCountry.text!
         let title = txtTitle.text!
         let description = txtDescription.text!
-        let cover_image_url = coverImage
         let latitude = self.lat
         let longitude = self.long
 
-        viewModel.postNewPlace(request:AddNewPlace(place: place, title: title, description: description, coverImageUrl: cover_image_url, latitude: latitude, longitude: longitude))
-
-        self.dismiss(animated: true, completion: {self.delegate?.getDataFromApi()})
-    }
-    
-    private func postAGallery(placeId: String, data:[String]){
-        for index in 0..<data.count{
-            AddNewPlaceViewModel().postAGallery(request: PostAGallery(placeId: placeId, imageUrl: data[index]))
-        }
+        viewModel.addNewPlace(data: imageDataArray, place: place, title: title, description: description, latitude: latitude, longitude: longitude)
     }
     
     @objc func btnAddTapped(){
         
         if !txtTitle.text!.isEmpty && !txtDescription.text.isEmpty && self.imageDataArray.count >= 2 {
             getCoordinate!()
-            self.uploadImage()
+//            self.uploadImage()
+            self.postANewPlace()
         }else{
             self.showAlertForEmptyText(title: "Hata", message: "İlgili alanları doldurduğunuzdan emin olunuz.")
         }
