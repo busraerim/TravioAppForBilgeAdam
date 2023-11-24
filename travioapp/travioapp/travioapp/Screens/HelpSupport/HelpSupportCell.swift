@@ -18,7 +18,7 @@ class HelpSupportCell: UICollectionViewCell {
         return view
     }()
     
-    private lazy var lblTitle:UILabel = {
+    public lazy var lblTitle:UILabel = {
         let lbl = UILabel()
         lbl.font = CustomFont.title1.font
         lbl.numberOfLines = 0

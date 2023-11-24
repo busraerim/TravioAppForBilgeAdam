@@ -134,7 +134,10 @@ extension HelpSupportVC: UICollectionViewDelegate {
 extension HelpSupportVC:UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        
         isExpanded = selectedIndexPath == indexPath
+                
         return CGSize(width: collectionView.bounds.width - 16, height: isExpanded ? expanded : collapsed)
              
     }

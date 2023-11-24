@@ -220,11 +220,25 @@ class EditProfileVC: UIViewController {
         profilePhotoImageView.kf.setImage(with: url, placeholder: placeholderImage)
     }
     
+    func showAlertFirstSave() {
+       let btnTry = UIAlertAction(title: " Yeniden dene ", style: .destructive)
+   
+        
+       let alert = UIAlertController(title: "Hata", message: "Fotoğraf yüklemeniz gerekmektedir.", preferredStyle: .alert)
+       alert.addAction(btnTry)
+        
+       self.present(alert, animated: true)
+   }
+    
     @objc func saveButtonTapped(){
         
         if self.selectedImage == nil {
-            saveInfos(profilPhoto: oldPP)
-
+            if oldPP == ""{
+                print("pp çalışmaz ki")
+                showAlertFirstSave()
+            }else{
+                saveInfos(profilPhoto: oldPP)
+            }
         }else{
             changeProfilePhoto()
         }
