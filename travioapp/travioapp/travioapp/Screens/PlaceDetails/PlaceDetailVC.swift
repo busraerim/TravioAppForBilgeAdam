@@ -56,7 +56,8 @@ class PlaceDetailVC: UIViewController {
     
     private lazy var scrollView:ScrollView = {
         let v = ScrollView()
-        v.textData(title: detailPlace!.title, createdDate: detailPlace!.createdAt, creator: detailPlace!.creator, description: detailPlace!.description, place: detailPlace!)
+        let date = viewModel.formatDateString(detailPlace!.createdAt)
+        v.textData(title: detailPlace!.title, createdDate: date!, creator: detailPlace!.creator, description: detailPlace!.description, place: detailPlace!)
         let location = CLLocation(latitude: self.detailPlace!.latitude, longitude: self.detailPlace!.longitude)
         let zoomRadius: CLLocationDistance = 240
         let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: zoomRadius, longitudinalMeters: zoomRadius)
