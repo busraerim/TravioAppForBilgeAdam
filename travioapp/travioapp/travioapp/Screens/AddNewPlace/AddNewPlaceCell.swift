@@ -45,7 +45,11 @@ class AddNewPlaceCell: UICollectionViewCell {
     }()
     
     func setImage(image: UIImage) {
-            imageView.image = image
+        imageView.image = image
+    }
+    
+    func resetCellData() {
+        imageView.image = nil
     }
     
     override init(frame: CGRect) {

@@ -276,25 +276,41 @@ extension AddNewPlaceVC {
 }
 
 extension AddNewPlaceVC:UICollectionViewDelegate{
-
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        showActionSheetCameraorPhotoLibrary()
-    }
-    
+         if imageDataArray.indices.contains(indexPath.item) {
+             showImageAlert(index:indexPath.row)
+         } else {
+             showActionSheetCameraorPhotoLibrary()
+         }
+     }
+
+     func showImageAlert(index: Int) {
+         let alert = UIAlertController(title: "Uyarı", message: "Bu hücrede zaten bir resim bulunmaktadır.", preferredStyle: .alert)
+
+         let btnOK = UIAlertAction(title: "Tamam", style: .default, handler: nil)
+         let btnDelete = UIAlertAction(title: "Fotoğrafı sil", style: .default) {action in
+             self.imageDataArray.remove(at: index)
+             let cell = self.collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? AddNewPlaceCell
+             cell?.resetCellData()
+         }
+         
+         alert.addAction(btnOK)
+         alert.addAction(btnDelete)
+
+         present(alert, animated: true, completion: nil)
+     }
 }
 
 extension AddNewPlaceVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             if let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first {
                 let cell = collectionView.cellForItem(at: selectedIndexPath) as? AddNewPlaceCell
                 cell?.setImage(image: pickedImage)
-                
                 if let imageData = pickedImage.jpegData(compressionQuality: 1){
                     self.imageDataArray.append(imageData)
-                    print(self.imageDataArray)
                 }
             }
         }
