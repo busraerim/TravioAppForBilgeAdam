@@ -271,15 +271,7 @@ class SecuritySettingsView: UIViewController {
         scrollView.layoutIfNeeded()
         
         
-        let heightConstraint = settingsItemView.height(scrollView.frame.height + changePasswordTitle.frame.height + passwordStackView.frame.height + privacyTitle.frame.height + privacyStackView.frame.height + saveButton.frame.height + 150)
-        heightConstraint.priority = UILayoutPriority(200)
-
-        
-        settingsItemView.edges(to: scrollView)
-        settingsItemView.width(to: scrollView)
-        settingsItemView.height(heightConstraint.constant)
-        settingsItemView.layoutIfNeeded()
-        
+ 
       
         changePasswordTitle.snp.makeConstraints({ make in
             make.top.equalToSuperview().offset(40)
@@ -311,6 +303,15 @@ class SecuritySettingsView: UIViewController {
             make.trailing.equalToSuperview().offset(-16)
         })
 
+        let heightConstraint =  changePasswordTitle.frame.height + passwordStackView.frame.height + privacyTitle.frame.height + privacyStackView.frame.height + saveButton.frame.height + 150
+
+        
+        settingsItemView.edges(to: scrollView)
+        settingsItemView.width(to: scrollView)
+        settingsItemView.bottom(to: saveButton, offset: 10)
+        scrollView.height(heightConstraint)
+        settingsItemView.layoutIfNeeded()
+        
         
     }
 
