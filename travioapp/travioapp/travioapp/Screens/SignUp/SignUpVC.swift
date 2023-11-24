@@ -140,21 +140,30 @@ class SignUpVC: UIViewController {
         viewModel.controlPassword(full_name: username, email: email, password: password, passwordConfirm: passwordConfirm)
     }
     
-    func addLongPressGesture(to button: UIButton) {
-       let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
-       button.addGestureRecognizer(longPressGesture)
+    private func showPassword(){
+        self.usernameInputView.showPasswordButton.isHidden = true
+        self.emailInputView.showPasswordButton.isHidden = true
+        self.passwordInputView.txtPlaceholder.isSecureTextEntry = true
+        self.passwordConfirmInputView.txtPlaceholder.isSecureTextEntry = true
+        passwordInputView.showPasswordButton.addTarget(self, action: #selector(buttonPressed), for: [.touchDown, .touchUpInside])
+        passwordConfirmInputView.showPasswordButton.addTarget(self, action: #selector(buttonPressed), for: [.touchDown, .touchUpInside])
     }
     
-    @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
-           if gestureRecognizer.state == .began {
+    @objc func buttonPressed(sender: InputBox, event: UIEvent) {
+        if let touch = event.allTouches?.first {
+            switch touch.phase {
+            case .began:
                passwordInputView.txtPlaceholder.isSecureTextEntry = false
                passwordConfirmInputView.txtPlaceholder.isSecureTextEntry = false
-           } else if gestureRecognizer.state == .ended {
-               passwordInputView.txtPlaceholder.isSecureTextEntry = true
-               passwordConfirmInputView.txtPlaceholder.isSecureTextEntry = true
-           }
-       }
-    
+            case .ended:
+                passwordInputView.txtPlaceholder.isSecureTextEntry = true
+                passwordConfirmInputView.txtPlaceholder.isSecureTextEntry = true
+            default:
+                break
+            }
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -167,15 +176,9 @@ class SignUpVC: UIViewController {
         leftBarButton.tintColor = UIColor(hex: "FFFFFF")
         self.navigationItem.leftBarButtonItem = leftBarButton
         self.navigationItem.titleView = lblTitle
+    
         
-        self.usernameInputView.showPasswordButton.isHidden = true
-        self.emailInputView.showPasswordButton.isHidden = true
-        self.passwordInputView.txtPlaceholder.isSecureTextEntry = true
-        self.passwordConfirmInputView.txtPlaceholder.isSecureTextEntry = true
-        
-        addLongPressGesture(to : passwordInputView.showPasswordButton)
-        addLongPressGesture(to : passwordConfirmInputView.showPasswordButton)
-
+        showPassword()
         setupViews()
         initVM()
     }

@@ -50,8 +50,22 @@ class LoginVc: UIViewController {
         password.boxTitle = .label(label: "Password")
         password.boxPlaceholder = .placeholder(placeholder: "*************")
         password.txtPlaceholder.isSecureTextEntry = true
+        password.showPasswordButton.addTarget(self, action: #selector(buttonPressed), for: [.touchDown, .touchUpInside])
         return password
     }()
+    
+    @objc func buttonPressed(sender: InputBox, event: UIEvent) {
+        if let touch = event.allTouches?.first {
+            switch touch.phase {
+            case .began:
+               passwordView.txtPlaceholder.isSecureTextEntry = false
+            case .ended:
+                passwordView.txtPlaceholder.isSecureTextEntry = true
+            default:
+                break
+            }
+        }
+    }
     
     private lazy var stackView:UIStackView = {
         let stack = UIStackView()
@@ -149,26 +163,11 @@ class LoginVc: UIViewController {
         }
         
     }
-    
-    func addLongPressGesture(to button: UIButton) {
-       let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
-       button.addGestureRecognizer(longPressGesture)
-    }
-    
-    @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
-           if gestureRecognizer.state == .began {
-               passwordView.txtPlaceholder.isSecureTextEntry = false
-           } else if gestureRecognizer.state == .ended {
-               passwordView.txtPlaceholder.isSecureTextEntry = true
-           }
-       }
-    
-        
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(red: 0.22, green: 0.68, blue: 0.66, alpha: 1.00)
         self.navigationController?.isNavigationBarHidden = true
-        addLongPressGesture(to: passwordView.showPasswordButton)
         setupViews()
         initVM()
             

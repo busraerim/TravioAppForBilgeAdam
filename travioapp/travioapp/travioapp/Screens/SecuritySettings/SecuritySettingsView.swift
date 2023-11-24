@@ -50,32 +50,33 @@ class SecuritySettingsView: UIViewController {
         let newPassword = InputBox()
         newPassword.boxTitle = .label(label: "New Password")
         newPassword.txtPlaceholder.isSecureTextEntry = true
+        newPassword.showPasswordButton.addTarget(self, action: #selector(buttonPressed), for: [.touchDown, .touchUpInside])
         return newPassword
     }()
+    
+    @objc func buttonPressed(sender: InputBox, event: UIEvent) {
+        if let touch = event.allTouches?.first {
+            switch touch.phase {
+            case .began:
+               newPassword.txtPlaceholder.isSecureTextEntry = false
+               newPasswordConfirm.txtPlaceholder.isSecureTextEntry = false
+            case .ended:
+                newPassword.txtPlaceholder.isSecureTextEntry = true
+                newPasswordConfirm.txtPlaceholder.isSecureTextEntry = true
+            default:
+                break
+            }
+        }
+    }
     
     private lazy var newPasswordConfirm:InputBox = {
         let newPasswordConfirm = InputBox()
         newPasswordConfirm.boxTitle = .label(label: "New Password Confirm")
         newPasswordConfirm.txtPlaceholder.isSecureTextEntry = true
+        newPasswordConfirm.showPasswordButton.addTarget(self, action: #selector(buttonPressed), for: [.touchDown, .touchUpInside])
         return newPasswordConfirm
     }()
-    
 
-    func addLongPressGesture(to button: UIButton) {
-       let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
-       button.addGestureRecognizer(longPressGesture)
-    }
-    
-    @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
-           if gestureRecognizer.state == .began {
-               newPassword.txtPlaceholder.isSecureTextEntry = false
-               newPasswordConfirm.txtPlaceholder.isSecureTextEntry = false
-           } else if gestureRecognizer.state == .ended {
-               newPassword.txtPlaceholder.isSecureTextEntry = true
-               newPasswordConfirm.txtPlaceholder.isSecureTextEntry = true
-           }
-       }
-    
     private lazy var passwordStackView = {
         let sv = UIStackView()
         sv.spacing = 10
@@ -236,8 +237,6 @@ class SecuritySettingsView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addLongPressGesture(to: newPassword.showPasswordButton)
-        addLongPressGesture(to: newPasswordConfirm.showPasswordButton)
         controlStatusPermission()
         setupViews()
         initVM()
