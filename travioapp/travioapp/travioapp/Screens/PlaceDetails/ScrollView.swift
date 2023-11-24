@@ -14,19 +14,19 @@ import TinyConstraints
 
 
 final class ScrollView: UIView {
-
+    
     private lazy var scrollView: UIScrollView = {
         let sv = UIScrollView()
         sv.translatesAutoresizingMaskIntoConstraints = false
         return sv
     }()
-
+    
     private lazy var contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
+    
     public lazy var labelTitle:UILabel = {
         let lbl = UILabel()
         lbl.textColor = UIColor(red: 0.239, green: 0.239, blue: 0.239, alpha: 1)
@@ -66,7 +66,7 @@ final class ScrollView: UIView {
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
-
+    
     public lazy var mapView: MKMapView = {
         let map = MKMapView()
         var latitude = 0.0
@@ -76,16 +76,16 @@ final class ScrollView: UIView {
         map.delegate = self
         return map
     }()
-
-
-
+    
+    
+    
     public lazy var lblDescription:UILabel = {
-       let lbl = UILabel()
-       lbl.textColor = UIColor(red: 0.239, green: 0.239, blue: 0.239, alpha: 1)
-       lbl.font = CustomFont.title2.font
-       lbl.text = ""
-       lbl.numberOfLines = 0
-       lbl.translatesAutoresizingMaskIntoConstraints = false
+        let lbl = UILabel()
+        lbl.textColor = UIColor(red: 0.239, green: 0.239, blue: 0.239, alpha: 1)
+        lbl.font = CustomFont.title2.font
+        lbl.text = ""
+        lbl.numberOfLines = 0
+        lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
     }()
     
@@ -97,17 +97,17 @@ final class ScrollView: UIView {
         self.mapView.addAnnotation(annotation)
         
     }
-       
+    
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         setupViews()
     }
-
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupViews() 
+        setupViews()
     }
-
+    
     func setupViews() {
         self.addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -115,10 +115,10 @@ final class ScrollView: UIView {
         contentView.addSubview(lblDescription)
         stackView.addArrangedSubviews(labelTitle, lblCreatedDate, lblAddedByWho)
         contentView.addSubviews(mapView)
-
+        
         setupLayout()
     }
-     
+    
     func setupLayout() {
         scrollView.edgesToSuperview()
         scrollView.layoutIfNeeded()
@@ -132,23 +132,26 @@ final class ScrollView: UIView {
         mapView.leadingToSuperview(offset: 16)
         mapView.trailingToSuperview(offset: 16)
         mapView.height(220)
-
+        
         lblDescription.topToBottom(of: mapView, offset: 20)
         lblDescription.leadingToSuperview(offset: 20)
         lblDescription.trailingToSuperview(offset: 20)
         lblDescription.layoutIfNeeded()
-
-        let heightConstraint = contentView.height(scrollView.frame.height + lblDescription.frame.height + 220 + stackView.frame.height)
-        heightConstraint.priority = UILayoutPriority(250)
+        
+        let heightConstraint = contentView.frame.height + lblDescription.frame.height + 220 + stackView.frame.height
         
         contentView.edges(to: scrollView)
         contentView.width(to: scrollView)
-        contentView.height(heightConstraint.constant)
+        contentView.bottom(to: lblDescription, offset: 20)
+        
+        scrollView.height(heightConstraint)
         contentView.layoutIfNeeded()
         
+        
     }
-
-    }
+    
+    
+}
 
 
 
