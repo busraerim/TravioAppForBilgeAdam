@@ -49,14 +49,32 @@ class SecuritySettingsView: UIViewController {
     private lazy var newPassword:InputBox = {
         let newPassword = InputBox()
         newPassword.boxTitle = .label(label: "New Password")
+        newPassword.txtPlaceholder.isSecureTextEntry = true
         return newPassword
     }()
     
     private lazy var newPasswordConfirm:InputBox = {
         let newPasswordConfirm = InputBox()
         newPasswordConfirm.boxTitle = .label(label: "New Password Confirm")
+        newPasswordConfirm.txtPlaceholder.isSecureTextEntry = true
         return newPasswordConfirm
     }()
+    
+
+    func addLongPressGesture(to button: UIButton) {
+       let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
+       button.addGestureRecognizer(longPressGesture)
+    }
+    
+    @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
+           if gestureRecognizer.state == .began {
+               newPassword.txtPlaceholder.isSecureTextEntry = false
+               newPasswordConfirm.txtPlaceholder.isSecureTextEntry = false
+           } else if gestureRecognizer.state == .ended {
+               newPassword.txtPlaceholder.isSecureTextEntry = true
+               newPasswordConfirm.txtPlaceholder.isSecureTextEntry = true
+           }
+       }
     
     private lazy var passwordStackView = {
         let sv = UIStackView()
@@ -218,6 +236,8 @@ class SecuritySettingsView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addLongPressGesture(to: newPassword.showPasswordButton)
+        addLongPressGesture(to: newPasswordConfirm.showPasswordButton)
         controlStatusPermission()
         setupViews()
         initVM()
@@ -230,6 +250,7 @@ class SecuritySettingsView: UIViewController {
         passwordStackView.addArrangedSubviews(newPassword, newPasswordConfirm)
         privacyStackView.addArrangedSubviews(cameraLabel, photoLibraryLabel, locationLabel)
         settingsItemView.addSubviews(changePasswordTitle, passwordStackView, privacyTitle, privacyStackView, saveButton)
+
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
@@ -289,6 +310,8 @@ class SecuritySettingsView: UIViewController {
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
         })
+
+        
     }
 
 }

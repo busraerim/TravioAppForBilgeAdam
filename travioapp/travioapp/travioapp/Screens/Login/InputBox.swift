@@ -53,6 +53,14 @@ class InputBox: UIView {
         return placeholder
     }()
     
+    public lazy var showPasswordButton:UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "eyes.inverse"), for: .normal)
+        button.tintColor = .gray
+        return button
+    }()
+    
+    
 
     override init(frame: CGRect){
         super.init(frame: frame)
@@ -61,7 +69,7 @@ class InputBox: UIView {
         self.backgroundColor =  UIColor(red: 1.00, green: 1.00, blue: 1.00, alpha: 1.00)
         self.layer.shadowRadius = 20
         self.layer.shadowOpacity = 0.15
-        self.addSubviews(lblTitle,txtPlaceholder)
+        self.addSubviews(lblTitle,txtPlaceholder, showPasswordButton)
 
         lblTitle.topToSuperview(offset: 8)
         lblTitle.leadingToSuperview(offset: 12)
@@ -70,6 +78,9 @@ class InputBox: UIView {
         txtPlaceholder.topToBottom(of: lblTitle, offset: 8)
         txtPlaceholder.leadingToSuperview(offset: 12)
         txtPlaceholder.trailingToSuperview(offset:12)
+        
+        showPasswordButton.trailingToSuperview(offset:20)
+        showPasswordButton.centerYToSuperview()
 
     }
     

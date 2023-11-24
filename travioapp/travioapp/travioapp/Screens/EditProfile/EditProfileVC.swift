@@ -68,6 +68,7 @@ class EditProfileVC: UIViewController {
         return btn
     }()
     
+    
     private lazy var profilePhotoImageView:UIImageView = {
         let iv = UIImageView()
         iv.layer.cornerRadius = 60
@@ -112,6 +113,7 @@ class EditProfileVC: UIViewController {
         inputBox.boxTitle = .label(label: "Email")
         inputBox.boxPlaceholder = .placeholder(placeholder: "bilge_adam")
         inputBox.txtPlaceholder.textType = .emailAddress
+        inputBox.showPasswordButton.isHidden = true
         return inputBox
     }()
     
@@ -120,6 +122,7 @@ class EditProfileVC: UIViewController {
         inputBox.boxTitle = .label(label: "Full Name")
         inputBox.boxPlaceholder = .placeholder(placeholder: "bilge_adam")
         inputBox.txtPlaceholder.configureForNoAutocorrection()
+        inputBox.showPasswordButton.isHidden = true
         return inputBox
     }()
     
@@ -173,6 +176,7 @@ class EditProfileVC: UIViewController {
     }
     
     func showAlertCameraorPhotoLibrary(title:String,message:String) {
+       let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
        let btnCamera = UIAlertAction(title: "Open Camera", style: .destructive, handler: { action in
            self.checkCamera()
        })
@@ -181,11 +185,14 @@ class EditProfileVC: UIViewController {
            self.checkPhotoLibrary()
        })
         
-       let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-       alert.addAction(btnCamera)
-       alert.addAction(btnPhotoLibrary)
-        
-       self.present(alert, animated: true)
+        let btnCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+
+        actionSheet.addAction(btnCamera)
+        actionSheet.addAction(btnPhotoLibrary)
+        actionSheet.addAction(btnCancel)
+
+       present(actionSheet, animated: true, completion: nil)
+
    }
     
     
@@ -234,7 +241,6 @@ class EditProfileVC: UIViewController {
         
         if self.selectedImage == nil {
             if oldPP == ""{
-                print("pp çalışmaz ki")
                 showAlertFirstSave()
             }else{
                 saveInfos(profilPhoto: oldPP)

@@ -43,15 +43,16 @@ class SignUpVC: UIViewController {
         
         let textField = inputBox.txtPlaceholder
         textField.addTarget(self, action: #selector(updateSignUpButtonState), for: .editingChanged)
-        
+    
         return inputBox
     }
     
     //username ve email autocorrections vs..
     private lazy var usernameInputView:InputBox = createInputBox(title: "Username", placeholder: "bilge_adam")
     private lazy var emailInputView:InputBox = createInputBox(title: "Email", placeholder: "developer@bilgeadam.com")
-    private lazy var passwordInputView:InputBox = createInputBox(title: "Password", placeholder: "")    
+    private lazy var passwordInputView:InputBox = createInputBox(title: "Password", placeholder: "")
     private lazy var passwordConfirmInputView:InputBox = createInputBox(title: "Password Confirm", placeholder: "")
+    
     
     private lazy var inputsStackView:UIStackView = {
         let sv = UIStackView()
@@ -139,6 +140,21 @@ class SignUpVC: UIViewController {
         viewModel.controlPassword(full_name: username, email: email, password: password, passwordConfirm: passwordConfirm)
     }
     
+    func addLongPressGesture(to button: UIButton) {
+       let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
+       button.addGestureRecognizer(longPressGesture)
+    }
+    
+    @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
+           if gestureRecognizer.state == .began {
+               passwordInputView.txtPlaceholder.isSecureTextEntry = false
+               passwordConfirmInputView.txtPlaceholder.isSecureTextEntry = false
+           } else if gestureRecognizer.state == .ended {
+               passwordInputView.txtPlaceholder.isSecureTextEntry = true
+               passwordConfirmInputView.txtPlaceholder.isSecureTextEntry = true
+           }
+       }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -152,6 +168,14 @@ class SignUpVC: UIViewController {
         self.navigationItem.leftBarButtonItem = leftBarButton
         self.navigationItem.titleView = lblTitle
         
+        self.usernameInputView.showPasswordButton.isHidden = true
+        self.emailInputView.showPasswordButton.isHidden = true
+        self.passwordInputView.txtPlaceholder.isSecureTextEntry = true
+        self.passwordConfirmInputView.txtPlaceholder.isSecureTextEntry = true
+        
+        addLongPressGesture(to : passwordInputView.showPasswordButton)
+        addLongPressGesture(to : passwordConfirmInputView.showPasswordButton)
+
         setupViews()
         initVM()
     }

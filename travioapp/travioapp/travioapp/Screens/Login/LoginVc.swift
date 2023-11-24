@@ -41,6 +41,7 @@ class LoginVc: UIViewController {
         email.boxTitle = .label(label: "Email")
         email.boxPlaceholder = .placeholder(placeholder: "example@mail.com")
         email.txtPlaceholder.text = email.txtPlaceholder.text?.lowercased()
+        email.showPasswordButton.isHidden = true
         return email
     }()
     
@@ -48,6 +49,7 @@ class LoginVc: UIViewController {
         let password = InputBox()
         password.boxTitle = .label(label: "Password")
         password.boxPlaceholder = .placeholder(placeholder: "*************")
+        password.txtPlaceholder.isSecureTextEntry = true
         return password
     }()
     
@@ -148,11 +150,25 @@ class LoginVc: UIViewController {
         
     }
     
+    func addLongPressGesture(to button: UIButton) {
+       let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
+       button.addGestureRecognizer(longPressGesture)
+    }
+    
+    @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
+           if gestureRecognizer.state == .began {
+               passwordView.txtPlaceholder.isSecureTextEntry = false
+           } else if gestureRecognizer.state == .ended {
+               passwordView.txtPlaceholder.isSecureTextEntry = true
+           }
+       }
+    
         
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(red: 0.22, green: 0.68, blue: 0.66, alpha: 1.00)
         self.navigationController?.isNavigationBarHidden = true
+        addLongPressGesture(to: passwordView.showPasswordButton)
         setupViews()
         initVM()
             

@@ -24,7 +24,6 @@ class EditProfileViewModel {
             switch result {
             case .success(let profile):
                 self.dataTransferClosure!(profile)
-                print(profile)
             case .failure(let err):
                 print(err.localizedDescription)
             }

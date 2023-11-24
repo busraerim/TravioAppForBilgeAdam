@@ -58,7 +58,7 @@ class PlaceDetailViewModel{
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .checkVisitByPlaceID(id: placeId), callback: { (result:Result<BaseResponse,Error>) in
             switch result {
             case .success(let obj):
-                print(obj.status)
+//                print(obj.status)
                 self.checkStatus?(obj.status!)
             case .failure(let failure):
                 print(failure.localizedDescription)
