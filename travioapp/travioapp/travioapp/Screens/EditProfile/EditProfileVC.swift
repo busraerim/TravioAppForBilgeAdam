@@ -304,6 +304,12 @@ class EditProfileVC: UIViewController {
         viewModel.getProfileInfo()
         initVM()
         setupViews()
+        
+        showActivityIndicator()
+                
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.hideActivityIndicator()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

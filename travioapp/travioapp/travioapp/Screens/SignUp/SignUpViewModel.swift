@@ -9,32 +9,16 @@ import Foundation
 import Alamofire
 
 class SignUpViewModel {
-    
-    var transferData: (()->())?
-    
-    var showErrorAlertClosure:(()->())?
-    var showSuccessAlertClosure:(()->())?
-    
-    var errorAlertMessage: String? {
-        didSet {
-            self.showErrorAlertClosure?()
-        }
-    }
-    
-    var successAlertMessage: String? {
-        didSet {
-            self.showSuccessAlertClosure?()
-        }
-    }
-    
+    var onSuccess: ((String, String) -> Void)?
+    var onError: ((String, String) -> Void)?
     
     func controlPassword(full_name:String, email:String, password:String, passwordConfirm:String) {
         guard full_name.count >= 4 || password.count > 6  else {
-            self.errorAlertMessage = "Geçersiz kullanıcı adı veya şifre"
+            self.onError?("Hata", "Geçersiz kullanıcı adı veya şifre.")
             return
         }
         guard password == passwordConfirm else {
-            self.errorAlertMessage = "Şifreler uyuşmuyor. Tekrar deneyiniz."
+            self.onError?("Hata", "Şifreler uyuşmuyor. Tekrar deneyiniz.")
             return
         }
         
@@ -48,17 +32,20 @@ class SignUpViewModel {
         let params = ["full_name": person.username, "email": person.email , "password": person.password]
         
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .register(param: params), callback: { (result:Result<BaseResponse, Error>) in
+            
             switch result {
             case .success(let success):
-                self.successAlertMessage = "Kullanıcı başarıyla oluşturuldu."
+                self.onSuccess?("Başarılı", "Kullanıcı başarıyla oluşturuldu.")
+                
             case .failure(let failure):
                 switch failure.localizedDescription{
                 case "Response status code was unacceptable: 500.":
-                    self.errorAlertMessage = "Bu emailde kayıtlı kullanıcı bulunmaktadır."
+                    self.onError?("Hata", "Bu emailde kayıtlı kullanıcı bulunmaktadır.")
                 case "Response status code was unacceptable: 400.":
-                    self.errorAlertMessage = "Emailinizi kontrol ediniz."
+                    self.onError?("Hata", "Emailinizi kontrol ediniz.")
                 default:
-                    self.errorAlertMessage = failure.localizedDescription
+                    self.onError?("Hata", failure.localizedDescription)
+
                 }
             }
         })

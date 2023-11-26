@@ -327,6 +327,32 @@ extension UIViewController {
         removeFromParent()
     }
     
+    func showActivityIndicator() {
+        let blurEffect = UIBlurEffect(style: .extraLight)
+        let visualEffectView = UIVisualEffectView(effect: blurEffect)
+        visualEffectView.frame = view.bounds
+        visualEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.center = view.center
+        activityIndicator.hidesWhenStopped = true
+        visualEffectView.contentView.addSubview(activityIndicator)
+        
+        view.addSubview(visualEffectView)
+        
+        activityIndicator.startAnimating()
+    }
+
+    func hideActivityIndicator() {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        for subview in view.subviews {
+            if let visualEffectView = subview as? UIVisualEffectView {
+                visualEffectView.removeFromSuperview()
+                break
+            }
+            
+        }
+    }
     
 //    func playLoading(){
 //        let view = BLLoadingIndicator()
