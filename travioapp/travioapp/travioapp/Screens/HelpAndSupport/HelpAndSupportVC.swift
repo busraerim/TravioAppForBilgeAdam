@@ -38,6 +38,8 @@ class HelpAndSupportVC: UIViewController {
         return lbl
     }()
     
+
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -57,7 +59,8 @@ class HelpAndSupportVC: UIViewController {
 
     func setupViews() {
         self.view.addSubviews(backView)
-        backView.addSubviews(lblFAQ, tableView)
+        backView.addSubviews(tableView)
+        tableView.addSubviews(lblFAQ)
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
@@ -80,13 +83,14 @@ class HelpAndSupportVC: UIViewController {
         backView.layoutIfNeeded()
         backView.roundCorners(corners: .topLeft, radius: 80)
         
-        lblFAQ.leadingToSuperview(offset:14)
-        lblFAQ.topToSuperview(offset:44)
+        lblFAQ.leadingToSuperview(offset: 24)
+        lblFAQ.topToSuperview(offset: 40)
+        lblFAQ.trailingToSuperview(offset: 12)
         
-        tableView.topToBottom(of: lblFAQ, offset: 10)
-        tableView.leadingToSuperview(offset:14)
-        tableView.trailingToSuperview(offset:14)
-        tableView.bottomToSuperview()
+        tableView.topToSuperview()
+        tableView.leadingToSuperview()
+        tableView.trailingToSuperview()
+        tableView.bottomToSuperview(offset:-10)
     }
   
 }
@@ -101,6 +105,14 @@ extension HelpAndSupportVC: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         dataSource.count
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return self.lblFAQ
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 44
     }
 
 }

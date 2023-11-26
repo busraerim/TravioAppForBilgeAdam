@@ -12,12 +12,12 @@ class ExpandableTableViewCell: UITableViewCell {
 
     static let reuseIdentifier = "ExpandableTableViewCell"
     
-    private lazy var backView:UIView = {
-        let view = UIView()
-        view.layer.cornerRadius = 16
-        view.backgroundColor = UIColor(red: 1.00, green: 1.00, blue: 1.00, alpha: 1.00)
-        return view
-    }()
+//    private lazy var backView:UIView = {
+//        let view = UIView()
+//        view.layer.cornerRadius = 16
+//        view.backgroundColor = UIColor(red: 1.00, green: 1.00, blue: 1.00, alpha: 1.00)
+//        return view
+//    }()
     
     let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -26,7 +26,13 @@ class ExpandableTableViewCell: UITableViewCell {
         stackView.alignment = .fill
         stackView.axis = .vertical
         stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16)
+        stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 16, leading: 12, bottom: 15, trailing: 18)
+        stackView.layer.cornerRadius = 16
+        stackView.backgroundColor = UIColor(red: 1.00, green: 1.00, blue: 1.00, alpha: 1.00)
+        stackView.layer.shadowRadius = 20
+        stackView.layer.shadowOpacity = 0.12
+        stackView.layer.borderColor = UIColor.black.cgColor
+        stackView.layer.masksToBounds = false
         return stackView
     }()
 
@@ -35,22 +41,14 @@ class ExpandableTableViewCell: UITableViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fill
         stackView.alignment = .center
+        stackView.spacing = 12
         return stackView
     }()
 
-    let iconImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.tintColor = #colorLiteral(red: 0.1404079861, green: 0.1404079861, blue: 0.1404079861, alpha: 1)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-
-        return imageView
-    }()
-
-    let titleLabel: UILabel = {
+    let labelQuestion: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = CustomFont.title1.font
+        label.font = UIFont(name: "Poppins-Medium", size: 14)
         label.textColor = UIColor(red: 0.239, green: 0.239, blue: 0.239, alpha: 1)
         label.setContentHuggingPriority(.init(rawValue: 200), for: .horizontal)
         label.numberOfLines = 0
@@ -74,7 +72,7 @@ class ExpandableTableViewCell: UITableViewCell {
         return view
     }()
 
-    let descriptionLabel: UILabel = {
+    let labelanswer: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
@@ -96,38 +94,30 @@ class ExpandableTableViewCell: UITableViewCell {
     }
 
     func setup() {
-        contentView.addSubview(backView)
+        contentView.addSubview(stackView)
         contentView.backgroundColor = UIColor(red: 0.971, green: 0.971, blue: 0.971, alpha: 1)
-        backView.addSubview(stackView)
-        stackView.addArrangedSubview(mainStackView)
-        stackView.addArrangedSubview(expandableView)
-        mainStackView.addArrangedSubview(iconImageView)
-        mainStackView.addArrangedSubview(titleLabel)
-        mainStackView.addArrangedSubview(chevronImageView)
-        expandableView.addSubview(descriptionLabel)
+//        backView.addSubview(stackView)
+        stackView.addArrangedSubviews(mainStackView, expandableView)
+        mainStackView.addArrangedSubviews(labelQuestion,chevronImageView)
+        expandableView.addSubview(labelanswer)
         setConstraints()
     }
 
     func setConstraints() {
-        backView.top(to: contentView, offset:10)
-        backView.bottom(to: contentView)
-        backView.leading(to: contentView, offset:16)
-        backView.trailing(to: contentView, offset:-15)
+        stackView.top(to: contentView, offset:16)
+        stackView.bottom(to: contentView)
+        stackView.leading(to: contentView, offset:24)
+        stackView.trailing(to: contentView, offset:-24)
         
-        stackView.edgesToSuperview()
         chevronImageView.size(CGSize(width: 18, height: 18))
-        titleLabel.topToSuperview(offset:8)
-        titleLabel.bottomToSuperview(offset:-8)
-        titleLabel.leadingToSuperview(offset:12)
-        titleLabel.trailingToLeading(of: chevronImageView, offset:12)
-     
-        descriptionLabel.edges(to: expandableView, insets: UIEdgeInsets(top: 8, left: 0, bottom: 10, right: -16))
+        
+        labelanswer.edges(to: expandableView, insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
 
     }
 
     func set(_ model: CellDataModel) {
-        titleLabel.text = model.title
-        descriptionLabel.text = model.subTitle
+        labelQuestion.text = model.title
+        labelanswer.text = model.subTitle
         expandableView.isHidden = !model.isExpanded
         chevronImageView.image = (model.isExpanded ? UIImage(systemName: "chevron.up") : UIImage(systemName: "chevron.down"))?.withRenderingMode(.alwaysTemplate)
     }
