@@ -86,36 +86,36 @@ class SignUpVC: UIViewController {
         return SignUpViewModel()
     }()
     
-    
-    func showAlert(buttonTitle:String, title:String, message:String, handler:(()->Void)?){
-        let btnRetry = UIAlertAction(title: buttonTitle, style: .default, handler: { action in
+
+    func showAlert(alertTitle:String, style:UIAlertAction.Style, title: String, message: String, handler:(() -> Void)?) {
+        let btnRetry = UIAlertAction(title: alertTitle, style: style, handler: { action in
+            self.hideActivityIndicator()
             handler?()
         })
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(btnRetry)
         self.present(alert, animated: true)
+        
     }
     
-    func initVM(){
-        viewModel.showErrorAlertClosure = { [weak self] () in
+    
+    func initVM() {
+        viewModel.onError = { [weak self] title, message in
             DispatchQueue.main.async {
-                if let message = self?.viewModel.errorAlertMessage {
-                    self?.showAlert(buttonTitle:"Yeniden Dene", title: "Hata", message: message, handler: nil)
-                }
+                self?.showAlert(alertTitle: "Yeniden Dene", style: .destructive, title: title, message: message, handler: nil)
+                self?.hideActivityIndicator()
             }
         }
-        viewModel.showSuccessAlertClosure = { [weak self] () in
+        
+        viewModel.onSuccess = { [weak self] title, message in
             DispatchQueue.main.async {
-                if let message = self?.viewModel.successAlertMessage {
-                    self?.showAlert(buttonTitle:"Kapat", title: "Başarılı", message: message, handler: {
-                        self?.navigationController?.pushViewController(LoginVc(), animated: true)
-                    })
-                    }
-                    
-                }
+                self?.showAlert(alertTitle: "Tamam", style: .default, title: title, message: message, handler: {
+                    self?.navigationController?.popViewController(animated: true)
+                })
             }
         }
+    }
     
     
     @objc func updateSignUpButtonState() {
@@ -132,12 +132,14 @@ class SignUpVC: UIViewController {
     }
     
     @objc func signUpButtonTapped(){
+        showActivityIndicator()
         guard let email = emailInputView.txtPlaceholder.text,
               let password = passwordInputView.txtPlaceholder.text,
               let username = usernameInputView.txtPlaceholder.text,
               let passwordConfirm = passwordConfirmInputView.txtPlaceholder.text else { return }
         
         viewModel.controlPassword(full_name: username, email: email, password: password, passwordConfirm: passwordConfirm)
+        
     }
     
     private func showPassword(){
@@ -181,6 +183,12 @@ class SignUpVC: UIViewController {
         showPassword()
         setupViews()
         initVM()
+        
+        showActivityIndicator()
+                
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.hideActivityIndicator()
+        }
     }
     
     private func setupViews(){

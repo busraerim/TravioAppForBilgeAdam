@@ -147,6 +147,12 @@ class SettingsView: UIViewController {
         super.viewDidLoad()
         getDataFromApi()
         setupViews()
+        
+        showActivityIndicator()
+                
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.hideActivityIndicator()
+        }
     }
 
     private func setupViews(){
@@ -224,9 +230,11 @@ extension SettingsView:UICollectionViewDelegate {
             navigationController?.pushViewController(vc, animated: true)
         case 4:
             let vc = AboutVC()
+            vc.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(vc, animated: true)
         case 5:
             let vc = TermOfUsesVC()
+            vc.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(vc, animated: true)
         default:
             break
