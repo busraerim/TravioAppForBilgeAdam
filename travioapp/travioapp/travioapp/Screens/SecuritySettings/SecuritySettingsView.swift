@@ -77,7 +77,7 @@ class SecuritySettingsView: UIViewController {
         return newPasswordConfirm
     }()
 
-    private lazy var passwordStackView = {
+    private lazy var passwordStackView:UIStackView = {
         let sv = UIStackView()
         sv.spacing = 10
         sv.axis = .vertical
@@ -267,11 +267,7 @@ class SecuritySettingsView: UIViewController {
             make.leading.trailing.bottom.equalToSuperview()
             make.bottom.equalToSuperview()
         })
-        scrollView.layoutIfNeeded()
-        
-        
- 
-      
+
         changePasswordTitle.snp.makeConstraints({ make in
             make.top.equalToSuperview().offset(40)
             make.leading.equalToSuperview().offset(20)
@@ -309,7 +305,6 @@ class SecuritySettingsView: UIViewController {
         settingsItemView.width(to: scrollView)
         settingsItemView.bottom(to: saveButton, offset: 10)
         scrollView.height(heightConstraint)
-        settingsItemView.layoutIfNeeded()
         
         
     }

@@ -101,8 +101,8 @@ class MapVC: UIViewController {
         collectionView.backgroundColor = .clear
 
         collectionView.snp.makeConstraints({ snp in
-            snp.top.equalToSuperview().offset(565)
-            snp.bottom.equalToSuperview()
+            snp.top.equalToSuperview().offset(view.frame.height * 0.65)
+            snp.bottom.equalToSuperview().offset(view.frame.height * 0.2)
             snp.leading.equalToSuperview()
             snp.trailing.equalToSuperview()
             
@@ -128,7 +128,7 @@ extension MapVC {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
 
-        let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.8), heightDimension: .fractionalWidth(0.5))
+        let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.8), heightDimension: .fractionalHeight(0.5))
         let layoutGroup = NSCollectionLayoutGroup.horizontal(layoutSize: layoutGroupSize, subitems: [item])
         
        

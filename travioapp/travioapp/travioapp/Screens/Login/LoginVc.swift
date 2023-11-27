@@ -213,7 +213,8 @@ class LoginVc: UIViewController {
         
         btnLogin.width(342)
         btnLogin.topToBottom(of: stackView, offset: 48)
-        btnLogin.centerX(to: stackView)
+        btnLogin.leadingToSuperview(offset: 24)
+        btnLogin.trailingToSuperview(offset: 24)
         
         stackSignup.bottomToSuperview(offset: -21)
         stackSignup.centerX(to: stackView)
