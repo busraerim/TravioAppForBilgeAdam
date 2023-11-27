@@ -136,17 +136,7 @@ class LoginVc: UIViewController {
         }
         
         viewModel.loginControl(email: email, password: password)
-        
-//        viewModel.onSuccessLogin = { [weak self] in
-//            let vc = TabbarUI()
-//            self?.getPermission()
-//            self?.hideActivityIndicator()
-//            self?.navigationController?.pushViewController(vc, animated: true)
-//        }
-//        
-//        viewModel.onError = { [weak self] title, message in
-//            self?.showAlert(title: title, message: message)
-//        }
+
     }
     
     func showAlert(title: String, message: String) {
@@ -233,6 +223,7 @@ class LoginVc: UIViewController {
         lblWelcome.centerX(to: stackView)
         
         travioImage.topToSuperview(offset: 44)
+        travioImage.bottomToTop(of: backView, offset:-24)
         travioImage.horizontalToSuperview(insets: .left(120) + .right(121))
         
         backView.layoutIfNeeded()

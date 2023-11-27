@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Kingfisher
+import TinyConstraints
 
 
 
@@ -132,6 +133,15 @@ class EditProfileVC: UIViewController {
         sv.distribution = .fillEqually
         sv.axis = .vertical
         return sv
+    }()
+    
+    private lazy var scrollView:UIScrollView = {
+        let scroll = UIScrollView()
+        scroll.backgroundColor = .contentcolor
+        scroll.layer.cornerRadius = 80
+        scroll.layer.maskedCorners = .layerMinXMinYCorner
+        scroll.translatesAutoresizingMaskIntoConstraints = false
+        return scroll
     }()
     
     func showAlertPhotoLibrary(buttonTitle:String, title:String, message:String, style: UIAlertAction.Style = .default){
@@ -338,7 +348,8 @@ class EditProfileVC: UIViewController {
     }
     
     func setupViews(){
-        self.view.addSubviews(lblTitle, closeButton, editProfileItemView)
+        self.view.addSubviews(lblTitle, closeButton, scrollView)
+        scrollView.addSubviews(editProfileItemView)
         inputsStackView.addArrangedSubviews(fullNameInputView, emailInputView)
         horizontalStackView.addArrangedSubviews(profileCreatedTimeView, profileRoleView)
         editProfileItemView.addSubviews(profilePhotoImageView, changePhotoButton, lblProfileName, horizontalStackView, inputsStackView, saveButton)
@@ -346,6 +357,13 @@ class EditProfileVC: UIViewController {
     }
     
     func setupLayout(){
+        
+        scrollView.snp.makeConstraints({ make in
+            make.height.equalToSuperview().multipliedBy(0.83)
+            make.leading.trailing.bottom.equalToSuperview()
+            make.bottom.equalToSuperview()
+        })
+        scrollView.layoutIfNeeded()
         
         lblTitle.snp.makeConstraints({ make in
             make.top.equalTo(self.view.safeAreaLayoutGuide).offset(10)
@@ -357,11 +375,6 @@ class EditProfileVC: UIViewController {
             make.trailing.equalToSuperview().offset(-24)
         })
         
-        editProfileItemView.snp.makeConstraints({ make in
-            make.bottom.trailing.leading.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.83)
-        })
-        
         
         profilePhotoImageView.snp.makeConstraints({ make in
             make.top.equalToSuperview().offset(24)
@@ -369,7 +382,6 @@ class EditProfileVC: UIViewController {
             make.width.equalTo(120)
             make.height.equalTo(120)
         })
-        
         
         changePhotoButton.snp.makeConstraints({ make in
             make.centerX.equalToSuperview()
@@ -389,13 +401,32 @@ class EditProfileVC: UIViewController {
         inputsStackView.snp.makeConstraints({ make in
             make.top.equalTo(horizontalStackView.snp.bottom).offset(19)
             make.leading.trailing.equalTo(saveButton)
+            make.bottom.equalTo(saveButton.snp.top).offset(-100)
         })
         
+        
         saveButton.snp.makeConstraints({ make in
-            make.bottom.equalToSuperview().offset(-35)
             make.leading.trailing.equalToSuperview().inset(24)
         })
+        
+        profilePhotoImageView.layoutIfNeeded()
+        changePhotoButton.layoutIfNeeded()
+        lblProfileName.layoutIfNeeded()
+        horizontalStackView.layoutIfNeeded()
+        inputsStackView.layoutIfNeeded()
+        saveButton.layoutIfNeeded()
+
+        let heightConstraint =  profilePhotoImageView.frame.height + changePhotoButton.frame.height + lblProfileName.frame.height + horizontalStackView.frame.height + inputsStackView.frame.height + saveButton.frame.height + 500
+        
+        editProfileItemView.edges(to: scrollView)
+        editProfileItemView.width(to: scrollView)
+        editProfileItemView.bottom(to: saveButton, offset: 10)
+        scrollView.height(heightConstraint)
+        editProfileItemView.layoutIfNeeded()
+        
     }
+    
+
 }
 
 extension EditProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {

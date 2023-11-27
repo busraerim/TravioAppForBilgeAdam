@@ -21,7 +21,6 @@ class ExpandableTableViewCell: UITableViewCell {
     
     let stackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fill
         stackView.alignment = .fill
         stackView.axis = .vertical

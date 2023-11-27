@@ -99,6 +99,7 @@ extension HelpAndSupportVC: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandableTableViewCell.reuseIdentifier, for: indexPath) as? ExpandableTableViewCell else { return UITableViewCell() }
+        cell.selectionStyle = .none
         cell.set(dataSource[indexPath.row])
         return cell
     }
