@@ -216,14 +216,13 @@ class LoginVc: UIViewController {
         })
         
         
-        emailView.width(342)
         stackView.topToBottom(of: lblWelcome, offset: 41)
         stackView.leadingToSuperview(offset: 24)
         stackView.trailingToSuperview(offset: 24)
         
-        btnLogin.width(342)
         btnLogin.topToBottom(of: stackView, offset: 48)
-        btnLogin.centerX(to: stackView)
+        btnLogin.leading(to: stackView)
+        btnLogin.trailing(to: stackView)
         
         stackSignup.bottomToSuperview(offset: -21)
         stackSignup.centerX(to: stackView)

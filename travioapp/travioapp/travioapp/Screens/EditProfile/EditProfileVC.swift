@@ -254,6 +254,7 @@ class EditProfileVC: UIViewController {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = sourceType
+
         present(imagePicker, animated: true, completion: nil)
     }
     
@@ -306,6 +307,15 @@ class EditProfileVC: UIViewController {
                 if let message = self?.viewModel.alertMessage {
                     self?.showAlert(title: "Başarılı.", message: message)
                 }
+            }
+        }
+        
+        viewModel.updateLoadingState = { [weak self] in
+            guard let self = self else { return }
+            if self.viewModel.isLoading {
+                self.showActivityIndicator()
+            } else {
+                self.hideActivityIndicator()
             }
         }
         
@@ -408,7 +418,7 @@ extension EditProfileVC: UIImagePickerControllerDelegate, UINavigationController
         self.selectedImage = pickedImage
         
         profilePhotoImageView.image = pickedImage
-
+        
         dismiss(animated: true, completion: nil)
     }
     

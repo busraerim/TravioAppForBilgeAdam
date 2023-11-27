@@ -50,6 +50,7 @@ class InputBox: UIView {
        let placeholder = UITextField()
         placeholder.font = CustomFont.subTitle3.font
         placeholder.autocapitalizationType = .none
+        placeholder.width(250)
         return placeholder
     }()
     

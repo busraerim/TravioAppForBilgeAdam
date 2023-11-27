@@ -139,7 +139,15 @@ class SettingsView: UIViewController {
         }
         
         viewModel.getProfileInfo()
-
+        
+        viewModel.updateLoadingState = { [weak self] in
+            guard let self = self else { return }
+            if self.viewModel.isLoading {
+                self.showActivityIndicator()
+            } else {
+                self.hideActivityIndicator()
+            }
+        }
     }
     
 
@@ -153,6 +161,7 @@ class SettingsView: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.hideActivityIndicator()
         }
+        
     }
 
     private func setupViews(){
