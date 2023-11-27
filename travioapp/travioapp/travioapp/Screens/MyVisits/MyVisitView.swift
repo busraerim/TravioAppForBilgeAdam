@@ -27,7 +27,7 @@ class MyVisitsView: UIViewController {
     private lazy var lblTitle:UILabel = {
         var view = UILabel()
         view.textColor = .white
-        view.font = UIFont(name: "Poppins-SemiBold", size: 36)
+        view.font = CustomFont.header1.font
         view.text = "My Visits"
         return view
     }()
@@ -167,7 +167,6 @@ extension MyVisitsView {
         
         let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
         
-        // tabbar geldikten sonra bottom ver 
         layoutSection.contentInsets = NSDirectionalEdgeInsets(top:30, leading: 16, bottom: 0, trailing: 16)
         layoutSection.interGroupSpacing = 16
         

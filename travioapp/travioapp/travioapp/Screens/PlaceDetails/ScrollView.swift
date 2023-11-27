@@ -29,7 +29,7 @@ final class ScrollView: UIView {
     
     public lazy var labelTitle:UILabel = {
         let lbl = UILabel()
-        lbl.textColor = UIColor(red: 0.239, green: 0.239, blue: 0.239, alpha: 1)
+        lbl.textColor = .textcolor
         lbl.font =  CustomFont.header3.font
         lbl.text = ""
         lbl.numberOfLines = 0
@@ -39,7 +39,7 @@ final class ScrollView: UIView {
     
     public lazy var lblCreatedDate:UILabel = {
         let lbl = UILabel()
-        lbl.textColor = UIColor(red: 0.239, green: 0.239, blue: 0.239, alpha: 1)
+        lbl.textColor = .textcolor
         lbl.font = CustomFont.subHeader3.font
         lbl.numberOfLines = 0
         lbl.text =  ""
@@ -50,7 +50,7 @@ final class ScrollView: UIView {
     public lazy var lblCreator:UILabel = {
         let lbl = UILabel()
         lbl.text = ""
-        lbl.textColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
+        lbl.textColor = .appblack
         lbl.font = CustomFont.title3.font
         lbl.numberOfLines = 0
         lbl.translatesAutoresizingMaskIntoConstraints = false
@@ -81,7 +81,7 @@ final class ScrollView: UIView {
     
     public lazy var lblDescription:UILabel = {
         let lbl = UILabel()
-        lbl.textColor = UIColor(red: 0.239, green: 0.239, blue: 0.239, alpha: 1)
+        lbl.textColor = .textcolor
         lbl.font = CustomFont.title2.font
         lbl.text = ""
         lbl.numberOfLines = 0

@@ -23,7 +23,7 @@ class SeeAllVC: UIViewController {
         let backView = UIView()
         backView.height(719)
         backView.width(390)
-        backView.backgroundColor = UIColor(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.00)
+        backView.backgroundColor = .contentcolor
         return backView
     }()
     
@@ -65,8 +65,7 @@ class SeeAllVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        dataPlaceSeeAll.sort { $0.title ?? "" < $1.title ?? "" }
-        self.view.backgroundColor = UIColor(red: 0.22, green: 0.678, blue: 0.663, alpha: 1)
+        self.view.backgroundColor = .background
         setupViews()
     }
   

@@ -18,7 +18,7 @@ class HelpAndSupportVC: UIViewController {
     
     private lazy var backView:UIView = {
         let backView = UIView()
-        backView.backgroundColor = UIColor(red: 0.971, green: 0.971, blue: 0.971, alpha: 1)
+        backView.backgroundColor = .contentcolor
         return backView
     }()
     
@@ -53,7 +53,7 @@ class HelpAndSupportVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor(red: 0.22, green: 0.678, blue: 0.663, alpha: 1)
+        self.view.backgroundColor = .background
         setupViews()
     }
 

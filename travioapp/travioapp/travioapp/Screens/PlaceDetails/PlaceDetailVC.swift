@@ -132,7 +132,7 @@ class PlaceDetailVC: UIViewController {
     func setupViews() {
         self.view.addSubviews(collectionView, saveButton, pageControl)
         self.view.addSubviews(scrollView)
-        self.view.backgroundColor = UIColor(red: 0.971, green: 0.971, blue: 0.971, alpha: 1)
+        self.view.backgroundColor = .contentcolor
         
         navigationController?.navigationBar.isTranslucent = true
 

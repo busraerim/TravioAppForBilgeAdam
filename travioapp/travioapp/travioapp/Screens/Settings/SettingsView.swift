@@ -65,7 +65,6 @@ class SettingsView: UIViewController {
         profileImage.layer.cornerRadius = 60
         profileImage.contentMode = .scaleAspectFill
         profileImage.clipsToBounds = true
-//        profileImage.backgroundColor = .gray
         return profileImage
     }()
     
@@ -206,7 +205,6 @@ class SettingsView: UIViewController {
         collectionView.dropShadow()
         collectionView.snp.makeConstraints({make in
             make.leading.trailing.equalToSuperview().inset(16)
-//            make.top.bottom.equalToSuperview().offset(218)
             make.top.equalTo(buttonEditProfile.snp.bottom).offset(12)
             make.bottom.equalToSuperview()
 
