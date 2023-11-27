@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		35018CD72B03730300DFA5C5 /* HelpSupportData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35018CD62B03730300DFA5C5 /* HelpSupportData.swift */; };
 		35018CDB2B0395CE00DFA5C5 /* SettingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35018CDA2B0395CE00DFA5C5 /* SettingsData.swift */; };
 		350669A42AF10ABE00DBB2F7 /* MyVisitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350669A32AF10ABE00DBB2F7 /* MyVisitView.swift */; };
 		350726F12AF8D62E002856B8 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350726F02AF8D62E002856B8 /* AuthManager.swift */; };
@@ -26,9 +25,6 @@
 		3565736C2AF0FA2B007BFC26 /* MyVisitsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3565736B2AF0FA2B007BFC26 /* MyVisitsCell.swift */; };
 		3569A7672AE96486007E53B6 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3569A7662AE96486007E53B6 /* SignUpVC.swift */; };
 		35732B782AFCC12F00A74ED5 /* UploadResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35732B772AFCC12F00A74ED5 /* UploadResponse.swift */; };
-		35732B852AFCF53C00A74ED5 /* HelpSupportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35732B842AFCF53C00A74ED5 /* HelpSupportVC.swift */; };
-		35732B872AFCF58000A74ED5 /* HelpSupportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35732B862AFCF58000A74ED5 /* HelpSupportCell.swift */; };
-		35732B892AFCF98F00A74ED5 /* HelpSupportCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35732B882AFCF98F00A74ED5 /* HelpSupportCellModel.swift */; };
 		357DDB5D2B1376130005B63F /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357DDB5C2B1376130005B63F /* MapViewModel.swift */; };
 		359024682AEC10800060D6C9 /* Vector.svg in Resources */ = {isa = PBXBuildFile; fileRef = 359024672AEC10800060D6C9 /* Vector.svg */; };
 		35B2D1182AE990F200FD61EF /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B2D1172AE990F200FD61EF /* Register.swift */; };
@@ -111,7 +107,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		35018CD62B03730300DFA5C5 /* HelpSupportData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpSupportData.swift; sourceTree = "<group>"; };
 		35018CDA2B0395CE00DFA5C5 /* SettingsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsData.swift; sourceTree = "<group>"; };
 		350669A32AF10ABE00DBB2F7 /* MyVisitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVisitView.swift; sourceTree = "<group>"; };
 		350726F02AF8D62E002856B8 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
@@ -130,9 +125,6 @@
 		3565736B2AF0FA2B007BFC26 /* MyVisitsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVisitsCell.swift; sourceTree = "<group>"; };
 		3569A7662AE96486007E53B6 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		35732B772AFCC12F00A74ED5 /* UploadResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadResponse.swift; sourceTree = "<group>"; };
-		35732B842AFCF53C00A74ED5 /* HelpSupportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpSupportVC.swift; sourceTree = "<group>"; };
-		35732B862AFCF58000A74ED5 /* HelpSupportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpSupportCell.swift; sourceTree = "<group>"; };
-		35732B882AFCF98F00A74ED5 /* HelpSupportCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpSupportCellModel.swift; sourceTree = "<group>"; };
 		357DDB5C2B1376130005B63F /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		359024672AEC10800060D6C9 /* Vector.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Vector.svg; sourceTree = "<group>"; };
 		35B2D1172AE990F200FD61EF /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
@@ -267,17 +259,6 @@
 			path = SignUp;
 			sourceTree = "<group>";
 		};
-		35732B832AFCF50E00A74ED5 /* HelpSupport */ = {
-			isa = PBXGroup;
-			children = (
-				35732B882AFCF98F00A74ED5 /* HelpSupportCellModel.swift */,
-				35732B842AFCF53C00A74ED5 /* HelpSupportVC.swift */,
-				35732B862AFCF58000A74ED5 /* HelpSupportCell.swift */,
-				35018CD62B03730300DFA5C5 /* HelpSupportData.swift */,
-			);
-			path = HelpSupport;
-			sourceTree = "<group>";
-		};
 		35B3264E2B0C9B1A00A935AE /* TermsOfUse */ = {
 			isa = PBXGroup;
 			children = (
@@ -329,7 +310,6 @@
 				4342FBFC2B138D9E003D4710 /* HelpAndSupport */,
 				35B326512B0DD58800A935AE /* About */,
 				35B3264E2B0C9B1A00A935AE /* TermsOfUse */,
-				35732B832AFCF50E00A74ED5 /* HelpSupport */,
 				439A41DB2AFBA5C900F1D252 /* MyAddedPlace */,
 				439A41D22AFA620600F1D252 /* PlaceDetails */,
 				439A41C92AFA174F00F1D252 /* AddNewPlace */,
@@ -646,7 +626,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4354F2912AE92E610002D438 /* NetworkingHelper.swift in Sources */,
-				35018CD72B03730300DFA5C5 /* HelpSupportData.swift in Sources */,
 				350726F12AF8D62E002856B8 /* AuthManager.swift in Sources */,
 				350726F32AF8DFFC002856B8 /* ChangePasswordRequest.swift in Sources */,
 				43DF6CF92ADC5B8D00DEDD3A /* LoginVc.swift in Sources */,
@@ -660,15 +639,12 @@
 				436FD80B2AEBE63300EEA47F /* HomeUIVC.swift in Sources */,
 				439A41A52AF2A5EA00F1D252 /* TabbarUI.swift in Sources */,
 				3569A7672AE96486007E53B6 /* SignUpVC.swift in Sources */,
-				35732B852AFCF53C00A74ED5 /* HelpSupportVC.swift in Sources */,
-				35732B892AFCF98F00A74ED5 /* HelpSupportCellModel.swift in Sources */,
 				356239E32AF2A49F00328B2B /* PrivacyCell.swift in Sources */,
 				43CD21672AFE501200D96784 /* PlaceDetailViewModel.swift in Sources */,
 				3518A6A92AEBC75F00357E9E /* MyVisitsViewModel.swift in Sources */,
 				3518A6A32AEBC6FF00357E9E /* MyVisits.swift in Sources */,
 				439A41D12AFA2E2400F1D252 /* AddNewPlaceCell.swift in Sources */,
 				439A41DA2AFB89EF00F1D252 /* MyAddedPlacesVC.swift in Sources */,
-				35732B872AFCF58000A74ED5 /* HelpSupportCell.swift in Sources */,
 				43DF6CF72ADC5B8D00DEDD3A /* SceneDelegate.swift in Sources */,
 				436FD80D2AEC0E1C00EEA47F /* CustomCollectionCell.swift in Sources */,
 				35B326532B0DD5AB00A935AE /* AboutVC.swift in Sources */,
