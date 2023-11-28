@@ -18,12 +18,14 @@ class EditProfileViewModel {
     }
     
     var showAlertClosure: (() -> ())?
+
+
     
     func getProfileInfo(){
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .me, callback: {(result:Result<ProfileResponse, Error>) in
             switch result {
             case .success(let profile):
-                self.dataTransferClosure!(profile)
+                self.dataTransferClosure?(profile)
             case .failure(let err):
                 print(err.localizedDescription)
             }
@@ -40,6 +42,7 @@ class EditProfileViewModel {
                 print(success.message ?? "A")
             case .failure(let failure):
                 print(failure.localizedDescription)
+
             }
         })
     }

@@ -47,7 +47,6 @@ class SignUpVC: UIViewController {
         return inputBox
     }
     
-    //username ve email autocorrections vs..
     private lazy var usernameInputView:InputBox = createInputBox(title: "Username", placeholder: "bilge_adam")
     private lazy var emailInputView:InputBox = createInputBox(title: "Email", placeholder: "developer@bilgeadam.com")
     private lazy var passwordInputView:InputBox = createInputBox(title: "Password", placeholder: "")

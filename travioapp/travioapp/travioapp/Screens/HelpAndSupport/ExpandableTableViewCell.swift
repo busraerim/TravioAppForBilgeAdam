@@ -11,14 +11,7 @@ class ExpandableTableViewCell: UITableViewCell {
 
 
     static let reuseIdentifier = "ExpandableTableViewCell"
-    
-//    private lazy var backView:UIView = {
-//        let view = UIView()
-//        view.layer.cornerRadius = 16
-//        view.backgroundColor = UIColor(red: 1.00, green: 1.00, blue: 1.00, alpha: 1.00)
-//        return view
-//    }()
-    
+
     let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.distribution = .fill
@@ -95,7 +88,6 @@ class ExpandableTableViewCell: UITableViewCell {
     func setup() {
         contentView.addSubview(stackView)
         contentView.backgroundColor = UIColor(red: 0.971, green: 0.971, blue: 0.971, alpha: 1)
-//        backView.addSubview(stackView)
         stackView.addArrangedSubviews(mainStackView, expandableView)
         mainStackView.addArrangedSubviews(labelQuestion,chevronImageView)
         expandableView.addSubview(labelanswer)

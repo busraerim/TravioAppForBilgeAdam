@@ -66,7 +66,6 @@ class MapCollectionCell: UICollectionViewCell {
     }
     
     private func setupLayout(){
-//        icon.image = .locationItem
 
         placeView.edgesToSuperview()
         image.edges(to: placeView)

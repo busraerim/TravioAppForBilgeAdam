@@ -217,7 +217,6 @@ extension MapVC {
         let coordinate = mapView.centerCoordinate
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
-//        mapView.addAnnotation(annotation)
         getCityCountry(gestureRecognizer: gestureRecognizer)
      }
     

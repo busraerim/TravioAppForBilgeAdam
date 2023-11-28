@@ -134,14 +134,12 @@ class PlaceDetailVC: UIViewController {
             }
         }
     }
-    
 
     override func viewDidLoad() {
        super.viewDidLoad()
        self.getAllGalery(placeId: detailPlace!.id)
        checkVisit(placeId: detailPlace!.id)
        checkDelete(placeId: detailPlace!.id)
-
     }
  
     public func getAllGalery(placeId:String){

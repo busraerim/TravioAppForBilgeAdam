@@ -354,18 +354,15 @@ extension UIViewController {
         }
     }
     
-//    func playLoading(){
-//        let view = BLLoadingIndicator()
-//        view.addLoading(to: self)
-//        self.view.bringSubviewToFront(view)
-//    }
-//
-//    func stopLoading(){
-//        self.view.subviews.forEach({ view in
-//            guard let loading = view as? BLLoadingIndicator else { return }
-//            loading.removeFromSuperview()
-//        })
-//    }
+    func showAlertFailure(message:String) {
+       let buttonCancel = UIAlertAction(title: "Cancel", style: .cancel)
+   
+        
+       let alert = UIAlertController(title: "Failure", message: message, preferredStyle: .alert)
+       alert.addAction(buttonCancel)
+       self.present(alert, animated: true)
+   }
+
     
 }
 

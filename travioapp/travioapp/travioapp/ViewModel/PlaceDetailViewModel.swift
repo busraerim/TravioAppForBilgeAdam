@@ -16,6 +16,8 @@ class PlaceDetailViewModel{
     
     var placeIdMyAdded:[String] = []
     var placeIdClosure: (([String])->Void)?
+    
+
 
     func getAllGallerybyPlaceID(placeId:String){
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .getAllGallerybyPlaceID(id: placeId), callback: { (result:Result<APIResponse,Error>) in
