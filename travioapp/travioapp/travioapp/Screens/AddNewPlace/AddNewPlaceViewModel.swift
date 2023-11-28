@@ -26,8 +26,17 @@ class AddNewPlaceViewModel{
     
     var profilePhotoClosure:((String)->Void)?
     
+    var isLoading: Bool = false {
+        didSet {
+            updateLoadingState?()
+        }
+    }
+
+    var updateLoadingState: (() -> Void)?
+
     
     func postNewPlace(request:AddNewPlace){
+        isLoading = true
         let params = ["place": request.place, "title": request.title, "description": request.description, "cover_image_url": request.coverImageUrl, "latitude": request.latitude, "longitude": request.longitude] as [String : Any]
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .postAPlace(param: params), callback: { (result:Result<BaseResponse, Error>) in
             switch result {
@@ -38,6 +47,7 @@ class AddNewPlaceViewModel{
                 print(failure.localizedDescription)
                 self.dispatchGroup.leave()
             }
+            self.isLoading = false
         })
     }
     
@@ -72,6 +82,7 @@ class AddNewPlaceViewModel{
     }
     
     func addNewPlace(data:[Data],place: String, title:String, description:String, latitude:Double, longitude:Double){
+        isLoading = true
         dispatchGroup.enter()
         uploadImage(data: data)
         self.dispatchGroup.notify(queue: .main) {
@@ -85,6 +96,7 @@ class AddNewPlaceViewModel{
                     self.postAGallery(request: params )
                 }
             }
+            self.isLoading = false
         }
      }
     

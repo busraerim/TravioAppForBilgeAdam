@@ -197,6 +197,7 @@ class SecuritySettingsView: UIViewController {
     }()
     
     @objc private func saveButtonTapped(){
+        showActivityIndicator()
         guard let password =  newPassword.txtPlaceholder.text,
               let passwordConfirm = newPasswordConfirm.txtPlaceholder.text else { return }
         
@@ -205,7 +206,9 @@ class SecuritySettingsView: UIViewController {
     
     
     func showAlert(buttonTitle:String, title:String, message:String, style: UIAlertAction.Style = .default){
-        let btnRetry = UIAlertAction(title: buttonTitle, style: style)
+        let btnRetry = UIAlertAction(title: buttonTitle, style: style, handler: { _ in
+            self.hideActivityIndicator()
+        })
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(btnRetry)
@@ -213,20 +216,16 @@ class SecuritySettingsView: UIViewController {
     }
     
     func initVM(){
-        viewModel.showErrorAlertClosure = { [weak self] () in
+        
+        viewModel.onError = { [weak self] title, message in
             DispatchQueue.main.async {
-                if let message = self?.viewModel.errorAlertMessage {
-                    self?.showAlert(buttonTitle:"Yeniden Dene", title: "Hata", message: message, style: .destructive)
-                }
+                self?.showAlert(buttonTitle: "Yeniden Dene", title: title, message: message, style: .destructive)
             }
         }
         
-        viewModel.showSuccessAlertClosure = { [weak self] () in
+        viewModel.onSuccess = { [weak self] title, message in
             DispatchQueue.main.async {
-                if let message = self?.viewModel.successAlertMessage {
-                    self?.showAlert(buttonTitle:"Kapat", title: "Başarılı", message: message)
-                }
-                
+                self?.showAlert(buttonTitle: "Tamam", title: title, message: message)
             }
         }
     }
