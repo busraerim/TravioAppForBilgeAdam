@@ -27,7 +27,7 @@ class MyVisitsView: UIViewController {
     private lazy var lblTitle:UILabel = {
         var view = UILabel()
         view.textColor = .white
-        view.font = UIFont(name: "Poppins-SemiBold", size: 36)
+        view.font = CustomFont.header1.font
         view.text = "My Visits"
         return view
     }()

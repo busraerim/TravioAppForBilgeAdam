@@ -30,7 +30,7 @@ class SignUpVC: UIViewController {
     
     private lazy var lblTitle:UILabel = {
         var view = UILabel()
-        view.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        view.textColor = .black
         view.font = CustomFont.header1.font
         view.text = "Sign Up"
         return view
@@ -67,7 +67,7 @@ class SignUpVC: UIViewController {
         button.height(54)
         button.layer.cornerRadius = 10
         button.setTitle("Sign Up", for: .normal)
-        button.backgroundColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
+        button.backgroundColor = .appblack
         return button
     }()
     
@@ -192,7 +192,7 @@ class SignUpVC: UIViewController {
     
     private func setupViews(){
         self.navigationController?.isNavigationBarHidden = true
-        view.backgroundColor = UIColor(named: "background")
+        view.backgroundColor = .background
         view.addSubviews(backButton, backgroundView, lblTitle)
         signUpButton.isHidden = false
         inputsStackView.addArrangedSubviews(usernameInputView, emailInputView, passwordInputView, passwordConfirmInputView)

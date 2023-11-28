@@ -97,7 +97,10 @@ class AddNewPlaceVC: UIViewController {
     }()
     
     func showAlertForEmptyText(title:String,message:String) {
-       let btnRetry = UIAlertAction(title: "Try Again", style: .destructive)
+        let btnRetry = UIAlertAction(title: "Try Again", style: .destructive, handler: { _ in
+            self.hideActivityIndicator()
+        })
+        
        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
        alert.addAction(btnRetry)
        self.present(alert, animated: true)
@@ -171,12 +174,13 @@ class AddNewPlaceVC: UIViewController {
         
         viewModel.addNewPlace(data: imageDataArray, place: place, title: title, description: description, latitude: latitude, longitude: longitude)
         viewModel.dissmissControl = { bool in
-            self.dismiss(animated: true, completion: {self.delegate?.getDataFromApi()})
+            self.dismiss(animated: true, completion: {
+                self.delegate?.getDataFromApi()})
         }
     }
     
     @objc func btnAddTapped(){
-        
+        showActivityIndicator()
         if !txtTitle.text!.isEmpty && !txtDescription.text.isEmpty && self.imageDataArray.count >= 2 {
             getCoordinate!()
             self.postANewPlace()
@@ -189,7 +193,16 @@ class AddNewPlaceVC: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(red: 0.971, green: 0.971, blue: 0.971, alpha: 1)
         setupViews()
-       
+        
+        viewModel.updateLoadingState = { [weak self] in
+            guard let self = self else { return }
+            if self.viewModel.isLoading {
+                self.showActivityIndicator()
+            } else {
+                self.hideActivityIndicator()
+            }
+        }
+        
     }
     
     

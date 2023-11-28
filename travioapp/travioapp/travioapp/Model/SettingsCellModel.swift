@@ -8,6 +8,7 @@
 import Foundation
 
 struct SettingsCellModel {
-    let iconImage:String
-    let label:String
+    let type: SettingsCellType
+    let iconImage: String
+    let label: String
 }

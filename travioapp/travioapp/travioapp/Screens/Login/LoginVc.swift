@@ -32,7 +32,7 @@ class LoginVc: UIViewController {
     
     private lazy var backView:UIView = {
         let backView = UIView()
-        backView.backgroundColor = UIColor(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.00)
+        backView.backgroundColor = .contentcolor
         return backView
     }()
     
@@ -80,7 +80,7 @@ class LoginVc: UIViewController {
         login.setTitle("Log in", for: .normal)
         login.layer.cornerRadius = 10
         login.height(54)
-        login.backgroundColor = UIColor(red: 0.22, green: 0.68, blue: 0.66, alpha: 1.00)
+        login.backgroundColor = .background
         login.addTarget(self, action: #selector(btnLoginTapped), for: .touchUpInside)
         return login
     }()
@@ -206,12 +206,10 @@ class LoginVc: UIViewController {
         })
         
         
-        emailView.width(342)
         stackView.topToBottom(of: lblWelcome, offset: 41)
         stackView.leadingToSuperview(offset: 24)
         stackView.trailingToSuperview(offset: 24)
         
-        btnLogin.width(342)
         btnLogin.topToBottom(of: stackView, offset: 48)
         btnLogin.leadingToSuperview(offset: 24)
         btnLogin.trailingToSuperview(offset: 24)

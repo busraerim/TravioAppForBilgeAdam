@@ -138,7 +138,15 @@ class SettingsView: UIViewController {
         }
         
         viewModel.getProfileInfo()
-
+        
+        viewModel.updateLoadingState = { [weak self] in
+            guard let self = self else { return }
+            if self.viewModel.isLoading {
+                self.showActivityIndicator()
+            } else {
+                self.hideActivityIndicator()
+            }
+        }
     }
     
 
@@ -152,6 +160,7 @@ class SettingsView: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.hideActivityIndicator()
         }
+        
     }
 
     private func setupViews(){
@@ -210,33 +219,29 @@ class SettingsView: UIViewController {
 
 extension SettingsView:UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch indexPath.item {
-        case 0:
-            let vc = SecuritySettingsView()
-            vc.hidesBottomBarWhenPushed = true
-            navigationController?.pushViewController(vc, animated: true)
-//        case 1:
-//            let vc = AppDefaultVC()
-//            navigationController?.pushViewController(vc, animated: true)
-        case 2:
-            let vc = MyAddedPlacesVC()
-            vc.hidesBottomBarWhenPushed = true
-            navigationController?.pushViewController(vc, animated: true)
-        case 3:
-            let vc = HelpAndSupportVC()
-            vc.hidesBottomBarWhenPushed = true
-            navigationController?.pushViewController(vc, animated: true)
-        case 4:
-            let vc = AboutVC()
-            vc.hidesBottomBarWhenPushed = true
-            navigationController?.pushViewController(vc, animated: true)
-        case 5:
-            let vc = TermOfUsesVC()
-            vc.hidesBottomBarWhenPushed = true
-            navigationController?.pushViewController(vc, animated: true)
-        default:
-            break
+        guard let cellType = SettingsCellType(rawValue: indexPath.item) else { return }
+        
+        let viewController: UIViewController
+        
+        switch cellType {
+        case .securitySettings:
+            viewController = SecuritySettingsView()
+        case .appDefaults:
+            // viewController = AppDefaultVC()
+            // Implement AppDefaultVC as needed
+            return
+        case .myAddedPlaces:
+            viewController = MyAddedPlacesVC()
+        case .helpAndSupport:
+            viewController = HelpAndSupportVC()
+        case .about:
+            viewController = AboutVC()
+        case .termsOfUse:
+            viewController = TermOfUsesVC()
         }
+        
+        viewController.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     

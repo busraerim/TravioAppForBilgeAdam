@@ -11,6 +11,12 @@ class EditProfileViewModel {
     
     var dataTransferClosure: ((ProfileResponse) -> Void)?
     
+    var isLoading: Bool = false {
+        didSet {
+            self.updateLoadingState?()
+        }
+    }
+    
     var alertMessage: String? {
         didSet {
             self.showAlertClosure?()
@@ -18,11 +24,13 @@ class EditProfileViewModel {
     }
     
     var showAlertClosure: (() -> ())?
+    var updateLoadingState: (() -> ())?
 
-
-    
     func getProfileInfo(){
+        isLoading = true
+        
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .me, callback: {(result:Result<ProfileResponse, Error>) in
+            self.isLoading = false
             switch result {
             case .success(let profile):
                 self.dataTransferClosure?(profile)
@@ -33,9 +41,12 @@ class EditProfileViewModel {
     }
     
     func changeProfileInfo(profile:EditProfileRequest){
+        isLoading = true
+        
         let params = ["full_name": profile.fullName, "email": profile.email, "pp_url": profile.ppUrl]
         
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .editProfile(param: params), callback: { (result:Result<BaseResponse, Error>) in
+            self.isLoading = false
             switch result {
             case .success(let success):
                 self.alertMessage = "Profil başarıyla güncellenmiştir."

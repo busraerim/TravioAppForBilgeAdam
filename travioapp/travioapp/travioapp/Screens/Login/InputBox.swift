@@ -50,6 +50,7 @@ class InputBox: UIView {
        let placeholder = UITextField()
         placeholder.font = CustomFont.subTitle3.font
         placeholder.autocapitalizationType = .none
+        placeholder.width(250)
         return placeholder
     }()
     
@@ -66,7 +67,7 @@ class InputBox: UIView {
         super.init(frame: frame)
         self.layer.cornerRadius = 16
         self.height(74)
-        self.backgroundColor =  UIColor(red: 1.00, green: 1.00, blue: 1.00, alpha: 1.00)
+        self.backgroundColor = .white
         self.layer.shadowRadius = 20
         self.layer.shadowOpacity = 0.15
         self.addSubviews(lblTitle,txtPlaceholder, showPasswordButton)

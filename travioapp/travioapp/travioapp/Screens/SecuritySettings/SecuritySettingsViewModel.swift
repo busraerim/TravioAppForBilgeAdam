@@ -10,36 +10,23 @@ import Foundation
 class SecuritySettingsViewModel {
     
     
-    var showErrorAlertClosure:(()->())?
-    var showSuccessAlertClosure:(()->())?
-    
-    var errorAlertMessage: String? {
-        didSet {
-            self.showErrorAlertClosure?()
-        }
-    }
-    
-    var successAlertMessage: String? {
-        didSet {
-            self.showSuccessAlertClosure?()
-        }
-    }
+    var onSuccess: ((String, String) -> Void)?
+    var onError: ((String, String) -> Void)?
     
     func controlPassworRequirement(password:String, passwordConfirm:String) {
 
         guard password == passwordConfirm else {
-            self.errorAlertMessage = "Şifreler uyuşmuyor. Tekrar deneyiniz."
+            self.onError!("Hata", "Şifreler uyuşmuyor. Tekrar deneyiniz.")
             return
         }
         
         guard password.count >= 6  else {
-            self.errorAlertMessage = "Geçersiz şifre"
-
+            self.onError!("Hata", "Geçersiz şifre.")
             return
         }
         
         guard password != info.password else {
-            self.errorAlertMessage = "Yeni şifreniz güncel şifreniz ile aynı olamaz"
+            self.onError!("Hata", "Yeni şifreniz güncel şifreniz ile aynı olamaz.")
             return
         }
         
@@ -56,10 +43,9 @@ class SecuritySettingsViewModel {
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .changePassword(param: params), callback: { (result:Result<BaseResponse, Error>) in
             switch result {
             case .success(let success):
-                self.successAlertMessage = "Şifre değiştirme başarılı."
-                print(success.message ?? "AA")
+                self.onSuccess!("Başarılı", "Şifre değiştirme başarılı.")
             case .failure(let failure):
-                self.errorAlertMessage = failure.localizedDescription
+                self.onError!("Hata", failure.localizedDescription)
             }
         })
     }
