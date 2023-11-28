@@ -31,6 +31,7 @@ enum Router {
     case postAVisit(param:Parameters)
     case deleteAVisitByPlaceID(id:String)
     case checkVisitByPlaceID(id:String)
+    case deleteAPlace(id:String)
     
 
 
@@ -80,6 +81,8 @@ enum Router {
             return "/v1/visits/\(id)"
         case .checkVisitByPlaceID(id: let id):
             return "/v1/visits/user/\(id)"
+        case .deleteAPlace(let id):
+            return "/v1/places/\(id)"
         }
     }
     
@@ -92,7 +95,7 @@ enum Router {
             return .get
         case .editProfile, .changePassword:
             return .put
-        case .deleteAVisitByPlaceID:
+        case .deleteAVisitByPlaceID, .deleteAPlace:
             return .delete
         }
     
@@ -103,7 +106,7 @@ enum Router {
         switch self {
         case .login, .register, .refresh, .getPopular, .getPopularWith, .getNewPlacesWith, .getNew, .getAllPlacesMap, .getAllGallerybyPlaceID:
             return [:]
-        case .visits, .me, .changePassword, .editProfile, .postAPlace, .getAllPlacesforUser, .getAllVisits, .postAGallery, .postAVisit, .deleteAVisitByPlaceID, .checkVisitByPlaceID:
+        case .visits, .me, .changePassword, .editProfile, .postAPlace, .getAllPlacesforUser, .getAllVisits, .postAGallery, .postAVisit, .deleteAVisitByPlaceID, .checkVisitByPlaceID, .deleteAPlace:
             guard let token = AuthManager.shared.getToken(accountIdentifier: "access-token") else { return [:] }
             return ["Authorization": "Bearer \(token)"]
         case .upload:
@@ -129,7 +132,7 @@ enum Router {
         switch self {
         case .login(let params), .register(let params), .refresh(let params), .getPopularWith(let params), .getNewPlacesWith(let params), .editProfile(let params), .changePassword(let params), .postAPlace(let params), .postAGallery(let params), .postAVisit(let params):
             return params
-        case .visits, .getPopular, .getNew, .getAllPlacesMap, .me, .getAllPlacesforUser, .getAllVisits, .getAllGallerybyPlaceID, .upload, .deleteAVisitByPlaceID, .checkVisitByPlaceID:
+        case .visits, .getPopular, .getNew, .getAllPlacesMap, .me, .getAllPlacesforUser, .getAllVisits, .getAllGallerybyPlaceID, .upload, .deleteAVisitByPlaceID, .checkVisitByPlaceID, .deleteAPlace:
             return nil
 
         }

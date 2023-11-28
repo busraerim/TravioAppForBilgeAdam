@@ -14,8 +14,10 @@ class PlaceDetailViewModel{
     
     var dataTransferClosure: (([Image]) -> Void)?
     
-    
-    func getDataAllPlacesMap(placeId:String){
+    var placeIdMyAdded:[String] = []
+    var placeIdClosure: (([String])->Void)?
+
+    func getAllGallerybyPlaceID(placeId:String){
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .getAllGallerybyPlaceID(id: placeId), callback: { (result:Result<APIResponse,Error>) in
             switch result {
             case .success(let obj):
@@ -41,6 +43,21 @@ class PlaceDetailViewModel{
         })
     }
     
+    func getDataAllPlacesForUser(){
+        GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .getAllPlacesforUser, callback: { (result:Result<Place,Error>) in
+            switch result {
+            case .success(let obj):
+                let place = obj.data.places
+                for index in 0..<place.count{
+                    self.placeIdMyAdded.append(place[index].id)
+                }
+                self.placeIdClosure!(self.placeIdMyAdded)
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+        })
+    }
+    
     func deleteAVisitByPlaceId(placeId: String){
         
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .deleteAVisitByPlaceID(id: placeId), callback: { (result:Result<BaseResponse,Error>) in
@@ -58,11 +75,21 @@ class PlaceDetailViewModel{
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .checkVisitByPlaceID(id: placeId), callback: { (result:Result<BaseResponse,Error>) in
             switch result {
             case .success(let obj):
-//                print(obj.status)
                 self.checkStatus?(obj.status!)
             case .failure(let failure):
                 print(failure.localizedDescription)
                 self.checkStatus?("")
+            }
+        })
+    }
+    
+    func deleteAPlaceId(placeId: String){
+        GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .deleteAPlace(id: placeId), callback: { (result:Result<BaseResponse,Error>) in
+            switch result {
+            case .success(let obj):
+                print(obj.message)
+            case .failure(let failure):
+                print(failure.localizedDescription)
             }
         })
     }

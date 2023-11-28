@@ -13,18 +13,15 @@ import MapKit
 
 
 class PlaceDetailVC: UIViewController {
+        
     
-    let myAddedPlaceVC = MyAddedPlacesVC()
-    
+    let placeDetailViewModel = PlaceDetailViewModel()
+
     var detailPlace:PlaceItem?
     
     var getGallery:[Image] = []
     
     var images:[String] = []
-   
-    
-    var rightButtonImage = UIImage(named: "notmarked")
-
     
     lazy var viewModel: PlaceDetailViewModel = {
         return PlaceDetailViewModel()
@@ -65,7 +62,7 @@ class PlaceDetailVC: UIViewController {
         return v
     }()
     
-    public lazy var saveButton:UIButton = {
+    private lazy var saveButton:UIButton = {
        let button = UIButton()
         button.setImage(.notmarked, for: .normal)
         button.addTarget(self, action: #selector(buttonSaveTapped), for: .touchUpInside)
@@ -90,7 +87,6 @@ class PlaceDetailVC: UIViewController {
     }
     
     func checkVisit(placeId:String){
-        let placeDetailViewModel = PlaceDetailViewModel()
 
         placeDetailViewModel.checkStatus = { [weak self] status in
           if status == "success" {
@@ -101,12 +97,51 @@ class PlaceDetailVC: UIViewController {
       }
         placeDetailViewModel.checkVisitByPlaceID(placeId: placeId )
     }
+
+    
+    public lazy var deleteButton:UIButton = {
+       let button = UIButton()
+        button.setImage(UIImage(systemName: "trash"), for: .normal)
+        button.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
+        button.tintColor = UIColor(red: 0.22, green: 0.68, blue: 0.66, alpha: 1.00)
+       return button
+    }()
+    
+    func showAlertDelete(title:String,message:String) {
+        let delete = UIAlertAction(title: "Sil", style: .default, handler: { action in
+            self.placeDetailViewModel.deleteAPlaceId(placeId: self.detailPlace!.id)
+            self.navigationController?.popViewController(animated: true)
+        })
+        let cancel = UIAlertAction(title: "İptal", style: .cancel)
+       let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+       alert.addAction(delete)
+       alert.addAction(cancel)
+
+     self.present(alert, animated: true)
+   }
+        
+    @objc func deleteButtonTapped(){
+        showAlertDelete(title:"Uyarı", message: "Silmek istediğinize emin misiniz?")
+    }
+
+    func checkDelete(placeId:String){
+        placeDetailViewModel.getDataAllPlacesForUser()
+        placeDetailViewModel.placeIdClosure = { id in
+            if id.contains(placeId){
+                self.deleteButton.isHidden = false
+            }else{
+                self.deleteButton.isHidden = true
+            }
+        }
+    }
     
 
     override func viewDidLoad() {
        super.viewDidLoad()
        self.getAllGalery(placeId: detailPlace!.id)
        checkVisit(placeId: detailPlace!.id)
+       checkDelete(placeId: detailPlace!.id)
+
     }
  
     public func getAllGalery(placeId:String){
@@ -125,13 +160,14 @@ class PlaceDetailVC: UIViewController {
             this.setupViews()
 
         }
-        viewModel.getDataAllPlacesMap(placeId: placeId)
+        viewModel.getAllGallerybyPlaceID(placeId: placeId)
     }
      
 
     func setupViews() {
         self.view.addSubviews(collectionView, saveButton, pageControl)
         self.view.addSubviews(scrollView)
+        scrollView.addSubviews(deleteButton)
         self.view.backgroundColor = UIColor(red: 0.971, green: 0.971, blue: 0.971, alpha: 1)
         
         navigationController?.navigationBar.isTranslucent = true
@@ -173,6 +209,8 @@ class PlaceDetailVC: UIViewController {
         pageControl.centerXToSuperview()
         pageControl.bottomToTop(of: scrollView, offset: -10)
         
+        deleteButton.topToSuperview(offset:30)
+        deleteButton.trailingToSuperview(offset:20)
        
      
     }

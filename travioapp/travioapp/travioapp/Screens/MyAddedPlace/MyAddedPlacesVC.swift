@@ -9,15 +9,15 @@
 import UIKit
 import TinyConstraints
 
+
 class MyAddedPlacesVC: UIViewController {
     
     var myAddedPlacesSetting:[PlaceItem] = []
    
     let viewModel = HomeViewModel()
-        
-
-
     
+    var placeIdMyAdded:[String] = []
+        
     private lazy var customView:CustomView = {
         let view = CustomView()
         return view
@@ -81,6 +81,9 @@ class MyAddedPlacesVC: UIViewController {
         viewModel.getDataAllPlacesForUser()
         viewModel.myAddedSettingClosure = { place in
             self.myAddedPlacesSetting = place
+            for index in 0..<place.count{
+                self.placeIdMyAdded.append(place[index].id)
+            }
             self.collectionView.reloadData()
         }
     }

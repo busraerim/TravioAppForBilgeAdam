@@ -315,10 +315,8 @@ class SecuritySettingsView: UIViewController {
 extension SecuritySettingsView:CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse || status == .authorizedAlways {
-            print("Location access is granted now")
             self.locationLabel.toggleSwitch.isOn = true
         } else {
-            print("Location access is still not granted")
             self.locationLabel.toggleSwitch.isOn = false
         }
     }
@@ -332,18 +330,14 @@ extension SecuritySettingsView{
             func checkCameraPermission() {
                 switch cameraAuthorizationStatus {
                 case .authorized:
-                    print("Kamera erişimi zaten var")
                     self.cameraLabel.toggleSwitch.isOn = true
                 case .denied, .restricted:
-                    print("Kamera izni daha önce reddedilmiş veya sınırlı")
                     showSettingsAlert(title: "Camera Access Denied", message: "Please enable access to your camera in Settings." , toggle: cameraLabel.toggleSwitch)
                 case .notDetermined:
                     AVCaptureDevice.requestAccess(for: .video) { granted in
                         if granted {
-                            print("Kamera izni verildi")
                             self.cameraLabel.toggleSwitch.isOn = true
                         } else {
-                            print("Kamera izni reddedildi")
                             self.cameraLabel.toggleSwitch.isOn = false
                         }
                     }
@@ -356,18 +350,14 @@ extension SecuritySettingsView{
     func checkPhotoLibraryPermission() {
         switch status {
         case .authorized:
-            print("erişim zaten var")
             self.photoLibraryLabel.toggleSwitch.isOn = true
             break
         case .denied, .restricted:
-            print("daha önce reddedilmiş")
             showSettingsAlert(title: "Photo Library Access Denied", message: "Please enable access to your photo library in Settings.", toggle: photoLibraryLabel.toggleSwitch)
         case .notDetermined:
             PHPhotoLibrary.requestAuthorization { status in
                 if status == .authorized {
-                    print("izin var")
                 } else {
-                    print("izin yok")
                     self.photoLibraryLabel.toggleSwitch.isOn = false
                 }
             }
