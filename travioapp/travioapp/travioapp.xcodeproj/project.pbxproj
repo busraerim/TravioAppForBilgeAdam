@@ -17,9 +17,7 @@
 		350726FB2AF9171A002856B8 /* SecuritySettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350726FA2AF9171A002856B8 /* SecuritySettingsViewModel.swift */; };
 		3513FF102AEDA24E004550D0 /* Rectangle 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3513FF0F2AEDA24E004550D0 /* Rectangle 1.png */; };
 		3518A6A32AEBC6FF00357E9E /* MyVisits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3518A6A22AEBC6FF00357E9E /* MyVisits.swift */; };
-		3518A6A92AEBC75F00357E9E /* MyVisitsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3518A6A82AEBC75F00357E9E /* MyVisitsViewModel.swift */; };
 		356239DF2AF2A0F600328B2B /* SecuritySettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356239DE2AF2A0F600328B2B /* SecuritySettingsView.swift */; };
-		356239E12AF2A46900328B2B /* ChangePasswordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356239E02AF2A46900328B2B /* ChangePasswordCell.swift */; };
 		356239E32AF2A49F00328B2B /* PrivacyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356239E22AF2A49F00328B2B /* PrivacyCell.swift */; };
 		356239E52AF2CE4A00328B2B /* SettingsHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356239E42AF2CE4A00328B2B /* SettingsHeaderCollectionReusableView.swift */; };
 		3565736C2AF0FA2B007BFC26 /* MyVisitsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3565736B2AF0FA2B007BFC26 /* MyVisitsCell.swift */; };
@@ -34,7 +32,6 @@
 		35B326532B0DD5AB00A935AE /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B326522B0DD5AB00A935AE /* AboutVC.swift */; };
 		35BB4AD62AF3F23F0030F916 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BB4AD52AF3F23F0030F916 /* EditProfileVC.swift */; };
 		35BB4AD82AF40C6B0030F916 /* EditProfileCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BB4AD72AF40C6B0030F916 /* EditProfileCustomView.swift */; };
-		35C519342AF23EA1003EE986 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C519332AF23EA1003EE986 /* KeychainHelper.swift */; };
 		35C519392AF245DA003EE986 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C519382AF245DA003EE986 /* SettingsView.swift */; };
 		35C5193B2AF24608003EE986 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C5193A2AF24608003EE986 /* SettingsCell.swift */; };
 		35C5193D2AF24BF5003EE986 /* SettingsCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C5193C2AF24BF5003EE986 /* SettingsCellModel.swift */; };
@@ -117,9 +114,7 @@
 		350726FA2AF9171A002856B8 /* SecuritySettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecuritySettingsViewModel.swift; sourceTree = "<group>"; };
 		3513FF0F2AEDA24E004550D0 /* Rectangle 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rectangle 1.png"; sourceTree = "<group>"; };
 		3518A6A22AEBC6FF00357E9E /* MyVisits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVisits.swift; sourceTree = "<group>"; };
-		3518A6A82AEBC75F00357E9E /* MyVisitsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVisitsViewModel.swift; sourceTree = "<group>"; };
 		356239DE2AF2A0F600328B2B /* SecuritySettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecuritySettingsView.swift; sourceTree = "<group>"; };
-		356239E02AF2A46900328B2B /* ChangePasswordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordCell.swift; sourceTree = "<group>"; };
 		356239E22AF2A49F00328B2B /* PrivacyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyCell.swift; sourceTree = "<group>"; };
 		356239E42AF2CE4A00328B2B /* SettingsHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		3565736B2AF0FA2B007BFC26 /* MyVisitsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVisitsCell.swift; sourceTree = "<group>"; };
@@ -134,7 +129,6 @@
 		35B326522B0DD5AB00A935AE /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
 		35BB4AD52AF3F23F0030F916 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
 		35BB4AD72AF40C6B0030F916 /* EditProfileCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileCustomView.swift; sourceTree = "<group>"; };
-		35C519332AF23EA1003EE986 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		35C519382AF245DA003EE986 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		35C5193A2AF24608003EE986 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		35C5193C2AF24BF5003EE986 /* SettingsCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCellModel.swift; sourceTree = "<group>"; };
@@ -231,7 +225,6 @@
 		3518A6A12AEBC6E100357E9E /* MyVisits */ = {
 			isa = PBXGroup;
 			children = (
-				3518A6A82AEBC75F00357E9E /* MyVisitsViewModel.swift */,
 				3565736B2AF0FA2B007BFC26 /* MyVisitsCell.swift */,
 				350669A32AF10ABE00DBB2F7 /* MyVisitView.swift */,
 			);
@@ -243,7 +236,6 @@
 			children = (
 				350726FA2AF9171A002856B8 /* SecuritySettingsViewModel.swift */,
 				356239DE2AF2A0F600328B2B /* SecuritySettingsView.swift */,
-				356239E02AF2A46900328B2B /* ChangePasswordCell.swift */,
 				356239E22AF2A49F00328B2B /* PrivacyCell.swift */,
 				356239E42AF2CE4A00328B2B /* SettingsHeaderCollectionReusableView.swift */,
 			);
@@ -299,7 +291,6 @@
 			isa = PBXGroup;
 			children = (
 				43DF6D082ADC5BCD00DEDD3A /* Extensions.swift */,
-				35C519332AF23EA1003EE986 /* KeychainHelper.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -630,7 +621,6 @@
 				350726F32AF8DFFC002856B8 /* ChangePasswordRequest.swift in Sources */,
 				43DF6CF92ADC5B8D00DEDD3A /* LoginVc.swift in Sources */,
 				43DF6CF52ADC5B8D00DEDD3A /* AppDelegate.swift in Sources */,
-				35C519342AF23EA1003EE986 /* KeychainHelper.swift in Sources */,
 				3569A7672AE96486007E53B6 /* SignUpVC.swift in Sources */,
 				4319CA9F2AFD6419000406CA /* ScrollView.swift in Sources */,
 				350726F52AF8E0D5002856B8 /* EditProfileRequest.swift in Sources */,
@@ -641,7 +631,6 @@
 				3569A7672AE96486007E53B6 /* SignUpVC.swift in Sources */,
 				356239E32AF2A49F00328B2B /* PrivacyCell.swift in Sources */,
 				43CD21672AFE501200D96784 /* PlaceDetailViewModel.swift in Sources */,
-				3518A6A92AEBC75F00357E9E /* MyVisitsViewModel.swift in Sources */,
 				3518A6A32AEBC6FF00357E9E /* MyVisits.swift in Sources */,
 				439A41D12AFA2E2400F1D252 /* AddNewPlaceCell.swift in Sources */,
 				439A41DA2AFB89EF00F1D252 /* MyAddedPlacesVC.swift in Sources */,
@@ -680,7 +669,6 @@
 				4342FC002B1392C3003D4710 /* CellDataModel.swift in Sources */,
 				4300A4012AEA4BE20011B846 /* UserToken.swift in Sources */,
 				356239E52AF2CE4A00328B2B /* SettingsHeaderCollectionReusableView.swift in Sources */,
-				356239E12AF2A46900328B2B /* ChangePasswordCell.swift in Sources */,
 				4354F28D2AE92CB80002D438 /* User.swift in Sources */,
 				4342FBFB2B138D90003D4710 /* HelpAndSupportVC.swift in Sources */,
 				439A41D62AFA6C8B00F1D252 /* AddNewPlaceViewModel.swift in Sources */,
