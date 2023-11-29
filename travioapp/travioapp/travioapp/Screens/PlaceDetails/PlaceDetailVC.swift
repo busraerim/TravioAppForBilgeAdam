@@ -23,9 +23,9 @@ class PlaceDetailVC: UIViewController {
     
     var images:[String] = []
     
-    lazy var viewModel: PlaceDetailViewModel = {
-        return PlaceDetailViewModel()
-    }()
+//    lazy var viewModel: PlaceDetailViewModel = {
+//        return PlaceDetailViewModel()
+//    }()
 
     private lazy var collectionView:UICollectionView = {
         let layout = makeCollectionViewLayout()
@@ -53,7 +53,7 @@ class PlaceDetailVC: UIViewController {
     
     private lazy var scrollView:ScrollView = {
         let v = ScrollView()
-        let date = viewModel.formatDateString(detailPlace!.createdAt)
+        let date = placeDetailViewModel.formatDateString(detailPlace!.createdAt)
         v.textData(title: detailPlace!.title, createdDate: date!, creator: detailPlace!.creator, description: detailPlace!.description, place: detailPlace!)
         let location = CLLocation(latitude: self.detailPlace!.latitude, longitude: self.detailPlace!.longitude)
         let zoomRadius: CLLocationDistance = 240
@@ -126,11 +126,22 @@ class PlaceDetailVC: UIViewController {
 
     func checkDelete(placeId:String){
         placeDetailViewModel.getDataAllPlacesForUser()
+        initVM()
         placeDetailViewModel.placeIdClosure = { id in
             if id.contains(placeId){
                 self.deleteButton.isHidden = false
             }else{
                 self.deleteButton.isHidden = true
+            }
+        }
+    }
+    
+    func initVM(){
+        placeDetailViewModel.showAlertFailureClosure = { [weak self] () in
+            DispatchQueue.main.async {
+                if let message = self?.placeDetailViewModel.failAlertMessage {
+                    self?.showAlertFailure(message: message)
+                }
             }
         }
     }
@@ -140,10 +151,13 @@ class PlaceDetailVC: UIViewController {
        self.getAllGalery(placeId: detailPlace!.id)
        checkVisit(placeId: detailPlace!.id)
        checkDelete(placeId: detailPlace!.id)
+       initVM()
     }
+    
+
  
     public func getAllGalery(placeId:String){
-        viewModel.dataTransferClosure = { [weak self] image in
+        placeDetailViewModel.dataTransferClosure = { [weak self] image in
             guard let this = self else { return }
             this.getGallery = image
             
@@ -158,7 +172,8 @@ class PlaceDetailVC: UIViewController {
             this.setupViews()
 
         }
-        viewModel.getAllGallerybyPlaceID(placeId: placeId)
+        placeDetailViewModel.getAllGallerybyPlaceID(placeId: placeId)
+        initVM()
     }
      
 
@@ -173,7 +188,7 @@ class PlaceDetailVC: UIViewController {
         let saveBarButton = UIBarButtonItem(customView: saveButton)
 
         
-        let leftButtonImage = UIImage(named:"backButton")
+        let leftButtonImage = UIImage(named:"backButtonFigma")
         let leftBarButton = UIBarButtonItem(image: leftButtonImage, style: .plain, target: self, action: #selector(backButtonTapped))
         leftBarButton.tintColor = UIColor(hex: "FFFFFF")
         

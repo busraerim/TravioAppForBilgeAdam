@@ -53,21 +53,6 @@ class MyAddedPlacesVC: UIViewController {
         return btn
     }()
     
-    
-    @objc func sortedButtonTapped(){
-        if sortedButton.currentImage == .ztoA{
-            myAddedPlacesSetting.sort { $0.title ?? "" < $1.title ?? "" }
-            sortedButton.setImage(.atoZ, for: .normal)
-            collectionView.reloadData()
-
-        }else{
-            myAddedPlacesSetting.sort { $0.title ?? "" > $1.title ?? "" }
-            sortedButton.setImage(.ztoA, for: .normal)
-            collectionView.reloadData()
-
-        }
-    }
-    
     private lazy var collectionView:UICollectionView = {
         let layout = makeCollectionViewLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -76,6 +61,27 @@ class MyAddedPlacesVC: UIViewController {
         cv.delegate = self
         return cv
     }()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = .background
+        networkingGetDataMyAddedPlaces()
+        setupViews()
+    }
+    
+    @objc func sortedButtonTapped(){
+        if sortedButton.currentImage == .ztoA{
+            myAddedPlacesSetting.sort { $0.title < $1.title }
+            sortedButton.setImage(.atoZ, for: .normal)
+            collectionView.reloadData()
+
+        }else{
+            myAddedPlacesSetting.sort { $0.title > $1.title }
+            sortedButton.setImage(.ztoA, for: .normal)
+            collectionView.reloadData()
+
+        }
+    }
     
     func networkingGetDataMyAddedPlaces(){
         viewModel.getDataAllPlacesForUser()
@@ -86,13 +92,6 @@ class MyAddedPlacesVC: UIViewController {
             }
             self.collectionView.reloadData()
         }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = .background
-        networkingGetDataMyAddedPlaces()
-        setupViews()
     }
   
     func setupViews() {

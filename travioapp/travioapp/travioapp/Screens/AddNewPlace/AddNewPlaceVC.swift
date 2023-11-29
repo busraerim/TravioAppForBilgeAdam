@@ -12,6 +12,8 @@ import TinyConstraints
 
 class AddNewPlaceVC: UIViewController {
     
+    let viewModel = AddNewPlaceViewModel()
+    
     let dispatchGroup = DispatchGroup()
 
     weak var delegate:GetData?
@@ -92,10 +94,6 @@ class AddNewPlaceVC: UIViewController {
         return button
     }()
     
-    lazy var viewModel:AddNewPlaceViewModel = {
-        return AddNewPlaceViewModel()
-    }()
-    
     func showAlertForEmptyText(title:String,message:String) {
         let btnRetry = UIAlertAction(title: "Try Again", style: .destructive, handler: { _ in
             self.hideActivityIndicator()
@@ -164,7 +162,6 @@ class AddNewPlaceVC: UIViewController {
     }
     
     func postANewPlace(){
-        let viewModel = AddNewPlaceViewModel()
       
         let place = labelCountry.text ?? " "
         let title = txtTitle.text!
@@ -177,6 +174,7 @@ class AddNewPlaceVC: UIViewController {
             self.dismiss(animated: true, completion: {
                 self.delegate?.getDataFromApi()})
         }
+        initVM()
     }
     
     @objc func btnAddTapped(){
@@ -186,6 +184,16 @@ class AddNewPlaceVC: UIViewController {
             self.postANewPlace()
         }else{
             self.showAlertForEmptyText(title: "Hata", message: "İlgili alanları doldurduğunuzdan emin olunuz.")
+        }
+    }
+    
+    func initVM(){
+        viewModel.showAlertFailureClosure = { [weak self] () in
+            DispatchQueue.main.async {
+                if let message = self?.viewModel.failAlertMessage {
+                    self?.showAlertFailure(message: message)
+                }
+            }
         }
     }
     

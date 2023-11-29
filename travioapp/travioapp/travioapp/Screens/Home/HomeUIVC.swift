@@ -22,8 +22,6 @@ class HomeUIVC: UIViewController {
 
     private lazy var backView:UIView = {
         let backView = UIView()
-        backView.height(719)
-        backView.width(390)
         backView.backgroundColor = .contentcolor
         return backView
     }()

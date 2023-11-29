@@ -33,6 +33,14 @@ class AddNewPlaceViewModel{
     }
 
     var updateLoadingState: (() -> Void)?
+    
+    var failAlertMessage: String? {
+        didSet {
+            self.showAlertFailureClosure?()
+        }
+    }
+    
+    var showAlertFailureClosure: (() -> ())?
 
     
     func postNewPlace(request:AddNewPlace){
@@ -45,6 +53,7 @@ class AddNewPlaceViewModel{
                 self.dispatchGroup.leave()
             case .failure(let failure):
                 print(failure.localizedDescription)
+                self.failAlertMessage = failure.localizedDescription
                 self.dispatchGroup.leave()
             }
             self.isLoading = false
@@ -61,6 +70,7 @@ class AddNewPlaceViewModel{
                 self.dispatchGroup.leave()
                 self.profilePhoto = self.imageData[0]
             case .failure(let failure):
+                self.failAlertMessage = failure.localizedDescription
                 print(failure.localizedDescription)
             }
         })
@@ -76,6 +86,7 @@ class AddNewPlaceViewModel{
                 break
             case .failure(let failure):
                 print(failure.localizedDescription)
+                self.failAlertMessage = failure.localizedDescription
                 self.dispatchGroup.leave()
             }
         })

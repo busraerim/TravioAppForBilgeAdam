@@ -64,7 +64,7 @@ class MyVisitsView: UIViewController {
         networkingMyVisitPlaces()
     }
 
-    func networkingMyVisitPlaces()->[MyVisit]{
+    func networkingMyVisitPlaces(){
         let viewModel = HomeViewModel()
               
         viewModel.dataTransferClosureForMyVisit = { [weak self] place in
@@ -74,7 +74,6 @@ class MyVisitsView: UIViewController {
         }
         
         viewModel.getDataMyVisitsPlaces()
-        return myVisitsPlace
     }
     
     private func setupViews(){

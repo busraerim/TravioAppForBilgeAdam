@@ -320,6 +320,14 @@ class EditProfileVC: UIViewController {
             }
         }
         
+        viewModel.showAlertFailureClosure = { [weak self] () in
+            DispatchQueue.main.async {
+                if let message = self?.viewModel.failAlertMessage {
+                    self?.showAlertFailure(message: message)
+                }
+            }
+        }
+        
         viewModel.updateLoadingState = { [weak self] in
             guard let self = self else { return }
             if self.viewModel.isLoading {
