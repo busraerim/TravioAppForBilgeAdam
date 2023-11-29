@@ -348,7 +348,7 @@ extension SecuritySettingsView{
     
     func checkPhotoLibraryPermission() {
         switch status {
-        case .authorized:
+        case .authorized, .limited:
             self.photoLibraryLabel.toggleSwitch.isOn = true
             break
         case .denied, .restricted:
@@ -360,6 +360,7 @@ extension SecuritySettingsView{
                     self.photoLibraryLabel.toggleSwitch.isOn = false
                 }
             }
+
         @unknown default:
             break
         }
