@@ -51,7 +51,7 @@ class EditProfileViewModel {
     func changeProfileInfo(profile:EditProfileRequest){
         isLoading = true
         
-        let params = ["full_name": profile.fullName, "emal": profile.email, "pp_url": profile.ppUrl]
+        let params = ["full_name": profile.fullName, "email": profile.email, "pp_url": profile.ppUrl]
         
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .editProfile(param: params), callback: { (result:Result<BaseResponse, Error>) in
             self.isLoading = false

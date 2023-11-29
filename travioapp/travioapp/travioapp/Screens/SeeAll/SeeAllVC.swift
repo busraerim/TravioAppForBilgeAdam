@@ -49,19 +49,6 @@ class SeeAllVC: UIViewController {
         cv.delegate = self
         return cv
     }()
-    
-    @objc func buttonSortedTapped(){
-        if buttonSorted.currentImage == .ztoA{
-            dataPlaceSeeAll.sort { $0.title < $1.title }
-            buttonSorted.setImage(.atoZ, for: .normal)
-            collectionView.reloadData()
-        }else{
-            dataPlaceSeeAll.sort { $0.title > $1.title }
-            buttonSorted.setImage(.ztoA, for: .normal)
-            collectionView.reloadData()
-
-        }
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +73,19 @@ class SeeAllVC: UIViewController {
     
     @objc func backButtonTapped(){
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func buttonSortedTapped(){
+        if buttonSorted.currentImage == .ztoA{
+            dataPlaceSeeAll.sort { $0.title < $1.title }
+            buttonSorted.setImage(.atoZ, for: .normal)
+            collectionView.reloadData()
+        }else{
+            dataPlaceSeeAll.sort { $0.title > $1.title }
+            buttonSorted.setImage(.ztoA, for: .normal)
+            collectionView.reloadData()
+
+        }
     }
     
     func setupLayout() {

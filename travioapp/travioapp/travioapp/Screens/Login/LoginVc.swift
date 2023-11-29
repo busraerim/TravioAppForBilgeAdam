@@ -15,15 +15,7 @@ import Photos
 class LoginVc: UIViewController {
     
     var status = PHPhotoLibrary.authorizationStatus()
-    
-    
-    func getPermission(){
-        let vc = SecuritySettingsView()
-        vc.checkPhotoLibraryPermission()
-        vc.checkCameraPermission()
-        vc.checkLocationPermission()
-    }
-    
+
     private lazy var travioImage:UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "travio-logo 1")
@@ -53,20 +45,7 @@ class LoginVc: UIViewController {
         password.showPasswordButton.addTarget(self, action: #selector(buttonPressed), for: [.touchDown, .touchUpInside])
         return password
     }()
-    
-    @objc func buttonPressed(sender: InputBox, event: UIEvent) {
-        if let touch = event.allTouches?.first {
-            switch touch.phase {
-            case .began:
-               passwordView.txtPlaceholder.isSecureTextEntry = false
-            case .ended:
-                passwordView.txtPlaceholder.isSecureTextEntry = true
-            default:
-                break
-            }
-        }
-    }
-    
+
     private lazy var stackView:UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -122,9 +101,34 @@ class LoginVc: UIViewController {
         return welcome
     }()
     
-    lazy var viewModel: LoginViewModel = {
-        return LoginViewModel()
-    }()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = .background
+        self.navigationController?.isNavigationBarHidden = true
+        setupViews()
+        initVM()
+        
+        showActivityIndicator()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.hideActivityIndicator()
+        }
+    }
+    
+    
+    @objc func buttonPressed(sender: InputBox, event: UIEvent) {
+        if let touch = event.allTouches?.first {
+            switch touch.phase {
+            case .began:
+               passwordView.txtPlaceholder.isSecureTextEntry = false
+            case .ended:
+                passwordView.txtPlaceholder.isSecureTextEntry = true
+            default:
+                break
+            }
+        }
+    }
     
     @objc func btnLoginTapped() {
         showActivityIndicator()
@@ -156,6 +160,10 @@ class LoginVc: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    lazy var viewModel: LoginViewModel = {
+        return LoginViewModel()
+    }()
+
     func initVM() {
         viewModel.onError = { [weak self] title, message in
             DispatchQueue.main.async {
@@ -170,20 +178,12 @@ class LoginVc: UIViewController {
         }
         
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        view.backgroundColor = .background
-        self.navigationController?.isNavigationBarHidden = true
-        setupViews()
-        initVM()
-        
-        showActivityIndicator()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            self.hideActivityIndicator()
-        }
+
+    func getPermission(){
+        let vc = SecuritySettingsView()
+        vc.checkPhotoLibraryPermission()
+        vc.checkCameraPermission()
+        vc.checkLocationPermission()
     }
     
     private func setupViews(){

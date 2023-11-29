@@ -22,10 +22,6 @@ class PlaceDetailVC: UIViewController {
     var getGallery:[Image] = []
     
     var images:[String] = []
-    
-//    lazy var viewModel: PlaceDetailViewModel = {
-//        return PlaceDetailViewModel()
-//    }()
 
     private lazy var collectionView:UICollectionView = {
         let layout = makeCollectionViewLayout()
@@ -68,6 +64,47 @@ class PlaceDetailVC: UIViewController {
         button.addTarget(self, action: #selector(buttonSaveTapped), for: .touchUpInside)
        return button
     }()
+  
+    public lazy var deleteButton:UIButton = {
+       let button = UIButton()
+        button.setImage(UIImage(systemName: "trash"), for: .normal)
+        button.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
+        button.tintColor = UIColor(red: 0.22, green: 0.68, blue: 0.66, alpha: 1.00)
+       return button
+    }()
+
+    override func viewDidLoad() {
+       super.viewDidLoad()
+       self.getAllGalery(placeId: detailPlace!.id)
+       checkVisit(placeId: detailPlace!.id)
+       checkDelete(placeId: detailPlace!.id)
+       initVM()
+    }
+
+    func checkVisit(placeId:String){
+
+        placeDetailViewModel.checkStatus = { [weak self] status in
+          if status == "success" {
+              self!.saveButton.setImage(.marked, for: .normal)
+          }else{
+              self!.saveButton.setImage(.notmarked, for: .normal)
+          }
+      }
+        placeDetailViewModel.checkVisitByPlaceID(placeId: placeId )
+    }
+    
+    func showAlertDelete(title:String,message:String) {
+        let delete = UIAlertAction(title: "Sil", style: .default, handler: { action in
+            self.placeDetailViewModel.deleteAPlaceId(placeId: self.detailPlace!.id)
+            self.navigationController?.popViewController(animated: true)
+        })
+        let cancel = UIAlertAction(title: "İptal", style: .cancel)
+       let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+       alert.addAction(delete)
+       alert.addAction(cancel)
+
+     self.present(alert, animated: true)
+   }
     
     @objc func buttonSaveTapped(){
                 
@@ -86,44 +123,18 @@ class PlaceDetailVC: UIViewController {
         
     }
     
-    func checkVisit(placeId:String){
-
-        placeDetailViewModel.checkStatus = { [weak self] status in
-          if status == "success" {
-              self!.saveButton.setImage(.marked, for: .normal)
-          }else{
-              self!.saveButton.setImage(.notmarked, for: .normal)
-          }
-      }
-        placeDetailViewModel.checkVisitByPlaceID(placeId: placeId )
-    }
-
-    
-    public lazy var deleteButton:UIButton = {
-       let button = UIButton()
-        button.setImage(UIImage(systemName: "trash"), for: .normal)
-        button.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
-        button.tintColor = UIColor(red: 0.22, green: 0.68, blue: 0.66, alpha: 1.00)
-       return button
-    }()
-    
-    func showAlertDelete(title:String,message:String) {
-        let delete = UIAlertAction(title: "Sil", style: .default, handler: { action in
-            self.placeDetailViewModel.deleteAPlaceId(placeId: self.detailPlace!.id)
-            self.navigationController?.popViewController(animated: true)
-        })
-        let cancel = UIAlertAction(title: "İptal", style: .cancel)
-       let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-       alert.addAction(delete)
-       alert.addAction(cancel)
-
-     self.present(alert, animated: true)
-   }
         
     @objc func deleteButtonTapped(){
         showAlertDelete(title:"Uyarı", message: "Silmek istediğinize emin misiniz?")
     }
+    
+    
+    @objc func backButtonTapped(){
+        self.navigationController?.popViewController(animated: true)
+    }
+    
 
+    
     func checkDelete(placeId:String){
         placeDetailViewModel.getDataAllPlacesForUser()
         initVM()
@@ -146,16 +157,6 @@ class PlaceDetailVC: UIViewController {
         }
     }
 
-    override func viewDidLoad() {
-       super.viewDidLoad()
-       self.getAllGalery(placeId: detailPlace!.id)
-       checkVisit(placeId: detailPlace!.id)
-       checkDelete(placeId: detailPlace!.id)
-       initVM()
-    }
-    
-
- 
     public func getAllGalery(placeId:String){
         placeDetailViewModel.dataTransferClosure = { [weak self] image in
             guard let this = self else { return }
@@ -198,11 +199,7 @@ class PlaceDetailVC: UIViewController {
 
         setupLayout()
     }
-    
-    @objc func backButtonTapped(){
-        self.navigationController?.popViewController(animated: true)
-    }
-    
+
     func setupLayout() {
         
         collectionView.topToSuperview()
