@@ -5,19 +5,6 @@
 //  Created by Sabri DİNDAR on 1.11.2023.
 //
 
-#if DEBUG
-import SwiftUI
-
-@available(iOS 13, *)
-struct SecuritySettingsView_Preview: PreviewProvider {
-    static var previews: some View{
-        
-        SecuritySettingsView().showPreview()
-    }
-}
-#endif
-
-
 import UIKit
 import SnapKit
 import Photos
@@ -25,15 +12,11 @@ import AVFoundation
 import CoreLocation
 import TinyConstraints
 
-
-
 class SecuritySettingsView: UIViewController {
     
     var status = PHPhotoLibrary.authorizationStatus()
 
-    
     var cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
-
     
     private lazy var lblTitle:UILabel = {
         let lbl = UILabel()
@@ -53,21 +36,6 @@ class SecuritySettingsView: UIViewController {
         newPassword.showPasswordButton.addTarget(self, action: #selector(buttonPressed), for: [.touchDown, .touchUpInside])
         return newPassword
     }()
-    
-    @objc func buttonPressed(sender: InputBox, event: UIEvent) {
-        if let touch = event.allTouches?.first {
-            switch touch.phase {
-            case .began:
-               newPassword.txtPlaceholder.isSecureTextEntry = false
-               newPasswordConfirm.txtPlaceholder.isSecureTextEntry = false
-            case .ended:
-                newPassword.txtPlaceholder.isSecureTextEntry = true
-                newPasswordConfirm.txtPlaceholder.isSecureTextEntry = true
-            default:
-                break
-            }
-        }
-    }
     
     private lazy var newPasswordConfirm:InputBox = {
         let newPasswordConfirm = InputBox()
@@ -92,14 +60,6 @@ class SecuritySettingsView: UIViewController {
         return lbl
     }()
     
-    @objc func cameraToggleChanged(_ sender: UISwitch) {
-        if sender.isOn {
-            checkCameraPermission()
-        }else{
-            showSettingsAlert(title:"Camera Access Denied" , message:"Please enable access to your camera in Settings.", toggle: cameraLabel.toggleSwitch)
-        }
-    }
-
     private lazy var photoLibraryLabel:PrivacyCell = {
         let lbl = PrivacyCell()
         lbl.labelText.text = "Photo Library"
@@ -107,38 +67,12 @@ class SecuritySettingsView: UIViewController {
         return lbl
     }()
     
-    @objc func photoLibraryToggleChanged(_ sender: UISwitch) {
-        if sender.isOn {
-            checkPhotoLibraryPermission()
-        }else{
-            showSettingsAlert(title: "Photo Library Access Denied", message: "Please enable access to your photo library in Settings.", toggle: photoLibraryLabel.toggleSwitch)
-        }
-    }
-    
-  
-    
-    private lazy var locationManager: CLLocationManager = {
-        let manager = CLLocationManager()
-        manager.delegate = self
-        manager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        
-        return manager
-    }()
-
     private lazy var locationLabel:PrivacyCell = {
         let lbl = PrivacyCell()
         lbl.labelText.text = "Location"
         lbl.toggleSwitch.addTarget(self, action: #selector(locationToggleChanged), for: .valueChanged)
         return lbl
     }()
-    
-    @objc func locationToggleChanged(_ sender: UISwitch) {
-          if sender.isOn {
-              checkLocationPermission()
-          } else {
-              showSettingsAlert(title: "Location Access Denied", message: "Please enable access to your location in Settings.", toggle: locationLabel.toggleSwitch)
-          }
-    }
     
     private lazy var privacyStackView = {
         let sv = UIStackView()
@@ -182,7 +116,44 @@ class SecuritySettingsView: UIViewController {
         scroll.translatesAutoresizingMaskIntoConstraints = false
         return scroll
     }()
+    
+    private lazy var locationManager: CLLocationManager = {
+        let manager = CLLocationManager()
+        manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        
+        return manager
+    }()
 
+    @objc func cameraToggleChanged(_ sender: UISwitch) {
+        if sender.isOn {
+            checkCameraPermission()
+        }else{
+            showSettingsAlert(title:"Camera Access Denied" , message:"Please enable access to your camera in Settings.", toggle: cameraLabel.toggleSwitch)
+        }
+    }
+
+    @objc func photoLibraryToggleChanged(_ sender: UISwitch) {
+        if sender.isOn {
+            checkPhotoLibraryPermission()
+        }else{
+            showSettingsAlert(title: "Photo Library Access Denied", message: "Please enable access to your photo library in Settings.", toggle: photoLibraryLabel.toggleSwitch)
+        }
+    }
+    
+
+    
+    @objc func locationToggleChanged(_ sender: UISwitch) {
+          if sender.isOn {
+              checkLocationPermission()
+          } else {
+              showSettingsAlert(title: "Location Access Denied", message: "Please enable access to your location in Settings.", toggle: locationLabel.toggleSwitch)
+          }
+    }
+    
+    lazy var viewModel:SecuritySettingsViewModel = {
+        return SecuritySettingsViewModel()
+    }()
     
     func createLabel(title:String) -> UILabel {
         let lbl = UILabel()
@@ -192,10 +163,6 @@ class SecuritySettingsView: UIViewController {
         return lbl
     }
     
-    lazy var viewModel:SecuritySettingsViewModel = {
-        return SecuritySettingsViewModel()
-    }()
-    
     @objc private func saveButtonTapped(){
         showActivityIndicator()
         guard let password =  newPassword.txtPlaceholder.text,
@@ -204,6 +171,20 @@ class SecuritySettingsView: UIViewController {
         viewModel.controlPassworRequirement(password: password, passwordConfirm: passwordConfirm)
     }
     
+    @objc func buttonPressed(sender: InputBox, event: UIEvent) {
+        if let touch = event.allTouches?.first {
+            switch touch.phase {
+            case .began:
+               newPassword.txtPlaceholder.isSecureTextEntry = false
+               newPasswordConfirm.txtPlaceholder.isSecureTextEntry = false
+            case .ended:
+                newPassword.txtPlaceholder.isSecureTextEntry = true
+                newPasswordConfirm.txtPlaceholder.isSecureTextEntry = true
+            default:
+                break
+            }
+        }
+    }
     
     func showAlert(buttonTitle:String, title:String, message:String, style: UIAlertAction.Style = .default){
         let btnRetry = UIAlertAction(title: buttonTitle, style: style, handler: { _ in
@@ -326,24 +307,24 @@ extension SecuritySettingsView:CLLocationManagerDelegate{
 
 
 extension SecuritySettingsView{
-            func checkCameraPermission() {
-                switch cameraAuthorizationStatus {
-                case .authorized:
+    func checkCameraPermission() {
+        switch cameraAuthorizationStatus {
+        case .authorized:
+            self.cameraLabel.toggleSwitch.isOn = true
+        case .denied, .restricted:
+            showSettingsAlert(title: "Camera Access Denied", message: "Please enable access to your camera in Settings." , toggle: cameraLabel.toggleSwitch)
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video) { granted in
+                if granted {
                     self.cameraLabel.toggleSwitch.isOn = true
-                case .denied, .restricted:
-                    showSettingsAlert(title: "Camera Access Denied", message: "Please enable access to your camera in Settings." , toggle: cameraLabel.toggleSwitch)
-                case .notDetermined:
-                    AVCaptureDevice.requestAccess(for: .video) { granted in
-                        if granted {
-                            self.cameraLabel.toggleSwitch.isOn = true
-                        } else {
-                            self.cameraLabel.toggleSwitch.isOn = false
-                        }
-                    }
-                @unknown default:
-                    break
+                } else {
+                    self.cameraLabel.toggleSwitch.isOn = false
                 }
             }
+        @unknown default:
+            break
+        }
+    }
     
     
     func checkPhotoLibraryPermission() {
@@ -436,4 +417,3 @@ extension SecuritySettingsView{
         }
     }
 }
-
