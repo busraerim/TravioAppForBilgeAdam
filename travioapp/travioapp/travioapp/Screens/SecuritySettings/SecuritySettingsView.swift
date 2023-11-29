@@ -416,23 +416,3 @@ extension SecuritySettingsView{
         }
     }
 }
-
-            self.photoLibraryLabel.toggleSwitch.isOn = true
-        }else{
-            self.photoLibraryLabel.toggleSwitch.isOn = false
-        }
-        
-        if cameraAuthorizationStatus == .authorized{
-            self.cameraLabel.toggleSwitch.isOn = true
-        }else{
-            self.cameraLabel.toggleSwitch.isOn = false
-        }
-        
-        if locationManager.authorizationStatus == .authorizedAlways || locationManager.authorizationStatus == .authorizedWhenInUse{
-            self.locationLabel.toggleSwitch.isOn = true
-        }else{
-            self.locationLabel.toggleSwitch.isOn = false
-        }
-    }
-}
-
