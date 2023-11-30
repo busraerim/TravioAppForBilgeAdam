@@ -312,20 +312,8 @@ class EditProfileVC: UIViewController {
     }
     
     func initVM(){
-        viewModel.showAlertClosure = { [weak self] () in
-            DispatchQueue.main.async {
-                if let message = self?.viewModel.alertMessage {
-                    self?.showAlert(title: "Başarılı.", message: message)
-                }
-            }
-        }
-        
-        viewModel.showAlertFailureClosure = { [weak self] () in
-            DispatchQueue.main.async {
-                if let message = self?.viewModel.failAlertMessage {
-                    self?.showAlertFailure(message: message)
-                }
-            }
+        viewModel.showAlertResult = { message in
+            self.showAlertResult(title: message.0 , message: message.1)
         }
         
         viewModel.updateLoadingState = { [weak self] in

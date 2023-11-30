@@ -33,14 +33,7 @@ class AddNewPlaceViewModel{
     }
 
     var updateLoadingState: (() -> Void)?
-    
-    var failAlertMessage: String? {
-        didSet {
-            self.showAlertFailureClosure?()
-        }
-    }
-    
-    var showAlertFailureClosure: (() -> ())?
+    var showAlertResult: (((String, String)) -> Void)?
 
     
     func postNewPlace(request:AddNewPlace){
@@ -52,8 +45,7 @@ class AddNewPlaceViewModel{
                 self.placeID = success.message
                 self.dispatchGroup.leave()
             case .failure(let failure):
-                print(failure.localizedDescription)
-                self.failAlertMessage = failure.localizedDescription
+                self.showAlertResult?((title:"Hata", message: failure.localizedDescription))
                 self.dispatchGroup.leave()
             }
             self.isLoading = false
@@ -70,8 +62,7 @@ class AddNewPlaceViewModel{
                 self.dispatchGroup.leave()
                 self.profilePhoto = self.imageData[0]
             case .failure(let failure):
-                self.failAlertMessage = failure.localizedDescription
-                print(failure.localizedDescription)
+                self.showAlertResult?((title:"Hata", message: failure.localizedDescription))
             }
         })
     }
@@ -85,8 +76,7 @@ class AddNewPlaceViewModel{
                 self.dispatchGroup.leave()
                 break
             case .failure(let failure):
-                print(failure.localizedDescription)
-                self.failAlertMessage = failure.localizedDescription
+                self.showAlertResult?((title:"Hata", message: failure.localizedDescription))
                 self.dispatchGroup.leave()
             }
         })
@@ -105,6 +95,7 @@ class AddNewPlaceViewModel{
                 for index in 0..<self.imageData.count{
                     let params = PostAGallery(placeId: self.placeID!, imageUrl: self.imageData[index])
                     self.postAGallery(request: params )
+                   
                 }
             }
             self.isLoading = false

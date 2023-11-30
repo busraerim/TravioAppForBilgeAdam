@@ -9,19 +9,14 @@ import Foundation
 import Alamofire
 
 class PlaceDetailViewModel{
-    
-    var failAlertMessage: String? {
-        didSet {
-            self.showAlertFailureClosure?()
-        }
-    }
+
     
     var placeIdMyAdded:[String] = []
     var placeIdClosure: (([String])->Void)?
     
     var checkStatus: ((String) -> Void)?
     var dataTransferClosure: (([Image]) -> Void)?
-    var showAlertFailureClosure: (() -> ())?
+    var showAlertResult: (((String, String)) -> Void)?
 
     func getAllGallerybyPlaceID(placeId:String){
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .getAllGallerybyPlaceID(id: placeId), callback: { (result:Result<APIResponse,Error>) in
@@ -29,8 +24,7 @@ class PlaceDetailViewModel{
             case .success(let obj):
                 self.dataTransferClosure!(obj.data.images)
             case .failure(let failure):
-                self.failAlertMessage = failure.localizedDescription
-                print(failure.localizedDescription)
+                self.showAlertResult?((title:"Hata", message: failure.localizedDescription))
             }
         })
     }
@@ -42,11 +36,10 @@ class PlaceDetailViewModel{
         
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .postAVisit(param: param), callback: { (result:Result<BaseResponse,Error>) in
             switch result {
-            case .success(let obj):
-                print(obj.message!)
+            case .success(_):
+                self.showAlertResult?((title:"Başarılı", message: "My Visits'e eklendi."))
             case .failure(let failure):
-                self.failAlertMessage = failure.localizedDescription
-                print(failure.localizedDescription)
+                self.showAlertResult?((title:"Hata", message: failure.localizedDescription))
             }
         })
     }
@@ -61,8 +54,7 @@ class PlaceDetailViewModel{
                 }
                 self.placeIdClosure!(self.placeIdMyAdded)
             case .failure(let failure):
-                self.failAlertMessage = failure.localizedDescription
-                print(failure.localizedDescription)
+                self.showAlertResult?((title:"Hata", message: failure.localizedDescription))
             }
         })
     }
@@ -72,10 +64,9 @@ class PlaceDetailViewModel{
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .deleteAVisitByPlaceID(id: placeId), callback: { (result:Result<BaseResponse,Error>) in
             switch result {
             case .success(let obj):
-                print(obj.message!)
+                self.showAlertResult?((title:"Başarılı", message: "My Visits'ten kaldırıldı."))
             case .failure(let failure):
-                self.failAlertMessage = failure.localizedDescription
-                print(failure.localizedDescription)
+                self.showAlertResult?((title:"Hata", message: failure.localizedDescription))
             }
         })
     }
@@ -86,8 +77,7 @@ class PlaceDetailViewModel{
             switch result {
             case .success(let obj):
                 self.checkStatus?(obj.status!)
-            case .failure(let failure):
-                print(failure.localizedDescription)
+            case .failure(_):
                 self.checkStatus?("")
             }
         })
@@ -96,11 +86,10 @@ class PlaceDetailViewModel{
     func deleteAPlaceId(placeId: String){
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .deleteAPlace(id: placeId), callback: { (result:Result<BaseResponse,Error>) in
             switch result {
-            case .success(let obj):
-                print(obj.message!)
+            case .success(_):
+                self.showAlertResult?((title:"Başarılı", message: "Silindi."))
             case .failure(let failure):
-                self.failAlertMessage = failure.localizedDescription
-                print(failure.localizedDescription)
+                self.showAlertResult?((title:"Hata", message: failure.localizedDescription))
             }
         })
     }

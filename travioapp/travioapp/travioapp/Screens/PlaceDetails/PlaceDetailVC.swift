@@ -78,7 +78,6 @@ class PlaceDetailVC: UIViewController {
        self.getAllGalery(placeId: detailPlace!.id)
        checkVisit(placeId: detailPlace!.id)
        checkDelete(placeId: detailPlace!.id)
-       initVM()
     }
 
     func checkVisit(placeId:String){
@@ -96,6 +95,7 @@ class PlaceDetailVC: UIViewController {
     func showAlertDelete(title:String,message:String) {
         let delete = UIAlertAction(title: "Sil", style: .default, handler: { action in
             self.placeDetailViewModel.deleteAPlaceId(placeId: self.detailPlace!.id)
+            self.initVM()
             self.navigationController?.popViewController(animated: true)
         })
         let cancel = UIAlertAction(title: "İptal", style: .cancel)
@@ -114,13 +114,21 @@ class PlaceDetailVC: UIViewController {
         let formattedDateString = dateFormatter.string(from: currentDate)
         
         if saveButton.currentImage == .notmarked{
-            PlaceDetailViewModel().postAVisit(request: PostAVisit(placeId: detailPlace!.id, visitedAt: formattedDateString))
+            placeDetailViewModel.postAVisit(request: PostAVisit(placeId: detailPlace!.id, visitedAt: formattedDateString))
+           initVM()
             saveButton.setImage(.marked, for: .normal)
         }else{
-            PlaceDetailViewModel().deleteAVisitByPlaceId(placeId: detailPlace!.id)
+           placeDetailViewModel.deleteAVisitByPlaceId(placeId: detailPlace!.id)
+            initVM()
             saveButton.setImage(.notmarked, for: .normal)
         }
         
+    }
+    
+    func initVM(){
+        placeDetailViewModel.showAlertResult = { message in
+            self.showAlertResult(title: message.0 , message: message.1)
+        }
     }
     
         
@@ -137,7 +145,6 @@ class PlaceDetailVC: UIViewController {
     
     func checkDelete(placeId:String){
         placeDetailViewModel.getDataAllPlacesForUser()
-        initVM()
         placeDetailViewModel.placeIdClosure = { id in
             if id.contains(placeId){
                 self.deleteButton.isHidden = false
@@ -146,16 +153,7 @@ class PlaceDetailVC: UIViewController {
             }
         }
     }
-    
-    func initVM(){
-        placeDetailViewModel.showAlertFailureClosure = { [weak self] () in
-            DispatchQueue.main.async {
-                if let message = self?.placeDetailViewModel.failAlertMessage {
-                    self?.showAlertFailure(message: message)
-                }
-            }
-        }
-    }
+
 
     public func getAllGalery(placeId:String){
         placeDetailViewModel.dataTransferClosure = { [weak self] image in
@@ -174,7 +172,6 @@ class PlaceDetailVC: UIViewController {
 
         }
         placeDetailViewModel.getAllGallerybyPlaceID(placeId: placeId)
-        initVM()
     }
      
 

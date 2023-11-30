@@ -16,6 +16,7 @@ class MapViewModel{
     
     let dispatchGroup = DispatchGroup()
     
+    var showAlertResult: (((String, String)) -> Void)?
     
     
     func getDataAllPlacesMap(){
@@ -24,7 +25,7 @@ class MapViewModel{
             case .success(let obj):
                 self.dataTransferClosure!(obj.data.places)
             case .failure(let failure):
-                print(failure.localizedDescription)
+                self.showAlertResult?((title:"Hata", message: failure.localizedDescription))
             }
         })
     }

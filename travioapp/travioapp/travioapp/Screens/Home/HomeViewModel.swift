@@ -34,6 +34,9 @@ class HomeViewModel{
     var dataTransferClosure: (([PlaceItem]) -> Void)?
 
     var dataTransferClosureForMyVisit: (([MyVisit]) -> Void)?
+    
+    var showAlertResult: (((String, String)) -> Void)?
+
         
     
     
@@ -46,7 +49,7 @@ class HomeViewModel{
                 self.popularPlaceAll = place
                 self.dispatchGroup.leave()
             case .failure(let failure):
-                print(failure.localizedDescription)
+                self.showAlertResult?((title:"Hata", message: failure.localizedDescription))
                 self.dispatchGroup.leave()
             }
         })
@@ -63,7 +66,7 @@ class HomeViewModel{
                 self.popularPlaceTuple = (title:"Popular Places", places: place)
                 self.dispatchGroup.leave()
             case .failure(let failure):
-                print(failure.localizedDescription)
+                self.showAlertResult?((title:"Hata", message: failure.localizedDescription))
                 self.dispatchGroup.leave()
         }
             
@@ -74,7 +77,7 @@ class HomeViewModel{
     
     func getDataNewPlacesWithParam(limit: Int){
         dispatchGroup.enter()
-        var parameters: Parameters = ["limit": "\(limit)"]
+        let parameters: Parameters = ["limit": "\(limit)"]
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .getPopularWith(params: parameters), callback: { (result:Result<Place,Error>) in
             switch result {
             case .success(let obj):
@@ -82,7 +85,7 @@ class HomeViewModel{
                 self.newPlaceTuple = (title:"New Places", places: place)
                 self.dispatchGroup.leave()
             case .failure(let failure):
-                print(failure.localizedDescription)
+                self.showAlertResult?((title:"Hata", message: failure.localizedDescription))
                 self.dispatchGroup.leave()
         }
     })
@@ -97,7 +100,7 @@ class HomeViewModel{
                 self.newPlaceAll = place
                 self.dispatchGroup.leave()
             case .failure(let failure):
-                print(failure.localizedDescription)
+                self.showAlertResult?((title:"Hata", message: failure.localizedDescription))
                 self.dispatchGroup.leave()
             }
         })
@@ -115,7 +118,7 @@ class HomeViewModel{
                 self.myAddedTuple = (title:"My Added Places", places: place)
                 self.dispatchGroup.leave()
             case .failure(let failure):
-                print(failure.localizedDescription)
+                self.showAlertResult?((title:"Hata", message: failure.localizedDescription))
                 self.dispatchGroup.leave()
             }
         })
@@ -129,7 +132,7 @@ class HomeViewModel{
                 self.myAddedPlaceAll = place
                 self.myAddedSettingClosure!(place)
             case .failure(let failure):
-                print(failure.localizedDescription)
+                self.showAlertResult?((title:"Hata", message: failure.localizedDescription))
             }
         })
     }
@@ -141,7 +144,7 @@ class HomeViewModel{
         getDataPopularPlaces()
         getDataNewPlaces()
         dispatchGroup.notify(queue: .main) {
-            if let myAddedPlace = self.myAddedTuple {
+            if self.myAddedTuple != nil {
                 self.homeAllPlaces.append(contentsOf: [self.popularPlaceTuple!, self.newPlaceTuple!, self.myAddedTuple!])
                 self.seeAllPlaces.append(contentsOf: [self.popularPlaceAll, self.newPlaceAll, self.myAddedPlaceAll])
                 self.homeDataClosure!(self.homeAllPlaces)
@@ -162,7 +165,7 @@ class HomeViewModel{
             case .success(let obj):
                 self.dataTransferClosureForMyVisit!(obj.data.visits)
             case .failure(let failure):
-                print(failure.localizedDescription)
+                self.showAlertResult?((title:"Hata", message: failure.localizedDescription))
             }
         })
     }

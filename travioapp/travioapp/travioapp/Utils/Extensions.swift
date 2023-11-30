@@ -354,11 +354,11 @@ extension UIViewController {
         }
     }
     
-    func showAlertFailure(message:String) {
-        let buttonCancel = UIAlertAction(title: "Cancel", style: .cancel)
+    func showAlertResult(title: String, message:String) {
+        let buttonCancel = UIAlertAction(title:"Tamam", style: .cancel)
    
         
-       let alert = UIAlertController(title: "Failure", message: message, preferredStyle: .alert)
+       let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
        alert.addAction(buttonCancel)
        self.present(alert, animated: true)
    }

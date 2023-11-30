@@ -16,22 +16,9 @@ class EditProfileViewModel {
             self.updateLoadingState?()
         }
     }
-    
-    var alertMessage: String? {
-        didSet {
-            self.showAlertClosure?()
-        }
-    }
-    
-    var failAlertMessage: String? {
-        didSet {
-            self.showAlertFailureClosure?()
-        }
-    }
-    
-    var showAlertClosure: (() -> ())?
+
     var updateLoadingState: (() -> ())?
-    var showAlertFailureClosure: (() -> ())?
+    var showAlertResult: (((String, String)) -> Void)?
 
     func getProfileInfo(){
         isLoading = true
@@ -42,8 +29,7 @@ class EditProfileViewModel {
             case .success(let profile):
                 self.dataTransferClosure?(profile)
             case .failure(let err):
-                self.failAlertMessage = err.localizedDescription
-                print(err.localizedDescription)
+                self.showAlertResult?((title:"Hata", message: err.localizedDescription))
             }
         })
     }
@@ -51,17 +37,15 @@ class EditProfileViewModel {
     func changeProfileInfo(profile:EditProfileRequest){
         isLoading = true
         
-        let params = ["full_name": profile.fullName, "emil": profile.email, "pp_url": profile.ppUrl]
+        let params = ["full_name": profile.fullName, "email": profile.email, "pp_url": profile.ppUrl]
         
         GenericNetworkingHelper.shared.getDataFromRemote(urlRequest: .editProfile(param: params), callback: { (result:Result<BaseResponse, Error>) in
             self.isLoading = false
             switch result {
-            case .success(let success):
-                self.alertMessage = "Profil başarıyla güncellenmiştir."
-                print(success.message ?? "A")
+            case .success(_):
+                self.showAlertResult?((title:"Başarılı", message: "Profil başarıyla güncellenmiştir."))
             case .failure(let failure):
-                self.failAlertMessage = failure.localizedDescription
-                print(failure.localizedDescription)
+                self.showAlertResult?((title:"Hata", message: failure.localizedDescription))
 
             }
         })

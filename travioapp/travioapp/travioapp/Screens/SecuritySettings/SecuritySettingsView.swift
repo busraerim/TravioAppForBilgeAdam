@@ -352,10 +352,8 @@ extension SecuritySettingsView{
     func checkLocationPermission() {
         switch locationManager.authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
-            print("Location access is already granted")
             self.locationLabel.toggleSwitch.isOn = true
         case .denied, .restricted:
-            print("Location access was denied or restricted")
             showSettingsAlert(title: "Location Access Denied", message: "Please enable access to your location in Settings.", toggle: locationLabel.toggleSwitch)
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()

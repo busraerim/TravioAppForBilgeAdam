@@ -82,6 +82,7 @@ class MapVC: UIViewController {
         gestureRecognizer.minimumPressDuration = 1.0
         mapView.addGestureRecognizer(gestureRecognizer)
         networkingGetDataAllPlacesMap()
+        initVM()
         setupViews()
     }
     
@@ -89,6 +90,13 @@ class MapVC: UIViewController {
         super.viewWillAppear(true)
         networkingGetDataAllPlacesMap()
     }
+    
+    func initVM(){
+        mapViewModel.showAlertResult = { message in
+            self.showAlertResult(title: message.0 , message: message.1)
+        }
+    }
+    
 
 
     func setupViews() {
@@ -238,7 +246,7 @@ extension MapVC {
             
             geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
                 if let error = error {
-                    print("Reverse geocoding hatası: \(error.localizedDescription)")
+                    self.showAlertResult(title: "Reverse geocoding hatası", message: error.localizedDescription)
                     return
                 }
 
@@ -247,10 +255,11 @@ extension MapVC {
                         let place = "\(city), \(country)"
                         vc.labelCountry.text = place
                     } else {
-                        print("Şehir ve Ülke bilgisi bulunamadı.")
+                        self.showAlertResult(title: "Uyarı", message: "Şehir ve Ülke bilgisi bulunamadı.")
                     }
                 } else {
-                    print("Bilgi bulunamadı.")
+                    self.showAlertResult(title: "Uyarı", message: "Bilgi Bulunamadı.")
+ 
                 }
             }
         }

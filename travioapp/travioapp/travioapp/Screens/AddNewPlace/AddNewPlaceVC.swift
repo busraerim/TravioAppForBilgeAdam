@@ -174,7 +174,6 @@ class AddNewPlaceVC: UIViewController {
             self.dismiss(animated: true, completion: {
                 self.delegate?.getDataFromApi()})
         }
-        initVM()
     }
     
     @objc func btnAddTapped(){
@@ -186,16 +185,7 @@ class AddNewPlaceVC: UIViewController {
             self.showAlertForEmptyText(title: "Hata", message: "İlgili alanları doldurduğunuzdan emin olunuz.")
         }
     }
-    
-    func initVM(){
-        viewModel.showAlertFailureClosure = { [weak self] () in
-            DispatchQueue.main.async {
-                if let message = self?.viewModel.failAlertMessage {
-                    self?.showAlertFailure(message: message)
-                }
-            }
-        }
-    }
+ 
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -212,6 +202,7 @@ class AddNewPlaceVC: UIViewController {
         }
         
     }
+
     
     
     func setupViews() {

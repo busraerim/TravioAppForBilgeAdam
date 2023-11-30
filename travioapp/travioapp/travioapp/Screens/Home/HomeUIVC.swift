@@ -13,6 +13,7 @@ class HomeUIVC: UIViewController {
     
     var homeAllPlaces:HomeList = []
     var seeAllPlaces:[[PlaceItem]] = []
+    let viewModel = HomeViewModel()
 
     private lazy var travioLogoImage:UIImageView = {
         let image = UIImageView(frame: CGRect(x: 0, y:0, width: 56, height: 62))
@@ -46,8 +47,14 @@ class HomeUIVC: UIViewController {
         setupViews()
     }
     
+    func initVM(){
+        viewModel.showAlertResult = { message in
+            self.showAlertResult(title: message.0 , message: message.1)
+        }
+    }
+    
+    
     func getData(){
-        let viewModel = HomeViewModel()
         viewModel.getAllData()
         viewModel.homeDataClosure = {place in
             self.homeAllPlaces = place
