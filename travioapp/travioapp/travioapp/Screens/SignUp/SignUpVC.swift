@@ -67,7 +67,7 @@ class SignUpVC: UIViewController {
         button.height(54)
         button.layer.cornerRadius = 10
         button.setTitle("Sign Up", for: .normal)
-        button.backgroundColor = .white
+        button.backgroundColor = .appblack
         return button
     }()
     
