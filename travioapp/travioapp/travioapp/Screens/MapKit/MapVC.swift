@@ -148,7 +148,7 @@ extension MapVC:UICollectionViewDelegate{
             let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: zoomRadius, longitudinalMeters: zoomRadius)
             mapView.setRegion(region, animated: true)
         
-        var place = mapAllPlaces[indexPath.row]        
+        let place = mapAllPlaces[indexPath.row]        
         let placeDetailVC = PlaceDetailVC()
         placeDetailVC.detailPlace = place
         self.navigationController?.pushViewController(placeDetailVC, animated: true)      }

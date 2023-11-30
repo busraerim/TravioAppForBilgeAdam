@@ -23,7 +23,7 @@ class MapCollectionCell: UICollectionViewCell {
     
     public lazy var image:UIImageView = {
         let image = UIImageView()
-        image.contentMode = .scaleAspectFill
+        image.contentMode = .scaleToFill
         image.layer.cornerRadius = 20
         image.clipsToBounds = true
         return image

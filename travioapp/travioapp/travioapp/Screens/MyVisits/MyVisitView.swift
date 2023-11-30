@@ -108,7 +108,7 @@ class MyVisitsView: UIViewController {
 extension MyVisitsView:UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        var place = myVisitsPlace[indexPath.row].place
+        let place = myVisitsPlace[indexPath.row].place
         let placeDetailVC = PlaceDetailVC()
         placeDetailVC.detailPlace = place
         self.navigationController?.pushViewController(placeDetailVC, animated: true)
